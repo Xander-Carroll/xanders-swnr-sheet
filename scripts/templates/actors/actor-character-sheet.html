@@ -1,0 +1,127 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <div class="sheet-content">
+
+    <!-- The header that displays above the tabs of the sheet. Character name, level, etc. -->
+    <div class="header-bar">
+
+        <!-- The character portrait and the componenets connected to it (HP bar, etc) -->
+        <div class="character-portrait">
+        <img src="{{actor.img}}" data-edit="img"/>
+        <div class="health-bar">
+          <div style="width:{{system.health.percentage}}%" class="health-fill"></div>
+          <div class="health-text">
+            <input name="system.health.value" type="number" value="{{system.health.value}}" class="health-input" style="text-align:right" {{#unless owner}}disabeled{{/unless}}/>
+            <p style="margin:0px">/</p>
+            <input name="system.health.max" type="number" value="{{system.health.max}}" class="health-input" {{#if system.xIsLocked}}disabled{{/if}}/>
+          </div>
+        </div>
+        </div>
+
+        <!-- The area to the right of the portrait. Contains name, background, etc. -->
+        <div class="name-bar">
+
+          <!-- The Character Name, lock button, and Level. -->
+          <div style="display:flex; flex-direction:row">
+            <input class="player-name" name="name" type="text" value="{{actor.name}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+            <div style="flex: 1 1 0; display:flex; justify-content:end;">
+              <div class="level-box">
+                <p>Level. </p>
+                <input name="system.level.value" class="level-input" type="number" value="{{system.level.value}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:end; align-items:center">
+              {{#if owner}}
+              <div class="lock-button">
+                {{#if system.xIsLocked}}
+                <img src="modules/xanders-swnr-sheet/img/icons/locked.svg" style="width: 100%; height:100%;"/>
+                {{else}}
+                <img src="modules/xanders-swnr-sheet/img/icons/unlocked.svg" style="width: 100%; height:100%;"/>
+                {{/if}}
+              </div>
+              {{/if}}
+            </div>
+          </div>
+
+          <!-- The Character background, species, gender, homeworld, and employer. -->
+          <div class="background-informations" style="display:flex; flex-direction:row;">
+            <input name="system.class" type="text" value="{{system.class}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+
+            <input name="system.background" type="text" value="{{system.background}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+
+            <input name="system.homeworld" type="text" value="{{system.homeworld}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+
+            <input name="system.employer" style="margin-right:0" type="text" value="{{system.employer}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+          </div>
+
+          <!-- The labels that go beneath background, gender, homeworld, and employer. -->
+          <div class="background-informations-labels" style="display:flex; flex-direction:row; margin-bottom:10px">
+            <div><p>Class</p></div>
+            <div><p>Background</p></div>
+            <div><p>Home World</p></div>
+            <div><p>Faction</p></div>
+          </div>
+
+          <!-- The Character gender and saving throw buttons. -->
+          <div style="display:flex; flex-direction:row">
+
+            <!-- The Character gender input and label. -->
+            <div class="species-element" style="flex: 2 1 0px">
+              <input name="system.species" type="text" value="{{system.species}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+              <div class="species-label" style="display:flex; justify-content:center"><p>Gender/Species</p></div>
+            </div>
+
+            <!-- The saving throw buttons. -->
+            <div class="save-throw-container">
+              <p>Saving Throws</p>
+
+              <div class="save-throw-box">
+                <div class="save-throw-button"  data-save-type="physical"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p class="difficulty">v{{system.save.physical}}</p> <p>&nbsp;Physical</p></div>
+                <div class="save-throw-button" style="margin-left: 0px"  data-save-type="evasion"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p class="difficulty">v{{system.save.evasion}}</p> <p>&nbsp;Evasion</p></div>
+                <div class="save-throw-button" style="margin-left: 0px"  data-save-type="mental"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p class="difficulty">v{{system.save.mental}}</p> <p>&nbsp;Mental</p></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+    </div>
+
+    <!-- The navagation bar that can be used to switch tabs -->
+    <nav class="sheet-tabs tabs" data-group="primary">
+      <a class="item" style="border-left:none" data-tab="attributes">Attributes</a>
+      <a class="item" data-tab="inventory">Inventory</a>
+      <a class="item" data-tab="features">Features</a>
+      <a class="item" style="border-right:none" data-tab="biography">Biography</a>
+    </nav>
+
+    <!-- The actual tabs -->
+    <section class="sheet-body">
+      <div style="padding:10px">
+
+        <!-- The attribute tab -->
+        <div class="tab attributes" data-group="primary" data-tab="attributes">
+          <p>Testing!</p>
+        </div>
+
+        <!-- The inventroty tab -->
+        <div class="tab inventory" data-group="primary" data-tab="inventory">
+          <p>This!</p>
+        </div>
+
+        <!-- The features tab -->
+        <div class="tab features" data-group="primary" data-tab="features">
+          <p>Bitch!</p>
+        </div>
+
+        <!-- The biography tab -->
+        <div class="tab biography" data-group="primary" data-tab="biography">
+          <p>Fool!</p>
+        </div>
+      </div>
+
+    </section>
+    
+
+  </div>
+</form>

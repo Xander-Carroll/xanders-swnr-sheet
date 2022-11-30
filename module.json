@@ -1,0 +1,18 @@
+{
+	"name": "xanders-swnr-sheet",
+	"title": "Xander's SWNR Sheet",
+	"description": "A module which contains an alternate character sheet for WintersleepAI's SWNR system.",
+	"authors": [
+    {
+    "name": "Xander"
+    }
+    ],
+	"version": "1.0.0",
+	"compatibility": {
+		"minimum": "9",
+		"verified": "10"
+	},	
+	"esmodules" : ["./scripts/xanders-swnr-sheet.js"],
+	"styles": ["./styles/xanders-swnr-sheet.css"],
+	"packs": []
+}
