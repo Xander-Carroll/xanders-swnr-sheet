@@ -11,8 +11,10 @@
 	"compatibility": {
 		"minimum": "9",
 		"verified": "10"
-	},	
+	},
+	"system": ["swnr"],
 	"esmodules" : ["./scripts/xanders-swnr-sheet.js"],
 	"styles": ["./styles/xanders-swnr-sheet.css"],
-	"packs": []
+	"packs": [],
+	"url": "https://github.com/Xander-Carroll/xanders-swnr-sheet"
 }
