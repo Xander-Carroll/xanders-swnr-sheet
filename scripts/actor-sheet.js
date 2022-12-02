@@ -51,10 +51,17 @@
 
         //Adding a variable that will be used to set the health-bar width to the context.
         const health = context.system.health;
-        let percentage = Math.floor(health.value * 100 / health.max);
-        percentage = Math.min(percentage, 100);
-        percentage = Math.max(percentage, 0);
-        context.system.health.percentage = percentage;
+        let hPercentage = Math.floor(health.value * 100 / health.max);
+        hPercentage = Math.min(hPercentage, 100);
+        hPercentage = Math.max(hPercentage, 0);
+        context.system.health.percentage = hPercentage;
+
+        //Adding a variable that will be used to set the strain-bar width to the context.
+        const strain = context.system.systemStrain;
+        let sPercentage = Math.floor(strain.value * 100 / strain.max);
+        sPercentage = Math.min(sPercentage, 100);
+        sPercentage = Math.max(sPercentage, 0);
+        context.system.systemStrain.percentage = sPercentage;
 
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
         //console.log(context);

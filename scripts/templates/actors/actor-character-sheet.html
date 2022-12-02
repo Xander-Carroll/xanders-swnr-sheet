@@ -6,15 +6,28 @@
 
         <!-- The character portrait and the componenets connected to it (HP bar, etc) -->
         <div class="character-portrait">
-        <img src="{{actor.img}}" data-edit="img"/>
-        <div class="health-bar">
-          <div style="width:{{system.health.percentage}}%" class="health-fill"></div>
-          <div class="health-text">
-            <input name="system.health.value" type="number" value="{{system.health.value}}" class="health-input" style="text-align:right" {{#unless owner}}disabeled{{/unless}}/>
-            <p style="margin:0px">/</p>
-            <input name="system.health.max" type="number" value="{{system.health.max}}" class="health-input" {{#if system.xIsLocked}}disabled{{/if}}/>
+          <!-- The character image -->
+          <img src="{{actor.img}}" data-edit="img"/>
+
+          <!-- The character strain bar -->
+          <div class="strain-bar" style="border-bottom:0px;">
+            <div style="width:{{system.systemStrain.percentage}}%" class="strain-fill"></div>
+            <div class="strain-text">
+              <input name="system.systemStrain.value" type="number" value="{{system.systemStrain.value}}" class="strain-input" style="text-align:right" {{#unless owner}}disabeled{{/unless}}/>
+              <p style="margin:0px">/</p>
+              <input name="system.systemStrain.max" type="number" value="{{system.systemStrain.max}}" class="strain-input" disabled/>
+            </div>
           </div>
-        </div>
+
+          <!-- The character health bar -->
+          <div class="health-bar">
+            <div style="width:{{system.health.percentage}}%" class="health-fill"></div>
+            <div class="health-text">
+              <input name="system.health.value" type="number" value="{{system.health.value}}" class="health-input" style="text-align:right" {{#unless owner}}disabeled{{/unless}}/>
+              <p style="margin:0px">/</p>
+              <input name="system.health.max" type="number" value="{{system.health.max}}" class="health-input" {{#if system.xIsLocked}}disabled{{/if}}/>
+            </div>
+          </div>
         </div>
 
         <!-- The area to the right of the portrait. Contains name, background, etc. -->

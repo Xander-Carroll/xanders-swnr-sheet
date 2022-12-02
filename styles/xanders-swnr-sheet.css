@@ -26,6 +26,7 @@
   --border-color: rgb(170,170,170);
 
   --health-bar-color: linear-gradient(45deg, rgba(48,121,22,1) 0%, rgba(97,190,80,1) 100%);
+  --strain-bar-color: linear-gradient(45deg, rgba(29,131,170,1) 0%, rgba(80,190,183,1) 100%);
   --input-focus-color: rgb(5, 99, 150);
   --level-background-color: rgb(140,140,140,0.5);
 }
@@ -106,8 +107,9 @@
 
   display: flex;
   position: relative;
-  justify-content: center;
-  flex-shrink: 0;
+  justify-content: end;
+  align-items: center;
+  flex-direction: column;
 }
 
 /* Removes the border from the portrait image */
@@ -120,11 +122,10 @@
   position: absolute;
 }
 
-/* Sets the position of the health-bar and sets it to the propper size. */
-.xanders-swnr .health-bar{
+/* Sets the position of the health-bar and strain-bar and sets it to the propper size. */
+.xanders-swnr .health-bar, .xanders-swnr .strain-bar{
   position: relative;
-  align-self: flex-end;
-  bottom: -2px;
+  bottom: -10px;
 
   width: 80%;
   height: 20px;
@@ -141,16 +142,22 @@
   height: 100%;
 }
 
-/* Sets the font style and properties of the HP text input */
-.xanders-swnr .health-input{
+/* Sets the look of the fill inside the healthbar */
+.xanders-swnr .strain-bar .strain-fill{
+  background: var(--strain-bar-color);
+  height: 100%;
+}
+
+/* Sets the font style and properties of the HP and Strain text input */
+.xanders-swnr .health-input, .xanders-swnr .strain-input{
   font-size: 16px;
 
   width: 35%;
   height: 100%;
 }
 
-/* Positions the HP text in the center of the healthbar */
-.xanders-swnr .health-text{
+/* Positions the HP text in the center of the healthbar or strainbar */
+.xanders-swnr .health-text, .xanders-swnr .strain-text{
   display: flex;
   position: relative;
   top: -100%;
@@ -353,6 +360,7 @@
 .xanders-swnr .tabs a{
   border-bottom: 1px solid var(--border-color);
   padding-top: 5px;
+  padding-bottom: 3px;
   flex: 1 1 0px;
 
   background-position: 0 0;
