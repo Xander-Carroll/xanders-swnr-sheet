@@ -2,6 +2,24 @@
 
  export class XandersSwnActorSheet extends ActorSheet {
 
+    skillContextMenu = [
+        {
+            name: "Edit Skill",
+            icon: '<i class="fas fa-edit"></i>',
+            callback: element => {
+                const skill = this.actor.getEmbeddedDocument("Item", element.data("skill-id"));
+                skill.sheet.render(true);
+            }
+        },
+        {
+            name: "Delete Skill",
+            icon: '<i class="fas fa-trash"></i>',
+            callback: element => {
+                this.actor.deleteEmbeddedDocuments("Item", [element.data("skill-id")]);
+            }
+        }
+    ];
+
     //@override
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -30,6 +48,10 @@
 
         html.find('.save-throw-button').on("click", this._onSaveThrow.bind(this));
 
+        if(!this.actor.system.xIsLocked){
+            new ContextMenu(html, ".skill-choice", this.skillContextMenu);
+        }
+        
     }
 
     //@override
@@ -54,7 +76,7 @@
         context = this._parseItemData(context);
 
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
-        //console.log(context);
+        console.log(context);
     
         return context;
     }
@@ -90,13 +112,23 @@
             context.items[i].system.xIsLocked = context.system.xIsLocked;
 
             //Editing Skills
-            if(context.items[i].type === "skill"){
-                context.items[i].system.isSkill = true;
-            
+            if(context.items[i].type === "skill"){            
+                //Creating a rankString varaible which does not show -1.
                 context.items[i].system.rankString = context.items[i].system.rank.toString();
-            
                 if(context.items[i].system.rankString === "-1"){
                     context.items[i].system.rankString = "-";
+                }
+
+                //Creating a mod variable which will add the default stat if one is chosen.
+                let stat = context.items[i].system.defaultStat;
+                if(stat === "ask"){
+                    context.items[i].system.mod = context.items[i].system.rank.toString();
+                }else{
+                    context.items[i].system.mod = (context.items[i].system.rank + context.system.stats[stat].mod).toString();
+                }
+                
+                if(parseInt(context.items[i].system.mod) >= 0){
+                    context.items[i].system.mod = "+" + context.items[i].system.mod;
                 }
             
                 //Adding the skill to context.skills

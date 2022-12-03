@@ -453,6 +453,16 @@
   width: 20px;
 }
 
+.xanders-swnr .skill.add-skill{
+  font-style: italic;
+  display: flex;
+  justify-content: center;
+}
+
+.xanders-swnr .skill.add-skill:hover{
+  color: var(--active-font-color)
+}
+
 /* Sets the skill list to alternate background colors. */
 .xanders-swnr .skill-list .skill:nth-child(even) {
   background: var(--table-alt-color);

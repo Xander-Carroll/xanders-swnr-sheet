@@ -124,19 +124,32 @@
                   <span class="skill-title no-hilight" data-skill="pilot">Skill</span>
                   <span class="skill-attribute">Atrb</span>
                   <span class="skill-modifier">Mod</span>
-                  {{#unless system.xIsLocked}}<span>X</span>{{/unless}}
                 </li>
 
                 <!-- The skills list skills -->
                 {{#each skills as |skill id|}}
-                <li class="skill" data-skill-id="{{skill._id}}">
+                <li class="skill skill-choice" data-skill-id="{{skill._id}}">
                   <span class="skill-level">{{skill.system.rankString}}</span>
                   <span class="skill-title" data-skill="{{skill.name}}">{{skill.name}}</span>
                   <span class="skill-attribute">{{skill.system.defaultStat}}</span>
-                  <span class="skill-modifier">{{skill.system.rank}}</span>
-                  {{#unless skill.system.xIsLocked}}<span>X</span>{{/unless}}
+                  <span class="skill-modifier">{{skill.system.mod}}</span>
                 </li>
                 {{/each}}
+
+                <!-- The add skills button -->
+                {{#unless system.xIsLocked}}
+                <li class="skill add-skill" data-skill-id="{{skill._id}}">
+                  <span>Add Revised Skills</span>
+                </li>
+
+                <li class="skill add-skill" data-skill-id="{{skill._id}}">
+                  <span>Add Classic Skills</span>
+                </li>
+
+                <li class="skill add-skill" data-skill-id="{{skill._id}}">
+                  <span>Add Phsychic Skills</span>
+                </li>
+                {{/unless}}
 
               </ul>
             </div>
