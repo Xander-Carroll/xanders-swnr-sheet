@@ -54,7 +54,7 @@
         context = this._parseItemData(context);
 
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
-        console.log(context);
+        //console.log(context);
     
         return context;
     }
@@ -86,6 +86,9 @@
 
         //Adding variables to the items that will be used by the sheet.
         for(var i=0; i<context.items.length; i++){
+            //Adding an xIsLocked variable to the items
+            context.items[i].system.xIsLocked = context.system.xIsLocked;
+
             //Editing Skills
             if(context.items[i].type === "skill"){
                 context.items[i].system.isSkill = true;
@@ -96,15 +99,16 @@
                     context.items[i].system.rankString = "-";
                 }
             
+                //Adding the skill to context.skills
                 context.skills[context.skills.length] = context.items[i];
             }
         
+            //Editing Weapons
             if(context.items[i].type === "weapon"){
+
+                //Adding the weapon to context.weapons
                 context.weapons[context.weapons.length] = context.items[i];
             }
-
-            //Adding an xIsLocked variable to the items
-            context.items[i].system.xIsLocked = context.system.xIsLocked;
         }
 
         return context;
