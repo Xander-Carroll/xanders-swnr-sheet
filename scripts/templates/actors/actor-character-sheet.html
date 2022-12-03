@@ -113,8 +113,93 @@
       <div style="padding:10px">
 
         <!-- The attribute tab -->
-        <div class="tab attributes" data-group="primary" data-tab="attributes">
-          <p>Testing!</p>
+        <div class="tab attributes" data-group="primary" data-tab="attributes" >
+          <div style="display:flex; flex-direction:row">
+            <!-- The skills list -->
+            <div>
+              <ul class="skill-list">
+                <!-- The skill list title row -->
+                <li class="skill skill-header">
+                  <span class="skill-level">Lvl</span>
+                  <span class="skill-title no-hilight" data-skill="pilot">Skill</span>
+                  <span class="skill-attribute">Atrb</span>
+                  <span class="skill-modifier">Mod</span>
+                </li>
+
+                <!-- The skills list skills -->
+                <li class="skill">
+                  <span class="skill-level">
+                    {{#if system.xIsLocked}}
+                    <span style="padding:3px">2</span>
+                    {{else}}
+                    <div class="form-group" style="margin:0;">
+                      <select id="skill-level" name="skill-level">
+                        <option value="-1">-</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                    </div>
+                    {{/if}}
+                  </span>
+                  <span class="skill-title" data-skill="pilot">Pilot</span>
+                  <span class="skill-attribute">Dex</span>
+                  <span class="skill-modifier">+2</span>
+                </li>
+
+                <li class="skill">
+                  <span class="skill-level">
+                    {{#if system.xIsLocked}}
+                    <span style="padding:3px">1</span>
+                    {{else}}
+                    <div class="form-group" style="margin:0;">
+                      <select id="skill-level" name="skill-level">
+                        <option value="-1">-</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                    </div>
+                    {{/if}}
+                  </span>
+                  <span class="skill-title" data-skill="stab">Stab</span>
+                  <span class="skill-attribute">Str</span>
+                  <span class="skill-modifier">+1</span>
+                </li>
+
+                <li class="skill">
+                  <span class="skill-level">
+                    {{#if system.xIsLocked}}
+                    <span style="padding:3px">0</span>
+                    {{else}}
+                    <div class="form-group" style="margin:0;">
+                      <select id="skill-level" name="skill-level">
+                        <option value="-1">-</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                    </div>
+                    {{/if}}
+                  </span>
+                  <span class="skill-title" data-skill="telaportation">Telaportation</span>
+                  <span class="skill-attribute">Int</span>
+                  <span class="skill-modifier">+0</span>
+                </li>
+
+              </ul>
+            </div>
+
+            <!-- The favorited item bar and attribute list -->
+            <div style="flex-grow:1">
+            </div>
+          </div>
         </div>
 
         <!-- The inventroty tab -->
