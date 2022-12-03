@@ -35,7 +35,7 @@
     //@override
     getData() {
         // Retrieve the data structure from the base sheet.
-        const context = super.getData();
+        let context = super.getData();
 
         //Creating a more easily accsessed system variable.
         const system = context.actor.system;
@@ -49,23 +49,64 @@
         //Force locks the sheet if the viewer is not an owner and adds the value to the context.
         context.system.xIsLocked = this.actor.system.xIsLocked || !context.owner;
 
+        //Modifies the context into something that is more readable by handelbars.
+        context = this._parseActorData(context);
+        context = this._parseItemData(context);
+
+        //Uncomment this line to see what data can be accsessed in the handelbars sheet.
+        console.log(context);
+    
+        return context;
+    }
+
+    //Will edit context.sytem to format the actor data in a way that is better suited for handelbars.
+    _parseActorData(context){
         //Adding a variable that will be used to set the health-bar width to the context.
         const health = context.system.health;
         let hPercentage = Math.floor(health.value * 100 / health.max);
         hPercentage = Math.min(hPercentage, 100);
         hPercentage = Math.max(hPercentage, 0);
         context.system.health.percentage = hPercentage;
-
+    
         //Adding a variable that will be used to set the strain-bar width to the context.
         const strain = context.system.systemStrain;
         let sPercentage = Math.floor(strain.value * 100 / strain.max);
         sPercentage = Math.min(sPercentage, 100);
         sPercentage = Math.max(sPercentage, 0);
         context.system.systemStrain.percentage = sPercentage;
-
-        //Uncomment this line to see what data can be accsessed in the handelbars sheet.
-        //console.log(context);
     
+        return context;
+    }
+
+    //Will edit context.items to format the items in a way that is better suited for handelbars.
+    _parseItemData(context){
+        //New item arrays where items are sorted by type.
+        context.skills = [];
+        context.weapons = [];
+
+        //Adding variables to the items that will be used by the sheet.
+        for(var i=0; i<context.items.length; i++){
+            //Editing Skills
+            if(context.items[i].type === "skill"){
+                context.items[i].system.isSkill = true;
+            
+                context.items[i].system.rankString = context.items[i].system.rank.toString();
+            
+                if(context.items[i].system.rankString === "-1"){
+                    context.items[i].system.rankString = "-";
+                }
+            
+                context.skills[context.skills.length] = context.items[i];
+            }
+        
+            if(context.items[i].type === "weapon"){
+                context.weapons[context.weapons.length] = context.items[i];
+            }
+
+            //Adding an xIsLocked variable to the items
+            context.items[i].system.xIsLocked = context.system.xIsLocked;
+        }
+
         return context;
     }
 

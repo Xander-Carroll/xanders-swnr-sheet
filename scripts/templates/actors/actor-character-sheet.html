@@ -127,71 +127,14 @@
                 </li>
 
                 <!-- The skills list skills -->
-                <li class="skill">
-                  <span class="skill-level">
-                    {{#if system.xIsLocked}}
-                    <span style="padding:3px">2</span>
-                    {{else}}
-                    <div class="form-group" style="margin:0;">
-                      <select id="skill-level" name="skill-level">
-                        <option value="-1">-</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                      </select>
-                    </div>
-                    {{/if}}
-                  </span>
-                  <span class="skill-title" data-skill="pilot">Pilot</span>
-                  <span class="skill-attribute">Dex</span>
-                  <span class="skill-modifier">+2</span>
+                {{#each skills as |skill id|}}
+                <li class="skill" data-skill-id="{{skill._id}}">
+                  <span class="skill-level">{{skill.system.rankString}}</span>
+                  <span class="skill-title" data-skill="{{skill.name}}">{{skill.name}}</span>
+                  <span class="skill-attribute">{{skill.system.defaultStat}}</span>
+                  <span class="skill-modifier">{{skill.system.rank}}</span>
                 </li>
-
-                <li class="skill">
-                  <span class="skill-level">
-                    {{#if system.xIsLocked}}
-                    <span style="padding:3px">1</span>
-                    {{else}}
-                    <div class="form-group" style="margin:0;">
-                      <select id="skill-level" name="skill-level">
-                        <option value="-1">-</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                      </select>
-                    </div>
-                    {{/if}}
-                  </span>
-                  <span class="skill-title" data-skill="stab">Stab</span>
-                  <span class="skill-attribute">Str</span>
-                  <span class="skill-modifier">+1</span>
-                </li>
-
-                <li class="skill">
-                  <span class="skill-level">
-                    {{#if system.xIsLocked}}
-                    <span style="padding:3px">0</span>
-                    {{else}}
-                    <div class="form-group" style="margin:0;">
-                      <select id="skill-level" name="skill-level">
-                        <option value="-1">-</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                      </select>
-                    </div>
-                    {{/if}}
-                  </span>
-                  <span class="skill-title" data-skill="telaportation">Telaportation</span>
-                  <span class="skill-attribute">Int</span>
-                  <span class="skill-modifier">+0</span>
-                </li>
+                {{/each}}
 
               </ul>
             </div>

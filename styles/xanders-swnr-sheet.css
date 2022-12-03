@@ -447,29 +447,10 @@
   flex: 0 1 25px;
 }
 
-/* Style for the level dropdown on skill items */
 .xanders-swnr .skill .skill-level{
   flex: 0 1 20px;
   margin-right: 10px;
   width: 20px;
-}
-
-.xanders-swnr .skill select{
-  appearance: none;
-  height: auto;
-  border: none;
-  background-color: transparent;
-
-  padding: 1px;
-  padding-left: 4px;
-
-  font-size: 12px;
-}
-
-.xanders-swnr .skill select:hover{
-  border: 1px solid var(--input-focus-color);
-  padding: 0px;
-  padding-left: 3px;
 }
 
 /* Sets the skill list to alternate background colors. */
