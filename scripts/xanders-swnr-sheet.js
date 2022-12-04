@@ -5,6 +5,7 @@
 
 //Imports used for the custom swnr sheets.
 import {XandersSwnActorSheet} from "./actor-sheet.js";
+import {XandersSwnItemSheet} from "./item-sheet.js";
 
 //This function will be called when foundry is initalizing.
 Hooks.once("init", () => {
@@ -12,6 +13,9 @@ Hooks.once("init", () => {
 	if (game.system.id === "swnr"){
 		//Adding the character sheet.
 		Actors.registerSheet("xander", XandersSwnActorSheet);
+
+		//Adding the item sheet.
+		Items.registerSheet("xander", XandersSwnItemSheet);
 
 		//Adding module spesific settings.
 		registerSystemSettings();

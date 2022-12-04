@@ -46,6 +46,12 @@
   min-height: 500px;
 }
 
+/* Sets the minimum size allowed for an item sheet */
+.xanders-item-sheet{
+  min-width: 440px;
+  min-height: 370px;
+}
+
 /* Setting the deualt font style */
 .xanders-swnr p {
   font-family: "Roboto";
