@@ -1,7 +1,10 @@
 //Extends the basic ActorSheet with some very simple modifications
 
- export class XandersSwnActorSheet extends ActorSheet {
+import { initSkills, toTitleCase} from "./utils.js";
 
+export class XandersSwnActorSheet extends ActorSheet {
+
+    //The menu that will be opened when a skill is right clicked.
     skillContextMenu = [
         {
             name: "Edit Skill",
@@ -38,19 +41,25 @@
     activateListeners(html){
         super.activateListeners(html);
 
-        //None of the stuff below here needs to happen if the player dosen't 
-        //have permission to edit the sheet.
+        //Return if the player can't edt the sheet.
         if (!this.isEditable) return;
 
+        //If the lock button is clicked, the sheet lock is toggeled.
         html.find('.lock-button').click(async (event) => {
             this.actor.update({"system.xIsLocked": !this.actor.system.xIsLocked});
         });
 
+        //If a saving throw button is clicked, a save dialog is opened.
         html.find('.save-throw-button').on("click", this._onSaveThrow.bind(this));
 
-        if(!this.actor.system.xIsLocked){
-            new ContextMenu(html, ".skill-choice", this.skillContextMenu);
-        }
+        //If a skill is clicked a skill check dialog is opened.
+        html.find('.skill-clickable').on("click", this._onSkillCheck.bind(this));
+
+        //If the add skill buttons are clicked.
+        html.find('.add-skill-clickable').on("click", this._onSkillAdd.bind(this));
+
+        //Adding context menu when skills are right clicked.
+        new ContextMenu(html, '.skill-choice', this.skillContextMenu);
         
     }
 
@@ -143,6 +152,13 @@
             }
         }
 
+        //Determines wether the add skills buttons should be displayed 
+        if(!context.system.xIsLocked || (context.skills.length == 0 && context.owner)){
+            context.system.displayAddSkillButtons = true;
+        }else{
+            context.system.displayAddSkillButtons = false;
+        }
+
         return context;
     }
 
@@ -224,6 +240,66 @@
         await message.update(messageData);
     }
 
+    //Called when a skill from the attributes tab is clicked.
+    async _onSkillCheck(event){
+        event.preventDefault();
+
+        //Getting the skill that was clicked.
+        const skill = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.skillId);
+
+        console.log(skill);
+    }
+
+    //Called when one of the add/remove skills buttons is pressed.
+    async _onSkillAdd(event){
+        event.preventDefault();
+
+        //Getting the button that was pressed.
+        const buttonType = event.currentTarget.dataset.addSkill;
+
+        //If the remove option was pressed.
+        if(buttonType === 'remove'){
+            let applyChanges = false;
+
+            new Dialog({
+                title: `Delete All Skills?`,
+                content: `
+                  <form>
+                    <p>Are you sure you want to delete all skills?</p>
+                  </form>
+                  `,
+                buttons: {
+                  yes: {
+                    icon: "<i class='fas fa-check'></i>",
+                    label: `Delete All Skills`,
+                    callback: () => applyChanges = true
+                  },
+                  no: {
+                    icon: "<i class='fas fa-times'></i>",
+                    label: `Cancel`
+                  },
+                },
+                default: "no",
+                close: html => {
+                    if (applyChanges) {
+                        let skillIds = [];
+                        const items = this.actor.getEmbeddedCollection("Item");
+            
+                        items.forEach(item =>{
+                            if(item.type === 'skill'){
+                                skillIds.push(item._id);
+                            }
+                        });
+            
+                        this.actor.deleteEmbeddedDocuments("Item", skillIds);
+                    }
+                }
+            }).render(true);
+        }else{
+            initSkills(this.actor, buttonType);
+        }
+    }
+
     //@override
     get template() {
         return `modules/xanders-swnr-sheet/scripts/templates/actors/actor-${this.actor.type}-sheet.html`;
@@ -263,14 +339,4 @@ function _processSaveThrowOptions(html){
         modifier: modifier,
         rollMode: rollType
     }
-}
-
-//Turns a given string into a title-case version of that string.
-function toTitleCase(str) {
-    return str.replace(
-      /\w\S*/g,
-      function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      }
-    );
 }

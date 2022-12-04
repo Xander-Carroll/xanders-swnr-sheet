@@ -130,26 +130,35 @@
                 {{#each skills as |skill id|}}
                 <li class="skill skill-choice" data-skill-id="{{skill._id}}">
                   <span class="skill-level">{{skill.system.rankString}}</span>
-                  <span class="skill-title" data-skill="{{skill.name}}">{{skill.name}}</span>
+                  <span class="skill-title skill-clickable" data-skill-id="{{skill._id}}">{{skill.name}}</span>
                   <span class="skill-attribute">{{skill.system.defaultStat}}</span>
                   <span class="skill-modifier">{{skill.system.mod}}</span>
                 </li>
                 {{/each}}
 
-                <!-- The add skills button -->
-                {{#unless system.xIsLocked}}
-                <li class="skill add-skill" data-skill-id="{{skill._id}}">
-                  <span>Add Revised Skills</span>
+                <!-- The add skills buttons that display when the sheet is in edit mode -->
+                {{#if system.displayAddSkillButtons}}
+
+                <li class="skill add-skill">
+                  <span class="add-skill-clickable" data-add-skill="remove">Remove All Skills</span>
                 </li>
 
-                <li class="skill add-skill" data-skill-id="{{skill._id}}">
-                  <span>Add Classic Skills</span>
+                <li class="skill add-skill">
+                  <span class="add-skill-clickable" data-add-skill="revised">Add Revised Skills</span>
                 </li>
 
-                <li class="skill add-skill" data-skill-id="{{skill._id}}">
-                  <span>Add Phsychic Skills</span>
+                <li class="skill add-skill">
+                  <span class="add-skill-clickable" data-add-skill="psychic">Add Psychic Skills</span>
                 </li>
-                {{/unless}}
+
+                <li class="skill add-skill">
+                  <span class="add-skill-clickable" data-add-skill="magic">Add Magic Skills</span>
+                </li>
+
+                <li class="skill add-skill">
+                  <span class="add-skill-clickable" data-add-skill="newItem">Add New Skill</span>
+                </li>
+                {{/if}}
 
               </ul>
             </div>
