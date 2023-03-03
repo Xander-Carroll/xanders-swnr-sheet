@@ -413,20 +413,32 @@
 
 /* Various properties used to configure items in the skill list */
 .xanders-swnr .skill-list .skill{
-  padding: 1px;
+  padding: 2px;
   padding-left: 5px;
   padding-right: 5px;
 
   display: flex;
   flex-direction: row;
   flex-grow: 1;
+
+  font-family: "Roboto";
+  font-size: 13px;
+
 }
 
+/* The first row in the attribute bar */
 .xanders-swnr .skill.skill-header{
-  font-size: 12px;
   font-weight: bold;
 }
 
+/* The level of the skill or '-' for no levels */
+.xanders-swnr .skill .skill-level{
+  flex: 0 1 20px;
+  margin-right: 10px;
+  width: 20px;
+}
+
+/* The name of the skill, "administer", "connect", etc. */
 .xanders-swnr .skill .skill-title{
   flex: 1 1 0px;
 }
@@ -439,20 +451,17 @@
   color: var(--font-color);
 }
 
+/* The attribute code of the skill, "str", "dex", etc. */
 .xanders-swnr .skill .skill-attribute{
   flex: 0 1 40px;
 }
 
+/* The modifier of the skill */
 .xanders-swnr .skill .skill-modifier{
   flex: 0 1 25px;
 }
 
-.xanders-swnr .skill .skill-level{
-  flex: 0 1 20px;
-  margin-right: 10px;
-  width: 20px;
-}
-
+/* When no skills are added or when the sheet is in edit mode the "add skills" nuttons that are shown */
 .xanders-swnr .skill.add-skill{
   font-style: italic;
   display: flex;
