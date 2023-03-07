@@ -7,7 +7,7 @@
         <!-- The character portrait and the componenets connected to it (HP bar, etc) -->
         <div class="character-portrait">
           <!-- The character image -->
-          <img src="{{actor.img}}" data-edit="img"/>
+          <img src="{{actor.img}}" {{#unless system.xIsLocked}}data-edit="img"{{/unless}}/>
 
           <!-- The character strain bar -->
           <div class="strain-bar" style="border-bottom:0px;">

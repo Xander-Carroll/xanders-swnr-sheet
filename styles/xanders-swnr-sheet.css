@@ -51,6 +51,17 @@
   min-height: 500px;
 }
 
+/* Sets the minimum size allowed for an item sheet */
+.xanders-item-sheet{
+  min-width: 440px;
+  min-height: 370px;
+}
+
+
+/* 
+  CSS Defaults for all sheets.
+*/
+
 /* Setting the deualt font style */
 .xanders-swnr p {
   font-family: "Roboto";
@@ -96,6 +107,18 @@
 
   background-color: var(--background-sheet-header-color);
 }
+
+/* Sets the size and margin for the name text */
+.xanders-swnr .name-bar{
+  height: 100%;
+  width: 400px;
+  margin-left: 10px;
+  flex-grow: 1;
+}
+
+/* 
+  CSS Styling for character sheets.
+*/
 
 /* Sets the size and position and background color of the portrait image */
 .xanders-swnr .character-portrait{
@@ -169,15 +192,7 @@
   width: 100%;
   height: 100%;
 
-  justify-content: center;
-}
-
-/* Sets the size and margin for the name text */
-.xanders-swnr .name-bar{
-  height: 100%;
-  width: 400px;
-  margin-left: 10px;
-  flex-grow: 1;
+  justify-content: center
 }
 
 /* Sets the font for the character name input field */
@@ -189,11 +204,12 @@
   align-self: center;
 
   border-bottom: 1px solid var(--border-color);
+  padding-bottom: 2px;
 }
 
-/* Fixes an issue where the bar under the player name woud disapear sometimes. */
-.xanders-swnr .player-name:disabled:hover{
-  border-bottom: 1px solid var(--border-color);
+.xanders-swnr .player-name:disabled{
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2px;
 }
 
 /* Sets the size and positioning of the lock button */
@@ -464,8 +480,6 @@
 /* When no skills are added or when the sheet is in edit mode the "add skills" nuttons that are shown */
 .xanders-swnr .skill.add-skill{
   font-style: italic;
-  display: flex;
-  justify-content: center;
 }
 
 .xanders-swnr .skill.add-skill:hover{
@@ -475,4 +489,131 @@
 /* Sets the skill list to alternate background colors. */
 .xanders-swnr .skill-list .skill:nth-child(even) {
   background: var(--table-alt-color);
+}
+
+
+/* 
+  CSS Styling for Items.
+*/
+
+/* Sets the font for the item name input field */
+.xanders-swnr .item-name{
+  font-family: "Roboto-Bold";
+  font-size: 18px;
+
+  width:60%;
+  align-self: flex-start;
+
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 2px;
+}
+
+.xanders-swnr .item-name:disabled{
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2px;
+}
+
+/* The box behind the item type field. (skill, weapon, etc) */
+.xanders-swnr .item-type-box{
+    background-color: var(--level-background-color);
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    margin: 0;
+
+    width: 70px;
+    height: 30px;
+
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+
+    text-transform: capitalize;
+}
+
+.xanders-swnr .item-type-box p{
+  font-family: "Orbitron";
+}
+
+/* The item image. */
+.xanders-swnr .item-cover-image{
+  width: 80px;
+  height: 80px;
+
+  flex: none;
+
+  border-radius: 7px;
+  border: 1px solid var(--border-color);
+
+  margin-right: 10px;
+
+  align-self: center
+}
+
+.xanders-swnr .item-cover-image img{
+  border-radius: 7px;
+}
+
+/* The stat row below the item name. */
+.xanders-swnr .item-stats-row{
+  display: flex;
+  flex-direction: column;  
+  margin-top:5px
+}
+
+/* The stat row below the item name's select elements. */
+.xanders-swnr .item-stats-row select{
+  flex: 1 1 0px;
+  margin: 0px;
+
+  align-self: end;
+
+  font-size: 14px;
+  font-family: "Roboto";
+  color: var(--font-color);
+}
+
+/* The text in the stat row below the item name. */
+.xanders-swnr .item-stats-row p{
+  font-size: 14px;
+}
+
+/* The item frame below the namebar. */
+.xanders-swnr .item-main-window{
+  padding: 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* The labels below the stats in the header bar.*/
+.xanders-swnr .item-stats-labels{
+  display:flex; 
+  flex-direction:row; 
+  margin-bottom:5px
+}
+
+.xanders-swnr .item-stats-labels p{
+  font-size: 10px;
+  color: var(--second-font-color);
+  font-weight:lighter;
+}
+
+.xanders-swnr .item-stats-labels div{
+  flex: 1 1 0px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.xanders-swnr .item-main-window-header{
+  margin-bottom: 10px;
+}
+
+.xanders-swnr .item-main-window-text{
+  height: 200px;
+}
+
+.xanders-swnr .item-main-window-text .editor{
+  height: 100%;
+  font-size: 14px;
 }
