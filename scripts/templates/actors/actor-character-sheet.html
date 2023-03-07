@@ -6,7 +6,7 @@
 
         <!-- The character portrait and the componenets connected to it (HP bar, etc) -->
         <div class="character-portrait">
-        <img src="{{actor.img}}" data-edit="img"/>
+        <img src="{{actor.img}}" {{#unless system.xIsLocked}}data-edit="img"{{/unless}}/>
         <div class="health-bar">
           <div style="width:{{system.health.percentage}}%" class="health-fill"></div>
           <div class="health-text">

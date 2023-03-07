@@ -23,8 +23,12 @@
         // Retrieve the data structure from the base sheet.
         const context = super.getData();
 
+        //Creating a more easily accsessed system variable.
+        const system = context.item.system;
+        context.system = system;
+
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
-        //console.log(context);
+        console.log(context);
     
         return context;
     }
