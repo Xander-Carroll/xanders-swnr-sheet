@@ -85,7 +85,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         context = this._parseItemData(context);
 
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
-        console.log(context);
+        //console.log(context);
     
         return context;
     }
@@ -179,65 +179,26 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Adding data to the saving throw.
         saveData.target = this.actor.system.save[saveType];
 
-        if(saveData.rollMode === "CURRENT"){
-            saveData.rollMode = game.settings.get("core", "rollMode");
-        }else{
-            saveData.rollMode = CONST.DICE_ROLL_MODES[saveData.rollMode];
-        }
+        //Getting the roll data results.
+        let rollMessage = await _generateRoll("1d20", saveData, this);
 
-        //Detrming the proper roll formula to use.
-        let rollFormula = "1d20";
-        if(saveData.modifier !== ''){
-            let firstSymbol = saveData.modifier.charAt(0);
+        //Extra data which will be used by handelbars when displaying the saving throw.
+        let templateData = {};
+        templateData.saved = (rollMessage.roll.total >= saveData.target);
 
-            if(firstSymbol !== '+' && firstSymbol !== '-'){
-                rollFormula = rollFormula + "+" + saveData.modifier;
-            }else{
-                rollFormula = rollFormula + saveData.modifier;
-            }
-        }
-
-        //Creating a roll with the proper roll formula.
-        const roll = new Roll(rollFormula, {target: saveData.target});
-
-        //If the roll does not evaluate, it was because the player entered a bad modifier.
-        try{
-            await roll.roll({async: true});
-        }catch (error){
-            ui.notifications.error("Saving Throw: [" + saveData.modifier + "] is not a valid modifier!");
-            return;
-        }
-
-        //Getting the roll as HTML.
-        let rollContent = await roll.render();
-
-        let templateData = {
-            saved: false
-        };
-
-        if(roll.total >= saveData.target){
-            templateData.saved = true;
-        };
-
-        //Getting the saving throw chat as HTML.
+        //Getting the extra saving throw chat piece as HTML.
         let templateContent = await renderTemplate("modules/xanders-swnr-sheet/scripts/templates/chats/save-throw-chat.html", templateData);
 
-        // Sets the basic information needed for the chat message.        
-        let messageData = {
-            user: game.user._id,
-            speaker: ChatMessage.getSpeaker({actor:this.actor}),
-            roll: JSON.stringify(roll),
-            content: rollContent + templateContent,
-            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-            flavor: "v" + saveData.target + " " + toTitleCase(saveType) + " saving throw"
-        };
+        // Sets more basic information needed for the chat message. 
+        rollMessage.data.content = rollMessage.data.content + templateContent;
+        rollMessage.data.flavor = "v" + saveData.target + " " + toTitleCase(saveType) + " saving throw";
 
         // Creates the chat message with the given data.
-        let message = await getDocumentClass("ChatMessage").create(messageData);
+        let message = await getDocumentClass("ChatMessage").create(rollMessage.data);
 
         //Changes the roll mode of the chat message.
-        await getDocumentClass("ChatMessage").applyRollMode(messageData, saveData.rollMode);
-        await message.update(messageData);
+        await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, saveData.rollMode);
+        await message.update(rollMessage.data);
     }
 
     //Called when a skill from the attributes tab is clicked.
@@ -246,8 +207,41 @@ export class XandersSwnActorSheet extends ActorSheet {
 
         //Getting the skill that was clicked.
         const skill = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.skillId);
+        skill.system.stats = this.actor.system.stats;
 
-        console.log(skill);
+        //Creating a dialog so that the player can choose how they want to roll.
+        let checkData = await _skillCheckDialog(skill);
+
+        //If the dialog was canceled(closed) the roll needs cancelled.
+        if(checkData.cancelled){
+            return;
+        }
+
+        //Adding modifiers to the role. rollData.modifier.
+        let skillMod = skill.system.rank.toString();
+        let attribMod = this.actor.system.stats[checkData.attribute].mod.toString();
+        
+        //Ensuring that the right signs are used in the roll formula.
+        if(skillMod.charAt(0) !== '-'){
+            skillMod = "+" + skillMod;
+        }
+        if(attribMod.charAt(0) !== '-'){
+            attribMod = "+" + attribMod;
+        }
+        checkData.modifier = checkData.modifier + attribMod + skillMod;
+
+        //Getting the roll data results.
+        let rollMessage = await _generateRoll(checkData.pool, checkData, this);
+
+        // Sets more basic information needed for the chat message. 
+        rollMessage.data.flavor = skill.name + " (" + checkData.attribute + ") skill check";
+
+        // Creates the chat message with the given data.
+        let message = await getDocumentClass("ChatMessage").create(rollMessage.data);
+
+        //Changes the roll mode of the chat message.
+        await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, checkData.rollMode);
+        await message.update(rollMessage.data);
     }
 
     //Called when one of the add/remove skills buttons is pressed.
@@ -307,6 +301,53 @@ export class XandersSwnActorSheet extends ActorSheet {
 
 }
 
+//Retruns a rollData object and a roll object from the spesified data.
+async function _generateRoll(baseDie, rollData, sheet){
+    //Determing what role mode should be used.
+    if(rollData.rollMode === "CURRENT"){
+        rollData.rollMode = game.settings.get("core", "rollMode");
+    }else{
+        rollData.rollMode = CONST.DICE_ROLL_MODES[rollData.rollMode];
+    }
+
+    //Detrming the proper roll formula to use.
+    let rollFormula = baseDie;
+    if(rollData.modifier !== ''){
+        let firstSymbol = rollData.modifier.charAt(0);
+
+        if(firstSymbol !== '+' && firstSymbol !== '-'){
+            rollFormula = rollFormula + "+" + rollData.modifier;
+        }else{
+            rollFormula = rollFormula + rollData.modifier;
+        }
+    }
+
+    //Creating a roll with the proper roll formula.
+    const roll = new Roll(rollFormula, {target: rollData.target});
+
+    //If the roll does not evaluate, it was because the player entered a bad modifier.
+    try{
+        await roll.roll({async: true});
+    }catch (error){
+        ui.notifications.error("[" + rollData.modifier + "] is not a valid modifier!");
+        return;
+    }
+
+    //Getting the roll as HTML.
+    let rollContent = await roll.render();
+
+    // Sets the basic information needed for the chat message.        
+    let messageData = {
+        user: game.user._id,
+        speaker: ChatMessage.getSpeaker({actor:sheet.actor}),
+        roll: JSON.stringify(roll),
+        content: rollContent,
+        type: CONST.CHAT_MESSAGE_TYPES.ROLL
+    };
+
+    return {data: messageData, roll:roll};
+}
+
 //Called when a saving throw is made to give the user a chance to add modifiers.
 async function _saveThrowDialog(saveType){
     const template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/save-throw-dialog.html"
@@ -338,5 +379,51 @@ function _processSaveThrowOptions(html){
     return {
         modifier: modifier,
         rollMode: rollType
+    }
+}
+
+//Called when a skill check is made to give the user a chance to add modifiers.
+async function _skillCheckDialog(skill){
+    //Creating an html template from the dialog.
+    const template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/skill-check-dialog.html"
+    const html = await renderTemplate(template, skill);
+
+    console.log(skill);
+
+    //Creating the dialog and rendering it.
+    return new Promise(resolve => {
+        const data = {
+            title: skill.name + " Skill Check",
+            content: html,
+            buttons: {
+                roll: {
+                    label: "Roll",
+                    callback: html => resolve(_processSkillCheckOptions(html, skill.system.defaultStat, skill.system.pool))
+                }
+            },
+            default: "roll",
+            close: () => resolve({cancelled: true}) 
+        }
+
+        new Dialog(data, null).render(true);
+    });
+}
+
+//Parses the information found in a skillCheckDialog into a dictionary.
+function _processSkillCheckOptions(html, stat, pool){
+    const rollType = html.find('[name="rollmode"]')[0].value;
+    const modifier = html.find('[name="modifier"]')[0].value;
+    let attribute = stat;
+    let dicePool = pool;
+
+    attribute = html.find('[name="attribute"]')[0].value;
+
+    dicePool = html.find('[name="pool"]')[0].value;
+
+    return {
+        modifier: modifier,
+        rollMode: rollType,
+        attribute: attribute,
+        pool: dicePool
     }
 }

@@ -115,6 +115,7 @@
         <!-- The attribute tab -->
         <div class="tab attributes" data-group="primary" data-tab="attributes" >
           <div style="display:flex; flex-direction:row">
+            
             <!-- The skills list -->
             <div>
               <ul class="skill-list">
@@ -122,8 +123,8 @@
                 <li class="skill skill-header">
                   <span class="skill-level">Lvl</span>
                   <span class="skill-title no-hilight" data-skill="pilot">Skill</span>
+                  <span class="skill-dice">Dice</span>
                   <span class="skill-attribute">Atrb</span>
-                  <span class="skill-modifier">Mod</span>
                 </li>
 
                 <!-- The skills list skills -->
@@ -131,8 +132,8 @@
                 <li class="skill skill-choice" data-skill-id="{{skill._id}}">
                   <span class="skill-level">{{skill.system.rankString}}</span>
                   <span class="skill-title skill-clickable" data-skill-id="{{skill._id}}">{{skill.name}}</span>
+                  <span class="skill-dice">{{skill.system.pool}}</span>
                   <span class="skill-attribute">{{skill.system.defaultStat}}</span>
-                  <span class="skill-modifier">{{skill.system.mod}}</span>
                 </li>
                 {{/each}}
 
@@ -144,7 +145,7 @@
                 </li>
 
                 <li class="skill add-skill">
-                  <span class="add-skill-clickable" data-add-skill="revised">Add Revised Skills</span>
+                  <span class="add-skill-clickable" data-add-skill="revised">Add SWNR Skills</span>
                 </li>
 
                 <li class="skill add-skill">
@@ -171,17 +172,17 @@
 
         <!-- The inventroty tab -->
         <div class="tab inventory" data-group="primary" data-tab="inventory">
-          <p>This!</p>
+          <p>Testing!</p>
         </div>
 
         <!-- The features tab -->
         <div class="tab features" data-group="primary" data-tab="features">
-          <p>Bitch!</p>
+          <p>This!</p>
         </div>
 
         <!-- The biography tab -->
         <div class="tab biography" data-group="primary" data-tab="biography">
-          <p>Fool!</p>
+          <p>More Testing!</p>
         </div>
       </div>
 

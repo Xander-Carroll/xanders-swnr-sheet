@@ -22,7 +22,7 @@
   --background-portrait-image: url("../../../../ui/parchment-white.jpg");
 
   --font-color: rgb(28,28,28);
-  --second-font-color: rgb(100,100,100);
+  --second-font-color: rgb(71, 71, 71);
   --active-font-color: rgb(5, 99, 150);
 
   --border-color: rgb(170,170,170);
@@ -470,12 +470,20 @@
 
 /* The attribute code of the skill, "str", "dex", etc. */
 .xanders-swnr .skill .skill-attribute{
-  flex: 0 1 40px;
+  flex: 0 1 25px;
+}
+
+.xanders-swnr .skill-choice .skill-attribute{
+  color: var(--second-font-color);
 }
 
 /* The modifier of the skill */
-.xanders-swnr .skill .skill-modifier{
-  flex: 0 1 25px;
+.xanders-swnr .skill .skill-dice{
+  flex: 0 1 35px;
+}
+
+.xanders-swnr .skill-choice .skill-dice{
+  color: var(--second-font-color);
 }
 
 /* When no skills are added or when the sheet is in edit mode the "add skills" nuttons that are shown */

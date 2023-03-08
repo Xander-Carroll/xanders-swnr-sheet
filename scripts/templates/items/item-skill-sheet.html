@@ -28,15 +28,15 @@
         <div class="item-stats-row">
           <!-- The dice pool, default stat, and skill level. -->
           <div class="background-informations" style="display:flex; flex-direction:row;">
-            <input name="system.rank" type="number" value="{{system.rank}}" {{#unless owner}}disabeled{{/unless}}/>
+            <input style="flex: 0.6 1" name="system.rank" type="number" value="{{system.rank}}" {{#unless owner}}disabeled{{/unless}}/>
             <input name="system.source" type="text" value="{{system.source}}" {{#unless owner}}disabeled{{/unless}}/>
             
             <select name="system.pool" style="margin-left:5px; margin-right:5px">
               {{#select system.pool}}
                 <option value="ask">Ask</option>
-                <option value="2d6">2D6</option>
-                <option value="3d6">3D6</option>
-                <option value="4d6">4D6</option>
+                <option value="2d6">2d6</option>
+                <option value="3d6">3d6</option>
+                <option value="4d6">4d6</option>
               {{/select}}
             </select>
 
@@ -53,9 +53,9 @@
             </select>
           </div>
 
-          <!-- The labels that go beneath background, gender, homeworld, and employer. -->
+          <!-- The labels that go beneath skill level, source, dice pool, and default stat. -->
           <div class="item-stats-labels">
-            <div><p>Skill Level</p></div>
+            <div style="flex: 0.6 1"><p>Skill Level</p></div>
             <div><p>Source</p></div>
             <div><p>Dice Pool</p></div>
             <div><p>Default Stat</p></div>

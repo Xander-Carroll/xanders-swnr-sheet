@@ -1,0 +1,39 @@
+<form>
+  <div class="form-group">
+    <label>Dice Pool</label>
+    <select name="pool">
+      {{#select system.pool}}
+        <option value="2d6">2d6</option>
+        <option value="3d6">3d6</option>
+        <option value="4d6">4d6</option>
+      {{/select}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Roll Attribute</label>
+    <select name="attribute">
+      {{#select system.defaultStat}}
+        <option value="str">Strength: {{system.stats.str.mod}}</option>
+        <option value="dex">Dexterity: {{system.stats.dex.mod}}</option>
+        <option value="con">Constitution: {{system.stats.con.mod}}</option>
+        <option value="int">Intelligence: {{system.stats.int.mod}}</option>
+        <option value="wis">Wisdom: {{system.stats.wis.mod}}</option>
+        <option value="cha">Charisma: {{system.stats.cha.mod}}</option>
+      {{/select}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Situational Modifier</label>
+    <input type="text" name="modifier" value="" placeholder="ex. 2d4+2"/>
+  </div>
+  <div class="form-group">
+    <label>Roll Mode</label>
+    <select name="rollmode">
+      <option value="CURRENT">Current Mode</option>
+      <option value="PUBLIC">Public Roll</option>
+      <option value="PRIVATE">Private GM Roll</option>
+      <option value="BLIND">Blind GM Roll</option>
+      <option value="SELF">Self Roll</option>
+    </select>
+  </div>
+</form>
