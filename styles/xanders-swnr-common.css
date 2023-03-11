@@ -1,0 +1,117 @@
+/* Adding additional fonts used by the system */
+@font-face {
+    font-family: "Orbitron";
+    src: url("../fonts/Orbitron-Bold.ttf");
+  }
+  
+  @font-face {
+    font-family: "Roboto-Bold";
+    src: url("../fonts/Roboto-Bold.ttf");
+  }
+  
+  @font-face {
+    font-family: "Roboto";
+    src: url("../fonts/Roboto-Medium.ttf");
+  }
+  
+  /* Color variables that are used in the sheet */
+  .xanders-swnr{
+    --background-sheet-header-color: rgb(255, 255, 255, 0.6);
+    --background-sheet-color: rgb(230, 230, 230);
+    --background-image: url("../img/backgrounds/hexellence.webp");
+    --background-portrait-image: url("../../../../ui/parchment-white.jpg");
+  
+    --font-color: rgb(28,28,28);
+    --second-font-color: rgb(71, 71, 71);
+    --active-font-color: rgb(5, 99, 150);
+  
+    --border-color: rgb(170,170,170);
+    --input-focus-color: rgb(5, 99, 150);
+    --level-background-color: rgb(140,140,140,0.5);
+    --table-alt-color: rgb(0,0,0,0.2);
+  
+    --health-bar-color: linear-gradient(45deg, rgba(48,121,22,1) 0%, rgba(97,190,80,1) 100%);
+    --strain-bar-color: linear-gradient(45deg, rgba(29,131,170,1) 0%, rgba(80,190,183,1) 100%);
+  }
+  
+  /* Makes some changes to the default sheet look and spacing */
+  .xanders-swnr.window-app .window-content{
+    padding: 0px;
+    display: flex;
+  
+    background: var(--background-image);
+    background-color: var(--background-sheet-color);
+  
+  }
+  
+  /* Sets the minimum size allowed for an actor sheet */
+  .xanders-actor-sheet{
+    min-width: 585px;
+    min-height: 500px;
+  }
+  
+  /* Sets the minimum size allowed for an item sheet */
+  .xanders-item-sheet{
+    min-width: 440px;
+    min-height: 370px;
+  }
+  
+  
+  
+  /* 
+    CSS Defaults for all sheets.
+  */
+  
+  /* Setting the deualt font style */
+  .xanders-swnr p {
+    font-family: "Roboto";
+    color: var(--font-color);
+    margin: 0px;
+  }
+  
+  /* Setting default values for input fields */
+  .xanders-swnr input{
+    border: none;
+    background: none;
+    padding: 4px;
+    color: var(--font-color);
+  
+    font-family: "Roboto";
+    color: var(--font-color);
+  
+    --color-shadow-primary : none;
+    --color-shadow-highlight : none;
+  }
+  
+  .xanders-swnr input:focus{
+    border: 1px solid var(--input-focus-color);
+    padding: 3px;
+  }
+  
+  .xanders-swnr input:hover:enabled{
+    border: 1px solid var(--input-focus-color);
+    padding: 3px;
+    color: var(--font-color);
+  }
+  
+  /* Sets the size and color of the sheet header */
+  .xanders-swnr .header-bar{
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding: 0px;
+  
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+  
+    background-color: var(--background-sheet-header-color);
+  }
+  
+  /* Sets the size and margin for the name text */
+  .xanders-swnr .name-bar{
+    height: 100%;
+    width: 400px;
+    margin-left: 10px;
+    flex-grow: 1;
+  }
