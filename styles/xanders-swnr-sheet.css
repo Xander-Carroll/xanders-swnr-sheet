@@ -502,6 +502,58 @@
   background: var(--table-alt-color);
 }
 
+/* The div which contains favorited items and the attributes bar. */
+.xanders-swnr .attribute-item-bar {
+  flex-grow:1; 
+  margin-top:8px; 
+  border-top: 1px solid var(--border-color);
+  padding-top: 2px;
+}
+
+/* The div which contains the attributes. */
+.xanders-swnr .attribute-list {
+  display:flex; 
+  flex-direction:row;
+  flex-grow: 1;
+  justify-content: space-evenly;
+}
+
+/* The six divs which contain the six main attributes. */
+.xanders-swnr .attribute {
+  display: flex;
+  flex-direction: column;
+
+  text-align: center;
+  align-items: center;
+
+  height: 70px;
+  flex-grow: 1;
+  padding: 2px;
+  border-left: 1px solid var(--border-color);
+}
+
+/* The inputs for attributes. */
+.xanders-swnr .attribute-input {
+  width: 40px;
+  font-family: "Roboto";
+  font-size: 20px;
+  text-align: center;
+  margin-top: 1px;
+}
+
+/* The headers for the attributes. */
+.xanders-swnr .attribute-header {
+  width: 30px;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.xanders-swnr .attribute-modifier {
+  font-family: "Roboto";
+  font-size: 13px;
+}
+
 
 
 /* 
@@ -617,6 +669,7 @@
   font-weight:lighter;
 }
 
+/* Setting properties that are useful when using the TinyMCE editor. */
 .xanders-swnr .item-main-window-header{
   margin-bottom: 10px;
 }

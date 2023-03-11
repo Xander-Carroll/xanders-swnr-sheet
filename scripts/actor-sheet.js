@@ -85,7 +85,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         context = this._parseItemData(context);
 
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
-        //console.log(context);
+        console.log(context);
     
         return context;
     }
@@ -387,8 +387,6 @@ async function _skillCheckDialog(skill){
     //Creating an html template from the dialog.
     const template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/skill-check-dialog.html"
     const html = await renderTemplate(template, skill);
-
-    console.log(skill);
 
     //Creating the dialog and rendering it.
     return new Promise(resolve => {

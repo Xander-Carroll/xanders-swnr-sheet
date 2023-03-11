@@ -117,7 +117,7 @@
           <div style="display:flex; flex-direction:row">
             
             <!-- The skills list -->
-            <div>
+            <div style="margin-right: 10px;">
               <ul class="skill-list">
                 <!-- The skill list title row -->
                 <li class="skill skill-header">
@@ -140,32 +140,67 @@
                 <!-- The add skills buttons that display when the sheet is in edit mode -->
                 {{#if system.displayAddSkillButtons}}
 
-                <li class="skill add-skill">
-                  <span class="add-skill-clickable" data-add-skill="remove">Remove All Skills</span>
-                </li>
+                  <li class="skill add-skill">
+                    <span class="add-skill-clickable" data-add-skill="revised">Add SWNR Skills</span>
+                  </li>
 
-                <li class="skill add-skill">
-                  <span class="add-skill-clickable" data-add-skill="revised">Add SWNR Skills</span>
-                </li>
+                  {{#unless system.xIsLocked}}
+                    <li class="skill add-skill">
+                      <span class="add-skill-clickable" data-add-skill="psychic">Add Psychic Skills</span>
+                    </li>
 
-                <li class="skill add-skill">
-                  <span class="add-skill-clickable" data-add-skill="psychic">Add Psychic Skills</span>
-                </li>
+                    <li class="skill add-skill">
+                      <span class="add-skill-clickable" data-add-skill="magic">Add Magic Skills</span>
+                    </li>
 
-                <li class="skill add-skill">
-                  <span class="add-skill-clickable" data-add-skill="magic">Add Magic Skills</span>
-                </li>
+                    <li class="skill add-skill">
+                      <span class="add-skill-clickable" data-add-skill="newItem">Add New Skill</span>
+                    </li>
 
-                <li class="skill add-skill">
-                  <span class="add-skill-clickable" data-add-skill="newItem">Add New Skill</span>
-                </li>
+                    <li class="skill add-skill">
+                      <span class="add-skill-clickable" data-add-skill="remove">Remove All Skills</span>
+                    </li>
+                  {{/unless}}
                 {{/if}}
 
               </ul>
             </div>
 
             <!-- The favorited item bar and attribute list -->
-            <div style="flex-grow:1">
+            <div class="attribute-item-bar">
+              <!-- The attribute list -->
+              <div class="attribute-list">
+                <div class="attribute" style="margin-left:5px; border-left:none;">
+                  <div class="attribute-header"><p><u>STR</u></p></div>                  
+                  <div><input name="system.stats.str.base" value="{{system.stats.str.base}}" type="number" class="attribute-input" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div class="attribute-modifier"><p><i>+{{system.stats.str.mod}}</i></p></div>
+                </div>
+                <div class="attribute">
+                  <div class="attribute-header"><p><u>DEX</u></p></div>
+                  <div><input name="system.stats.dex.base" value="{{system.stats.dex.base}}" type="number" class="attribute-input" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div class="attribute-modifier"><p><i>+{{system.stats.dex.mod}}</i></p></div>
+                </div>
+                <div class="attribute">
+                  <div class="attribute-header"><p><u>CON</u></p></div>
+                  <div><input name="system.stats.con.base" value="{{system.stats.con.base}}" type="number" class="attribute-input" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div class="attribute-modifier"><p><i>+{{system.stats.con.mod}}</i></p></div>
+                </div>
+                <div class="attribute">
+                  <div class="attribute-header"><p><u>INT</u></p></div>
+                  <div><input name="system.stats.int.base" value="{{system.stats.int.base}}" type="number" class="attribute-input" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div class="attribute-modifier"><p><i>+{{system.stats.int.mod}}</i></p></div>
+                </div>
+                <div class="attribute">
+                  <div class="attribute-header"><p><u>WIS</u></p></div>
+                  <div><input name="system.stats.wis.base" value="{{system.stats.wis.base}}" type="number" class="attribute-input" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div class="attribute-modifier"><p><i>+{{system.stats.wis.mod}}</i></p></div>
+                </div>
+                <div class="attribute" style="margin-right:0px;">
+                  <div class="attribute-header"><p><u>CHA</u></p></div>
+                  <div><input name="system.stats.cha.base" value="{{system.stats.cha.base}}" type="number" class="attribute-input" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div class="attribute-modifier"><p><i>+{{system.stats.cha.mod}}</i></p></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
