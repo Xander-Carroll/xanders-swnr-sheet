@@ -2,6 +2,18 @@
   CSS Styling for Items.
 */
 
+/* All Select Elements. */
+.xanders-swnr select{
+  flex: 1 1 0px;
+  margin: 0px;
+
+  align-self: end;
+
+  font-size: 12px;
+  font-family: "Roboto";
+  color: var(--font-color);
+}
+
 /* Sets the font for the item name input field */
 .xanders-swnr .item-name{
     font-family: "Roboto-Bold";
@@ -14,113 +26,127 @@
     padding-bottom: 2px;
   }
   
-  .xanders-swnr .item-name:disabled{
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 2px;
-  }
-  
-  /* The box behind the item type field. (skill, weapon, etc) */
-  .xanders-swnr .item-type-box{
-      background-color: var(--level-background-color);
-      border-radius: 5px;
-      border: 1px solid var(--border-color);
-      margin: 0;
-  
-      width: 70px;
-      height: 30px;
-  
-      display:flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      align-self: flex-start;
-  
-      text-transform: capitalize;
-  }
-  
-  .xanders-swnr .item-type-box p{
-    font-family: "Orbitron";
-  }
-  
-  /* The item image. */
-  .xanders-swnr .item-cover-image{
-    width: 80px;
-    height: 80px;
-  
-    flex: none;
-  
-    border-radius: 7px;
+.xanders-swnr .item-name:disabled{
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2px;
+}
+
+/* The box behind the item type field. (skill, weapon, etc) */
+.xanders-swnr .item-type-box{
+    background-color: var(--level-background-color);
+    border-radius: 5px;
     border: 1px solid var(--border-color);
-  
-    margin-right: 10px;
-  
-    align-self: center
-  }
-  
-  .xanders-swnr .item-cover-image img{
-    border-radius: 7px;
-  }
-  
-  /* The stat row below the item name. */
-  .xanders-swnr .item-stats-row{
-    display: flex;
-    flex-direction: column;  
-    margin-top:5px
-  }
-  
-  /* The stat row below the item name's select elements. */
-  .xanders-swnr .item-stats-row select{
-    flex: 1 1 0px;
-    margin: 0px;
-  
-    align-self: end;
-  
-    font-size: 14px;
-    font-family: "Roboto";
-    color: var(--font-color);
-  }
-  
-  /* The text in the stat row below the item name. */
-  .xanders-swnr .item-stats-row p{
-    font-size: 14px;
-  }
-  
-  /* The item frame below the namebar. */
-  .xanders-swnr .item-main-window{
-    padding: 10px;
-    border-top: 1px solid var(--border-color);
-  }
-  
-  /* The labels below the stats in the header bar.*/
-  .xanders-swnr .item-stats-labels{
-    display:flex; 
-    flex-direction:row; 
-    margin-bottom:5px
-  }
-  
-  .xanders-swnr .item-stats-labels div{
-    flex: 1 1 0px;
-  
-    display: flex;
+    margin: 0;
+
+    width: 70px;
+    height: 30px;
+
+    display:flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
-  }
-  
-  .xanders-swnr .item-stats-labels p{
-    font-size: 10px;
-    color: var(--second-font-color);
-    font-weight:lighter;
-  }
-  
-  /* Setting properties that are useful when using the TinyMCE editor. */
-  .xanders-swnr .item-main-window-header{
-    margin-bottom: 10px;
-  }
-  
-  .xanders-swnr .item-main-window-text{
-    height: 200px;
-  }
-  
-  .xanders-swnr .item-main-window-text .editor{
-    height: 100%;
-    font-size: 14px;
-  }
+    align-self: flex-start;
+
+    text-transform: capitalize;
+}
+
+.xanders-swnr .item-type-box p{
+  font-family: "Orbitron";
+}
+
+/* The item image. */
+.xanders-swnr .item-cover-image{
+  width: 80px;
+  height: 80px;
+
+  flex: none;
+
+  border-radius: 7px;
+  border: 1px solid var(--border-color);
+
+  margin-right: 10px;
+
+  align-self: center
+}
+
+.xanders-swnr .item-cover-image img{
+  border-radius: 7px;
+}
+
+/* The stat row below the item name. */
+.xanders-swnr .item-stats-row{
+  display: flex;
+  flex-direction: column;  
+  margin-top:5px
+}
+
+/* The text in the stat row below the item name. */
+.xanders-swnr .item-stats-row p{
+  font-size: 14px;
+}
+
+/* The item frame below the namebar. */
+.xanders-swnr .item-main-window{
+  display: flex;
+  flex-direction: row;
+
+  flex-grow: 1;
+
+  border-top: 1px solid var(--border-color);
+}
+
+/* The labels below the stats in the header bar.*/
+.xanders-swnr .item-stats-labels{
+  display:flex; 
+  flex-direction:row; 
+  margin-bottom:5px
+}
+
+.xanders-swnr .item-stats-labels div{
+  flex: 1 1 0px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.xanders-swnr .item-stats-labels p{
+  font-size: 10px;
+  color: var(--second-font-color);
+  font-weight:lighter;
+}
+
+/* The description header that just says "description". */
+.xanders-swnr .item-main-window-header{
+  margin-bottom: 5px;
+}
+
+/* Setting properties that are useful when using the TinyMCE editor. */
+.xanders-swnr .item-main-window-text{
+  display: flex;
+  flex-direction: column;
+
+  flex-grow: 1;
+}
+
+.xanders-swnr .item-main-window-text .editor{
+  flex-grow: 1;
+  font-size: 14px;
+}
+
+/* The sidebar of the item with extra properties. */
+.xanders-swnr .item-sidebar{
+  border-right: 1px solid var(--border-color);
+  width: 120px;
+
+  padding-top: 10px;
+  margin-left: 10px;
+}
+
+/* The main description window of the item. */
+.xanders-swnr .item-description{
+  flex-grow: 1; 
+  display:flex; 
+  flex-direction:column; 
+
+  margin:10px;
+}

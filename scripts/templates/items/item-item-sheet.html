@@ -1,5 +1,5 @@
 <form class="{{cssClass}}" autocomplete="off">
-  <div class="sheet-content">
+  <div class="sheet-content" style="height:100%; display:flex; flex-direction:column;">
 
     <!-- The white title bar. -->
     <div class="header-bar">
@@ -32,7 +32,6 @@
             <input name="system.encumbrance" type="number" value="{{system.encumbrance}}" {{#unless owner}}disabeled{{/unless}}/>
             <input name="system.cost" type="number" value="{{system.cost}}" {{#unless owner}}disabeled{{/unless}}/>
             <input name="system.tl" type="number" value="{{system.tl}}" {{#unless owner}}disabeled{{/unless}}/>
-            </select>
           </div>
 
           <!-- The labels that go beneath skill level, source, dice pool, and default stat. -->
@@ -50,8 +49,29 @@
 
     <!-- The main description box. -->
     <div class="item-main-window">
-      <p class="item-main-window-header"><b><u>Description:</u></b></p>
-      <div class="item-main-window-text">{{editor content=system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+      <div class="item-sidebar">
+        <p class="item-main-window-header"><b>Location:</b></p>
+        <select name="system.location">
+          {{#select system.location}}
+            <option value="readied">Readied</option>
+            <option value="stowed">Stowed</option>
+            <option value="other">Other</option>
+          {{/select}}
+        </select>
+        <p class="item-main-window-header" style="margin-top:10px"><b>Quality:</b></p>
+        <select name="system.quality">
+          {{#select system.quality}}
+            <option value="stock">Stock</option>
+            <option value="jurryRigged">Jurry Rigged</option>
+            <option value="mastercrafted">Mastercrafted</option>
+          {{/select}}
+        </select>
+      </div>
+      <div class="item-description">
+        <p class="item-main-window-header"><b><u>Description:</u></b></p>
+        <div class="item-main-window-text">{{editor content=system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+      </div>
+      
     </div>
 
   </div>

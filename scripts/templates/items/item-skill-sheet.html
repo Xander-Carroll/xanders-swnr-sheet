@@ -1,5 +1,5 @@
 <form class="{{cssClass}}" autocomplete="off">
-  <div class="sheet-content">
+  <div class="sheet-content" style="height:100%; display:flex; flex-direction:column;">
 
     <!-- The white title bar. -->
     <div class="header-bar">
@@ -68,8 +68,10 @@
 
     <!-- The main description box. -->
     <div class="item-main-window">
-      <p class="item-main-window-header"><b><u>Description:</u></b></p>
-      <div class="item-main-window-text">{{editor content=system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+      <div class="item-description">
+        <p class="item-main-window-header"><b><u>Description:</u></b></p>
+        <div class="item-main-window-text">{{editor content=system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+      </div>
     </div>
 
   </div>
