@@ -293,6 +293,7 @@
 /* Sets the size of the main sheet body */
 .xanders-swnr .sheet-tabs-body{
   padding: 10px;
+  flex-grow: 1;
 }
 
 /* Sets basic properties of the skill list */
