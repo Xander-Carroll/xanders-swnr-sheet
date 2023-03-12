@@ -250,20 +250,35 @@
               <!-- The items list -->
               {{#if system.hasItems}}
                 <div class="inventory-header">
-                  <div class="inventory-header-titles">Items</div>
-                  <div class="inventory-header-titles">
+                  <div class="inventory-titles">Items</div>
+                  <div style="width:25px;"></div>
+                  <div class="inventory-titles">
                     <p>Quality</p>
                     <p>Encumbrance</p>
                     <p>TL</p>
                   </div>
                 </div>
+
+                {{#each actualItems as |item|}}
+                  <div class="inventory-item">
+                    <div class="inventory-image"><img src="{{item.img}}"></div>
+                    <div class="inventory-titles">{{item.name}}</div>
+                    <div class="inventory-titles">
+                      <p>{{item.system.quality}}</p>
+                      <p>{{item.system.encumbrance}}</p>
+                      <p>{{item.system.tl}}</p>
+                    </div>
+                  </div>
+                {{/each}}
+
               {{/if}}
 
               <!-- The wapons list -->
               {{#if system.hasWeapons}}
                 <div class="inventory-header">
-                  <div class="inventory-header-titles">Weapons</div>
-                  <div class="inventory-header-titles">
+                  <div class="inventory-titles">Weapons</div>
+                  <div style="width:25px;"></div>
+                  <div class="inventory-titles">
                     <p>Quality</p>
                     <p>Encumbrance</p>
                     <p>TL</p>

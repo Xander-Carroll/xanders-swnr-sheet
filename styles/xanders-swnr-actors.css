@@ -479,21 +479,48 @@
   border: 1px solid var(--border-color);
 
   font-weight: bold;
-  font-size: 12px;
+  font-size: 13px;
   font-family: "Roboto";
 
-  margin-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+
+  align-items: center;
 }
 
-.xanders-swnr .inventory-list .inventory-header .inventory-header-titles{
+.xanders-swnr .inventory-list .inventory-titles{
   display: flex;
   flex-direction: row;
 
   flex: 1 1 0;
 
   margin-left:10px;
+
+  align-items: center;
 }
 
-.xanders-swnr .inventory-list .inventory-header .inventory-header-titles p{
-  margin-right: 40px;
+.xanders-swnr .inventory-list .inventory-titles p{
+  flex: 1 1 0;
+}
+
+.xanders-swnr .inventory-list .inventory-item{
+  display: flex;
+  flex-direction: row;
+
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  background-color: var(--item-background-color);
+
+  font-size: 13px;
+  font-family: "Roboto";
+
+  margin-bottom: 5px;
+
+  height: 26.9px;
+}
+
+.xanders-swnr .inventory-list .inventory-image img{
+  width: 25px;
+  height: 25px;
+  border: none;
 }

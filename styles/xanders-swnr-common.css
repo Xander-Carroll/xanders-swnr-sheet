@@ -28,6 +28,7 @@
     --border-color: rgb(170,170,170);
     --input-focus-color: rgb(5, 99, 150);
     --level-background-color: rgb(140,140,140,0.5);
+    --item-background-color: rgb(140,140,140,0.2);
     --table-alt-color: rgb(0,0,0,0.2);
   
     --health-bar-color: linear-gradient(45deg, rgba(48,121,22,1) 0%, rgba(97,190,80,1) 100%);
