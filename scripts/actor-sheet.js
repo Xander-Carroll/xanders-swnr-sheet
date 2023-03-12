@@ -191,6 +191,11 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Getting the roll data results.
         let rollMessage = await _generateRoll("1d20", saveData, this);
 
+        //Cancelling the roll if the user used an invalid modifier.
+        if(rollMessage.error){
+            return;
+        }
+
         //Extra data which will be used by handelbars when displaying the saving throw.
         let templateData = {};
         let d20Result = rollMessage.roll.terms[0].total;
@@ -242,6 +247,11 @@ export class XandersSwnActorSheet extends ActorSheet {
 
         //Getting the roll data results.
         let rollMessage = await _generateRoll(checkData.pool, checkData, this);
+
+        //Cancelling the roll if the user used an invalid modifier.
+        if (rollMessage.error){
+            return;
+        }
 
         // Sets more basic information needed for the chat message. 
         rollMessage.data.flavor = skill.name + " (" + checkData.attribute + ") skill check";
@@ -340,7 +350,7 @@ async function _generateRoll(baseDie, rollData, sheet){
         await roll.roll({async: true});
     }catch (error){
         ui.notifications.error("[" + rollData.modifier + "] is not a valid modifier!");
-        return;
+        return {error: true};
     }
 
     //Getting the roll as HTML.
