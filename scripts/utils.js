@@ -1,3 +1,4 @@
+//The skills from the book.
 const skills = {
     revised: [
         "administer",
@@ -72,6 +73,39 @@ const psychicDescriptions = {
     teleportation: "<p>Master the arts of physical translocation of yourself and allies.</p>"
 }
 
+//Paths to the default images which should be used for the revised skill list.
+const revisedImages = {
+    administer: "icons/skills/trades/academics-merchant-scribe.webp",
+    connect: "icons/skills/social/diplomacy-handshake-blue.webp",
+    exert: "icons/skills/movement/figure-running-gray.webp",
+    fix: "icons/skills/trades/construction-carpentry-hammer.webp",
+    heal: "icons/magic/life/heart-area-circle-red-green.webp",
+    know: "icons/skills/trades/academics-study-reading-book.webp",
+    lead: "icons/sundries/flags/banner-flag-blue.webp",
+    notice: "icons/magic/perception/eye-ringed-glow-angry-small-teal.webp",
+    perform: "icons/skills/trades/music-notes-sound-blue.webp",
+    pilot: "icons/magic/air/air-pressure-shield-blue.webp",
+    program: "icons/commodities/tech/console-steel.webp",
+    punch: "icons/skills/melee/unarmed-punch-fist.webp",
+    shoot: "icons/weapons/guns/gun-pistol-flintlock.webp",
+    sneak: "icons/magic/movement/trail-streak-impact-blue.webp",
+    stab: "icons/weapons/daggers/dagger-black.webp",
+    survive: "icons/environment/wilderness/tree-spruce.webp",
+    talk: "icons/skills/social/diplomacy-handshake.webp",
+    trade: "icons/commodities/currency/coin-embossed-cobra-gold.webp",
+    work: "icons/tools/smithing/hammer-sledge-steel-grey.webp"
+}
+
+//Paths to the default images which should be used for the psychic skill list.
+const psychicImages = {
+    biopsionics: "icons/magic/defensive/illusion-evasion-echo-purple.webp",
+    metapsionics: "icons/magic/control/energy-stream-link-teal.webp", 
+    precognition: "icons/magic/time/clock-stopwatch-white-blue.webp",
+    telekinesis: "icons/magic/movement/abstract-ribbons-red-orange.webp",
+    telepathy: "icons/magic/sonic/explosion-shock-sound-wave.webp",
+    teleportation: "icons/magic/movement/trail-streak-pink.webp"
+}
+
 //Adds all of the skills from the skills array onto the actor.
 export function initSkills(actor, skillType){
     let skillsToAdd = [];
@@ -83,7 +117,7 @@ export function initSkills(actor, skillType){
             data: {
                 rank: -1,
                 pool: "ask",
-                source: skillType,
+                source: "swnr",
                 dice: "2d6"
             }
         }
@@ -91,11 +125,13 @@ export function initSkills(actor, skillType){
         //Sets the descriptions for SWNR recomended skills.
         if(skillType === "revised"){
             skill.data.description = revisedDescriptions[skillName];
+            skill.img = revisedImages[skillName];
         }
 
         //Sets the descriptions for SWNR psychic skills.
         if(skillType === "psychic"){
             skill.data.description = psychicDescriptions[skillName];
+            skill.img = psychicImages[skillName];
         }
 
         skillsToAdd.push(skill);
