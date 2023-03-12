@@ -13,12 +13,12 @@
     <label>Roll Attribute</label>
     <select name="attribute">
       {{#select system.defaultStat}}
-        <option value="str">Strength: {{system.stats.str.mod}}</option>
-        <option value="dex">Dexterity: {{system.stats.dex.mod}}</option>
-        <option value="con">Constitution: {{system.stats.con.mod}}</option>
-        <option value="int">Intelligence: {{system.stats.int.mod}}</option>
-        <option value="wis">Wisdom: {{system.stats.wis.mod}}</option>
-        <option value="cha">Charisma: {{system.stats.cha.mod}}</option>
+        <option value="str">Strength: {{system.stats.str.modString}}</option>
+        <option value="dex">Dexterity: {{system.stats.dex.modString}}</option>
+        <option value="con">Constitution: {{system.stats.con.modString}}</option>
+        <option value="int">Intelligence: {{system.stats.int.modString}}</option>
+        <option value="wis">Wisdom: {{system.stats.wis.modString}}</option>
+        <option value="cha">Charisma: {{system.stats.cha.modString}}</option>
       {{/select}}
     </select>
   </div>
