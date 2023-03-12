@@ -129,9 +129,9 @@
 
                 <!-- The skills list skills -->
                 {{#each skills as |skill id|}}
-                <li class="skill skill-choice" data-skill-id="{{skill._id}}">
+                <li class="skill skill-choice" data-item-id="{{skill._id}}">
                   <span class="skill-level">{{skill.system.rankString}}</span>
-                  <span class="skill-title skill-clickable" data-skill-id="{{skill._id}}">{{skill.name}}</span>
+                  <span class="skill-title skill-clickable" data-item-id="{{skill._id}}">{{skill.name}}</span>
                   <span class="skill-dice">{{skill.system.pool}}</span>
                   <span class="skill-attribute">{{skill.system.defaultStat}}</span>
                 </li>

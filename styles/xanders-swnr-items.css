@@ -136,10 +136,10 @@
 /* The sidebar of the item with extra properties. */
 .xanders-swnr .item-sidebar{
   border-right: 1px solid var(--border-color);
-  width: 135px;
 
   padding-top: 10px;
-  margin-left: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 /* The main description window of the item. */

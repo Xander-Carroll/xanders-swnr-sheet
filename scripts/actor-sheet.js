@@ -4,13 +4,13 @@ import { initSkills, toTitleCase} from "./utils.js";
 
 export class XandersSwnActorSheet extends ActorSheet {
 
-    //The menu that will be opened when a skill is right clicked.
-    skillContextMenu = [
+    //The menu that will be opened when an item is right clicked and the sheet is unlocked.
+    unlockedItemContextMenu = [
         {
             name: "Edit Skill",
             icon: '<i class="fas fa-edit"></i>',
             callback: element => {
-                const skill = this.actor.getEmbeddedDocument("Item", element.data("skill-id"));
+                const skill = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
                 skill.sheet.render(true);
             }
         },
@@ -18,7 +18,19 @@ export class XandersSwnActorSheet extends ActorSheet {
             name: "Delete Skill",
             icon: '<i class="fas fa-trash"></i>',
             callback: element => {
-                this.actor.deleteEmbeddedDocuments("Item", [element.data("skill-id")]);
+                this.actor.deleteEmbeddedDocuments("Item", [element.data("item-id")]);
+            }
+        }
+    ];
+
+    //The menu that will be opened when an item is right clicked and the sheet is unlocked.
+    lockedItemContextMenu = [
+        {
+            name: "Edit Skill",
+            icon: '<i class="fas fa-edit"></i>',
+            callback: element => {
+                const skill = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
+                skill.sheet.render(true);
             }
         }
     ];
@@ -59,7 +71,12 @@ export class XandersSwnActorSheet extends ActorSheet {
         html.find('.add-skill-clickable').on("click", this._onSkillAdd.bind(this));
 
         //Adding context menu when skills are right clicked.
-        new ContextMenu(html, '.skill-choice', this.skillContextMenu);
+        if(this.actor.system.xIsLocked){
+            new ContextMenu(html, '.skill-choice', this.lockedItemContextMenu);
+        }else{
+            new ContextMenu(html, '.skill-choice', this.unlockedItemContextMenu);
+        }
+        
         
     }
 
@@ -123,6 +140,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         //New item arrays where items are sorted by type.
         context.skills = [];
         context.weapons = [];
+        context.actualItems = [];
 
         //Adding variables to the items that will be used by the sheet.
         for(var i=0; i<context.items.length; i++){
@@ -158,6 +176,13 @@ export class XandersSwnActorSheet extends ActorSheet {
 
                 //Adding the weapon to context.weapons
                 context.weapons[context.weapons.length] = context.items[i];
+            }
+
+            //Editing Items
+            if(context.items[i].type === "item"){
+
+                //Adding the weapon to context.weapons
+                context.actualItems[context.actualItems.length] = context.items[i];
             }
         }
 
