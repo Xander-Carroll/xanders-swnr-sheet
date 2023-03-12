@@ -260,9 +260,9 @@
                 </div>
 
                 {{#each actualItems as |item|}}
-                  <div class="inventory-item">
+                  <div class="inventory-item item-choice" data-item-id="{{item._id}}">
                     <div class="inventory-image"><img src="{{item.img}}"></div>
-                    <div class="inventory-titles item-clickable">{{item.name}}</div>
+                    <div class="inventory-titles item-clickable" data-item-id="{{item._id}}">{{item.name}}</div>
                     <div class="inventory-titles">
                       <p>{{item.system.quality}}</p>
                       <p>{{item.system.encumbrance}}</p>
@@ -283,6 +283,18 @@
                     <p>TL</p>
                   </div>
                 </div>
+
+                {{#each weapons as |weapon|}}
+                  <div class="inventory-item item-choice" data-item-id="{{weapon._id}}">
+                    <div class="inventory-image"><img src="{{weapon.img}}"></div>
+                    <div class="inventory-titles item-clickable" data-item-id="{{weapon._id}}">{{weapon.name}}</div>
+                    <div class="inventory-titles">
+                      <p>{{weapon.system.quality}}</p>
+                      <p>{{weapon.system.encumbrance}}</p>
+                      <p>{{weapon.system.tl}}</p>
+                    </div>
+                  </div>
+                {{/each}}
               {{/if}}
 
             </div>

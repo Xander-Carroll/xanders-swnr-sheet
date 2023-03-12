@@ -7,7 +7,7 @@ export class XandersSwnActorSheet extends ActorSheet {
     //The menu that will be opened when an item is right clicked and the sheet is unlocked.
     unlockedItemContextMenu = [
         {
-            name: "Edit Skill",
+            name: "Edit",
             icon: '<i class="fas fa-edit"></i>',
             callback: element => {
                 const skill = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
@@ -15,7 +15,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             }
         },
         {
-            name: "Delete Skill",
+            name: "Delete",
             icon: '<i class="fas fa-trash"></i>',
             callback: element => {
                 this.actor.deleteEmbeddedDocuments("Item", [element.data("item-id")]);
@@ -26,7 +26,7 @@ export class XandersSwnActorSheet extends ActorSheet {
     //The menu that will be opened when an item is right clicked and the sheet is unlocked.
     lockedItemContextMenu = [
         {
-            name: "Edit Skill",
+            name: "Edit",
             icon: '<i class="fas fa-edit"></i>',
             callback: element => {
                 const skill = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
@@ -70,12 +70,17 @@ export class XandersSwnActorSheet extends ActorSheet {
         //If the add skill buttons are clicked.
         html.find('.add-skill-clickable').on("click", this._onSkillAdd.bind(this));
 
-        //Adding context menu when skills are right clicked.
+        //If an item is clicked.
+        html.find('.item-clickable').on("click", this._onItemExpand.bind(this));
+
+        //Adding context menu when skills or items are right clicked.
         if(this.actor.system.xIsLocked){
             new ContextMenu(html, '.skill-choice', this.lockedItemContextMenu);
+            new ContextMenu(html, '.item-choice', this.lockedItemContextMenu);
         }else{
             new ContextMenu(html, '.skill-choice', this.unlockedItemContextMenu);
-        }  
+            new ContextMenu(html, '.item-choice', this.unlockedItemContextMenu);
+        }   
         
     }
 
@@ -340,6 +345,14 @@ export class XandersSwnActorSheet extends ActorSheet {
         }else{
             initSkills(this.actor, buttonType);
         }
+    }
+
+    async _onItemExpand(event){
+        event.preventDefault();
+
+        //Getting the skill that was clicked.
+        const item = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
+        console.log(item);
     }
 
     //@override

@@ -483,7 +483,7 @@
   font-family: "Roboto";
 
   margin-top: 20px;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 
   align-items: center;
 }
@@ -514,14 +514,14 @@
   font-size: 13px;
   font-family: "Roboto";
 
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 
   height: 25px;
 }
 
 .xanders-swnr .inventory-list .inventory-image img{
-  width: 23px;
-  height: 23px;
+  width: 25px;
+  height: 25px;
   border: none;
 }
 
