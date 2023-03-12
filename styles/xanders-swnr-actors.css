@@ -497,6 +497,7 @@
   margin-left:10px;
 
   align-items: center;
+  text-align: center;
 }
 
 .xanders-swnr .inventory-list .inventory-titles p{
@@ -520,9 +521,10 @@
 }
 
 .xanders-swnr .inventory-list .inventory-image img{
+  max-height: 100%;
   width: 25px;
-  height: 25px;
   border: none;
+  overflow: hidden;
 }
 
 .xanders-swnr .inventory-list .item-clickable:hover{
