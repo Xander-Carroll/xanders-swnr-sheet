@@ -405,7 +405,6 @@
   text-align: center;
   align-items: center;
 
-  height: 70px;
   flex-grow: 1;
   padding: 2px;
   border-left: 1px solid var(--border-color);
@@ -438,4 +437,31 @@
 
   width: 30px;
   height: 20px;
+}
+
+/* Used to temporarily adjust the abillity modifier. */
+.xanders-swnr .attribute-boost {
+  display:flex; 
+  flex-direction:row; 
+  align-items:center;
+  margin-top: 2px;
+}
+
+.xanders-swnr .attribute-boost p{
+  font-size: 10px;
+}
+
+.xanders-swnr .attribute-boost input{
+  font-size:10px;
+  padding: 2px;  
+  height: 15px;
+  width: 10px;
+}
+
+.xanders-swnr .attribute-boost input:hover{
+  padding: 1px;
+}
+
+.xanders-swnr .attribute-boost input:focus{
+  padding: 1px;
 }

@@ -110,18 +110,9 @@ export class XandersSwnActorSheet extends ActorSheet {
         for(let i=0; i<6; i++){
             //The identifier "str", "dex", "con", etc.
             let attributeString = Object.keys(context.system.stats)[i]; 
-            
-            //Adds a new variable with the title of the stat.
-            context.system.stats[attributeString].title = attributeString.toUpperCase();
 
             //Adds a new variable modString to each stat which contains the modifier as it should be displayed on the character sheet.
             context.system.stats[attributeString].modString = context.system.stats[attributeString].mod >= 0 ? "+" + context.system.stats[attributeString].mod : context.system.stats[attributeString].mod;
-
-            //Each attribute needs to know if the shet is locked.
-            context.system.stats[attributeString].xIsLocked = context.system.xIsLocked;
-
-            //A boolean used to determine if the attribute is the first stat in the list.
-            context.system.stats[attributeString].isFirst = i === 0;
         }
     
         return context;
