@@ -105,6 +105,15 @@ export class XandersSwnActorSheet extends ActorSheet {
         sPercentage = Math.min(sPercentage, 100);
         sPercentage = Math.max(sPercentage, 0);
         context.system.systemStrain.percentage = sPercentage;
+
+        //Creating a string that will dispaly attribute modifiers with a + or -
+        for(let i=0; i<6; i++){
+            //The identifier "str", "dex", "con", etc.
+            let attributeString = Object.keys(context.system.stats)[i]; 
+            
+            //Adds a new variable modString to each stat which contains the modifier as it should be displayed on the character sheet.
+            context.system.stats[attributeString].modString = context.system.stats[attributeString].mod >= 0 ? "+" + context.system.stats[attributeString].mod : context.system.stats[attributeString].mod;
+        }
     
         return context;
     }
