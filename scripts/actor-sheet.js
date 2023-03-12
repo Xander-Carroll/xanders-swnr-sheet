@@ -193,7 +193,8 @@ export class XandersSwnActorSheet extends ActorSheet {
 
         //Extra data which will be used by handelbars when displaying the saving throw.
         let templateData = {};
-        templateData.saved = (rollMessage.roll.total >= saveData.target);
+        let d20Result = rollMessage.roll.terms[0].total;
+        templateData.saved = d20Result !== 1 && (d20Result === 20 || (rollMessage.roll.total >= saveData.target));
 
         //Getting the extra saving throw chat piece as HTML.
         let templateContent = await renderTemplate("modules/xanders-swnr-sheet/scripts/templates/chats/save-throw-chat.html", templateData);
