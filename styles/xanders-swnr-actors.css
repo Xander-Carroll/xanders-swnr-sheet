@@ -111,6 +111,7 @@
   background-color: var(--level-background-color);
   border-radius: 5px;
   border: 1px solid var(--border-color);
+
   padding-left: 7px;
   margin: 0;
 
@@ -465,4 +466,34 @@
 
 .xanders-swnr .attribute-boost input:focus{
   padding: 1px;
+}
+
+/* The inventory tab. */
+.xanders-swnr .inventory-list .inventory-header{
+  display: flex;
+  flex-direction: row;
+
+  box-shadow: 0 0 2px inset rgb(0, 0, 0, 0.25);
+  background-color: var(--level-background-color);
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+
+  font-weight: bold;
+  font-size: 12px;
+  font-family: "Roboto";
+
+  margin-bottom: 10px;
+}
+
+.xanders-swnr .inventory-list .inventory-header .inventory-header-titles{
+  display: flex;
+  flex-direction: row;
+
+  flex: 1 1 0;
+
+  margin-left:10px;
+}
+
+.xanders-swnr .inventory-list .inventory-header .inventory-header-titles p{
+  margin-right: 40px;
 }

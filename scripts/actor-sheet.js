@@ -75,8 +75,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             new ContextMenu(html, '.skill-choice', this.lockedItemContextMenu);
         }else{
             new ContextMenu(html, '.skill-choice', this.unlockedItemContextMenu);
-        }
-        
+        }  
         
     }
 
@@ -173,6 +172,8 @@ export class XandersSwnActorSheet extends ActorSheet {
         
             //Editing Weapons
             if(context.items[i].type === "weapon"){
+                //Used to determine if the wepons section should be displayed on the sheet.
+                context.system.hasWeapons = true;
 
                 //Adding the weapon to context.weapons
                 context.weapons[context.weapons.length] = context.items[i];
@@ -180,6 +181,8 @@ export class XandersSwnActorSheet extends ActorSheet {
 
             //Editing Items
             if(context.items[i].type === "item"){
+                //Used to determine if the item section should be displayed on the sheet.
+                context.system.hasItems = true;
 
                 //Adding the weapon to context.weapons
                 context.actualItems[context.actualItems.length] = context.items[i];

@@ -242,7 +242,38 @@
 
         <!-- The inventroty tab -->
         <div class="tab inventory" data-group="primary" data-tab="inventory">
-          <p>Testing!</p>
+          <div style="display:flex; flex-direction:column;">
+
+            <!-- The inventory list -->
+            <div class="inventory-list">
+
+              <!-- The items list -->
+              {{#if system.hasItems}}
+                <div class="inventory-header">
+                  <div class="inventory-header-titles">Items</div>
+                  <div class="inventory-header-titles">
+                    <p>Quality</p>
+                    <p>Encumbrance</p>
+                    <p>TL</p>
+                  </div>
+                </div>
+              {{/if}}
+
+              <!-- The wapons list -->
+              {{#if system.hasWeapons}}
+                <div class="inventory-header">
+                  <div class="inventory-header-titles">Weapons</div>
+                  <div class="inventory-header-titles">
+                    <p>Quality</p>
+                    <p>Encumbrance</p>
+                    <p>TL</p>
+                  </div>
+                </div>
+              {{/if}}
+
+            </div>
+
+          </div>
         </div>
 
         <!-- The features tab -->
