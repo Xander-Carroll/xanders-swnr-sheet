@@ -262,7 +262,7 @@
                 {{#each actualItems as |item|}}
                   <div class="inventory-item">
                     <div class="inventory-image"><img src="{{item.img}}"></div>
-                    <div class="inventory-titles">{{item.name}}</div>
+                    <div class="inventory-titles item-clickable">{{item.name}}</div>
                     <div class="inventory-titles">
                       <p>{{item.system.quality}}</p>
                       <p>{{item.system.encumbrance}}</p>
@@ -270,7 +270,6 @@
                     </div>
                   </div>
                 {{/each}}
-
               {{/if}}
 
               <!-- The wapons list -->

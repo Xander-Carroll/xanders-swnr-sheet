@@ -516,11 +516,15 @@
 
   margin-bottom: 5px;
 
-  height: 26.9px;
+  height: 25px;
 }
 
 .xanders-swnr .inventory-list .inventory-image img{
-  width: 25px;
-  height: 25px;
+  width: 23px;
+  height: 23px;
   border: none;
+}
+
+.xanders-swnr .inventory-list .item-clickable:hover{
+  color: var(--active-font-color);
 }
