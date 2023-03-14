@@ -149,3 +149,10 @@ export function toTitleCase(str) {
       }
     );
 }
+
+//Used to load all of the handelbars templates ahead of time.
+export const preloadXandersTemplates = async function () {
+    const list = await fetch("modules/xanders-swnr-sheet/scripts/templates/templates.json");
+    const files = await list.json();
+    return loadTemplates(files);
+};

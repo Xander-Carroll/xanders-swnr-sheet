@@ -6,6 +6,7 @@
 //Imports used for the custom swnr sheets.
 import {XandersSwnActorSheet} from "./actor-sheet.js";
 import {XandersSwnItemSheet} from "./item-sheet.js";
+import {preloadXandersTemplates} from "./utils.js";
 
 //This function will be called when foundry is initalizing.
 Hooks.once("init", () => {
@@ -22,6 +23,9 @@ Hooks.once("init", () => {
 
 		//Will add css to the page depending on module settings.
 		injectCSS();
+
+		//Loads handelbars partials.
+		preloadXandersTemplates();
 	}
 });
 

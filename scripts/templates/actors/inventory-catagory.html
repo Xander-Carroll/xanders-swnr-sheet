@@ -1,0 +1,24 @@
+<!-- The item catagory header -->
+<div class="inventory-header">
+  <div class="inventory-titles">{{catagory}}</div>
+  <div style="width:25px;"></div>
+  <div class="inventory-titles">
+    <p style="flex:0.5 1">TL</p> 
+    <p>Encumbrance</p>
+    <p>Quality</p>
+  </div>
+</div>
+
+
+<!-- The list of items -->
+{{#each itemList as |item|}}
+  <div class="inventory-item item-choice {{#if system.locationReadied}}location-readied{{/if}} {{#if system.locationOther}}location-other{{/if}}" data-item-id="{{item._id}}">
+    <div class="inventory-image"><img src="{{item.img}}"></div>
+    <div class="inventory-titles item-clickable" data-item-id="{{item._id}}">{{item.name}}</div>
+    <div class="inventory-titles">
+      <p style="flex:0.5 1">{{item.system.tl}}</p>
+      <p>{{item.system.encumbrance}}</p>
+      <p>{{item.system.quality}}</p>
+    </div>
+  </div>
+{{/each}}

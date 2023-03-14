@@ -129,6 +129,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         context.skills = [];
         context.weapons = [];
         context.actualItems = [];
+        context.armor = [];
 
         //Adding variables to the items that will be used by the sheet.
         for(var i=0; i<context.items.length; i++){
@@ -164,8 +165,6 @@ export class XandersSwnActorSheet extends ActorSheet {
                 //Used to determine if the wepons section should be displayed on the sheet.
                 context.system.hasWeapons = true;
 
-                console.log(items[i]);
-
                 //Adding a variable which is used to set the color of the weapon.
                 context.items[i].system.locationReadied = context.items[i].system.location === "readied";
                 context.items[i].system.locationOther = context.items[i].system.location === "other";
@@ -187,6 +186,19 @@ export class XandersSwnActorSheet extends ActorSheet {
                 context.actualItems[context.actualItems.length] = context.items[i];
             
             
+            //Editing Armor
+            }else if(context.items[i].type === "armor"){
+                //Used to determine if the item section should be displayed on the sheet.
+                context.system.hasArmor = true;
+
+                //Adding a variable which is used to set the color of the item.
+                context.items[i].system.locationReadied = context.items[i].system.location === "readied";
+                context.items[i].system.locationOther = context.items[i].system.location === "other";          
+                
+                //Adding the items to context.actualItems
+                context.armor[context.armor.length] = context.items[i];
+
+
             //Items of types that shouldn't be on this sheet.
             }else{
                 //Deleting items that aren't allowed on the sheet, and warning the user about it.
