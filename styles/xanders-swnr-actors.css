@@ -413,7 +413,7 @@
 }
 
 /* The inputs for attributes. */
-.xanders-swnr .attribute-input {
+.xanders-swnr .attribute-input{
   width: 40px;
   font-family: "Roboto";
   font-size: 20px;
@@ -422,7 +422,7 @@
 }
 
 /* The headers for the attributes. */
-.xanders-swnr .attribute-header {
+.xanders-swnr .attribute-header p{
   width: 30px;
   font-family: "Roboto";
   font-size: 16px;
@@ -453,6 +453,7 @@
   font-size: 10px;
 }
 
+/* The input for the boost, including changing its color on hover. */
 .xanders-swnr .attribute-boost input{
   font-size:10px;
   padding: 2px;  
@@ -468,7 +469,7 @@
   padding: 1px;
 }
 
-/* The inventory tab. */
+/* The inventory tab header bar. Not the labels in the bar, but the whole bar itself. */
 .xanders-swnr .inventory-list .inventory-header{
   display: flex;
   flex-direction: row;
@@ -488,6 +489,7 @@
   align-items: center;
 }
 
+/* The labels inside of the header bar. Items, TL, Encumbrance, etc.*/
 .xanders-swnr .inventory-list .inventory-titles{
   display: flex;
   flex-direction: row;
@@ -504,13 +506,14 @@
   flex: 1 1 0;
 }
 
+/* Each row in the item sheet. Every item gets its own row. */
 .xanders-swnr .inventory-list .inventory-item{
   display: flex;
   flex-direction: row;
 
   border-radius: 5px;
   border: 1px solid var(--border-color);
-  background-color: var(--item-background-color);
+  background-color: var(--item-background-stowed-color);
 
   font-size: 13px;
   font-family: "Roboto";
@@ -520,6 +523,7 @@
   height: 25px;
 }
 
+/* The image for each item. */
 .xanders-swnr .inventory-list .inventory-image img{
   max-height: 100%;
   width: 25px;
@@ -527,6 +531,17 @@
   overflow: hidden;
 }
 
+/* Makes the item title change colors when it is hovered. */
 .xanders-swnr .inventory-list .item-clickable:hover{
   color: var(--active-font-color);
+}
+
+/* Makes the item change colors when it is readied. */
+.xanders-swnr .inventory-list .inventory-item.location-readied{
+  background-color: var(--item-background-readied-color);
+}
+
+/* Makes the item change colors when its status is "other". */
+.xanders-swnr .inventory-list .inventory-item.location-other{
+  background-color: var(--item-background-other-color);
 }

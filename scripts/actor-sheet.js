@@ -4,8 +4,8 @@ import { initSkills, toTitleCase} from "./utils.js";
 
 export class XandersSwnActorSheet extends ActorSheet {
 
-    //The menu that will be opened when an item is right clicked and the sheet is unlocked.
-    unlockedItemContextMenu = [
+    //The menu that will be opened when an item is right clicked.
+    itemContextMenu = [
         {
             name: "Edit",
             icon: '<i class="fas fa-edit"></i>',
@@ -23,17 +23,6 @@ export class XandersSwnActorSheet extends ActorSheet {
         }
     ];
 
-    //The menu that will be opened when an item is right clicked and the sheet is unlocked.
-    lockedItemContextMenu = [
-        {
-            name: "Edit",
-            icon: '<i class="fas fa-edit"></i>',
-            callback: element => {
-                const skill = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
-                skill.sheet.render(true);
-            }
-        }
-    ];
 
     //@override
     static get defaultOptions() {
@@ -74,14 +63,9 @@ export class XandersSwnActorSheet extends ActorSheet {
         html.find('.item-clickable').on("click", this._onItemExpand.bind(this));
 
         //Adding context menu when skills or items are right clicked.
-        if(this.actor.system.xIsLocked){
-            new ContextMenu(html, '.skill-choice', this.lockedItemContextMenu);
-            new ContextMenu(html, '.item-choice', this.lockedItemContextMenu);
-        }else{
-            new ContextMenu(html, '.skill-choice', this.unlockedItemContextMenu);
-            new ContextMenu(html, '.item-choice', this.unlockedItemContextMenu);
-        }   
-        
+        new ContextMenu(html, '.skill-choice', this.itemContextMenu);
+        new ContextMenu(html, '.item-choice', this.itemContextMenu);
+    
     }
 
     //@override
@@ -180,6 +164,12 @@ export class XandersSwnActorSheet extends ActorSheet {
                 //Used to determine if the wepons section should be displayed on the sheet.
                 context.system.hasWeapons = true;
 
+                console.log(items[i]);
+
+                //Adding a variable which is used to set the color of the weapon.
+                context.items[i].system.locationReadied = context.items[i].system.location === "readied";
+                context.items[i].system.locationOther = context.items[i].system.location === "other";
+
                 //Adding the weapon to context.weapons
                 context.weapons[context.weapons.length] = context.items[i];
             
@@ -189,7 +179,11 @@ export class XandersSwnActorSheet extends ActorSheet {
                 //Used to determine if the item section should be displayed on the sheet.
                 context.system.hasItems = true;
 
-                //Adding the weapon to context.weapons
+                //Adding a variable which is used to set the color of the item.
+                context.items[i].system.locationReadied = context.items[i].system.location === "readied";
+                context.items[i].system.locationOther = context.items[i].system.location === "other";          
+                
+                //Adding the items to context.actualItems
                 context.actualItems[context.actualItems.length] = context.items[i];
             
             
@@ -201,7 +195,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             }
         }
 
-        //Determines wether the add skills buttons should be displayed 
+        //Determines if the add skills buttons should be displayed.
         if(!context.system.xIsLocked || (context.skills.length == 0 && context.owner)){
             context.system.displayAddSkillButtons = true;
         }else{
