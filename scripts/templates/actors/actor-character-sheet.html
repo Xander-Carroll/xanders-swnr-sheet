@@ -249,6 +249,8 @@
 
               <!-- The items list -->
               {{#if system.hasItems}}
+
+                <!-- The item catagory header -->
                 <div class="inventory-header">
                   <div class="inventory-titles">Items</div>
                   <div style="width:25px;"></div>
@@ -259,8 +261,9 @@
                   </div>
                 </div>
 
+                <!-- The list of items -->
                 {{#each actualItems as |item|}}
-                  <div class="inventory-item item-choice" data-item-id="{{item._id}}">
+                  <div class="inventory-item item-choice {{#if system.locationReadied}}location-readied{{/if}} {{#if system.locationOther}}location-other{{/if}}" data-item-id="{{item._id}}">
                     <div class="inventory-image"><img src="{{item.img}}"></div>
                     <div class="inventory-titles item-clickable" data-item-id="{{item._id}}">{{item.name}}</div>
                     <div class="inventory-titles">
@@ -272,7 +275,7 @@
                 {{/each}}
               {{/if}}
 
-              <!-- The wapons list -->
+              <!-- The wapons list header -->
               {{#if system.hasWeapons}}
                 <div class="inventory-header">
                   <div class="inventory-titles">Weapons</div>
@@ -284,8 +287,9 @@
                   </div>
                 </div>
 
+                <!-- The weapon list -->
                 {{#each weapons as |weapon|}}
-                  <div class="inventory-item item-choice" data-item-id="{{weapon._id}}">
+                  <div class="inventory-item item-choice {{#if system.locationReadied}}location-readied{{/if}} {{#if system.locationOther}}location-other{{/if}}" data-item-id="{{weapon._id}}">
                     <div class="inventory-image"><img src="{{weapon.img}}"></div>
                     <div class="inventory-titles item-clickable" data-item-id="{{weapon._id}}">{{weapon.name}}</div>
                     <div class="inventory-titles">

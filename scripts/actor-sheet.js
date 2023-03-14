@@ -254,7 +254,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         event.preventDefault();
 
         //Getting the skill that was clicked.
-        const skill = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.skillId);
+        const skill = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
         skill.system.stats = this.actor.system.stats;
 
         //Creating a dialog so that the player can choose how they want to roll.
