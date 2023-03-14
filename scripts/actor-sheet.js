@@ -173,24 +173,31 @@ export class XandersSwnActorSheet extends ActorSheet {
             
                 //Adding the skill to context.skills
                 context.skills[context.skills.length] = context.items[i];
-            }
-        
+            
+            
             //Editing Weapons
-            if(context.items[i].type === "weapon"){
+            }else if(context.items[i].type === "weapon"){
                 //Used to determine if the wepons section should be displayed on the sheet.
                 context.system.hasWeapons = true;
 
                 //Adding the weapon to context.weapons
                 context.weapons[context.weapons.length] = context.items[i];
-            }
-
+            
+            
             //Editing Items
-            if(context.items[i].type === "item"){
+            }else if(context.items[i].type === "item"){
                 //Used to determine if the item section should be displayed on the sheet.
                 context.system.hasItems = true;
 
                 //Adding the weapon to context.weapons
                 context.actualItems[context.actualItems.length] = context.items[i];
+            
+            
+            //Items of types that shouldn't be on this sheet.
+            }else{
+                //Deleting items that aren't allowed on the sheet, and warning the user about it.
+                ui.notifications.error("[" + context.items[i].name + "] is not allowed on this sheet and was removed.");
+                this.actor.deleteEmbeddedDocuments("Item", [context.items[i]._id]);
             }
         }
 
