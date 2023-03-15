@@ -165,10 +165,6 @@ export class XandersSwnActorSheet extends ActorSheet {
                 //Used to determine if the wepons section should be displayed on the sheet.
                 context.system.hasWeapons = true;
 
-                //Adding a variable which is used to set the color of the weapon.
-                context.items[i].system.locationReadied = context.items[i].system.location === "readied";
-                context.items[i].system.locationOther = context.items[i].system.location === "other";
-
                 //Adding the weapon to context.weapons
                 context.weapons[context.weapons.length] = context.items[i];
             
@@ -176,11 +172,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             //Editing Items
             }else if(context.items[i].type === "item"){
                 //Used to determine if the item section should be displayed on the sheet.
-                context.system.hasItems = true;
-
-                //Adding a variable which is used to set the color of the item.
-                context.items[i].system.locationReadied = context.items[i].system.location === "readied";
-                context.items[i].system.locationOther = context.items[i].system.location === "other";          
+                context.system.hasItems = true;       
                 
                 //Adding the items to context.actualItems
                 context.actualItems[context.actualItems.length] = context.items[i];
@@ -189,11 +181,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             //Editing Armor
             }else if(context.items[i].type === "armor"){
                 //Used to determine if the item section should be displayed on the sheet.
-                context.system.hasArmor = true;
-
-                //Adding a variable which is used to set the color of the item.
-                context.items[i].system.locationReadied = context.items[i].system.location === "readied";
-                context.items[i].system.locationOther = context.items[i].system.location === "other";          
+                context.system.hasArmor = true;       
                 
                 //Adding the items to context.actualItems
                 context.armor[context.armor.length] = context.items[i];
