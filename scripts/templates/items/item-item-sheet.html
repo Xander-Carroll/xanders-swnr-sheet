@@ -47,10 +47,14 @@
       </div>
     </div>
 
-    <!-- The main description box. -->
+    <!-- The main item window. -->
     <div class="item-main-window">
+
+      <!-- The leftmost column on the item sheet. -->
       <div class="item-sidebar">
-        <p class="item-main-window-header"><b>Location:</b></p>
+
+        <!-- The location select option. -->
+        <p class="sidebar-titles" style="margin-top:0px;">Location:</p>
         <select name="system.location" style="width:120px">
           {{#select system.location}}
             <option value="readied">Readied</option>
@@ -58,7 +62,9 @@
             <option value="other">Other</option>
           {{/select}}
         </select>
-        <p class="item-main-window-header" style="margin-top:10px"><b>Quality:</b></p>
+
+        <!-- The quality select option. -->
+        <p class="sidebar-titles">Quality:</p>
         <select name="system.quality" style="width:120px">
           {{#select system.quality}}
             <option value="stock">Stock</option>
@@ -66,7 +72,10 @@
             <option value="mastercrafted">Mastercrafted</option>
           {{/select}}
         </select>
+        
       </div>
+
+      <!-- The item description box. -->
       <div class="item-description">
         <p class="item-main-window-header"><b><u>Description:</u></b></p>
         <div class="item-main-window-text">{{editor content=system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>

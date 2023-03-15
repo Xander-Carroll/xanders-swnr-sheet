@@ -8,7 +8,11 @@
             classes: ["xanders-swnr", "xanders-item-sheet"],
             width: 520,
             height: 480,
-            tabs: []
+            tabs: [{ 
+                navSelector: ".sheet-tabs", 
+                contentSelector: ".item-main-window", 
+                initial: "description" 
+            }]
         });
     }
 
@@ -27,6 +31,8 @@
         const system = context.item.system;
         context.system = system;
         
+        //If the weapon is an item
+
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
         //console.log(context);
     
