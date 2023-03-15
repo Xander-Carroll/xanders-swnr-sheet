@@ -99,9 +99,123 @@
 
       <!-- The details tab. -->
       <div class="tab details" data-group="primary" data-tab="details" >
-        <div style="margin:10px">
-          <p>Details<p>
+        <div style="margin:10px; flex-grow: 1; display:flex; flex-direction:column;">
+
+          <p><b><u>Attack And Damage:</u></b></p>
+
+          <!-- The damage formula, and bonus inputs. -->
+          <div style="display:flex; flex-direction:row;"> 
+
+            <!-- The attack bonus input. -->
+            <div style="flex:1 1 0px; padding-left:5px;">
+              <p class="details-headers">Attack Bonus:</p>
+              <input name="system.ab" class="details-input" value="{{system.ab}}" type="number" style="width:100%"/>
+            </div>
+
+            <!-- The damage formula input. -->
+            <div style="flex:1 1 0px; padding-left:5px;">
+              <p class="details-headers">Damage Formula:</p>
+              <input name="system.damage" class="details-input" value="{{system.damage}}" type="text" style="width:100%"/>
+            </div>
+
+            <!-- The first stat. -->
+            <div style="flex:1 1 0px; padding-left:5px;">
+              <p class="details-headers">Stat:</p>
+              <select name="system.stat" style="width:100%">
+                {{#select system.stat}}
+                  <option value="str">Strength</option>
+                  <option value="dex">Dexterity</option>
+                  <option value="con">Constitution</option>
+                  <option value="int">Intelligence</option>
+                  <option value="wis">Wisdom</option>
+                  <option value="cha">Charisma</option>
+                {{/select}}
+              </select>
+            </div>
+
+            <!-- The second stat. -->
+            <div style="flex:1 1 0px; padding-left:5px;">
+              <p class="details-headers">Second Stat:</p>
+              <select name="system.secondStat" style="width:100%">
+                {{#select system.secondStat}}
+                  <option value="none">None</option>
+                  <option value="str">Strength</option>
+                  <option value="dex">Dexterity</option>
+                  <option value="con">Constitution</option>
+                  <option value="int">Intelligence</option>
+                  <option value="wis">Wisdom</option>
+                  <option value="cha">Charisma</option>
+                {{/select}}
+              </select>
+            </div>
+          </div>
+
+          <!-- If the weapon is a melee weapon, then the shock damage row is shown. -->
+          {{#ifEquals system.type "melee"}}
+            <p style="margin-top:10px;"><b><u>Shock Damage:</u></b></p>
+
+            <!-- The shock damage and AC. -->
+            <div style="display:flex; flex-direction:row;"> 
+
+              <!-- The Shock Damage. -->
+              <div style="flex:1 1 0px; padding-left:5px;">
+                <p class="details-headers">Damage Formula:</p>
+                <input name="system.shock.dmg" class="details-input" value="{{system.shock.dmg}}" type="number" style="width:100%"/>
+              </div>
+
+              <!-- The Shock AC. -->
+              <div style="flex:1 1 0px; padding-left:5px;">
+                <p class="details-headers">AC:</p>
+                <input name="system.shock.ac" class="details-input" value="{{system.shock.ac}}" type="number" style="width:100%"/>
+              </div>
+
+              <!-- A spacer to push the other elements further left.-->
+              <div style="flex: 2 1 0px; padding-left:10px;"></div>
+
+            </div>            
+          {{/ifEquals}}
+
+          <!-- If the weapon is a ranged weapon, then the range and ammunition are displayed. -->
+          {{#ifEquals system.type "ranged"}}
+            <p style="margin-top:10px;"><b><u>Ranged Weapon Features:</u></b></p>
+
+            <!-- The weapon range and ammunition type. -->
+            <div style="display:flex; flex-direction:row;"> 
+
+              <!-- The weapon range. -->
+              <div style="flex:1 1 0px; padding-left:5px;">
+                <p class="details-headers">Weapon Range:</p>
+                <div style="display:flex; flex-direction:row">
+                  <input name="system.range.normal" class="details-input" value="{{system.range.normal}}" type="number" style="width:45%"/>
+                  <p style="width:10%">&nbsp/&nbsp</p>
+                  <input name="system.range.max" class="details-input" value="{{system.range.max}}" type="number" style="width:45%"/>
+                </div>
+              </div>
+
+              <!-- The weapon ammunition. -->
+              <div style="flex:1 1 0px; padding-left:5px;">
+                <p class="details-headers">Ammunition:</p>
+                <select name="system.ammo.type" style="width:100%">
+                  {{#select system.ammo.type}}
+                    <option value="none">None</option>
+                    <option value="typeAPower">Type A Power Cell</option>
+                    <option value="typeBPower">Type B Power Cell</option>
+                    <option value="ammo">Standard Ammunition</option>
+                    <option value="missile">Missiles</option>
+                    <option value="special">Specialty</option>
+                    <option value="infinite">Infinite</option>
+                  {{/select}}                  
+                </select>
+              </div>
+
+              <!-- A spacer to push the other elements further left.-->
+              <div style="flex: 2 1 0px; padding-left:10px;"></div>
+
+            </div>            
+          {{/ifEquals}}
+
         </div>
+
       </div>
   
     </div>

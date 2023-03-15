@@ -164,7 +164,7 @@
 }
 
 /* Makes the currently active tab fill the given space. */
-.xanders-swnr .tab.description.active{
+.xanders-swnr .tab.active{
   display: flex;
   flex-grow: 1;
 }
