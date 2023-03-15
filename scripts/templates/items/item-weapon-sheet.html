@@ -1,7 +1,7 @@
 <form class="{{cssClass}}" autocomplete="off">
   <div class="sheet-content" style="height:100%; display:flex; flex-direction:column;">
 
-    <!-- The white title bar. -->
+    <!-- The top title bar. -->
     <div class="header-bar">
       <!-- The skill image. -->
       <div class="item-cover-image">
@@ -49,14 +49,15 @@
 
     <!-- The navagation bar that can be used to switch tabs -->
     <nav class="sheet-tabs tabs" data-group="primary">
-      <a class="item" data-tab="description">Description</a>
+      <a class="item" style="border-left:none" data-tab="description">Description</a>
       <a class="item" style="border-right:none" data-tab="details">Details</a>
     </nav>
 
     <!-- The main item window. -->
     <div class="item-main-window" style="border:none;">
 
-        <div class="tab description" data-group="primary" data-tab="description">
+      <!-- The description tab. -->
+      <div class="tab description" data-group="primary" data-tab="description">
           <div style="margin-top:10px; display:flex; flex-direction:row; flex-grow:1">
             <!-- The leftmost column on the item sheet. -->
             <div class="item-sidebar">
@@ -94,15 +95,14 @@
 
             <div class="item-main-window-text" style="margin:10px;">{{editor content=system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
         </div>
-        </div>
+      </div>
 
-        <div class="tab details" data-group="primary" data-tab="details" >
-          <p>DETAILS</p>
-
-          {{#ifEquals system.type "ranged"}}
-            <p>Ranged Weapon Stuff</p>
-          {{/ifEquals}}
+      <!-- The details tab. -->
+      <div class="tab details" data-group="primary" data-tab="details" >
+        <div style="margin:10px">
+          <p>Details<p>
         </div>
+      </div>
   
     </div>
 

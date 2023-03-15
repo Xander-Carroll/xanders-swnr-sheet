@@ -31,8 +31,6 @@
         const system = context.item.system;
         context.system = system;
         
-        //If the weapon is an item
-
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
         //console.log(context);
     

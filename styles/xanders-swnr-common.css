@@ -119,3 +119,52 @@
     margin-left: 10px;
     flex-grow: 1;
   }
+
+  /* Sets the default look of the tabs */
+.xanders-swnr .tabs{
+  padding-bottom: 0px;
+
+  display: flex;
+  flex-direction: row;
+}
+
+/* Sets the default tab look */
+.xanders-swnr .tabs a{
+  border-bottom: 1px solid var(--border-color);
+  padding-top: 5px;
+  padding-bottom: 3px;
+  flex: 1 1 0px;
+
+  background-position: 0 0;
+  background-color: var(--background-sheet-header-color);
+
+  font-family: "Roboto";
+  font-size: 16px ;
+}
+
+/* Sets the look of a tab when it is hovered over */
+.xanders-swnr .tabs a:hover{
+  color:var(--active-font-color);
+}
+
+.xanders-swnr .tabs .active:hover{
+  color: var(--font-color);
+}
+
+/* Sets the look of the active tab */
+.xanders-swnr .tabs .active{
+  font-weight: bold;
+  background: transparent;
+
+  border: 1px solid var(--border-color);
+  border-bottom: none;
+  padding-bottom: 1px;
+
+  --color-shadow-primary: rgb(0, 0, 0, 0);
+}
+
+/* Makes the currently active tab fill the given space. */
+.xanders-swnr .tab.description.active{
+  display: flex;
+  flex-grow: 1;
+}
