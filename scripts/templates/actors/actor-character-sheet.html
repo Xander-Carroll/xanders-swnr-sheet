@@ -128,7 +128,7 @@
                 </li>
 
                 <!-- The skills list skills -->
-                {{#each skills as |skill id|}}
+                {{#each actor.itemTypes.skill as |skill id|}}
                 <li class="skill skill-choice" data-item-id="{{skill._id}}">
                   <span class="skill-level">{{skill.system.rankString}}</span>
                   <span class="skill-title skill-clickable" data-item-id="{{skill._id}}">{{skill.name}}</span>
@@ -247,19 +247,19 @@
             <!-- The inventory list -->
             <div class="inventory-list" style="flex-grow:1">
 
+              <!-- The armor list header -->
+              {{#if system.hasArmor}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=actor.itemTypes.armor catagory="Armor"}}
+              {{/if}}
+
               <!-- The items list -->
               {{#if system.hasItems}}
-                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=actualItems catagory="Items"}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=actor.itemTypes.item catagory="Items"}}
               {{/if}}
 
               <!-- The wapons list header -->
               {{#if system.hasWeapons}}
-                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=weapons catagory="Weapons"}}
-              {{/if}}
-
-              <!-- The wapons list header -->
-              {{#if system.hasArmor}}
-                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=armor catagory="Armor"}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=actor.itemTypes.weapon catagory="Weapons"}}
               {{/if}}
 
             </div>
@@ -269,12 +269,12 @@
 
         <!-- The features tab -->
         <div class="tab features" data-group="primary" data-tab="features">
-          <p>This!</p>
+          <p>Features!</p>
         </div>
 
         <!-- The biography tab -->
         <div class="tab biography" data-group="primary" data-tab="biography">
-          <p>More Testing!</p>
+          <p>Biography!</p>
         </div>
       </div>
 

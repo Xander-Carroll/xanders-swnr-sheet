@@ -125,11 +125,6 @@ export class XandersSwnActorSheet extends ActorSheet {
 
     //Will edit context.items to format the items in a way that is better suited for handelbars.
     _parseItemData(context){
-        //New item arrays where items are sorted by type.
-        context.skills = [];
-        context.weapons = [];
-        context.actualItems = [];
-        context.armor = [];
 
         //Adding variables to the items that will be used by the sheet.
         for(var i=0; i<context.items.length; i++){
@@ -156,35 +151,23 @@ export class XandersSwnActorSheet extends ActorSheet {
                     context.items[i].system.mod = "+" + context.items[i].system.mod;
                 }
             
-                //Adding the skill to context.skills
-                context.skills[context.skills.length] = context.items[i];
-            
             
             //Editing Weapons
             }else if(context.items[i].type === "weapon"){
                 //Used to determine if the wepons section should be displayed on the sheet.
                 context.system.hasWeapons = true;
-
-                //Adding the weapon to context.weapons
-                context.weapons[context.weapons.length] = context.items[i];
             
             
             //Editing Items
             }else if(context.items[i].type === "item"){
                 //Used to determine if the item section should be displayed on the sheet.
                 context.system.hasItems = true;       
-                
-                //Adding the items to context.actualItems
-                context.actualItems[context.actualItems.length] = context.items[i];
-            
+
             
             //Editing Armor
             }else if(context.items[i].type === "armor"){
                 //Used to determine if the item section should be displayed on the sheet.
                 context.system.hasArmor = true;       
-                
-                //Adding the items to context.actualItems
-                context.armor[context.armor.length] = context.items[i];
 
 
             //Items of types that shouldn't be on this sheet.
@@ -196,7 +179,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         }
 
         //Determines if the add skills buttons should be displayed.
-        if(!context.system.xIsLocked || (context.skills.length == 0 && context.owner)){
+        if(!context.system.xIsLocked || (this.actor.itemTypes.skill.length == 0 && context.owner)){
             context.system.displayAddSkillButtons = true;
         }else{
             context.system.displayAddSkillButtons = false;
