@@ -150,6 +150,29 @@
             </div>
           </div>
 
+          <p style="margin-top:10px;"><b><u>Default Skill:</u></b></p>
+
+          <!-- The default skill which should be used with the weapon. -->
+          <div style="display:flex; flex-direction:row;"> 
+
+            <!-- The skill which should be used. -->
+            <div style="flex:2 1 0px; padding-left:5px;">
+              <p class="details-headers">Skill:</p>
+              <select name="system.skill" style="width:100%">
+                {{#select system.skill}}
+                  <option value="">No Skill Set</option>
+                  {{#each item.actor.itemTypes.skill}}
+                    <option value="{{this.id}}">{{this.name}}: {{this.system.rank}}</option>
+                  {{/each}}
+                {{/select}}
+              </select>
+            </div>
+
+            <!-- A spacer to push the other elements further left.-->
+            <div style="flex: 2 1 0px; padding-left:5px;"></div>
+
+          </div>
+
           <!-- If the weapon is a melee weapon, then the shock damage row is shown. -->
           {{#ifEquals system.type "melee"}}
             <p style="margin-top:10px;"><b><u>Shock Damage:</u></b></p>
