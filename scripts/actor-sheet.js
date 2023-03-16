@@ -7,15 +7,42 @@ export class XandersSwnActorSheet extends ActorSheet {
     //The menu that will be opened when an item is right clicked.
     itemContextMenu = [
         {
-            name: "Edit",
+            name: "Edit Item",
             icon: '<i class="fas fa-edit"></i>',
             callback: element => {
-                const skill = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
-                skill.sheet.render(true);
+                const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
+                item.sheet.render(true);
             }
         },
         {
-            name: "Delete",
+            name: "Favorite Item",
+            icon: '<i class="fas fa-star"></i>',
+            callback: element => {
+                const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
+                this.actor.updateEmbeddedDocuments("Item", [{_id: element.data("item-id"), system:{favorite: !item.system.favorite}}]);
+            }
+        },
+        {
+            name: "Delete Item",
+            icon: '<i class="fas fa-trash"></i>',
+            callback: element => {
+                this.actor.deleteEmbeddedDocuments("Item", [element.data("item-id")]);
+            }
+        }
+    ];
+
+    //The menu that will be opened when a skill is right clicked.
+    skillContextMenu = [
+        {
+            name: "Edit Skill",
+            icon: '<i class="fas fa-edit"></i>',
+            callback: element => {
+                const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
+                item.sheet.render(true);
+            }
+        },
+        {
+            name: "Delete Skill",
             icon: '<i class="fas fa-trash"></i>',
             callback: element => {
                 this.actor.deleteEmbeddedDocuments("Item", [element.data("item-id")]);
@@ -63,7 +90,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         html.find('.item-clickable').on("click", this._onItemExpand.bind(this));
 
         //Adding context menu when skills or items are right clicked.
-        new ContextMenu(html, '.skill-choice', this.itemContextMenu);
+        new ContextMenu(html, '.skill-choice', this.skillContextMenu);
         new ContextMenu(html, '.item-choice', this.itemContextMenu);
     
     }
