@@ -109,13 +109,13 @@
             <!-- The attack bonus input. -->
             <div style="flex:1 1 0px; padding-left:5px;">
               <p class="details-headers">Attack Bonus:</p>
-              <input name="system.ab" class="details-input" value="{{system.ab}}" type="number" style="width:100%"/>
+              <input name="system.ab" class="details-input" value="{{system.ab}}" type="number" style="width:100%" {{#unless owner}}disabeled{{/unless}}/>
             </div>
 
             <!-- The damage formula input. -->
             <div style="flex:1 1 0px; padding-left:5px;">
               <p class="details-headers">Damage Formula:</p>
-              <input name="system.damage" class="details-input" value="{{system.damage}}" type="text" style="width:100%"/>
+              <input name="system.damage" class="details-input" value="{{system.damage}}" type="text" style="width:100%" {{#unless owner}}disabeled{{/unless}}/>
             </div>
 
             <!-- The first stat. -->
@@ -183,13 +183,13 @@
               <!-- The Shock Damage. -->
               <div style="flex:1 1 0px; padding-left:5px;">
                 <p class="details-headers">Damage Formula:</p>
-                <input name="system.shock.dmg" class="details-input" value="{{system.shock.dmg}}" type="number" style="width:100%"/>
+                <input name="system.shock.dmg" class="details-input" value="{{system.shock.dmg}}" type="number" style="width:100%" {{#unless owner}}disabeled{{/unless}}/>
               </div>
 
               <!-- The Shock AC. -->
               <div style="flex:1 1 0px; padding-left:5px;">
                 <p class="details-headers">AC:</p>
-                <input name="system.shock.ac" class="details-input" value="{{system.shock.ac}}" type="number" style="width:100%"/>
+                <input name="system.shock.ac" class="details-input" value="{{system.shock.ac}}" type="number" style="width:100%" {{#unless owner}}disabeled{{/unless}}/>
               </div>
 
               <!-- A spacer to push the other elements further left.-->
@@ -209,9 +209,9 @@
               <div style="flex:1 1 0px; padding-left:5px;">
                 <p class="details-headers">Weapon Range:</p>
                 <div style="display:flex; flex-direction:row">
-                  <input name="system.range.normal" class="details-input" value="{{system.range.normal}}" type="number" style="width:45%"/>
+                  <input name="system.range.normal" class="details-input" value="{{system.range.normal}}" type="number" style="width:45%" {{#unless owner}}disabeled{{/unless}}/>
                   <p style="width:10%">&nbsp/&nbsp</p>
-                  <input name="system.range.max" class="details-input" value="{{system.range.max}}" type="number" style="width:45%"/>
+                  <input name="system.range.max" class="details-input" value="{{system.range.max}}" type="number" style="width:45%" {{#unless owner}}disabeled{{/unless}}/>
                 </div>
               </div>
 

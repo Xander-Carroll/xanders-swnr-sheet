@@ -175,6 +175,10 @@
   margin-bottom: 0px;
 }
 
+.xanders-swnr .details-input:disabled{
+  border: 1px solid var(--color-border-light-tertiary);
+}
+
 /* The titles that go above the items in the details tab. */
 .xanders-swnr .details-headers{
   font-size: 10px;
