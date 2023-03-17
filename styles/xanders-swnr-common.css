@@ -36,6 +36,8 @@
     --item-background-other-color: rgba(140,140,140,0.4);
     --item-background-readied-color: rgba(64, 163, 55, 0.4);
     --item-background-stowed-color: rgba(199, 118, 4, 0.4);
+
+    --context-background-delete: rgba(189, 0, 0, 0.5);
   }
   
   /* Makes some changes to the default sheet look and spacing */
@@ -60,7 +62,46 @@
     min-height: 370px;
   }
   
-  
+  /*
+    CSS for right click context menus
+  */
+
+  .xanders-swnr #context-menu{
+    width: unset;
+    min-width: unset;
+    box-shadow: 0 0 5px;
+
+    color: var(--font-color);
+
+    border: 1px solid var(--border-color);
+    background-color: var(--background-sheet-color);
+  }
+
+  .xanders-swnr #context-menu li.context-item{
+    padding: 0px;
+    line-height: 23px;
+  }
+
+  .xanders-swnr .context-delete{
+    background-color: var(--context-background-delete);
+    border-radius: 0px 0px 5px 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+  }
+
+ .xanders-swnr .context-image{
+    color: var(--font-color);
+    padding-left: 7px;
+ }
+
+  .xanders-swnr .context-text{
+    font-size: 12px;
+    color: var(--font-color);
+    font-family: 'Roboto';
+    padding-right: 5px;
+  }
+
   
   /* 
     CSS Defaults for all sheets.

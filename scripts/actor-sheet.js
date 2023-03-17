@@ -7,24 +7,36 @@ export class XandersSwnActorSheet extends ActorSheet {
     //The menu that will be opened when an item is right clicked.
     itemContextMenu = [
         {
-            name: "Edit Item",
-            icon: '<i class="fas fa-edit"></i>',
+            name: ` <div style="display:flex; flex-direction:row; align-items:center;">
+                        <i class="context-image fas fa-edit"></i>
+                        &nbsp;
+                        <p class="context-text">Edit Item</p>
+                    </div>`,
+            icon: '',
             callback: element => {
                 const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
                 item.sheet.render(true);
             }
         },
         {
-            name: "Favorite Item",
-            icon: '<i class="fas fa-star"></i>',
+            name: ` <div style="display:flex; flex-direction:row; align-items:center;">
+                        <i class="context-image fas fa-star"></i>
+                        &nbsp;
+                        <p class="context-text">Favorite item</p>
+                    </div>`,
+            icon: '',
             callback: element => {
                 const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
                 this.actor.updateEmbeddedDocuments("Item", [{_id: element.data("item-id"), system:{favorite: !item.system.favorite}}]);
             }
         },
         {
-            name: "Delete Item",
-            icon: '<i class="fas fa-trash"></i>',
+            name: ` <div class="context-delete" style="display:flex; flex-direction:row; align-items:center;">
+                        <i class="context-image fas fa-trash"></i>
+                        &nbsp;
+                        <p class="context-text">Delete Item</p>
+                    </div>`,
+            icon: '',
             callback: element => {
                 this.actor.deleteEmbeddedDocuments("Item", [element.data("item-id")]);
             }
@@ -34,16 +46,24 @@ export class XandersSwnActorSheet extends ActorSheet {
     //The menu that will be opened when a skill is right clicked.
     skillContextMenu = [
         {
-            name: "Edit Skill",
-            icon: '<i class="fas fa-edit"></i>',
+            name: ` <div style="display:flex; flex-direction:row; align-items:center;">
+                        <i class="context-image fas fa-edit"></i>
+                        &nbsp;
+                        <p class="context-text">Edit Skill</p>
+                    </div>`,
+            icon: '',
             callback: element => {
                 const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
                 item.sheet.render(true);
             }
         },
         {
-            name: "Delete Skill",
-            icon: '<i class="fas fa-trash"></i>',
+            name: ` <div class="context-delete" style="display:flex; flex-direction:row; align-items:center;">
+                        <i class="context-image fas fa-trash"></i>
+                        &nbsp;
+                        <p class="context-text">Delete Skill</p>
+                    </div>`,
+            icon: '',
             callback: element => {
                 this.actor.deleteEmbeddedDocuments("Item", [element.data("item-id")]);
             }
