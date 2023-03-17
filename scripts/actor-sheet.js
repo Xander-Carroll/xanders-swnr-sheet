@@ -149,13 +149,17 @@ export class XandersSwnActorSheet extends ActorSheet {
         html.find('.add-skill-clickable').on("click", this._onSkillAdd.bind(this));
 
         //If an item is clicked.
-        html.find('.item-clickable').on("click", this._onItemExpand.bind(this));
+        html.find('.item-clickable').on("click", async (event) => {
+            event.preventDefault();
+            const item = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
+            item.system.expanded = item.system.expanded === null ? false : item.system.expanded;
+            this.actor.updateEmbeddedDocuments("Item", [{_id: event.currentTarget.dataset.itemId, system:{expanded: !item.system.expanded}}]);
+        });
 
         //Adding context menu when skills or items are right clicked.
         new ContextMenu(html, '.skill-choice', this.skillContextMenu);
         new ContextMenu(html, '.item-choice-regular', this.itemContextMenu);
         new ContextMenu(html, '.item-choice-favorite', this.itemContextMenuFavorite);
-    
     }
 
     //@override
@@ -390,14 +394,6 @@ export class XandersSwnActorSheet extends ActorSheet {
         }else{
             initSkills(this.actor, buttonType);
         }
-    }
-
-    async _onItemExpand(event){
-        event.preventDefault();
-
-        //Getting the skill that was clicked.
-        const item = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
-        console.log(item);
     }
 
     //@override
