@@ -38,6 +38,7 @@
     --item-background-stowed-color: rgba(199, 118, 4, 0.4);
 
     --context-background-delete: rgba(189, 0, 0, 0.5);
+    --context-background-favorited: rgba(0, 168, 36, 0.5);
   }
   
   /* Makes some changes to the default sheet look and spacing */
@@ -85,6 +86,13 @@
   .xanders-swnr .context-delete{
     background-color: var(--context-background-delete);
     border-radius: 0px 0px 5px 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+  }
+
+  .xanders-swnr .context-favorited{
+    background-color: var(--context-background-favorited);
     margin-left: 2px;
     margin-right: 2px;
     margin-bottom: 2px;

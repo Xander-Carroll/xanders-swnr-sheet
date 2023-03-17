@@ -43,6 +43,45 @@ export class XandersSwnActorSheet extends ActorSheet {
         }
     ];
 
+    //The menu that will be opened when a favorited item is right clicked.
+    itemContextMenuFavorite = [
+        {
+            name: ` <div style="display:flex; flex-direction:row; align-items:center;">
+                        <i class="context-image fas fa-edit"></i>
+                        &nbsp;
+                        <p class="context-text">Edit Item</p>
+                    </div>`,
+            icon: '',
+            callback: element => {
+                const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
+                item.sheet.render(true);
+            }
+        },
+        {
+            name: ` <div class="context-favorited" style="display:flex; flex-direction:row; align-items:center;">
+                        <i class="context-image fas fa-star"></i>
+                        &nbsp;
+                        <p class="context-text">Unfavorite Item</p>
+                    </div>`,
+            icon: '',
+            callback: element => {
+                const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
+                this.actor.updateEmbeddedDocuments("Item", [{_id: element.data("item-id"), system:{favorite: !item.system.favorite}}]);
+            }
+        },
+        {
+            name: ` <div class="context-delete" style="display:flex; flex-direction:row; align-items:center;">
+                        <i class="context-image fas fa-trash"></i>
+                        &nbsp;
+                        <p class="context-text">Delete Item</p>
+                    </div>`,
+            icon: '',
+            callback: element => {
+                this.actor.deleteEmbeddedDocuments("Item", [element.data("item-id")]);
+            }
+        }
+    ];
+
     //The menu that will be opened when a skill is right clicked.
     skillContextMenu = [
         {
@@ -111,7 +150,8 @@ export class XandersSwnActorSheet extends ActorSheet {
 
         //Adding context menu when skills or items are right clicked.
         new ContextMenu(html, '.skill-choice', this.skillContextMenu);
-        new ContextMenu(html, '.item-choice', this.itemContextMenu);
+        new ContextMenu(html, '.item-choice-regular', this.itemContextMenu);
+        new ContextMenu(html, '.item-choice-favorite', this.itemContextMenuFavorite);
     
     }
 
