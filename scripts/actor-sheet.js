@@ -173,53 +173,23 @@ export class XandersSwnActorSheet extends ActorSheet {
     //Will edit context.items to format the items in a way that is better suited for handelbars.
     _parseItemData(context){
 
-        //Adding variables to the items that will be used by the sheet.
-        for(var i=0; i<context.items.length; i++){
-            //Adding an xIsLocked variable to the items
-            context.items[i].system.xIsLocked = context.system.xIsLocked;
+        //Creating variables which will be used on the inventory tab to determine which sections should be displayed.
+        context.system.hasItems = this.actor.itemTypes.item.length > 0;
+        context.system.hasWeapons = this.actor.itemTypes.weapon.length > 0;
+        context.system.hasArmor = this.actor.itemTypes.armor.length > 0;
 
-            //Editing Skills
-            if(context.items[i].type === "skill"){            
-                //Creating a rankString varaible which does not show -1.
-                context.items[i].system.rankString = context.items[i].system.rank.toString();
-                if(context.items[i].system.rankString === "-1"){
-                    context.items[i].system.rankString = "-";
-                }
+        //Creating a rankString varaible which does not shows a - instead of -1 for skill level.
+        for(let i=0; i<this.actor.itemTypes.skill.length; i++){
+            this.actor.itemTypes.skill[i].system.rankString = this.actor.itemTypes.skill[i].system.rank.toString();
+            if(this.actor.itemTypes.skill[i].system.rankString === "-1"){
+                this.actor.itemTypes.skill[i].system.rankString = "-";
+            }
+        }
 
-                //Creating a mod variable which will add the default stat if one is chosen.
-                let stat = context.items[i].system.defaultStat;
-                if(stat === "ask"){
-                    context.items[i].system.mod = context.items[i].system.rank.toString();
-                }else{
-                    context.items[i].system.mod = (context.items[i].system.rank + context.system.stats[stat].mod).toString();
-                }
-                
-                if(parseInt(context.items[i].system.mod) >= 0){
-                    context.items[i].system.mod = "+" + context.items[i].system.mod;
-                }
-            
-            
-            //Editing Weapons
-            }else if(context.items[i].type === "weapon"){
-                //Used to determine if the wepons section should be displayed on the sheet.
-                context.system.hasWeapons = true;
-            
-            
-            //Editing Items
-            }else if(context.items[i].type === "item"){
-                //Used to determine if the item section should be displayed on the sheet.
-                context.system.hasItems = true;       
-
-            
-            //Editing Armor
-            }else if(context.items[i].type === "armor"){
-                //Used to determine if the item section should be displayed on the sheet.
-                context.system.hasArmor = true;       
-
-
-            //Items of types that shouldn't be on this sheet.
-            }else{
-                //Deleting items that aren't allowed on the sheet, and warning the user about it.
+        //Deleting items that aren't allowed on the sheet, and warning the user about it.
+        for(let i=0; i<context.items.length; i++){
+            let itemType = context.items[i].type;
+            if(itemType !== "skill" && itemType !== "weapon" && itemType !== "armor" && itemType !== "item"){
                 ui.notifications.error("[" + context.items[i].name + "] is not allowed on this sheet and was removed.");
                 this.actor.deleteEmbeddedDocuments("Item", [context.items[i]._id]);
             }
@@ -232,6 +202,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             context.system.displayAddSkillButtons = false;
         }
 
+        //Returning the newly parsed context.
         return context;
     }
 
