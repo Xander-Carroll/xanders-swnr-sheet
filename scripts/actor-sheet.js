@@ -11,7 +11,8 @@ export class XandersSwnActorSheet extends ActorSheet {
                         <i class="context-image fas fa-edit"></i>
                         &nbsp;
                         <p class="context-text">Edit Item</p>
-                    </div>`,
+                    </div>
+                    <hr/>`,
             icon: '',
             callback: element => {
                 const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
@@ -50,7 +51,8 @@ export class XandersSwnActorSheet extends ActorSheet {
                         <i class="context-image fas fa-edit"></i>
                         &nbsp;
                         <p class="context-text">Edit Item</p>
-                    </div>`,
+                    </div>
+                    <hr/>`,
             icon: '',
             callback: element => {
                 const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
@@ -89,7 +91,8 @@ export class XandersSwnActorSheet extends ActorSheet {
                         <i class="context-image fas fa-edit"></i>
                         &nbsp;
                         <p class="context-text">Edit Skill</p>
-                    </div>`,
+                    </div>
+                    <hr/>`,
             icon: '',
             callback: element => {
                 const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
