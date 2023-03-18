@@ -225,6 +225,17 @@ export class XandersSwnActorSheet extends ActorSheet {
         context.system.hasWeapons = this.actor.itemTypes.weapon.length > 0;
         context.system.hasArmor = this.actor.itemTypes.armor.length > 0;
 
+        //Creating an array which contains all of the items which have been favorited.
+        context.system.favoriteItems = {};
+        context.system.favoriteItems.armor = this.actor.itemTypes.armor.filter(item => item.system.favorite === true);
+        context.system.favoriteItems.item = this.actor.itemTypes.item.filter(item => item.system.favorite === true);
+        context.system.favoriteItems.weapon = this.actor.itemTypes.weapon.filter(item => item.system.favorite === true);
+
+        //Creating booleans which will be used by handelbars to determine if item lists should be displayed.
+        context.system.favoriteItems.hasArmor = context.system.favoriteItems.armor.length > 0;
+        context.system.favoriteItems.hasItem = context.system.favoriteItems.item.length > 0;
+        context.system.favoriteItems.hasWeapon = context.system.favoriteItems.weapon.length > 0;
+
         //Creating a rankString varaible which does not shows a - instead of -1 for skill level.
         for(let i=0; i<this.actor.itemTypes.skill.length; i++){
             this.actor.itemTypes.skill[i].system.rankString = this.actor.itemTypes.skill[i].system.rank.toString();

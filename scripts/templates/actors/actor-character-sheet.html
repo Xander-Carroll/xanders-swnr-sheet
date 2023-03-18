@@ -234,6 +234,21 @@
 
               <!-- The favorited items list -->
               <div style="flex-grow: 1">
+                <ul class="inventory-list" style="flex-grow:1">
+                  <!-- The armor list -->
+                  {{#if system.favoriteItems.hasArmor}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=system.favoriteItems.armor catagory="Armor"}}
+                  {{/if}} 
+
+                  {{#if system.favoriteItems.hasItem}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=system.favoriteItems.item catagory="Items"}}
+                  {{/if}} 
+
+                  {{#if system.favoriteItems.hasWeapon}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=system.favoriteItems.weapon catagory="Weapons"}}
+                  {{/if}}                  
+                </ul>
+
               </div>
 
             </div>
@@ -247,7 +262,7 @@
             <!-- The inventory list -->
             <ul class="inventory-list" style="flex-grow:1">
 
-              <!-- The armor list header -->
+              <!-- The armor list -->
               {{#if system.hasArmor}}
                 {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=actor.itemTypes.armor catagory="Armor"}}
               {{/if}}
@@ -257,7 +272,7 @@
                 {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=actor.itemTypes.item catagory="Items"}}
               {{/if}}
 
-              <!-- The wapons list header -->
+              <!-- The wapons list -->
               {{#if system.hasWeapons}}
                 {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=actor.itemTypes.weapon catagory="Weapons"}}
               {{/if}}

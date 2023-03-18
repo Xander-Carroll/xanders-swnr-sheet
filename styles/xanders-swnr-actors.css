@@ -458,6 +458,9 @@
   margin-bottom: 4px;
 
   align-items: center;
+
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 /* The labels inside of the item headers. Items, TL, Encumbrance, etc.*/

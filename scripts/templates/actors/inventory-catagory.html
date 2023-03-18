@@ -3,10 +3,10 @@
   <div class="inventory-titles">{{catagory}}</div>
   <div style="width:25px;"></div>
   <div class="inventory-titles">
-    <p style="flex:0.5 1"> </p>
-    <p style="flex:0.5 1">TL</p> 
-    <p>Encumbrance</p>
-    <p>Quality</p>
+    <div style="flex:0.5 1"></div>
+    <div style="flex:0.5 1"><i class="fas fa-planet-ringed fa-xs" style="color:var(--item-header-image-color)"></i></div> 
+    <div style="flex:1 1 0"><i class="fas fa-weight-hanging fa-xs" style="color:var(--item-header-image-color)"></i></div>
+    <div style="flex: 1 1 0"><i class="fas fa-star-sharp-half-stroke fa-xs" style="color:var(--item-header-image-color)"></i></div>
   </div>
 </li>
 
@@ -18,7 +18,7 @@
       <div class="inventory-image {{#if system.expanded}}expanded{{/if}}"><img src="{{item.img}}"></div>
       <div class="inventory-titles item-clickable" data-item-id="{{item._id}}">{{item.name}}</div>
       <div class="inventory-titles">
-        <div style="flex:0.5 1"> {{#if system.favorite}} <i class="fas fa-bookmark"></i> {{/if}} </div>
+        <div style="flex:0.5 1"> {{#if system.favorite}} <i class="fas fa-bookmark fa-sm"></i> {{/if}} </div>
         <p style="flex:0.5 1">{{item.system.tl}}</p>
         <p>{{item.system.encumbrance}}</p>
         <p>{{item.system.quality}}</p>
