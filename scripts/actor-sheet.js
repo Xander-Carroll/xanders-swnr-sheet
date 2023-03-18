@@ -21,9 +21,9 @@ export class XandersSwnActorSheet extends ActorSheet {
         },
         {
             name: ` <div style="display:flex; flex-direction:row; align-items:center;">
-                        <i class="context-image fas fa-star"></i>
+                        <i class="context-image fas fa-bookmark"></i>
                         &nbsp;
-                        <p class="context-text">Favorite item</p>
+                        <p class="context-text">Favorite Item</p>
                     </div>`,
             icon: '',
             callback: element => {
@@ -61,7 +61,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         },
         {
             name: ` <div class="context-favorited" style="display:flex; flex-direction:row; align-items:center;">
-                        <i class="context-image fas fa-star"></i>
+                        <i class="context-image fas fa-bookmark"></i>
                         &nbsp;
                         <p class="context-text">Unfavorite Item</p>
                     </div>`,

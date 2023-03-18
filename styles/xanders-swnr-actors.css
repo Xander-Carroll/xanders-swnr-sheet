@@ -433,6 +433,13 @@
   padding: 1px;
 }
 
+/* The list that contains all of the inventory elements. */
+.xanders-swnr ul.inventory-list{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
 /* The inventory tab header bar. Not the labels in the bar, but the whole bar itself. */
 .xanders-swnr .inventory-list .inventory-header{
   display: flex;
@@ -493,6 +500,7 @@
   width: 25px;
   border: none;
   overflow: hidden;
+  border-radius: 5px 0px 0px 5px;
 }
 
 /* Makes the item title change colors when it is hovered. */

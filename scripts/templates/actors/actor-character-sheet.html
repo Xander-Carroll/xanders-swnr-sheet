@@ -245,7 +245,7 @@
           <div style="display:flex; flex-direction:column; flex-grow:1">
 
             <!-- The inventory list -->
-            <div class="inventory-list" style="flex-grow:1">
+            <ul class="inventory-list" style="flex-grow:1">
 
               <!-- The armor list header -->
               {{#if system.hasArmor}}
@@ -262,7 +262,7 @@
                 {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=actor.itemTypes.weapon catagory="Weapons"}}
               {{/if}}
 
-            </div>
+            </ul>
 
           </div>
         </div>
