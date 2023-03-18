@@ -441,7 +441,7 @@
 }
 
 /* The inventory tab header bar. Not the labels in the bar, but the whole bar itself. */
-.xanders-swnr .inventory-list .inventory-header{
+.xanders-swnr .inventory-section-header{
   display: flex;
   flex-direction: row;
 
@@ -460,8 +460,8 @@
   align-items: center;
 }
 
-/* The labels inside of the header bar. Items, TL, Encumbrance, etc.*/
-.xanders-swnr .inventory-list .inventory-titles{
+/* The labels inside of the item headers. Items, TL, Encumbrance, etc.*/
+.xanders-swnr .inventory-titles{
   display: flex;
   flex-direction: row;
 
@@ -473,47 +473,84 @@
   text-align: center;
 }
 
-.xanders-swnr .inventory-list .inventory-titles p{
+.xanders-swnr .inventory-titles p{
   flex: 1 1 0;
 }
 
-/* Each row in the item sheet. Every item gets its own row. */
-.xanders-swnr .inventory-list .inventory-item{
+/* Each item in the sheet gets its own div. */
+.xanders-swnr .inventory-item{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   border-radius: 5px;
   border: 1px solid var(--border-color);
-  background-color: var(--item-background-stowed-color);
+  background-color: var(--item-background-other-color);
+
+  margin-bottom: 4px;
+}
+
+/* Each row in the item sheet. Every item gets its own title row. */
+.xanders-swnr .inventory-item-header{
+  display: flex;
+  flex-direction: row;
 
   font-size: 13px;
   font-family: "Roboto";
-
-  margin-bottom: 4px;
-
-  height: 25px;
+  padding: 0px;
+  margin: 0px;
 }
 
 /* The image for each item. */
-.xanders-swnr .inventory-list .inventory-image img{
-  max-height: 100%;
-  width: 25px;
+.xanders-swnr .inventory-image{
+  max-height: 25px;
+  max-width: 25px;
+
+  border-radius: 5px 0px 0px 5px;
+
+  border: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.xanders-swnr .inventory-image img{
   border: none;
   overflow: hidden;
   border-radius: 5px 0px 0px 5px;
+
+  margin: 0px;
+  padding: 0px;
+}
+
+.xanders-swnr .inventory-image.expanded{
+  border-radius: 5px 0px 0px 0px;
+}
+
+.xanders-swnr .inventory-image.expanded img{
+  border-radius: 5px 0px 0px 0px;
 }
 
 /* Makes the item title change colors when it is hovered. */
-.xanders-swnr .inventory-list .item-clickable:hover{
+.xanders-swnr .item-clickable:hover{
   color: var(--active-font-color);
 }
 
 /* Makes the item change colors when it is readied. */
-.xanders-swnr .inventory-list .inventory-item.location-readied{
+.xanders-swnr .inventory-item.location-readied{
   background-color: var(--item-background-readied-color);
 }
 
-/* Makes the item change colors when its status is "other". */
-.xanders-swnr .inventory-list .inventory-item.location-other{
-  background-color: var(--item-background-other-color);
+/* Makes the item change colors when its status is "stowed". */
+.xanders-swnr .inventory-item.location-stowed{
+  background-color: var(--item-background-stowed-color);
+}
+
+/* The box that goes below the item when it is clicked. */
+.xanders-swnr .inventory-item-summary{
+  border-top: 1px solid var(--border-color);
+  min-height: 10px;
+  padding: 5px;
+
+  font-size: 12px;
+  font-family: 'Roboto';
+  font-weight: normal;
 }

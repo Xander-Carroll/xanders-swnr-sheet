@@ -1,5 +1,5 @@
 <!-- The item catagory header -->
-<li class="inventory-header">
+<li class="inventory-section-header">
   <div class="inventory-titles">{{catagory}}</div>
   <div style="width:25px;"></div>
   <div class="inventory-titles">
@@ -12,13 +12,20 @@
 
 <!-- The list of items -->
 {{#each itemList as |item|}}
-  <li class="inventory-item {{#unless system.favorite}}item-choice-regular{{/unless}} {{#if system.favorite}}item-choice-favorite{{/if}} {{#ifEquals system.location "readied"}}location-readied{{/ifEquals}} {{#ifEquals system.location "other"}}location-other{{/ifEquals}}" data-item-id="{{item._id}}">
-    <div class="inventory-image"><img src="{{item.img}}"></div>
-    <div class="inventory-titles item-clickable" data-item-id="{{item._id}}">{{item.name}}</div>
-    <div class="inventory-titles">
-      <p style="flex:0.5 1">{{item.system.tl}}</p>
-      <p>{{item.system.encumbrance}}</p>
-      <p>{{item.system.quality}}</p>
+  <li class="inventory-item {{#unless system.favorite}}item-choice-regular{{/unless}} {{#if system.favorite}}item-choice-favorite{{/if}} {{#ifEquals system.location "readied"}}location-readied{{/ifEquals}} {{#ifEquals system.location "stowed"}}location-stowed{{/ifEquals}}" data-item-id="{{item._id}}">
+    <div class="inventory-item-header">
+      <div class="inventory-image {{#if system.expanded}}expanded{{/if}}"><img src="{{item.img}}"></div>
+      <div class="inventory-titles item-clickable" data-item-id="{{item._id}}">{{item.name}}</div>
+      <div class="inventory-titles">
+        <p style="flex:0.5 1">{{item.system.tl}}</p>
+        <p>{{item.system.encumbrance}}</p>
+        <p>{{item.system.quality}}</p>
+      </div>
     </div>
+    {{#if system.expanded}}
+    <div class="inventory-item-summary">
+      {{{system.description}}}
+    </div>
+    {{/if}}
   </li>
 {{/each}}
