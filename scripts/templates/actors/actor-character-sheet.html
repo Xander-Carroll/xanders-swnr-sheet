@@ -237,15 +237,15 @@
                 <ul class="inventory-list" style="flex-grow:1">
                   <!-- The armor list -->
                   {{#if system.favoriteItems.hasArmor}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=system.favoriteItems.armor catagory="Armor"}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.armor catagory="Armor"}}
                   {{/if}} 
 
                   {{#if system.favoriteItems.hasItem}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=system.favoriteItems.item catagory="Items"}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.item catagory="Items"}}
                   {{/if}} 
 
                   {{#if system.favoriteItems.hasWeapon}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=system.favoriteItems.weapon catagory="Weapons"}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.weapon catagory="Weapons"}}
                   {{/if}}                  
                 </ul>
 
@@ -264,17 +264,17 @@
 
               <!-- The armor list -->
               {{#if system.hasArmor}}
-                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=actor.itemTypes.armor catagory="Armor"}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.armor catagory="Armor"}}
               {{/if}}
 
               <!-- The items list -->
               {{#if system.hasItems}}
-                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=actor.itemTypes.item catagory="Items"}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.item catagory="Items"}}
               {{/if}}
 
               <!-- The wapons list -->
               {{#if system.hasWeapons}}
-                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html" itemList=actor.itemTypes.weapon catagory="Weapons"}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.weapon catagory="Weapons"}}
               {{/if}}
 
             </ul>

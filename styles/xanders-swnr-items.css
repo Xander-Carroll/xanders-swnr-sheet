@@ -173,6 +173,8 @@
 
   padding: 3px;
   margin-bottom: 0px;
+
+  border-radius: 3px;
 }
 
 .xanders-swnr .details-input:disabled{

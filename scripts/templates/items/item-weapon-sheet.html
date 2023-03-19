@@ -1,51 +1,7 @@
 <form class="{{cssClass}}" autocomplete="off">
   <div class="sheet-content" style="height:100%; display:flex; flex-direction:column;">
 
-    <!-- The top title bar. -->
-    <div class="header-bar">
-      <!-- The skill image. -->
-      <div class="item-cover-image">
-        <img src="{{item.img}}" {{#if owner}}data-edit="img"{{/if}}/>
-      </div>
-
-      <!-- The content to the right of the item image. -->
-      <div class="name-bar">
-        <!-- The name of the item and the item type. -->
-        <div style="display:flex;">
-          <!-- The name of the item. -->
-          <input class="item-name" name="name" type="text" value="{{item.name}}" {{#unless owner}}disabeled{{/unless}}/>
-
-          <!-- A spacer which pushes the item type to the right. -->
-          <div style="flex:1 1"></div>
-
-          <!-- The box which contains the item type (skill, weapon, etc). -->
-          <div class="item-type-box" style="width:90px;">
-            <p>{{item.type}}</p>
-          </div>
-        </div>
-      
-        <!-- The row below the name of the item. -->
-        <div class="item-stats-row">
-          <!-- The dice pool, default stat, and skill level. -->
-          <div class="background-informations" style="display:flex; flex-direction:row;">
-            <input name="system.quantity" type="number" value="{{system.quantity}}" {{#unless owner}}disabeled{{/unless}}/>
-            <input name="system.encumbrance" type="number" value="{{system.encumbrance}}" {{#unless owner}}disabeled{{/unless}}/>
-            <input name="system.cost" type="number" value="{{system.cost}}" {{#unless owner}}disabeled{{/unless}}/>
-            <input name="system.tl" type="number" value="{{system.tl}}" {{#unless owner}}disabeled{{/unless}}/>
-          </div>
-
-          <!-- The labels that go beneath skill level, source, dice pool, and default stat. -->
-          <div class="item-stats-labels">
-            <div><p>Quantity</p></div>
-            <div><p>Encumbrance</p></div>
-            <div><p>Cost</p></div>
-            <div><p>Tech Level</p></div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
+    {{> "modules/xanders-swnr-sheet/scripts/templates/items/partials/inventory-headerbar.html"}}
 
     <!-- The navagation bar that can be used to switch tabs -->
     <nav class="sheet-tabs tabs" data-group="primary">

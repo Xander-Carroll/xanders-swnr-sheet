@@ -1,10 +1,12 @@
 [
     "modules/xanders-swnr-sheet/scripts/templates/actors/actor-character-sheet.html",
-    "modules/xanders-swnr-sheet/scripts/templates/actors/inventory-catagory.html",
+    "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html",
     "modules/xanders-swnr-sheet/scripts/templates/chats/save-throw-chat.html",
     "modules/xanders-swnr-sheet/scripts/templates/dialogs/save-throw-dialog.html",
     "modules/xanders-swnr-sheet/scripts/templates/dialogs/skill-check-dialog.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-item-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-skill-sheet.html",
-    "modules/xanders-swnr-sheet/scripts/templates/items/item-weapon-sheet.html"
+    "modules/xanders-swnr-sheet/scripts/templates/items/item-weapon-sheet.html",
+    "modules/xanders-swnr-sheet/scripts/templates/items/item-armor-sheet.html",
+    "modules/xanders-swnr-sheet/scripts/templates/items/partials/inventory-headerbar.html"
 ]

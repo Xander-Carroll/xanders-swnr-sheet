@@ -28,6 +28,21 @@
             <option value="mastercrafted">Mastercrafted</option>
           {{/select}}
         </select>
+
+        <!-- The armor type select option. -->
+        <p class="sidebar-titles">Type:</p>
+        <select name="system.type" style="width:120px">
+          {{#select system.type}}
+            <option value="primative">Primative</option>
+            <option value="street">Street</option>
+            <option value="combat">Combat</option>
+            <option value="powered">Powered</option>
+          {{/select}}
+        </select>
+
+        <!-- The armor AC input. -->
+        <p class="sidebar-titles">AC:</p>
+        <input class="details-input" name="system.ac" value="{{system.ac}}" style="width:120px; height:27px;" {{#unless owner}}disabled{{/unless}}/>
         
       </div>
 
