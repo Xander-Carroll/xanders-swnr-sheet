@@ -1,7 +1,9 @@
 [
     "modules/xanders-swnr-sheet/scripts/templates/actors/actor-character-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html",
+    "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-item-details.html",
     "modules/xanders-swnr-sheet/scripts/templates/chats/save-throw-chat.html",
+    "modules/xanders-swnr-sheet/scripts/templates/chats/item-card-chat.html",
     "modules/xanders-swnr-sheet/scripts/templates/dialogs/save-throw-dialog.html",
     "modules/xanders-swnr-sheet/scripts/templates/dialogs/skill-check-dialog.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-item-sheet.html",

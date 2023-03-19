@@ -37,7 +37,8 @@
     --item-background-readied-color: rgba(64, 163, 55, 0.4);
     --item-background-stowed-color: rgba(199, 118, 4, 0.4);
     --item-header-image-color: rgba(76, 76, 76, 0.7);
-    --item-detail-label-color: rgb(150, 150, 150);
+    --item-detail-label-color-inventory: rgb(150, 150, 150);
+    --item-detail-label-color-chat: rgb(180, 180, 180);
 
     --context-background-delete: rgba(189, 0, 0, 0.5);
     --context-background-favorited: rgba(0, 168, 36, 0.5);

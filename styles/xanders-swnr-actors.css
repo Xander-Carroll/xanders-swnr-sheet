@@ -580,6 +580,8 @@
 .xanders-swnr .inventory-extra-details{
   display:flex; 
   flex-direction:row;
+  flex-wrap: wrap;
+  gap: 5px;
   font-family: 'Roboto';
   font-size: 10px;
 
@@ -589,6 +591,14 @@
 /* The detail labels below the item summary. */
 .xanders-swnr .inventory-extra-details-item{
   border-radius: 3px;
-  padding: 3px;
-  background-color: var(--item-detail-label-color);
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 3px;
+  padding-right: 3px;
+  background-color: var(--item-detail-label-color-inventory);
+}
+
+/* The detail labels below the item summary. */
+.xanders-swnr.chat-details .inventory-extra-details-item{
+  background-color: var(--item-detail-label-color-chat);
 }

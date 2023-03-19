@@ -448,6 +448,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         }
     }
 
+    //Called when an item's image is clicked. (When the item should be used).
     async _onItemUse(event){
         event.preventDefault();
 
@@ -455,6 +456,20 @@ export class XandersSwnActorSheet extends ActorSheet {
         const item = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
 
         console.log(item);
+
+        //Creating an html template from the dialog.
+        let templateContent = await renderTemplate("modules/xanders-swnr-sheet/scripts/templates/chats/item-card-chat.html", item);
+
+        //Creating a chat message once the settings are all changed.
+        const chatMessageData = {
+            content: templateContent,
+            speaker: {actor: this.actor.id},
+            isOwner: true
+        };
+
+        ChatMessage.create(chatMessageData);
+
+        await getDocumentClass("ChatMessage").applyRollMode(chatMessageData, game.settings.get("core", "rollMode"));
     }
 
     //@override

@@ -1,0 +1,11 @@
+<div class="xanders-swnr chat-details" style="margin:2px;">
+    <hr style="margin:2px"/>
+    <div style="display:flex; flex-direction:row; align-items:center">
+        <img src="{{img}}" style="width:36px; height:36px; margin-right:5px;">
+        <p id="item-name" style="font-family:'Orbitron'; font-size:20px">{{name}}</p>
+    </div>
+    <hr style="margin:2px"/>
+    <p style="font-family:'Roboto'; font-size:12px">{{{system.description}}}</p>
+    <hr style="margin:2px"/>
+    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-item-details.html" item=this}}
+</div>

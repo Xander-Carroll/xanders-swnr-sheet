@@ -1,0 +1,10 @@
+<div class="inventory-extra-details">
+  {{#ifEquals item.type "weapon"}}
+    <div class="inventory-extra-details-item"><b>Damage: </b>{{item.system.fullDamage}}</div>
+    <div class="inventory-extra-details-item"><b>Hit Bonus: </b>{{item.system.fullAttackBonus}}</div>
+    {{#ifEquals item.system.type "ranged"}}<div class="inventory-extra-details-item"><b>Range: </b>{{item.system.range.normal}} / {{item.system.range.max}}</div>{{/ifEquals}}
+    {{#ifEquals item.system.type "melee"}}<div class="inventory-extra-details-item"><b>Shock: </b>{{item.system.shock.dmg}} point / AC {{item.system.shock.ac}}</div>{{/ifEquals}}
+  {{/ifEquals}}
+  {{#ifEquals item.type "armor"}}<div class="inventory-extra-details-item"><b>Armor Class: </b>{{item.system.ac}}</div>{{/ifEquals}}
+  <div class="inventory-extra-details-item"><b>Quality: </b>{{item.system.quality}}</div>
+</div>
