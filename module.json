@@ -12,7 +12,12 @@
 		"minimum": "9",
 		"verified": "10"
 	},
-	"system": ["swnr"],
+	"relationships": {
+		"systems": [{
+			"id": "swnr",
+			"type": "system"
+		}]
+	},
 	"esmodules" : ["./scripts/xanders-swnr-sheet.js"],
 	"styles": ["./styles/xanders-swnr-sheet.css"],
 	"packs": [],
