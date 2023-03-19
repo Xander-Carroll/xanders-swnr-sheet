@@ -246,6 +246,26 @@ export class XandersSwnActorSheet extends ActorSheet {
             }
         }
 
+        //Creating an attack bonus variable on weapons.
+        for(let i=0; i<this.actor.itemTypes.weapon.length; i++){
+            let weapon = this.actor.itemTypes.weapon[i];
+            let skill = this.actor.getEmbeddedDocument("Item", weapon.system.skill);
+
+            let attributeBonus = this.actor.system.stats[weapon.system.stat].mod;
+            if(weapon.system.secondStat !== "none"){
+                attributeBonus = Math.max(attributeBonus, this.actor.system.stats[weapon.system.secondStat].mod);
+            }
+
+            if(typeof skill === "undefined"){
+                skill = {system:{rank:0}};
+            }
+
+            let fullBonusInt = this.actor.system.ab + weapon.system.ab + skill.system.rank + attributeBonus;
+            let fullBonusString = fullBonusInt >= 0 ? "+" + String(fullBonusInt) : fullBonusInt;
+
+            this.actor.itemTypes.weapon[i].system.fullAttackBonus = fullBonusString;
+        }
+
         //Deleting items that aren't allowed on the sheet, and warning the user about it.
         for(let i=0; i<context.items.length; i++){
             let itemType = context.items[i].type;

@@ -29,7 +29,7 @@
       <div>
         <div class="inventory-extra-details">
           {{#ifEquals item.type "weapon"}}<div class="inventory-extra-details-item"><b>Damage: </b>{{item.system.damage}}</div>{{/ifEquals}}
-          {{#ifEquals item.type "weapon"}}<div class="inventory-extra-details-item" style="margin-left:5px; margin-right:5px;"><b>Hit Bonus: </b>{{item.system.ab}}</div>{{/ifEquals}}
+          {{#ifEquals item.type "weapon"}}<div class="inventory-extra-details-item" style="margin-left:5px; margin-right:5px;"><b>Hit Bonus: </b>{{item.system.fullAttackBonus}}</div>{{/ifEquals}}
           {{#ifEquals item.type "armor"}}<div class="inventory-extra-details-item" style="margin-right:5px;"><b>Armor Class: </b>{{item.system.ac}}</div>{{/ifEquals}}
           <div class="inventory-extra-details-item"><b>Quality: </b>{{item.system.quality}}</div>
         </div>

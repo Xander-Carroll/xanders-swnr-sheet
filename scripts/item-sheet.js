@@ -32,7 +32,7 @@
         context.system = system;
         
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
-        //console.log(context.system.type);
+        //console.log(context);
     
         if (typeof context.system.type === 'undefined'){
             context.system.type = "melee";
