@@ -12,7 +12,7 @@
 
 <!-- The list of items -->
 {{#each itemList as |item|}}
-  <li class="inventory-item {{#unless system.favorite}}item-choice-regular{{/unless}} {{#if system.favorite}}item-choice-favorite{{/if}} {{#ifEquals system.location "readied"}}location-readied{{/ifEquals}} {{#ifEquals system.location "stowed"}}location-stowed{{/ifEquals}}">
+  <li class="inventory-item {{#unless system.favorite}}item-choice-regular{{/unless}} {{#if system.favorite}}item-choice-favorite{{/if}} {{#ifEquals system.location "readied"}}location-readied{{/ifEquals}} {{#ifEquals system.location "stowed"}}location-stowed{{/ifEquals}}" data-item-id="{{item._id}}">
     <div class="inventory-item-header">
       <div class="item-image-box item-image-clickable {{#if item.system.expanded}}expanded{{/if}}" style="background-image:url('{{item.img}}')" data-item-id="{{item._id}}"><i class="fas fa-dice-d20"></i></div>
       <div class="inventory-titles item-clickable" style="flex: 2 1 0" data-item-id="{{item._id}}">{{item.name}}</div>
