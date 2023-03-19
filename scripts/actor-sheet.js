@@ -251,15 +251,18 @@ export class XandersSwnActorSheet extends ActorSheet {
             let weapon = this.actor.itemTypes.weapon[i];
             let skill = this.actor.getEmbeddedDocument("Item", weapon.system.skill);
 
+            //The attribute bonus is the better of the two listed attribute modifiers.
             let attributeBonus = this.actor.system.stats[weapon.system.stat].mod;
             if(weapon.system.secondStat !== "none"){
                 attributeBonus = Math.max(attributeBonus, this.actor.system.stats[weapon.system.secondStat].mod);
             }
 
+            //If the skill is set, then the rank will be used, if the skill is unset, then the rank is 0.
             if(typeof skill === "undefined"){
                 skill = {system:{rank:0}};
             }
 
+            //Calculating the weapon attack bonus, and adding a + sign in front of the string if needed.
             let fullBonusInt = this.actor.system.ab + weapon.system.ab + skill.system.rank + attributeBonus;
             let fullBonusString = fullBonusInt >= 0 ? "+" + String(fullBonusInt) : fullBonusInt;
 
