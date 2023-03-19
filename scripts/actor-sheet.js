@@ -246,10 +246,11 @@ export class XandersSwnActorSheet extends ActorSheet {
             }
         }
 
-        //Creating an attack bonus variable on weapons.
+        //Creating an attack bonus variable and a damage variable on weapons.
         for(let i=0; i<this.actor.itemTypes.weapon.length; i++){
             let weapon = this.actor.itemTypes.weapon[i];
             let skill = this.actor.getEmbeddedDocument("Item", weapon.system.skill);
+            let skillPunchMod = 0;
 
             //The attribute bonus is the better of the two listed attribute modifiers.
             let attributeBonus = this.actor.system.stats[weapon.system.stat].mod;
@@ -260,13 +261,28 @@ export class XandersSwnActorSheet extends ActorSheet {
             //If the skill is set, then the rank will be used, if the skill is unset, then the rank is 0.
             if(typeof skill === "undefined"){
                 skill = {system:{rank:0}};
+            }else{
+                //Punch attacks add their skill modifier to the damage roll.
+                if (skill.name === "Punch" || skill.name === "punch"){
+                    skillPunchMod = skill.system.rank;
+                }
+
+                //If an attack skill is untrained, the character takes -2 instead of just -1 to hit.
+                if (skill.rank == -1){
+                    skill.rank = -2;
+                }
             }
 
             //Calculating the weapon attack bonus, and adding a + sign in front of the string if needed.
             let fullBonusInt = this.actor.system.ab + weapon.system.ab + skill.system.rank + attributeBonus;
             let fullBonusString = fullBonusInt >= 0 ? "+" + String(fullBonusInt) : fullBonusInt;
 
+            //Calculating the weapon damage, and adding a + sign in front of the string if needed.
+            let fullDamageInt = skillPunchMod + attributeBonus;
+            let fullDamageString = fullDamageInt >= 0 ? "+" + String(fullDamageInt) : fullDamageInt;
+
             this.actor.itemTypes.weapon[i].system.fullAttackBonus = fullBonusString;
+            this.actor.itemTypes.weapon[i].system.fullDamage = weapon.system.damage + fullDamageString;
         }
 
         //Deleting items that aren't allowed on the sheet, and warning the user about it.
