@@ -1,27 +1,25 @@
 <!-- The item catagory header -->
 <li class="inventory-section-header">
-  <div class="inventory-titles">{{catagory}}</div>
+  <div style="flex:2 1 0" class="inventory-titles">{{catagory}}</div>
   <div style="width:25px;"></div>
   <div class="inventory-titles">
     <div style="flex:0.5 1"></div>
     <div style="flex:0.5 1"><i class="fas fa-planet-ringed fa-xs" style="color:var(--item-header-image-color)"></i></div> 
-    <div style="flex:1 1 0"><i class="fas fa-weight-hanging fa-xs" style="color:var(--item-header-image-color)"></i></div>
-    <div style="flex: 1 1 0"><i class="fas fa-star-sharp-half-stroke fa-xs" style="color:var(--item-header-image-color)"></i></div>
+    <div style="flex:0.5 1 0"><i class="fas fa-weight-hanging fa-xs" style="color:var(--item-header-image-color)"></i></div>
   </div>
 </li>
 
 
 <!-- The list of items -->
 {{#each itemList as |item|}}
-  <li class="inventory-item {{#unless system.favorite}}item-choice-regular{{/unless}} {{#if system.favorite}}item-choice-favorite{{/if}} {{#ifEquals system.location "readied"}}location-readied{{/ifEquals}} {{#ifEquals system.location "stowed"}}location-stowed{{/ifEquals}}" data-item-id="{{item._id}}">
+  <li class="inventory-item {{#unless system.favorite}}item-choice-regular{{/unless}} {{#if system.favorite}}item-choice-favorite{{/if}} {{#ifEquals system.location "readied"}}location-readied{{/ifEquals}} {{#ifEquals system.location "stowed"}}location-stowed{{/ifEquals}}">
     <div class="inventory-item-header">
-      <div class="inventory-image {{#if system.expanded}}expanded{{/if}}"><img src="{{item.img}}"></div>
-      <div class="inventory-titles item-clickable" data-item-id="{{item._id}}">{{item.name}}</div>
+      <div class="item-image-box item-image-clickable {{#if item.system.expanded}}expanded{{/if}}" style="background-image:url('{{item.img}}')" data-item-id="{{item._id}}"><i class="fas fa-dice-d20"></i></div>
+      <div class="inventory-titles item-clickable" style="flex: 2 1 0" data-item-id="{{item._id}}">{{item.name}}</div>
       <div class="inventory-titles">
         <div style="flex:0.5 1"> {{#if system.favorite}} <i class="fas fa-bookmark fa-sm"></i> {{/if}} </div>
         <p style="flex:0.5 1">{{item.system.tl}}</p>
-        <p>{{item.system.encumbrance}}</p>
-        <p>{{item.system.quality}}</p>
+        <p style="flex:0.5 1">{{item.system.encumbrance}}</p>
       </div>
     </div>
     {{#if system.expanded}}

@@ -156,6 +156,8 @@ export class XandersSwnActorSheet extends ActorSheet {
             this.actor.updateEmbeddedDocuments("Item", [{_id: event.currentTarget.dataset.itemId, system:{expanded: !item.system.expanded}}]);
         });
 
+        html.find('.item-image-clickable').on("click", this._onItemUse.bind(this));
+
         //Adding context menu when skills or items are right clicked.
         new ContextMenu(html, '.skill-choice', this.skillContextMenu);
         new ContextMenu(html, '.item-choice-regular', this.itemContextMenu);
@@ -405,6 +407,15 @@ export class XandersSwnActorSheet extends ActorSheet {
         }else{
             initSkills(this.actor, buttonType);
         }
+    }
+
+    async _onItemUse(event){
+        event.preventDefault();
+
+        //Getting the button that was pressed.
+        const item = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
+
+        console.log(item);
     }
 
     //@override

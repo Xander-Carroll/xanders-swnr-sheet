@@ -504,32 +504,50 @@
 }
 
 /* The image for each item. */
-.xanders-swnr .inventory-image{
-  max-height: 25px;
-  max-width: 25px;
+.xanders-swnr .item-image-box{
+  height: 25px;
+  width: 25px;
+
+  background-size: 25px;
 
   border-radius: 5px 0px 0px 5px;
 
   border: none;
   margin: 0px;
   padding: 0px;
+
+  display:flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.xanders-swnr .inventory-image img{
-  border: none;
-  overflow: hidden;
-  border-radius: 5px 0px 0px 5px;
-
-  margin: 0px;
-  padding: 0px;
-}
-
-.xanders-swnr .inventory-image.expanded{
+/* The image when an item is expanded.*/
+.xanders-swnr .item-image-box.expanded{
   border-radius: 5px 0px 0px 0px;
 }
 
-.xanders-swnr .inventory-image.expanded img{
-  border-radius: 5px 0px 0px 0px;
+/* The dice icon when an inventory item is hovered.*/
+.xanders-swnr .inventory-item:hover .item-image-box i{
+  display: unset;
+  color: var(--item-header-image-color);
+  font-size: 18px;
+}
+
+/* The dice icon when an inventory item image is hovered.*/
+.xanders-swnr .inventory-item .item-image-box:hover i{
+  display: unset;
+  color: black;
+  font-size: 18px;
+}
+
+/* The dice icon when the item is not being hovered.*/
+.xanders-swnr .inventory-item:not(:hover) .item-image-box:not(:hover) i{
+  display: none;
+}
+
+/* The dice icon when an inventory item is hovered.*/
+.xanders-swnr .inventory-item:hover .item-image-box{
+  background-image: none !important;
 }
 
 /* Makes the item title change colors when it is hovered. */
