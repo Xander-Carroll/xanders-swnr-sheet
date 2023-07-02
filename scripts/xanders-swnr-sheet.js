@@ -40,7 +40,7 @@ function registerSystemSettings(){
 		config: true,
 		scope: "world",
 		name: "Change All Backgrounds",
-		hint: "This will give the background of all popups and chat messages a more sci-fi texture.",
+		hint: "This will give the background of all popups a more sci-fi texture.",
 		type: Boolean,
 		default: true,
 		onChange: debouncedReload
@@ -67,12 +67,76 @@ function injectCSS() {
 	if (game.settings.get("xanders-swnr-sheet", "changeAllBackgrounds")) {
         innerHTML += `
             /* Replaces the standard parchment background */
-            .window-app .window-content, .chat-message{
-                background: url("modules/xanders-swnr-sheet/img/backgrounds/hexellence.webp");
-                background-color: rgb(243,243,243);
-
+			.window-app section.window-content,
+			.window-app section.window-content .dialog-content,
+			.window-app section.window-content .dialog-buttons{
+				background: url("modules/xanders-swnr-sheet/img/backgrounds/hexellence.webp");
+				background-color: rgb(233,233,233);
+				color: black;
+	
 				--color-shadow-primary: rgb(5, 99, 150);
-            }
+			}
+
+			.window-app section.window-content aside{
+				background-color: rgb(255, 255, 255, 0.3);
+			}
+
+			/* Changes colors to make fields readable */
+			.window-app#module-management section.window-content{
+				color: none;
+			}
+
+			.window-app#module-management section.window-content label{
+				color: black;
+			}
+
+			.window-app section.window-content p.notes{
+				color: #464646 !important;
+				margin-top: 3px;
+				font-size: 13px;
+			}
+
+			.window-app section.window-content .border{
+				border: none;
+				font-weight: bolder;
+				font-size: 20px;
+				border-bottom: 1px solid black;
+			}
+
+			.window-app section.window-content button{
+				background: #d4d5d6;
+				color: black;
+				border-radius: 3px;
+				border: 1px solid var(--color-border-light-tertiary);
+			}
+
+			.window-app section.window-content select{
+				border: 1px solid var(--color-border-light-tertiary);
+				border-radius: 3px;
+				background-color: rgba(0, 0, 0, 0.05);
+			}
+
+			.window-app section.window-content select option{
+				background-color: var(--color-bg-option);
+				color: black;
+				border-radius: 0px;
+			}
+
+			.window-app section.window-content input{
+				background-color: rgba(0, 0, 0, 0.05);
+				border: 1px solid var(--color-border-light-tertiary);
+				border-radius: 3px;
+				text-align: left;
+			}
+
+			.window-app section.window-content input[type=range]{
+				border: none;
+				background: none;
+			}
+
+			.window-app section.window-content hr{
+				border-color: #b5b3a4;
+			}
         `;
     }
 

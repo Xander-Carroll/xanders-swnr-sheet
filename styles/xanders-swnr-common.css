@@ -15,7 +15,7 @@
   }
   
   /* Color variables that are used in the sheet */
-  .xanders-swnr{
+  .window-app.xanders-swnr{
     --background-sheet-header-color: rgb(255, 255, 255, 0.6);
     --background-sheet-color: rgb(230, 230, 230);
     --background-image: url("../img/backgrounds/hexellence.webp");
@@ -42,16 +42,17 @@
 
     --context-background-delete: rgba(189, 0, 0, 0.5);
     --context-background-favorited: rgba(0, 168, 36, 0.5);
+
+    --field-border-radius: 3px;
   }
   
   /* Makes some changes to the default sheet look and spacing */
-  .xanders-swnr.window-app .window-content{
+  .window-app.xanders-swnr.window-app .window-content{
     padding: 0px;
     display: flex;
   
     background: var(--background-image);
     background-color: var(--background-sheet-color);
-  
   }
   
   /* Sets the minimum size allowed for an actor sheet */
@@ -70,7 +71,7 @@
     CSS for right click context menus
   */
 
-  .xanders-swnr #context-menu{
+  .window-app.xanders-swnr #context-menu{
     width: unset;
     min-width: unset;
     box-shadow: 0 0 5px;
@@ -81,12 +82,12 @@
     background-color: var(--background-sheet-color);
   }
 
-  .xanders-swnr #context-menu li.context-item{
+  .window-app.xanders-swnr #context-menu li.context-item{
     padding: 0px;
     line-height: 23px;
   }
 
-  .xanders-swnr .context-delete{
+  .window-app.xanders-swnr .context-delete{
     background-color: var(--context-background-delete);
     border-radius: 0px 0px 5px 5px;
     margin-right: 2px;
@@ -94,19 +95,19 @@
     margin-left: 2px;
   }
 
-  .xanders-swnr .context-favorited{
+  .window-app.xanders-swnr .context-favorited{
     background-color: var(--context-background-favorited);
     margin-left: 2px;
     margin-right: 2px;
     margin-bottom: 2px;
   }
 
- .xanders-swnr .context-image{
+ .window-app.xanders-swnr .context-image{
     color: var(--font-color);
     padding-left: 7px;
  }
 
-  .xanders-swnr .context-text{
+  .window-app.xanders-swnr .context-text{
     font-size: 12px;
     color: var(--font-color);
     font-family: 'Roboto';
@@ -119,39 +120,58 @@
   */
   
   /* Setting the deualt font style */
-  .xanders-swnr p {
+  .window-app.xanders-swnr .window-content * {
+    color: var(--font-color);
+  }
+
+  .window-app.xanders-swnr p {
     font-family: "Roboto";
     color: var(--font-color);
     margin: 0px;
   }
   
   /* Setting default values for input fields */
-  .xanders-swnr input{
+  .window-app.xanders-swnr section.window-content input{
     border: none;
+    border-bottom: 1px solid var(--border-color);
     background: none;
     padding: 4px;
     color: var(--font-color);
   
+    background: none;
+    border-radius: var(--field-border-radius);
+
     font-family: "Roboto";
     color: var(--font-color);
   
     --color-shadow-primary : none;
     --color-shadow-highlight : none;
   }
-  
-  .xanders-swnr input:focus{
-    border: 1px solid var(--input-focus-color);
+
+  .window-app.xanders-swnr section.window-content input.borderless{
+    border: none;
+  }
+
+  .window-app.xanders-swnr section.window-content input.borderless:focus,
+  .window-app.xanders-swnr section.window-content input.borderless:hover:enabled{
     padding: 3px;
   }
   
-  .xanders-swnr input:hover:enabled{
+  .window-app.xanders-swnr section.window-content input:focus{
     border: 1px solid var(--input-focus-color);
     padding: 3px;
+    padding-bottom: 4px;
+  }
+  
+  .window-app.xanders-swnr section.window-content input:hover:enabled{
+    border: 1px solid var(--input-focus-color);
+    padding: 3px;
+    padding-bottom: 4px;
     color: var(--font-color);
   }
   
   /* Sets the size and color of the sheet header */
-  .xanders-swnr .header-bar{
+  .window-app.xanders-swnr .header-bar{
     margin-left: 0px;
     margin-right: 0px;
     margin-top: 0px;
@@ -165,7 +185,7 @@
   }
   
   /* Sets the size and margin for the name text */
-  .xanders-swnr .name-bar{
+  .window-app.xanders-swnr .name-bar{
     height: 100%;
     width: 400px;
     margin-left: 10px;
@@ -173,7 +193,7 @@
   }
 
   /* Sets the default look of the tabs */
-.xanders-swnr .tabs{
+.window-app.xanders-swnr .tabs{
   padding-bottom: 0px;
 
   display: flex;
@@ -181,7 +201,7 @@
 }
 
 /* Sets the default tab look */
-.xanders-swnr .tabs a{
+.window-app.xanders-swnr .tabs a{
   border-bottom: 1px solid var(--border-color);
   padding-top: 5px;
   padding-bottom: 3px;
@@ -190,21 +210,22 @@
   background-position: 0 0;
   background-color: var(--background-sheet-header-color);
 
+  color: var(--font-color);
   font-family: "Roboto";
   font-size: 16px ;
 }
 
 /* Sets the look of a tab when it is hovered over */
-.xanders-swnr .tabs a:hover{
+.window-app.xanders-swnr .tabs a:hover{
   color:var(--active-font-color);
 }
 
-.xanders-swnr .tabs .active:hover{
+.window-app.xanders-swnr .tabs .active:hover{
   color: var(--font-color);
 }
 
 /* Sets the look of the active tab */
-.xanders-swnr .tabs .active{
+.window-app.xanders-swnr .tabs .active{
   font-weight: bold;
   background: transparent;
 
@@ -216,7 +237,7 @@
 }
 
 /* Makes the currently active tab fill the given space. */
-.xanders-swnr .tab.active{
+.window-app.xanders-swnr .tab.active{
   display: flex;
   flex-grow: 1;
 }

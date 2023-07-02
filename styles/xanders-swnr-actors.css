@@ -3,7 +3,7 @@
 */
 
 /* Sets the size and position and background color of the portrait image */
-.xanders-swnr .character-portrait{
+.window-app.xanders-swnr .character-portrait{
   width: 150px;
   height: 150px;
 
@@ -22,7 +22,7 @@
 }
 
 /* Removes the border from the portrait image */
-.xanders-swnr .character-portrait img{
+.window-app.xanders-swnr .character-portrait img{
   height: 100%;
   width: 100%;
   border: none;
@@ -32,7 +32,7 @@
 }
 
 /* Sets the position of the health-bar and strain-bar and sets it to the propper size. */
-.xanders-swnr .health-bar, .xanders-swnr .strain-bar{
+.window-app.xanders-swnr .health-bar, .window-app.xanders-swnr .strain-bar{
   position: relative;
   bottom: -10px;
 
@@ -46,19 +46,19 @@
 }
 
 /* Sets the look of the fill inside the healthbar */
-.xanders-swnr .health-bar .health-fill{
+.window-app.xanders-swnr .health-bar .health-fill{
   background: var(--health-bar-color);
   height: 100%;
 }
 
 /* Sets the look of the fill inside the healthbar */
-.xanders-swnr .strain-bar .strain-fill{
+.window-app.xanders-swnr .strain-bar .strain-fill{
   background: var(--strain-bar-color);
   height: 100%;
 }
 
 /* Sets the font style and properties of the HP and Strain text input */
-.xanders-swnr .health-input, .xanders-swnr .strain-input{
+.window-app.xanders-swnr .health-input, .window-app.xanders-swnr .strain-input{
   font-size: 16px;
 
   width: 35%;
@@ -66,7 +66,7 @@
 }
 
 /* Positions the HP text in the center of the healthbar or strainbar */
-.xanders-swnr .health-text, .xanders-swnr .strain-text{
+.window-app.xanders-swnr .health-text, .window-app.xanders-swnr .strain-text{
   display: flex;
   position: relative;
   top: -100%;
@@ -78,7 +78,7 @@
 }
 
 /* Sets the font for the character name input field */
-.xanders-swnr .player-name{
+.window-app.xanders-swnr .player-name{
   font-family: "Roboto-Bold";
   font-size: 18px;
 
@@ -89,12 +89,12 @@
 }
 
 /* Fixes an issue where the bar under the player name woud disapear sometimes. */
-.xanders-swnr .player-name:disabled:hover{
+.window-app.xanders-swnr .player-name:disabled:hover{
   border-bottom: 1px solid var(--border-color);
 }
 
 /* Sets the size and positioning of the lock button */
-.xanders-swnr .lock-button{
+.window-app.xanders-swnr .lock-button{
   width:30px;
   height:30px;
 
@@ -102,12 +102,12 @@
 }
 
 /* Removes the border from the lock button */
-.xanders-swnr .lock-button img{
+.window-app.xanders-swnr .lock-button img{
   border: transparent;
 }
 
 /* The box that goes behind the level text */
-.xanders-swnr .level-box{
+.window-app.xanders-swnr .level-box{
   background-color: var(--level-background-color);
   border-radius: 5px;
   border: 1px solid var(--border-color);
@@ -124,26 +124,26 @@
 }
 
 /* The level input field. */
-.xanders-swnr .level-input{
+.window-app.xanders-swnr .level-input{
   margin: 3px;
   font-family: "Orbitron";
 }
 
 /* The level text that goes before the level input field. */
-.xanders-swnr .level-box p{
+.window-app.xanders-swnr .level-box p{
   align-self: center;
   font-family: "Orbitron";
 }
 
 
 /* Sets the size of the background information labels */
-.xanders-swnr .background-informations-labels p, .species-label p{
+.window-app.xanders-swnr .background-informations-labels p{
   font-size: 10px;
   color: var(--second-font-color);
   font-weight:lighter;
 }
 
-.xanders-swnr .background-informations-labels div{
+.window-app.xanders-swnr .background-informations-labels div{
   flex: 1 1 0px;
 
   display: flex;
@@ -151,7 +151,7 @@
 }
 
 /* Sets the size and font for the background information input fields */
-.xanders-swnr .background-informations input{
+.window-app.xanders-swnr .background-informations input{
   margin-top: 10px;
   flex: 1 1 0px;
   margin-left: 5px;
@@ -160,36 +160,11 @@
   text-align: center;
   vertical-align: bottom;
 
-  border-bottom: 1px solid var(--border-color);
-
-  padding-bottom: 3px;
-
-  font-size: 12px;
-}
-
-.xanders-swnr .background-informations input:focus, .species-element input:focus{
-  border: 1px solid var(--input-focus-color);
-}
-
-.xanders-swnr .species-element{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/* More information for the background field display properties */
-.xanders-swnr .species-element input{
-  text-align: center;
-  vertical-align: bottom;
-
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 3px;
-
   font-size: 12px;
 }
 
 /* The box that contains the saving throw buttons */
-.xanders-swnr .save-throw-box{
+.window-app.xanders-swnr .save-throw-box{
   flex: 5 1 0px; 
 
   display: flex;
@@ -199,7 +174,7 @@
 }
 
 /* The box that contains the saving throw label and buttons */
-.xanders-swnr .save-throw-container{
+.window-app.xanders-swnr .save-throw-container{
   border: 1px solid var(--border-color);
   border-radius: 2px;
 
@@ -208,7 +183,7 @@
 
 }
 
-.xanders-swnr .save-throw-container p{
+.window-app.xanders-swnr .save-throw-container p{
   font-size: 12px;
   font-family: 'Orbitron';
   margin-left: 5px;
@@ -216,7 +191,7 @@
 }
 
 /* The clickable buttons that allow you to make saving throws. */
-.xanders-swnr .save-throw-button{
+.window-app.xanders-swnr .save-throw-button{
   width: 90px;
   height: 20px;
   background-color: var(--level-background-color);
@@ -230,12 +205,12 @@
   align-items: center;
 }
 
-.xanders-swnr .save-throw-button:hover{
+.window-app.xanders-swnr .save-throw-button:hover{
   border: 1px solid var(--input-focus-color);
 }
 
 /* The text inside of the saving throw buttons */
-.xanders-swnr .save-throw-button p{
+.window-app.xanders-swnr .save-throw-button p{
   font-size: 11px;
   font-family: 'Roboto';
 
@@ -246,23 +221,23 @@
 }
 
 /* Sets the font of the v## text in the saving throw button */
-.xanders-swnr .save-throw-button .difficulty{
+.window-app.xanders-swnr .save-throw-button .difficulty{
   font-size: 10px;
 }
 
 /* Sets the size of the main sheet body */
-.xanders-swnr .sheet-tabs-body{
+.window-app.xanders-swnr .sheet-tabs-body{
   padding: 10px;
   flex-grow: 1;
 }
 
-.xanders-swnr .sheet-body{
+.window-app.xanders-swnr .sheet-body{
   flex-grow: 1;
   display:flex;
 }
 
 /* Sets basic properties of the skill list */
-.xanders-swnr .skill-list{
+.window-app.xanders-swnr .skill-list{
   display:flex;
   flex-direction: column;
 
@@ -275,7 +250,7 @@
 }
 
 /* Various properties used to configure items in the skill list */
-.xanders-swnr .skill-list .skill{
+.window-app.xanders-swnr .skill-list .skill{
   padding: 2px;
   padding-left: 5px;
   padding-right: 5px;
@@ -289,66 +264,66 @@
 }
 
 /* The first row in the attribute bar */
-.xanders-swnr .skill.skill-header{
+.window-app.xanders-swnr .skill.skill-header{
   font-weight: bold;
 }
 
 /* The level of the skill or '-' for no levels */
-.xanders-swnr .skill .skill-level{
+.window-app.xanders-swnr .skill .skill-level{
   flex: 0 1 20px;
   margin-right: 10px;
   width: 20px;
 }
 
 /* The name of the skill, "administer", "connect", etc. */
-.xanders-swnr .skill .skill-title{
+.window-app.xanders-swnr .skill .skill-title{
   flex: 1 1 0px;
 }
 
-.xanders-swnr .skill .skill-title:hover{
+.window-app.xanders-swnr .skill .skill-title:hover{
   color: var(--active-font-color)
 }
 
-.xanders-swnr .skill .skill-title.no-hilight:hover{
+.window-app.xanders-swnr .skill .skill-title.no-hilight:hover{
   color: var(--font-color);
 }
 
 /* The attribute code of the skill, "str", "dex", etc. */
-.xanders-swnr .skill .skill-attribute{
+.window-app.xanders-swnr .skill .skill-attribute{
   flex: 0 1 25px;
 }
 
-.xanders-swnr .skill-choice .skill-attribute{
+.window-app.xanders-swnr .skill-choice .skill-attribute{
   color: var(--second-font-color);
 }
 
 /* The modifier of the skill */
-.xanders-swnr .skill .skill-dice{
+.window-app.xanders-swnr .skill .skill-dice{
   flex: 0 1 35px;
 }
 
-.xanders-swnr .skill-choice .skill-dice{
+.window-app.xanders-swnr .skill-choice .skill-dice{
   color: var(--second-font-color);
 }
 
 /* When no skills are added or when the sheet is in edit mode the "add skills" nuttons that are shown */
-.xanders-swnr .skill.add-skill{
+.window-app.xanders-swnr .skill.add-skill{
   font-style: italic;
   display: flex;
   justify-content: center;
 }
 
-.xanders-swnr .skill.add-skill:hover{
+.window-app.xanders-swnr .skill.add-skill:hover{
   color: var(--active-font-color)
 }
 
 /* Sets the skill list to alternate background colors. */
-.xanders-swnr .skill-list .skill:nth-child(even) {
+.window-app.xanders-swnr .skill-list .skill:nth-child(even) {
   background: var(--table-alt-color);
 }
 
 /* The div which contains favorited items and the attributes bar. */
-.xanders-swnr .attribute-item-bar {
+.window-app.xanders-swnr .attribute-item-bar {
   flex-grow:1; 
   margin-top:8px; 
   border-top: 1px solid var(--border-color);
@@ -356,7 +331,7 @@
 }
 
 /* The div which contains the attributes. */
-.xanders-swnr .attribute-list {
+.window-app.xanders-swnr .attribute-list {
   display:flex; 
   flex-direction:row;
   flex-grow: 1;
@@ -364,7 +339,7 @@
 }
 
 /* The six divs which contain the six main attributes. */
-.xanders-swnr .attribute {
+.window-app.xanders-swnr .attribute {
   display: flex;
   flex-direction: column;
 
@@ -377,7 +352,7 @@
 }
 
 /* The inputs for attributes. */
-.xanders-swnr .attribute-input{
+.window-app.xanders-swnr .attribute-input{
   width: 40px;
   font-family: "Roboto";
   font-size: 20px;
@@ -386,7 +361,7 @@
 }
 
 /* The headers for the attributes. */
-.xanders-swnr .attribute-header p{
+.window-app.xanders-swnr .attribute-header p{
   width: 30px;
   font-family: "Roboto";
   font-size: 16px;
@@ -394,7 +369,7 @@
 }
 
 /* The modifier text for the attributes. */
-.xanders-swnr .attribute-modifier {
+.window-app.xanders-swnr .attribute-modifier {
   font-family: "Roboto";
   font-size: 13px;
 
@@ -406,42 +381,42 @@
 }
 
 /* Used to temporarily adjust the abillity modifier. */
-.xanders-swnr .attribute-boost {
+.window-app.xanders-swnr .attribute-boost {
   display:flex; 
   flex-direction:row; 
   align-items:center;
   margin-top: 2px;
 }
 
-.xanders-swnr .attribute-boost p{
+.window-app.xanders-swnr .attribute-boost p{
   font-size: 10px;
 }
 
 /* The input for the boost, including changing its color on hover. */
-.xanders-swnr .attribute-boost input{
+.window-app.xanders-swnr .attribute-boost input{
   font-size:10px;
   padding: 2px;  
   height: 15px;
   width: 10px;
 }
 
-.xanders-swnr .attribute-boost input:hover{
+.window-app.xanders-swnr .attribute-boost input:hover{
   padding: 1px;
 }
 
-.xanders-swnr .attribute-boost input:focus{
+.window-app.xanders-swnr .attribute-boost input:focus{
   padding: 1px;
 }
 
 /* The list that contains all of the inventory elements. */
-.xanders-swnr ul.inventory-list{
+.window-app.xanders-swnr ul.inventory-list{
   list-style: none;
   margin: 0px;
   padding: 0px;
 }
 
 /* The inventory tab header bar. Not the labels in the bar, but the whole bar itself. */
-.xanders-swnr .inventory-section-header{
+.window-app.xanders-swnr .inventory-section-header{
   display: flex;
   flex-direction: row;
 
@@ -464,7 +439,7 @@
 }
 
 /* The labels inside of the item headers. Items, TL, Encumbrance, etc.*/
-.xanders-swnr .inventory-titles{
+.window-app.xanders-swnr .inventory-titles{
   display: flex;
   flex-direction: row;
 
@@ -476,12 +451,12 @@
   text-align: center;
 }
 
-.xanders-swnr .inventory-titles p{
+.window-app.xanders-swnr .inventory-titles p{
   flex: 1 1 0;
 }
 
 /* Each item in the sheet gets its own div. */
-.xanders-swnr .inventory-item{
+.window-app.xanders-swnr .inventory-item{
   display: flex;
   flex-direction: column;
 
@@ -493,7 +468,7 @@
 }
 
 /* Each row in the item sheet. Every item gets its own title row. */
-.xanders-swnr .inventory-item-header{
+.window-app.xanders-swnr .inventory-item-header{
   display: flex;
   flex-direction: row;
 
@@ -504,7 +479,7 @@
 }
 
 /* The image for each item. */
-.xanders-swnr .item-image-box{
+.window-app.xanders-swnr .item-image-box{
   height: 25px;
   width: 25px;
 
@@ -522,51 +497,51 @@
 }
 
 /* The image when an item is expanded.*/
-.xanders-swnr .item-image-box.expanded{
+.window-app.xanders-swnr .item-image-box.expanded{
   border-radius: 5px 0px 0px 0px;
 }
 
 /* The dice icon when an inventory item is hovered.*/
-.xanders-swnr .inventory-item:hover .item-image-box i{
+.window-app.xanders-swnr .inventory-item:hover .item-image-box i{
   display: unset;
   color: var(--item-header-image-color);
   font-size: 18px;
 }
 
 /* The dice icon when an inventory item image is hovered.*/
-.xanders-swnr .inventory-item .item-image-box:hover i{
+.window-app.xanders-swnr .inventory-item .item-image-box:hover i{
   display: unset;
   color: black;
   font-size: 18px;
 }
 
 /* The dice icon when the item is not being hovered.*/
-.xanders-swnr .inventory-item:not(:hover) .item-image-box:not(:hover) i{
+.window-app.xanders-swnr .inventory-item:not(:hover) .item-image-box:not(:hover) i{
   display: none;
 }
 
 /* The dice icon when an inventory item is hovered.*/
-.xanders-swnr .inventory-item:hover .item-image-box{
+.window-app.xanders-swnr .inventory-item:hover .item-image-box{
   background-image: none !important;
 }
 
 /* Makes the item title change colors when it is hovered. */
-.xanders-swnr .item-clickable:hover{
+.window-app.xanders-swnr .item-clickable:hover{
   color: var(--active-font-color);
 }
 
 /* Makes the item change colors when it is readied. */
-.xanders-swnr .inventory-item.location-readied{
+.window-app.xanders-swnr .inventory-item.location-readied{
   background-color: var(--item-background-readied-color);
 }
 
 /* Makes the item change colors when its status is "stowed". */
-.xanders-swnr .inventory-item.location-stowed{
+.window-app.xanders-swnr .inventory-item.location-stowed{
   background-color: var(--item-background-stowed-color);
 }
 
 /* The box that goes below the item when it is clicked. */
-.xanders-swnr .inventory-item-summary{
+.window-app.xanders-swnr .inventory-item-summary{
   border-top: 1px solid var(--border-color);
   min-height: 10px;
   padding: 5px;
@@ -577,7 +552,7 @@
 }
 
 /* The details row below the item summary. */
-.xanders-swnr .inventory-extra-details{
+.window-app.xanders-swnr .inventory-extra-details{
   display:flex; 
   flex-direction:row;
   flex-wrap: wrap;
@@ -589,7 +564,7 @@
 }
 
 /* The detail labels below the item summary. */
-.xanders-swnr .inventory-extra-details-item{
+.window-app.xanders-swnr .inventory-extra-details-item{
   border-radius: 3px;
   padding-top: 1px;
   padding-bottom: 1px;
@@ -599,6 +574,6 @@
 }
 
 /* The detail labels below the item summary. */
-.xanders-swnr.chat-details .inventory-extra-details-item{
+.window-app.xanders-swnr.chat-details .inventory-extra-details-item{
   background-color: var(--item-detail-label-color-chat);
 }

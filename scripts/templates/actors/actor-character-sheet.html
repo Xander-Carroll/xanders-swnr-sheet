@@ -13,9 +13,9 @@
           <div class="strain-bar" style="border-bottom:0px;">
             <div style="width:{{system.systemStrain.percentage}}%" class="strain-fill"></div>
             <div class="strain-text">
-              <input name="system.systemStrain.value" type="number" value="{{system.systemStrain.value}}" class="strain-input" style="text-align:right" {{#unless owner}}disabeled{{/unless}}/>
+              <input name="system.systemStrain.value" type="number" value="{{system.systemStrain.value}}" class="strain-input" style="text-align:right;margin:0px;" {{#unless owner}}disabeled{{/unless}}/>
               <p style="margin:0px">/</p>
-              <input name="system.systemStrain.max" type="number" value="{{system.systemStrain.max}}" class="strain-input" disabled/>
+              <input name="system.systemStrain.max" type="number" value="{{system.systemStrain.max}}" class="strain-input" style=";margin:0px;" disabled/>
             </div>
           </div>
 
@@ -23,9 +23,9 @@
           <div class="health-bar">
             <div style="width:{{system.health.percentage}}%" class="health-fill"></div>
             <div class="health-text">
-              <input name="system.health.value" type="number" value="{{system.health.value}}" class="health-input" style="text-align:right" {{#unless owner}}disabeled{{/unless}}/>
+              <input name="system.health.value" type="number" value="{{system.health.value}}" class="health-input" style="text-align:right;margin:0px;" {{#unless owner}}disabeled{{/unless}}/>
               <p style="margin:0px">/</p>
-              <input name="system.health.max" type="number" value="{{system.health.max}}" class="health-input" {{#if system.xIsLocked}}disabled{{/if}}/>
+              <input name="system.health.max" type="number" value="{{system.health.max}}" class="health-input" style=";margin:0px;" {{#if system.xIsLocked}}disabled{{/if}}/>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
             <div style="flex: 1 1 0; display:flex; justify-content:end;">
               <div class="level-box">
                 <p>Level. </p>
-                <input name="system.level.value" class="level-input" type="number" value="{{system.level.value}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+                <input name="system.level.value" class="level-input borderless" type="number" value="{{system.level.value}}" {{#if system.xIsLocked}}disabled{{/if}}/>
               </div>
             </div>
             <div style="display:flex; justify-content:end; align-items:center">
@@ -78,9 +78,9 @@
           <div style="display:flex; flex-direction:row">
 
             <!-- The Character gender input and label. -->
-            <div class="species-element" style="flex: 2 1 0px">
+            <div class="background-informations" style="flex: 2 1 0px">
               <input name="system.species" type="text" value="{{system.species}}" {{#if system.xIsLocked}}disabled{{/if}}/>
-              <div class="species-label" style="display:flex; justify-content:center"><p>Gender/Species</p></div>
+              <div class="background-informations-labels" style="display:flex; justify-content:center"><p>Gender/Species</p></div>
             </div>
 
             <!-- The saving throw buttons. -->
@@ -172,61 +172,61 @@
               <div class="attribute-list">
                 <div class="attribute" style="border-left: none;">
                   <div class="attribute-header"><p><u>STR</u></p></div>                  
-                  <div><input name="system.stats.str.base" value="{{system.stats.str.base}}" type="number" class="attribute-input" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div><input name="system.stats.str.base" value="{{system.stats.str.base}}" type="number" class="attribute-input borderless" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <div class="attribute-modifier"><p>{{system.stats.str.modString}}</p></div>
                   {{#unless system.xIsLocked}}
                     <div class="attribute-boost">
-                      <p style="font-size:10px">Boost:</p> <input name="system.stats.str.bonus" type="number" value="{{system.stats.str.bonus}}" />
+                      <p style="font-size:10px">Boost:</p> <input name="system.stats.str.bonus" type="number" class="borderless" value="{{system.stats.str.bonus}}" />
                     </div>
                   {{/unless}}
                 </div>
                 <div class="attribute">
                   <div class="attribute-header"><p><u>DEX</u></p></div>                  
-                  <div><input name="system.stats.dex.base" value="{{system.stats.dex.base}}" type="number" class="attribute-input" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div><input name="system.stats.dex.base" value="{{system.stats.dex.base}}" type="number" class="attribute-input borderless" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <div class="attribute-modifier"><p>{{system.stats.dex.modString}}</p></div>
                   {{#unless system.xIsLocked}}
                     <div class="attribute-boost">
-                      <p style="font-size:10px">Boost:</p> <input name="system.stats.dex.bonus" type="number" value="{{system.stats.dex.bonus}}" />
+                      <p style="font-size:10px">Boost:</p> <input name="system.stats.dex.bonus" type="number" class="borderless"  value="{{system.stats.dex.bonus}}" />
                     </div>
                   {{/unless}}
                 </div>
                 <div class="attribute">
                   <div class="attribute-header"><p><u>CON</u></p></div>                  
-                  <div><input name="system.stats.con.base" value="{{system.stats.con.base}}" type="number" class="attribute-input" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div><input name="system.stats.con.base" value="{{system.stats.con.base}}" type="number" class="attribute-input borderless" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <div class="attribute-modifier"><p>{{system.stats.con.modString}}</p></div>
                   {{#unless system.xIsLocked}}
                     <div class="attribute-boost">
-                      <p style="font-size:10px">Boost:</p> <input name="system.stats.con.bonus" type="number" value="{{system.stats.con.bonus}}" />
+                      <p style="font-size:10px">Boost:</p> <input name="system.stats.con.bonus" type="number" class="borderless"  value="{{system.stats.con.bonus}}" />
                     </div>
                   {{/unless}}
                 </div>
                 <div class="attribute">
                   <div class="attribute-header"><p><u>INT</u></p></div>                  
-                  <div><input name="system.stats.int.base" value="{{system.stats.int.base}}" type="number" class="attribute-input" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div><input name="system.stats.int.base" value="{{system.stats.int.base}}" type="number" class="attribute-input borderless" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <div class="attribute-modifier"><p>{{system.stats.int.modString}}</p></div>
                   {{#unless system.xIsLocked}}
                     <div class="attribute-boost">
-                      <p style="font-size:10px">Boost:</p> <input name="system.stats.int.bonus" type="number" value="{{system.stats.int.bonus}}" />
+                      <p style="font-size:10px">Boost:</p> <input name="system.stats.int.bonus" type="number" class="borderless"  value="{{system.stats.int.bonus}}" />
                     </div>
                   {{/unless}}
                 </div>
                 <div class="attribute">
                   <div class="attribute-header"><p><u>WIS</u></p></div>                  
-                  <div><input name="system.stats.wis.base" value="{{system.stats.wis.base}}" type="number" class="attribute-input" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div><input name="system.stats.wis.base" value="{{system.stats.wis.base}}" type="number" class="attribute-input borderless" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <div class="attribute-modifier"><p>{{system.stats.wis.modString}}</p></div>
                   {{#unless system.xIsLocked}}
                     <div class="attribute-boost">
-                      <p style="font-size:10px">Boost:</p> <input name="system.stats.wis.bonus" type="number" value="{{system.stats.wis.bonus}}" />
+                      <p style="font-size:10px">Boost:</p> <input name="system.stats.wis.bonus" type="number" class="borderless" value="{{system.stats.wis.bonus}}" />
                     </div>
                   {{/unless}}
                 </div>
                 <div class="attribute">
                   <div class="attribute-header"><p><u>CHA</u></p></div>                  
-                  <div><input name="system.stats.cha.base" value="{{system.stats.cha.base}}" type="number" class="attribute-input" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div><input name="system.stats.cha.base" value="{{system.stats.cha.base}}" type="number" class="attribute-input borderless" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <div class="attribute-modifier"><p>{{system.stats.cha.modString}}</p></div>
                   {{#unless system.xIsLocked}}
                     <div class="attribute-boost">
-                      <p style="font-size:10px">Boost:</p> <input name="system.stats.cha.bonus" type="number" value="{{system.stats.cha.bonus}}" />
+                      <p style="font-size:10px">Boost:</p> <input name="system.stats.cha.bonus" type="number" class="borderless"  value="{{system.stats.cha.bonus}}" />
                     </div>
                   {{/unless}}
                 </div>
