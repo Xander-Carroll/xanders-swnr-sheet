@@ -9,7 +9,7 @@
     <!-- The name of the item and the item type. -->
     <div style="display:flex;">
       <!-- The name of the item. -->
-      <input class="item-name" name="name" type="text" value="{{item.name}}" {{#unless owner}}disabeled{{/unless}}/>
+      <input class="item-name bottom-border" name="name" type="text" value="{{item.name}}" {{#unless owner}}disabeled{{/unless}}/>
       <!-- A spacer which pushes the item type to the right. -->
       <div style="flex:1 1"></div>
       <!-- The box which contains the item type (skill, weapon, etc). -->
@@ -22,10 +22,10 @@
     <div class="item-stats-row">
       <!-- The dice pool, default stat, and skill level. -->
       <div class="background-informations" style="display:flex; flex-direction:row;">
-        <input name="system.quantity" type="number" value="{{system.quantity}}" {{#unless owner}}disabeled{{/unless}}/>
-        <input name="system.encumbrance" type="number" value="{{system.encumbrance}}" {{#unless owner}}disabeled{{/unless}}/>
-        <input name="system.cost" type="number" value="{{system.cost}}" {{#unless owner}}disabeled{{/unless}}/>
-        <input name="system.tl" type="number" value="{{system.tl}}" {{#unless owner}}disabeled{{/unless}}/>
+        <input name="system.quantity" class="bottom-border" type="number" value="{{system.quantity}}" {{#unless owner}}disabeled{{/unless}}/>
+        <input name="system.encumbrance" class="bottom-border"  type="number" value="{{system.encumbrance}}" {{#unless owner}}disabeled{{/unless}}/>
+        <input name="system.cost" class="bottom-border"  type="number" value="{{system.cost}}" {{#unless owner}}disabeled{{/unless}}/>
+        <input name="system.tl" class="bottom-border"  type="number" value="{{system.tl}}" {{#unless owner}}disabeled{{/unless}}/>
       </div>
       <!-- The labels that go beneath skill level, source, dice pool, and default stat. -->
       <div class="item-stats-labels">

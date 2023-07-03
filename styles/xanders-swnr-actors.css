@@ -283,7 +283,8 @@
   flex: 1 1 0px;
 }
 
-.window-app.xanders-swnr .skill .skill-title:hover{
+.window-app.xanders-swnr .skill .skill-title:hover,
+.window-app.xanders-swnr .add-skill-clickable:hover{
   color: var(--active-font-color)
 }
 

@@ -132,8 +132,7 @@
   
   /* Setting default values for input fields */
   .window-app.xanders-swnr section.window-content input{
-    border: none;
-    border-bottom: 1px solid var(--border-color);
+    border: 1px solid var(--border-color);
     background: none;
     padding: 4px;
     color: var(--font-color);
@@ -148,27 +147,29 @@
     --color-shadow-highlight : none;
   }
 
-  .window-app.xanders-swnr section.window-content input.borderless{
-    border: none;
+  .window-app.xanders-swnr section.window-content input:hover:enabled,
+  .window-app.xanders-swnr section.window-content input:focus:enabled{
+    border: 1px solid var(--input-focus-color);
+    padding: 4px;
   }
 
-  .window-app.xanders-swnr section.window-content input.borderless:focus,
-  .window-app.xanders-swnr section.window-content input.borderless:hover:enabled{
-    padding: 3px;
+  .window-app.xanders-swnr section.window-content input.borderless{
+    border: none;
+    padding: 5px;
   }
   
-  .window-app.xanders-swnr section.window-content input:focus{
-    border: 1px solid var(--input-focus-color);
-    padding: 3px;
+  .window-app.xanders-swnr section.window-content input.bottom-border{
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 5px;
     padding-bottom: 4px;
   }
-  
-  .window-app.xanders-swnr section.window-content input:hover:enabled{
-    border: 1px solid var(--input-focus-color);
-    padding: 3px;
-    padding-bottom: 4px;
-    color: var(--font-color);
+
+  .window-app.xanders-swnr section.window-content input.bottom-border:focus:enabled,
+  .window-app.xanders-swnr section.window-content input.bottom-border:hover:enabled{
+    padding: 4px;
   }
+
   
   /* Sets the size and color of the sheet header */
   .window-app.xanders-swnr .header-bar{

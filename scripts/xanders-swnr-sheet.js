@@ -126,6 +126,10 @@ function injectCSS() {
 				border: 1px solid var(--color-border-light-tertiary);
 			}
 
+			.window-app section.window-content button:focus{
+				outline: none;
+			}
+
 			.window-app section.window-content select{
 				border: 1px solid var(--color-border-light-tertiary);
 				border-radius: 3px;

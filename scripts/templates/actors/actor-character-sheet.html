@@ -35,7 +35,7 @@
 
           <!-- The Character Name, lock button, and Level. -->
           <div style="display:flex; flex-direction:row">
-            <input class="player-name" name="name" type="text" value="{{actor.name}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+            <input class="player-name bottom-border" name="name" type="text" value="{{actor.name}}" {{#if system.xIsLocked}}disabled{{/if}}/>
             <div style="flex: 1 1 0; display:flex; justify-content:end;">
               <div class="level-box">
                 <p>Level. </p>
@@ -57,13 +57,13 @@
 
           <!-- The Character background, species, gender, homeworld, and employer. -->
           <div class="background-informations" style="display:flex; flex-direction:row;">
-            <input name="system.class" type="text" value="{{system.class}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+            <input name="system.class" class="bottom-border" type="text" value="{{system.class}}" {{#if system.xIsLocked}}disabled{{/if}}/>
 
-            <input name="system.background" type="text" value="{{system.background}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+            <input name="system.background" class="bottom-border" type="text" value="{{system.background}}" {{#if system.xIsLocked}}disabled{{/if}}/>
 
-            <input name="system.homeworld" type="text" value="{{system.homeworld}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+            <input name="system.homeworld" class="bottom-border" type="text" value="{{system.homeworld}}" {{#if system.xIsLocked}}disabled{{/if}}/>
 
-            <input name="system.employer" style="margin-right:0" type="text" value="{{system.employer}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+            <input name="system.employer" class="bottom-border" style="margin-right:0" type="text" value="{{system.employer}}" {{#if system.xIsLocked}}disabled{{/if}}/>
           </div>
 
           <!-- The labels that go beneath background, gender, homeworld, and employer. -->
@@ -79,7 +79,7 @@
 
             <!-- The Character gender input and label. -->
             <div class="background-informations" style="flex: 2 1 0px">
-              <input name="system.species" type="text" value="{{system.species}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+              <input name="system.species" class="bottom-border" type="text" value="{{system.species}}" {{#if system.xIsLocked}}disabled{{/if}}/>
               <div class="background-informations-labels" style="display:flex; justify-content:center"><p>Gender/Species</p></div>
             </div>
 
