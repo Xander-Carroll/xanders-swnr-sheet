@@ -1,4 +1,4 @@
-//Extends the basic ActorSheet with some very simple modifications
+// Implements all of the important functionality for the new actor sheets.
 
 import { initSkills, toTitleCase} from "./utils.js";
 
@@ -455,8 +455,6 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Getting the button that was pressed.
         const item = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
 
-        console.log(item);
-
         //Creating an html template from the dialog.
         let templateContent = await renderTemplate("modules/xanders-swnr-sheet/scripts/templates/chats/item-card-chat.html", item);
 
@@ -464,7 +462,10 @@ export class XandersSwnActorSheet extends ActorSheet {
         const chatMessageData = {
             content: templateContent,
             speaker: {actor: this.actor.id},
-            isOwner: true
+            isOwner: true,
+            flags: {
+                xSwnrInteractive: true
+            }
         };
 
         ChatMessage.create(chatMessageData);

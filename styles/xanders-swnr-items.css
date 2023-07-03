@@ -70,6 +70,8 @@
   flex: none;
 
   border-radius: 7px;
+  border: 1px solid var(--border-color);
+
 
   margin-right: 10px;
 
@@ -78,7 +80,6 @@
 
 .window-app.xanders-swnr .item-cover-image img{
   border-radius: 7px;
-  border: 1px solid var(--border-color);
 }
 
 /* The stat row below the item name. */

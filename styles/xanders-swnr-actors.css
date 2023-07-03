@@ -58,11 +58,14 @@
 }
 
 /* Sets the font style and properties of the HP and Strain text input */
-.window-app.xanders-swnr .health-input, .window-app.xanders-swnr .strain-input{
+.window-app.xanders-swnr section.window-content .health-input, 
+.window-app.xanders-swnr section.window-content .strain-input{
   font-size: 16px;
 
   width: 35%;
   height: 100%;
+
+  border: none;
 }
 
 /* Positions the HP text in the center of the healthbar or strainbar */
@@ -420,17 +423,17 @@
   display: flex;
   flex-direction: row;
 
-  box-shadow: 0 0 2px inset rgb(0, 0, 0, 0.25);
+  box-shadow: 0 0 1px inset rgb(0, 0, 0, 0.25);
   background-color: var(--level-background-color);
   border-radius: 5px;
   border: 1px solid var(--border-color);
 
   font-weight: bold;
-  font-size: 13px;
+  font-size: 12px;
   font-family: "Roboto";
 
   margin-top: 20px;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 
   align-items: center;
 
@@ -461,10 +464,10 @@
   flex-direction: column;
 
   border-radius: 5px;
-  border: 1px solid var(--border-color);
   background-color: var(--item-background-other-color);
 
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+  margin-left: 5px;
 }
 
 /* Each row in the item sheet. Every item gets its own title row. */
@@ -472,7 +475,7 @@
   display: flex;
   flex-direction: row;
 
-  font-size: 13px;
+  font-size: 12px;
   font-family: "Roboto";
   padding: 0px;
   margin: 0px;
@@ -531,28 +534,28 @@
 }
 
 /* Makes the item change colors when it is readied. */
-.window-app.xanders-swnr .inventory-item.location-readied{
+.xanders-swnr .inventory-item.location-readied{
   background-color: var(--item-background-readied-color);
 }
 
 /* Makes the item change colors when its status is "stowed". */
-.window-app.xanders-swnr .inventory-item.location-stowed{
+.xanders-swnr .inventory-item.location-stowed{
   background-color: var(--item-background-stowed-color);
 }
 
 /* The box that goes below the item when it is clicked. */
-.window-app.xanders-swnr .inventory-item-summary{
+.xanders-swnr .inventory-item-summary{
   border-top: 1px solid var(--border-color);
   min-height: 10px;
   padding: 5px;
 
-  font-size: 12px;
+  font-size: 11px;
   font-family: 'Roboto';
   font-weight: normal;
 }
 
 /* The details row below the item summary. */
-.window-app.xanders-swnr .inventory-extra-details{
+.xanders-swnr .inventory-extra-details{
   display:flex; 
   flex-direction:row;
   flex-wrap: wrap;
@@ -564,7 +567,7 @@
 }
 
 /* The detail labels below the item summary. */
-.window-app.xanders-swnr .inventory-extra-details-item{
+.xanders-swnr .inventory-extra-details-item{
   border-radius: 3px;
   padding-top: 1px;
   padding-bottom: 1px;
@@ -574,6 +577,19 @@
 }
 
 /* The detail labels below the item summary. */
-.window-app.xanders-swnr.chat-details .inventory-extra-details-item{
+.xanders-swnr.chat-details .inventory-extra-details-item{
   background-color: var(--item-detail-label-color-chat);
+  color: var(--font-color);
+}
+
+/* The description of a chat item card message. */
+.xanders-swnr.chat-details p{
+  font-size: 12px;
+  font-family: 'Roboto';
+  font-weight: normal;
+}
+
+/* Adds a glow when chat item names are hovered. */
+.xanders-swnr.chat-details p#item-name:hover{
+  color: var(--active-font-color);
 }

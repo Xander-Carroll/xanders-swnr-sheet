@@ -15,7 +15,7 @@
   }
   
   /* Color variables that are used in the sheet */
-  .window-app.xanders-swnr{
+ .xanders-swnr{
     --background-sheet-header-color: rgb(255, 255, 255, 0.6);
     --background-sheet-color: rgb(230, 230, 230);
     --background-image: url("../img/backgrounds/hexellence.webp");
@@ -33,10 +33,10 @@
     --health-bar-color: linear-gradient(45deg, rgba(48,121,22,1) 0%, rgba(97,190,80,1) 100%);
     --strain-bar-color: linear-gradient(45deg, rgba(29,131,170,1) 0%, rgba(80,190,183,1) 100%);
 
-    --item-background-other-color: rgba(140,140,140,0.4);
+    --item-background-other-color: rgba(160, 160, 160, 0.4);
     --item-background-readied-color: rgba(64, 163, 55, 0.4);
     --item-background-stowed-color: rgba(199, 118, 4, 0.4);
-    --item-header-image-color: rgba(76, 76, 76, 0.7);
+    --item-header-image-color: rgba(76, 76, 76);
     --item-detail-label-color-inventory: rgb(150, 150, 150);
     --item-detail-label-color-chat: rgb(180, 180, 180);
 

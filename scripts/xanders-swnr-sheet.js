@@ -1,5 +1,6 @@
 //This script: 
 //	adds new item and actor sheets to the SWNR system.
+//  adds interactivity with new chat messages.
 //  adds new options to the settings menu.
 //  changes foundry's CSS if needed.
 
@@ -7,6 +8,8 @@
 import {XandersSwnActorSheet} from "./actor-sheet.js";
 import {XandersSwnItemSheet} from "./item-sheet.js";
 import {preloadXandersTemplates} from "./utils.js";
+import {addChatListener} from "./chat.js";
+
 
 //This function will be called when foundry is initalizing.
 Hooks.once("init", () => {
@@ -34,6 +37,9 @@ Hooks.once("init", () => {
 	}
 });
 
+//This function is used to make chat messages interactive.
+Hooks.on("renderChatMessage", (message, html, data) => addChatListener(message, html, data));
+
 //Adds module spesific settings.
 function registerSystemSettings(){
 	game.settings.register("xanders-swnr-sheet", "changeAllBackgrounds", {
@@ -55,6 +61,15 @@ function registerSystemSettings(){
 		default: true,
 		onChange: debouncedReload
 	});
+
+	game.settings.register("xanders-swnr-sheet", "itemCardsCollapsed", {
+		config: true,
+		scope: "client",
+		name: "Item Cards Collapsed By Default",
+		hint: "This will automatically collapse item card descriptions in the chat.",
+		type: Boolean,
+		default: false	
+	});
 }
 
 //Will add style elements to foundry's CSS based on system settings.
@@ -75,6 +90,7 @@ function injectCSS() {
 				color: black;
 	
 				--color-shadow-primary: rgb(5, 99, 150);
+				--color-text-dark-primary: #3c3c3c;
 			}
 
 			.window-app section.window-content aside{
@@ -135,7 +151,21 @@ function injectCSS() {
 			}
 
 			.window-app section.window-content hr{
-				border-color: #b5b3a4;
+				border-color: #868685;
+			}
+
+			.window-app section.window-content textarea{
+				background-color: rgba(0, 0, 0, 0.05);
+				border: 1px solid #868685;
+			}
+
+			/* Fixing the bullet points and numbered list in item descriptions.*/
+			.window-app section.window-content ul{
+				list-style: disc;
+			}
+
+			.window-app section.window-content ol{
+				list-style: decimal;
 			}
         `;
     }
