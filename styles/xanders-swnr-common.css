@@ -107,12 +107,17 @@
     padding-left: 7px;
  }
 
-  .window-app.xanders-swnr .context-text{
+ .window-app.xanders-swnr .context-favorited .context-image,
+ .window-app.xanders-swnr .context-delete .context-image{
+  padding-left: 5px;
+ }
+
+.window-app.xanders-swnr .context-text{
     font-size: 12px;
     color: var(--font-color);
     font-family: 'Roboto';
     padding-right: 5px;
-  }
+}
 
   
   /* 

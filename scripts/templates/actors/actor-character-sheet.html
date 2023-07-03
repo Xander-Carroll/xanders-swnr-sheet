@@ -246,7 +246,19 @@
 
                   {{#if system.favoriteItems.hasWeapon}}
                     {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.weapon catagory="Weapons"}}
-                  {{/if}}                  
+                  {{/if}}   
+
+                  {{#if system.favoriteItems.hasPower}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.power catagory="Powers"}}
+                  {{/if}} 
+
+                  {{#if system.favoriteItems.hasCyberware}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.cyberware catagory="Cyberware"}}
+                  {{/if}}  
+
+                  {{#if system.favoriteItems.hasFocus}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.focus catagory="Foci"}}
+                  {{/if}}                    
                 </ul>
 
               </div>
@@ -268,12 +280,12 @@
               {{/if}}
 
               <!-- The items list -->
-              {{#if system.hasItems}}
+              {{#if system.hasItem}}
                 {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.item catagory="Items"}}
               {{/if}}
 
               <!-- The wapons list -->
-              {{#if system.hasWeapons}}
+              {{#if system.hasWeapon}}
                 {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.weapon catagory="Weapons"}}
               {{/if}}
 
@@ -284,7 +296,20 @@
 
         <!-- The features tab -->
         <div class="tab features" data-group="primary" data-tab="features">
-          <p>Features!</p>
+          <div style="display:flex; flex-direction:column; flex-grow:1">
+            <ul class="inventory-list" style="flex-grow:1">
+
+              <!-- The powers list -->
+              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.power catagory="Powers"}}
+              
+              <!-- The cyberware list -->
+              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.cyberware catagory="Cyberware"}}
+              
+              <!-- The foci list -->
+              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.focus catagory="Foci"}}
+
+            </ul>
+          </div>
         </div>
 
         <!-- The biography tab -->

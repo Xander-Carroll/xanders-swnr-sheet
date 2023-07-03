@@ -11,8 +11,7 @@ export class XandersSwnActorSheet extends ActorSheet {
                         <i class="context-image fas fa-edit"></i>
                         &nbsp;
                         <p class="context-text">Edit Item</p>
-                    </div>
-                    <hr/>`,
+                    </div>`,
             icon: '',
             callback: element => {
                 const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
@@ -51,8 +50,7 @@ export class XandersSwnActorSheet extends ActorSheet {
                         <i class="context-image fas fa-edit"></i>
                         &nbsp;
                         <p class="context-text">Edit Item</p>
-                    </div>
-                    <hr/>`,
+                    </div>`,
             icon: '',
             callback: element => {
                 const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
@@ -91,8 +89,7 @@ export class XandersSwnActorSheet extends ActorSheet {
                         <i class="context-image fas fa-edit"></i>
                         &nbsp;
                         <p class="context-text">Edit Skill</p>
-                    </div>
-                    <hr/>`,
+                    </div>`,
             icon: '',
             callback: element => {
                 const item = this.actor.getEmbeddedDocument("Item", element.data("item-id"));
@@ -222,23 +219,23 @@ export class XandersSwnActorSheet extends ActorSheet {
     //Will edit context.items to format the items in a way that is better suited for handelbars.
     _parseItemData(context){
 
-        //Creating variables which will be used on the inventory tab to determine which sections should be displayed.
-        context.system.hasItems = this.actor.itemTypes.item.length > 0;
-        context.system.hasWeapons = this.actor.itemTypes.weapon.length > 0;
-        context.system.hasArmor = this.actor.itemTypes.armor.length > 0;
-
-        //Creating an array which contains all of the items which have been favorited.
         context.system.favoriteItems = {};
-        context.system.favoriteItems.armor = this.actor.itemTypes.armor.filter(item => item.system.favorite === true);
-        context.system.favoriteItems.item = this.actor.itemTypes.item.filter(item => item.system.favorite === true);
-        context.system.favoriteItems.weapon = this.actor.itemTypes.weapon.filter(item => item.system.favorite === true);
 
-        //Creating booleans which will be used by handelbars to determine if item lists should be displayed.
-        context.system.favoriteItems.hasArmor = context.system.favoriteItems.armor.length > 0;
-        context.system.favoriteItems.hasItem = context.system.favoriteItems.item.length > 0;
-        context.system.favoriteItems.hasWeapon = context.system.favoriteItems.weapon.length > 0;
+        Object.keys(this.actor.itemTypes).forEach(key => {
+            let uppercaseKey = key.charAt(0).toUpperCase() + key.slice(1);
 
-        //Creating a rankString varaible which does not shows a - instead of -1 for skill level.
+            //Adding a hasType boolean field indicating if the character sheet contains each type of item.
+            context.system["has" + uppercaseKey] = this.actor.itemTypes[key].length > 0;
+
+            //Adding an array with the favorited items of every type.
+            context.system.favoriteItems[key] = this.actor.itemTypes[key].filter(item => item.system.favorite === true);
+
+            //Adding a hasFavoriteType coolean field indicating if the character sheet cotains favorited items of each type.
+            context.system.favoriteItems["has" + uppercaseKey] = context.system.favoriteItems[key].length > 0;
+
+        });
+
+        //Creating a rankString varaible which shows a - instead of -1 on skill items.
         for(let i=0; i<this.actor.itemTypes.skill.length; i++){
             this.actor.itemTypes.skill[i].system.rankString = this.actor.itemTypes.skill[i].system.rank.toString();
             if(this.actor.itemTypes.skill[i].system.rankString === "-1"){
@@ -288,7 +285,8 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Deleting items that aren't allowed on the sheet, and warning the user about it.
         for(let i=0; i<context.items.length; i++){
             let itemType = context.items[i].type;
-            if(itemType !== "skill" && itemType !== "weapon" && itemType !== "armor" && itemType !== "item"){
+            if(itemType !== "skill" && itemType !== "weapon" && itemType !== "armor" && itemType !== "item" && itemType !== "power"
+                && itemType !== "cyberware" && itemType !== "focus"){
                 ui.notifications.error("[" + context.items[i].name + "] is not allowed on this sheet and was removed.");
                 this.actor.deleteEmbeddedDocuments("Item", [context.items[i]._id]);
             }
