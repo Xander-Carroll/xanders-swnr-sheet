@@ -91,6 +91,7 @@ function injectCSS() {
 	
 				--color-shadow-primary: rgb(5, 99, 150);
 				--color-text-dark-primary: #3c3c3c;
+				--color-underline-header: rgb(71, 71, 71);
 			}
 
 			.window-app section.window-content aside{
@@ -170,6 +171,16 @@ function injectCSS() {
 
 			.window-app section.window-content ol{
 				list-style: decimal;
+			}
+
+			.window-app section.window-content h1{
+				font-size: 2em;
+    			border-bottom: 2px solid var(--color-underline-header);
+			}
+
+			.window-app section.window-content h2{
+				font-size: 1.5em;
+    			border-bottom: 1px solid var(--color-underline-header);
 			}
         `;
     }

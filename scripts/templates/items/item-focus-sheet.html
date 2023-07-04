@@ -1,0 +1,70 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <div class="sheet-content" style="height:100%; display:flex; flex-direction:column;">
+
+    <!-- The top title bar. -->
+    <div class="header-bar">
+      <!-- The skill image. -->
+      <div class="item-cover-image">
+        <img src="{{item.img}}" {{#if owner}}data-edit="img"{{/if}}/>
+      </div>
+
+      <!-- The content to the right of the item image. -->
+      <div class="name-bar">
+        <!-- The name of the item and the item type. -->
+        <div style="display:flex;">
+          <!-- The name of the item. -->
+          <input class="item-name bottom-border" name="name" type="text" value="{{item.name}}" {{#unless owner}}disabeled{{/unless}}/>
+
+          <!-- A spacer which pushes the item type to the right. -->
+          <div style="flex:1 1"></div>
+
+          <!-- The box which contains the item type (skill, weapon, etc). -->
+          <div class="item-type-box" style="width:90px;">
+            <p>{{item.type}}</p>
+          </div>
+        </div>
+      
+        <!-- The row below the name of the item. -->
+        <div class="item-stats-row">
+          <!-- The foci level. -->
+          <div class="background-informations" style="display:flex; flex-direction:row;">
+            <input name="system.source" class="bottom-border" type="text" value="{{system.source}}" {{#unless owner}}disabeled{{/unless}}/>
+            <select name="system.level" style="margin-left:5px; margin-right:5px;margin-top:10px;">
+              {{#select system.level}}
+                <option value="">Class Ability</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              {{/select}}
+            </select>
+
+            <div style="flex: 2 1"></div>
+          </div>
+
+          <!-- The labels that go beneath skill level, source, dice pool, and default stat. -->
+          <div class="item-stats-labels">
+            <div style="flex: 1 1"><p>Source</p></div>
+            <div style="flex: 1 1"><p>Level</p></div>
+            <div style="flex: 2 1"></div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- The main description box. -->
+    <div class="item-main-window flexcol" style="flex-direction:column">
+      <div class="item-description">
+        <p class="item-main-window-header"><b><u>{{#if system.isClassAbility}}Description:{{else}}Level 1:{{/if}}</u></b></p>
+        <div class="item-main-window-text">{{editor content=system.level1 target="system.level1" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+      </div>
+      {{#unless system.isClassAbility}}
+        <div class="item-description" style="margin-top:0px;">
+          <p class="item-main-window-header"><b><u>Level 2:</u></b></p>
+          <div class="item-main-window-text">{{editor content=system.level2 target="system.level2" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+        </div>
+      {{/unless}}
+    </div>
+
+  </div>
+</form>

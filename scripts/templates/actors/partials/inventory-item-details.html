@@ -18,4 +18,9 @@
   {{#ifEquals item.type "item"}}
     <div class="inventory-extra-details-item"><b>Quality: </b>{{item.system.quality}}</div>
   {{/ifEquals}}
+
+  <!--The tags for foci-->
+  {{#ifEquals item.type "focus"}}
+    <div class="inventory-extra-details-item"><b>Level: </b>{{item.system.levelString}}</div>
+  {{/ifEquals}}
 </div>

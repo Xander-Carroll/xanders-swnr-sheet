@@ -219,8 +219,9 @@ export class XandersSwnActorSheet extends ActorSheet {
     //Will edit context.items to format the items in a way that is better suited for handelbars.
     _parseItemData(context){
 
-        context.system.favoriteItems = {};
 
+        //Adds hasItem booleans and makes the favorite item lists.
+        context.system.favoriteItems = {};
         Object.keys(this.actor.itemTypes).forEach(key => {
             let uppercaseKey = key.charAt(0).toUpperCase() + key.slice(1);
 
@@ -280,6 +281,23 @@ export class XandersSwnActorSheet extends ActorSheet {
 
             this.actor.itemTypes.weapon[i].system.fullAttackBonus = fullBonusString;
             this.actor.itemTypes.weapon[i].system.fullDamage = weapon.system.damage + fullDamageString;
+        }
+
+        //Adds a level string and description string to foci items.
+        for(let i=0; i<this.actor.itemTypes.focus.length; i++){
+            if(this.actor.itemTypes.focus[i].system.level === ""){
+                this.actor.itemTypes.focus[i].system.levelString = "Class Ability";
+                this.actor.itemTypes.focus[i].system.description = this.actor.itemTypes.focus[i].system.level1;
+            }else{
+                this.actor.itemTypes.focus[i].system.levelString = this.actor.itemTypes.focus[i].system.level;
+                this.actor.itemTypes.focus[i].system.description = "<b><u>Level 1: </u></b>" + this.actor.itemTypes.focus[i].system.level1;
+
+                if(this.actor.itemTypes.focus[i].system.level === "2"){
+                    this.actor.itemTypes.focus[i].system.description = this.actor.itemTypes.focus[i].system.description + "<p></p><b><u>Level 2: </u></b>" + this.actor.itemTypes.focus[i].system.level2;
+                }
+            }
+
+            console.log(this.actor.itemTypes.focus[i]);
         }
 
         //Deleting items that aren't allowed on the sheet, and warning the user about it.
@@ -452,6 +470,8 @@ export class XandersSwnActorSheet extends ActorSheet {
 
         //Getting the button that was pressed.
         const item = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
+
+        console.log(item);
 
         //Creating an html template from the dialog.
         let templateContent = await renderTemplate("modules/xanders-swnr-sheet/scripts/templates/chats/item-card-chat.html", item);
