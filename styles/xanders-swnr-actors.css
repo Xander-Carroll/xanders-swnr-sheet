@@ -583,6 +583,37 @@
   color: var(--font-color);
 }
 
+/* The biography tab. */
+.window-app.xanders-swnr .notes-window{
+  display: flex;
+  flex-direction: column;
+
+  flex-grow: 1;
+}
+
+/* The description header that just says "biography". */
+.window-app.xanders-swnr .notes-header{
+  margin-bottom: 5px;
+  font-family: 'Roboto';
+  font-size: 16px;
+}
+
+/* Setting properties that are useful when using the TinyMCE editor. */
+.window-app.xanders-swnr .notes-text{
+  display: flex;
+  flex-direction: column;
+
+  flex-grow: 1;
+  font-size: 13px;
+}
+
+.window-app.xanders-swnr .notes-window .editor{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+}
+
 /* The description of a chat item card message. */
 .xanders-swnr.chat-details p{
   font-size: 12px;

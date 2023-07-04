@@ -13,7 +13,7 @@
         <!-- The name of the item and the item type. -->
         <div style="display:flex;">
           <!-- The name of the item. -->
-          <input class="item-name" name="name" type="text" value="{{item.name}}" {{#unless owner}}disabeled{{/unless}}/>
+          <input class="item-name bottom-border" name="name" type="text" value="{{item.name}}" {{#unless owner}}disabeled{{/unless}}/>
 
           <!-- A spacer which pushes the item type to the right. -->
           <div style="flex:1 1"></div>
@@ -28,8 +28,8 @@
         <div class="item-stats-row">
           <!-- The dice pool, default stat, and skill level. -->
           <div class="background-informations" style="display:flex; flex-direction:row;">
-            <input style="flex: 1 1" name="system.rank" type="number" value="{{system.rank}}" {{#unless owner}}disabeled{{/unless}}/>
-            <input name="system.source" type="text" value="{{system.source}}" {{#unless owner}}disabeled{{/unless}}/>
+            <input style="flex: 1 1" class="bottom-border" name="system.rank" type="number" value="{{system.rank}}" {{#unless owner}}disabeled{{/unless}}/>
+            <input name="system.source" class="bottom-border" type="text" value="{{system.source}}" {{#unless owner}}disabeled{{/unless}}/>
             
             <select name="system.pool" style="margin-left:5px; margin-right:5px">
               {{#select system.pool}}

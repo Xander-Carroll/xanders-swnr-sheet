@@ -105,12 +105,12 @@
       <a class="item" style="border-left:none" data-tab="attributes">Attributes</a>
       <a class="item" data-tab="inventory">Inventory</a>
       <a class="item" data-tab="features">Features</a>
-      <a class="item" style="border-right:none" data-tab="biography">Biography</a>
+      <a class="item" style="border-right:none" data-tab="notes">Notes</a>
     </nav>
 
     <!-- The actual tabs -->
     <section class="sheet-body">
-      <div style="padding:10px; flex-grow:1">
+      <div style="margin:10px; flex-grow:1; display:flex">
 
         <!-- The attribute tab -->
         <div class="tab attributes" data-group="primary" data-tab="attributes" >
@@ -312,9 +312,12 @@
           </div>
         </div>
 
-        <!-- The biography tab -->
-        <div class="tab biography" data-group="primary" data-tab="biography">
-          <p>Biography!</p>
+        <!-- The notes tab -->
+        <div class="tab notes" data-group="primary" data-tab="notes" style="flex-direction:column">
+          <div class="notes-window">
+            <p class="notes-header"><b><u>Biography:</u></b></p>
+          <div class="notes-text">{{editor content=system.biography target="system.biography" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+          </div>
         </div>
       </div>
 
