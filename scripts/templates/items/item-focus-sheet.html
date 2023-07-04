@@ -31,7 +31,7 @@
             <input name="system.source" class="bottom-border" type="text" value="{{system.source}}" {{#unless owner}}disabeled{{/unless}}/>
             <select name="system.level" style="margin-left:5px; margin-right:5px;margin-top:10px;">
               {{#select system.level}}
-                <option value="">Class Ability</option>
+                <option value=""> </option>
                 <option value="1">1</option>
                 <option value="2">2</option>
               {{/select}}
@@ -69,15 +69,13 @@
       <!-- The details tab. -->
       <div class="tab details flexcol" data-group="primary" data-tab="details" >
         <div class="item-description">
-          <p class="item-main-window-header"><b><u>{{#if system.isClassAbility}}Class Ability:{{else}}Level 1:{{/if}}</u></b></p>
+          <p class="item-main-window-header"><b><u>Level 1:</u></b></p>
           <div class="item-main-window-text">{{editor content=system.level1 target="system.level1" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
         </div>
-        {{#unless system.isClassAbility}}
-          <div class="item-description" style="margin-top:0px;">
-            <p class="item-main-window-header"><b><u>Level 2:</u></b></p>
-            <div class="item-main-window-text">{{editor content=system.level2 target="system.level2" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
-          </div>
-        {{/unless}}
+        <div class="item-description" style="margin-top:0px;">
+          <p class="item-main-window-header"><b><u>Level 2:</u></b></p>
+          <div class="item-main-window-text">{{editor content=system.level2 target="system.level2" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+        </div>
       </div>
 
     </div>

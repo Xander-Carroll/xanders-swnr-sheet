@@ -38,11 +38,6 @@
             context.system.type = "melee";
         }
 
-        //Adds a boolean used to determine if the foci item sheet should have one description box or two.
-        if(context.item.type == "focus"){
-            context.system.isClassAbility = context.system.level === "";
-        }
-
         return context;
     }
 
