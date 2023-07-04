@@ -219,7 +219,6 @@ export class XandersSwnActorSheet extends ActorSheet {
     //Will edit context.items to format the items in a way that is better suited for handelbars.
     _parseItemData(context){
 
-
         //Adds hasItem booleans and makes the favorite item lists.
         context.system.favoriteItems = {};
         Object.keys(this.actor.itemTypes).forEach(key => {
@@ -283,17 +282,19 @@ export class XandersSwnActorSheet extends ActorSheet {
             this.actor.itemTypes.weapon[i].system.fullDamage = weapon.system.damage + fullDamageString;
         }
 
-        //Adds a level string and description string to foci items.
+        //Adds a level string and alternate description string to foci items.
         for(let i=0; i<this.actor.itemTypes.focus.length; i++){
+            this.actor.itemTypes.focus[i].system.usingDetails = true;
+
             if(this.actor.itemTypes.focus[i].system.level === ""){
                 this.actor.itemTypes.focus[i].system.levelString = "Class Ability";
-                this.actor.itemTypes.focus[i].system.description = this.actor.itemTypes.focus[i].system.level1;
+                this.actor.itemTypes.focus[i].system.details = "<b><u>Description: </u></b>" + this.actor.itemTypes.focus[i].system.description + "<p></p><b><u>Class Ability: </u></b>" + this.actor.itemTypes.focus[i].system.level1;
             }else{
                 this.actor.itemTypes.focus[i].system.levelString = this.actor.itemTypes.focus[i].system.level;
-                this.actor.itemTypes.focus[i].system.description = "<b><u>Level 1: </u></b>" + this.actor.itemTypes.focus[i].system.level1;
+                this.actor.itemTypes.focus[i].system.details = "<b><u>Description: </u></b>" + this.actor.itemTypes.focus[i].system.description + "<p></p><b><u>Level 1: </u></b>" + this.actor.itemTypes.focus[i].system.level1;
 
                 if(this.actor.itemTypes.focus[i].system.level === "2"){
-                    this.actor.itemTypes.focus[i].system.description = this.actor.itemTypes.focus[i].system.description + "<p></p><b><u>Level 2: </u></b>" + this.actor.itemTypes.focus[i].system.level2;
+                    this.actor.itemTypes.focus[i].system.details = this.actor.itemTypes.focus[i].system.details + "<p></p><b><u>Level 2: </u></b>" + this.actor.itemTypes.focus[i].system.level2;
                 }
             }
 

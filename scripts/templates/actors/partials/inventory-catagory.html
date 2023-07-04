@@ -24,7 +24,11 @@
     </div>
     {{#if item.system.expanded}}
     <div class="inventory-item-summary" style="border-bottom:1px solid var(--border-color);">
-      {{{system.description}}}
+      {{#if system.usingDetails}}
+        {{{system.details}}}
+      {{else}}
+        {{{system.description}}}
+      {{/if}}
     </div>
     <div>
       {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-item-details.html" item=item}}

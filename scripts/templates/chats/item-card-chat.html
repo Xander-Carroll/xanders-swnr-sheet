@@ -6,7 +6,11 @@
     </div>
     <hr style="margin:2px"/>
     <div class="card-content">
-        {{{system.description}}}
+        {{#if system.usingDetails}}
+            {{{system.details}}}
+        {{else}}
+            {{{system.description}}}
+        {{/if}}
         <hr style="margin:2px"/>
     </div>
     {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-item-details.html" item=this}}

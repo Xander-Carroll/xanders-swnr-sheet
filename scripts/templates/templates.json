@@ -10,5 +10,5 @@
     "modules/xanders-swnr-sheet/scripts/templates/items/item-skill-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-weapon-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-armor-sheet.html",
-    "modules/xanders-swnr-sheet/scripts/templates/items/partials/inventory-headerbar.html"
+    "modules/xanders-swnr-sheet/scripts/templates/items/partials/item-headerbar.html"
 ]
