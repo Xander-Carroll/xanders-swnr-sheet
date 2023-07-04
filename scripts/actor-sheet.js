@@ -307,7 +307,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         for(let i=0; i<context.items.length; i++){
             let itemType = context.items[i].type;
             if(itemType !== "skill" && itemType !== "weapon" && itemType !== "armor" && itemType !== "item" && itemType !== "power"
-                && itemType !== "cyberware" && itemType !== "focus"){
+                && itemType !== "cyberware" && itemType !== "focus" && itemType !== "class"){
                 ui.notifications.error("[" + context.items[i].name + "] is not allowed on this sheet and was removed.");
                 this.actor.deleteEmbeddedDocuments("Item", [context.items[i]._id]);
             }

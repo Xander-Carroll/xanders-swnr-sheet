@@ -29,7 +29,7 @@
           <!-- The foci level. -->
           <div class="background-informations" style="display:flex; flex-direction:row;">
             <input name="system.source" class="bottom-border" type="text" value="{{system.source}}" {{#unless owner}}disabeled{{/unless}}/>
-            <select name="system.level" style="margin-left:5px; margin-right:5px;margin-top:10px;">
+            <select name="system.level" style="padding-left:4px; padding-right:4px; margin-left:5px; margin-right:5px;">
               {{#select system.level}}
                 <option value=""> </option>
                 <option value="1">1</option>
@@ -37,7 +37,7 @@
               {{/select}}
             </select>
 
-            <div style="flex: 2 1"></div>
+            <div style="flex: 2 1; margin-left:10px; margin-right:10px; padding-left:10px; padding-right:10px;"></div>
           </div>
 
           <!-- The labels that go beneath skill level, source, dice pool, and default stat. -->

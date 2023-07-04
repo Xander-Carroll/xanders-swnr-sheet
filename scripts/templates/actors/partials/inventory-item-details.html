@@ -23,4 +23,9 @@
   {{#ifEquals item.type "focus"}}
     <div class="inventory-extra-details-item"><b>Level: </b>{{item.system.levelString}}</div>
   {{/ifEquals}}
+
+  <!--The tags for class-->
+  {{#ifEquals item.type "class"}}
+    <div class="inventory-extra-details-item"><b>Class: </b>{{item.system.class}}</div>
+  {{/ifEquals}}
 </div>
