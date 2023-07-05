@@ -6,17 +6,20 @@
     {{#ifEquals item.system.type "ranged"}}<div class="inventory-extra-details-item"><b>Range: </b>{{item.system.range.normal}} / {{item.system.range.max}}</div>{{/ifEquals}}
     {{#ifEquals item.system.type "melee"}}<div class="inventory-extra-details-item"><b>Shock: </b>{{item.system.shock.dmg}} point / AC {{item.system.shock.ac}}</div>{{/ifEquals}}
     <div class="inventory-extra-details-item"><b>Quality: </b>{{item.system.quality}}</div>
+    <div class="inventory-extra-details-item"><b>TL: </b>{{item.system.tl}}</div>
   {{/ifEquals}}
 
     <!--The tags for armor-->
   {{#ifEquals item.type "armor"}}
     <div class="inventory-extra-details-item"><b>Armor Class: </b>{{item.system.ac}}</div>
     <div class="inventory-extra-details-item"><b>Quality: </b>{{item.system.quality}}</div>
+    <div class="inventory-extra-details-item"><b>TL: </b>{{item.system.tl}}</div>
   {{/ifEquals}}
 
   <!--The tags for items-->
   {{#ifEquals item.type "item"}}
     <div class="inventory-extra-details-item"><b>Quality: </b>{{item.system.quality}}</div>
+    <div class="inventory-extra-details-item"><b>TL: </b>{{item.system.tl}}</div>
   {{/ifEquals}}
 
   <!--The tags for foci-->
@@ -27,5 +30,12 @@
   <!--The tags for class-->
   {{#ifEquals item.type "class"}}
     <div class="inventory-extra-details-item"><b>Class: </b>{{item.system.class}}</div>
+  {{/ifEquals}}
+
+  <!--The tags for cyberware-->
+  {{#ifEquals item.type "cyberware"}}
+    <div class="inventory-extra-details-item"><b>Strain: </b>{{item.system.strain}}</div>
+    <div class="inventory-extra-details-item"><b>Status: </b>{{#if system.disabled}}Disabled{{else}}Enabled{{/if}}</div>
+    <div class="inventory-extra-details-item"><b>TL: </b>{{item.system.tl}}</div>
   {{/ifEquals}}
 </div>

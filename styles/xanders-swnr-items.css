@@ -124,6 +124,15 @@
   font-weight:lighter;
 }
 
+/* Adds a bottom border to the div that goes below a checkbox on the cyberware namebar. */
+.window-app.xanders-swnr .background-informations .bottom-border{
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  border-radius: 3px;
+  display: flex;
+  justify-items: center;
+}
+
 /* The description header that just says "description". */
 .window-app.xanders-swnr .item-main-window-header{
   margin-bottom: 5px;
