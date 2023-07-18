@@ -303,6 +303,14 @@ export class XandersSwnActorSheet extends ActorSheet {
             console.log(this.actor.itemTypes.focus[i]);
         }
 
+        //Adds an alternate description string to cyberware items.
+        for(let i=0; i<this.actor.itemTypes.cyberware.length; i++){
+            //Setting the item to use the system.details field instead of system.description for summaries and chat cards.
+            this.actor.itemTypes.cyberware[i].system.usingDetails = true;
+
+            this.actor.itemTypes.cyberware[i].system.details = "<b><u>Description: </u></b>" + this.actor.itemTypes.cyberware[i].system.description + "<p></p><b><u>Effect: </u></b>" + this.actor.itemTypes.cyberware[i].system.effect;
+        }
+
         //Deleting items that aren't allowed on the sheet, and warning the user about it.
         for(let i=0; i<context.items.length; i++){
             let itemType = context.items[i].type;

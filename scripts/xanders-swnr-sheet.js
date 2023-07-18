@@ -46,7 +46,7 @@ function registerSystemSettings(){
 		config: true,
 		scope: "world",
 		name: "Change All Backgrounds",
-		hint: "This will give the background of all popups a more sci-fi texture.",
+		hint: "This will give the background of all popups a more sci-fi texture. It will also change the default font to one that doesn't have spacing issues.",
 		type: Boolean,
 		default: true,
 		onChange: debouncedReload
@@ -62,11 +62,21 @@ function registerSystemSettings(){
 		onChange: debouncedReload
 	});
 
+	game.settings.register("xanders-swnr-sheet", "removeRerollButton", {
+		config: true,
+		scope: "world",
+		name: "Remove Reroll Button",
+		hint: "This will remove the reroll button on chat cards created by the default swnr system.",
+		type: Boolean,
+		default: true,
+		onChange: debouncedReload
+	});
+
 	game.settings.register("xanders-swnr-sheet", "itemCardsCollapsed", {
 		config: true,
 		scope: "client",
 		name: "Item Cards Collapsed By Default",
-		hint: "This will automatically collapse item card descriptions in the chat.",
+		hint: "This option will automatically collapse item card descriptions in the chat.",
 		type: Boolean,
 		default: false	
 	});
@@ -81,6 +91,21 @@ function injectCSS() {
 	//Changes sheet and chat backgrounds if needed.
 	if (game.settings.get("xanders-swnr-sheet", "changeAllBackgrounds")) {
         innerHTML += `
+			/* The new font needs changed for every sheet. */
+			body.game{
+				font-family: var(--font-primary);
+			}
+
+			section.window-content{
+				font-size: var(--font-size-14);
+			}
+
+			/* The new font needs changed for the chat messages. */
+			.chat-message h4{
+				font-family: var(--font-primary);
+				font-weight: normal;
+			}
+
             /* Replaces the standard parchment background */
 			.window-app section.window-content,
 			.window-app section.window-content .dialog-content,
@@ -188,9 +213,19 @@ function injectCSS() {
 	//Changes the pause button if needed.
 	if(game.settings.get("xanders-swnr-sheet", "changePauseButton")){
 		innerHTML += `
-		/* Replaces the standard pause button with a more sci-fi one */
+			/* Replaces the standard pause button with a more sci-fi one */
 			#pause img {
 				content: url("modules/xanders-swnr-sheet/img/icons/pause-icon.svg");	
+			}
+		`;
+	}
+
+	//Removes the reroll button from chat cards if needed.
+	if(game.settings.get("xanders-swnr-sheet", "removeRerollButton")){
+		innerHTML += `
+		/* Removes the reroll button from roll chat cards. */
+			span.dmgBtn-container {
+				display: none;
 			}
 		`;
 	}
