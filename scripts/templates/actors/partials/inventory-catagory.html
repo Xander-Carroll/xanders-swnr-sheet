@@ -11,9 +11,10 @@
 
 
 <!-- The list of items -->
-{{#each itemList as |item|}}
-  <li class="inventory-item {{#unless system.favorite}}item-choice-regular{{/unless}} {{#if system.favorite}}item-choice-favorite{{/if}} {{#ifEquals system.location "readied"}}location-readied{{/ifEquals}} {{#ifEquals system.location "stowed"}}location-stowed{{/ifEquals}}" data-item-id="{{item._id}}">
-    <div class="inventory-item-header">
+<section class="item-list">
+  {{#each itemList as |item id|}}
+    <li class="item inventory-item {{#unless system.favorite}}item-choice-regular{{/unless}} {{#if system.favorite}}item-choice-favorite{{/if}} {{#ifEquals system.location "readied"}}location-readied{{/ifEquals}} {{#ifEquals system.location "stowed"}}location-stowed{{/ifEquals}}" data-item-id="{{item._id}}">
+      <div class="inventory-item-header">
       <div class="item-image-box item-image-clickable {{#if item.system.expanded}}expanded{{/if}}" style="background-image:url('{{item.img}}')" data-item-id="{{item._id}}"><i class="fas fa-dice-d20"></i></div>
       <div class="inventory-titles item-clickable" style="flex: 2 1 0" data-item-id="{{item._id}}">{{item.name}}</div>
       <div class="inventory-titles">
@@ -21,19 +22,19 @@
         <p style="flex:0.5 1">{{item.system.tl}}</p>
         <p style="flex:0.5 1">{{item.system.encumbrance}}</p>
       </div>
-    </div>
-    {{#if item.system.expanded}}
-    <div class="inventory-item-summary" style="border-bottom:1px solid var(--border-color);">
+      </div>
+      {{#if item.system.expanded}}
+      <div class="inventory-item-summary" style="border-bottom:1px solid var(--border-color);">
       {{#if system.usingDetails}}
         {{{system.details}}}
       {{else}}
         {{{system.description}}}
       {{/if}}
-    </div>
-    <div>
+      </div>
+      <div>
       {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-item-details.html" item=item}}
-    </div>
-
-    {{/if}}
-  </li>
-{{/each}}
+      </div>
+      {{/if}}
+    </li>
+  {{/each}}
+</section>

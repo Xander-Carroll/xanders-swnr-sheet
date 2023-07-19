@@ -118,7 +118,7 @@
             
             <!-- The skills list -->
             <div style="margin-right: 10px;">
-              <ul class="skill-list">
+              <section class="item-list skill-list">
                 <!-- The skill list title row -->
                 <li class="skill skill-header">
                   <span class="skill-level">Lvl</span>
@@ -128,8 +128,8 @@
                 </li>
 
                 <!-- The skills list skills -->
-                {{#each actor.itemTypes.skill as |skill id|}}
-                <li class="skill skill-choice" data-item-id="{{skill._id}}">
+                {{#each system.itemTypes.skill as |skill|}}
+                <li class="{{#unless ../system.xIsLocked}}item{{/unless}} skill skill-choice" data-item-id="{{skill._id}}">
                   <span class="skill-level">{{skill.system.rankString}}</span>
                   <span class="skill-title skill-clickable" data-item-id="{{skill._id}}">{{skill.name}}</span>
                   <span class="skill-dice">{{skill.system.pool}}</span>
@@ -163,7 +163,7 @@
                   {{/unless}}
                 {{/if}}
 
-              </ul>
+              </section>
             </div>
 
             <!-- The favorited item bar and attribute list -->
@@ -280,17 +280,17 @@
 
               <!-- The armor list -->
               {{#if system.hasArmor}}
-                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.armor catagory="Armor"}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.armor catagory="Armor"}}
               {{/if}}
 
               <!-- The items list -->
               {{#if system.hasItem}}
-                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.item catagory="Items"}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.item catagory="Items"}}
               {{/if}}
 
               <!-- The wapons list -->
               {{#if system.hasWeapon}}
-                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.weapon catagory="Weapons"}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.weapon catagory="Weapons"}}
               {{/if}}
 
             </ul>
@@ -304,16 +304,16 @@
             <ul class="inventory-list" style="flex-grow:1">
 
               <!-- The class abillity list -->
-              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.class catagory="Class Abilities"}}
+              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.class catagory="Class Abilities"}}
 
               <!-- The cyberware list -->
-              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.cyberware catagory="Cyberware"}}
+              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.cyberware catagory="Cyberware"}}
               
               <!-- The foci list -->
-              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.focus catagory="Foci"}}
+              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.focus catagory="Foci"}}
 
               <!-- The powers list -->
-              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=actor.itemTypes.power catagory="Powers"}}
+              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.power catagory="Powers"}}
 
             </ul>
           </div>

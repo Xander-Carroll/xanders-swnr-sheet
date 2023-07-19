@@ -150,6 +150,26 @@ export function toTitleCase(str) {
     );
 }
 
+//Will create a chat message for the given item spoken by the given actor.
+export async function useItem(item, actorId){
+    //Creating an html template from the dialog.
+    let templateContent = await renderTemplate("modules/xanders-swnr-sheet/scripts/templates/chats/item-card-chat.html", item);
+
+    //Creating a chat message once the settings are all changed.
+    const chatMessageData = {
+        content: templateContent,
+        speaker: {actor: actorId},
+        isOwner: true,
+        flags: {
+            xSwnrInteractive: true
+        }
+    };
+
+    ChatMessage.create(chatMessageData);
+
+    await getDocumentClass("ChatMessage").applyRollMode(chatMessageData, game.settings.get("core", "rollMode"));
+}
+
 //Used to load all of the handelbars templates ahead of time.
 export const preloadXandersTemplates = async function () {
     const list = await fetch("modules/xanders-swnr-sheet/scripts/templates/templates.json");

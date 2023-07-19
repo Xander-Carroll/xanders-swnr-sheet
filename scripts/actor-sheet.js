@@ -1,6 +1,7 @@
 // Implements all of the important functionality for the new actor sheets.
 
 import { initSkills, toTitleCase} from "./utils.js";
+import { useItem } from "./utils.js";
 
 export class XandersSwnActorSheet extends ActorSheet {
 
@@ -183,7 +184,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         context = this._parseItemData(context);
 
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
-        console.log(context);
+        //console.log(context);
     
         return context;
     }
@@ -218,41 +219,50 @@ export class XandersSwnActorSheet extends ActorSheet {
 
     //Will edit context.items to format the items in a way that is better suited for handelbars.
     _parseItemData(context){
-
-        //Adds hasItem booleans and makes the favorite item lists.
+        //Makes the item lists and adds the hasItem booleans.
         context.system.favoriteItems = {};
-        Object.keys(this.actor.itemTypes).forEach(key => {
+        context.system.itemTypes = {};
+        Object.keys(context.actor.itemTypes).forEach(key => {
             let uppercaseKey = key.charAt(0).toUpperCase() + key.slice(1);
 
+            //Sorting the items
+            context.system.itemTypes[key] = context.actor.itemTypes[key].sort((item1, item2) => {
+                if(item1.sort < item2.sort){ 
+                    return -1;
+                }else if (item1.sort > item2.sort){
+                    return 1;
+                }
+                return 0;
+            });
+
             //Adding a hasType boolean field indicating if the character sheet contains each type of item.
-            context.system["has" + uppercaseKey] = this.actor.itemTypes[key].length > 0;
+            context.system["has" + uppercaseKey] = context.system.itemTypes[key].length > 0;
 
             //Adding an array with the favorited items of every type.
-            context.system.favoriteItems[key] = this.actor.itemTypes[key].filter(item => item.system.favorite === true);
+            context.system.favoriteItems[key] = context.system.itemTypes[key].filter(item => item.system.favorite === true);
 
-            //Adding a hasFavoriteType coolean field indicating if the character sheet cotains favorited items of each type.
+            //Adding a hasFavoriteType boolean field indicating if the character sheet cotains favorited items of each type.
             context.system.favoriteItems["has" + uppercaseKey] = context.system.favoriteItems[key].length > 0;
-
         });
 
         //Creating a rankString varaible which shows a - instead of -1 on skill items.
-        for(let i=0; i<this.actor.itemTypes.skill.length; i++){
-            this.actor.itemTypes.skill[i].system.rankString = this.actor.itemTypes.skill[i].system.rank.toString();
-            if(this.actor.itemTypes.skill[i].system.rankString === "-1"){
-                this.actor.itemTypes.skill[i].system.rankString = "-";
+        for(let i=0; i<context.system.itemTypes.skill.length; i++){
+            context.system.itemTypes.skill[i].system.rankString = context.system.itemTypes.skill[i].system.rank.toString();
+            if(context.system.itemTypes.skill[i].system.rankString === "-1"){
+                context.system.itemTypes.skill[i].system.rankString = "-";
             }
         }
 
         //Creating an attack bonus variable and a damage variable on weapons.
-        for(let i=0; i<this.actor.itemTypes.weapon.length; i++){
-            let weapon = this.actor.itemTypes.weapon[i];
-            let skill = this.actor.getEmbeddedDocument("Item", weapon.system.skill);
+        for(let i=0; i<context.system.itemTypes.weapon.length; i++){
+            let weapon = context.system.itemTypes.weapon[i];
+            let skill = context.actor.getEmbeddedDocument("Item", weapon.system.skill);
             let skillPunchMod = 0;
 
             //The attribute bonus is the better of the two listed attribute modifiers.
-            let attributeBonus = this.actor.system.stats[weapon.system.stat].mod;
+            let attributeBonus = context.actor.system.stats[weapon.system.stat].mod;
             if(weapon.system.secondStat !== "none"){
-                attributeBonus = Math.max(attributeBonus, this.actor.system.stats[weapon.system.secondStat].mod);
+                attributeBonus = Math.max(attributeBonus, context.actor.system.stats[weapon.system.secondStat].mod);
             }
 
             //If the skill is set, then the rank will be used, if the skill is unset, then the rank is 0.
@@ -271,44 +281,42 @@ export class XandersSwnActorSheet extends ActorSheet {
             }
 
             //Calculating the weapon attack bonus, and adding a + sign in front of the string if needed.
-            let fullBonusInt = this.actor.system.ab + weapon.system.ab + skill.system.rank + attributeBonus;
+            let fullBonusInt = context.actor.system.ab + weapon.system.ab + skill.system.rank + attributeBonus;
             let fullBonusString = fullBonusInt >= 0 ? "+" + String(fullBonusInt) : fullBonusInt;
 
             //Calculating the weapon damage, and adding a + sign in front of the string if needed.
             let fullDamageInt = skillPunchMod + attributeBonus;
             let fullDamageString = fullDamageInt >= 0 ? "+" + String(fullDamageInt) : fullDamageInt;
 
-            this.actor.itemTypes.weapon[i].system.fullAttackBonus = fullBonusString;
-            this.actor.itemTypes.weapon[i].system.fullDamage = weapon.system.damage + fullDamageString;
+            context.system.itemTypes.weapon[i].system.fullAttackBonus = fullBonusString;
+            context.system.itemTypes.weapon[i].system.fullDamage = weapon.system.damage + fullDamageString;
         }
 
         //Adds a level string and alternate description string to foci items.
-        for(let i=0; i<this.actor.itemTypes.focus.length; i++){
+        for(let i=0; i<context.system.itemTypes.focus.length; i++){
             //Setting the item to use the system.details field instead of system.description for summaries and chat cards.
-            this.actor.itemTypes.focus[i].system.usingDetails = true;
+            context.system.itemTypes.focus[i].system.usingDetails = true;
 
             //Adding a levelString field to the item data for display in the item details.
-            this.actor.itemTypes.focus[i].system.levelString = this.actor.itemTypes.focus[i].system.level === "" ? "None" : this.actor.itemTypes.focus[i].system.level;
+            context.system.itemTypes.focus[i].system.levelString = context.system.itemTypes.focus[i].system.level === "" ? "None" : context.system.itemTypes.focus[i].system.level;
 
-            this.actor.itemTypes.focus[i].system.details = "<b><u>Description: </u></b>" + this.actor.itemTypes.focus[i].system.description;
+            context.system.itemTypes.focus[i].system.details = "<b><u>Description: </u></b>" + context.system.itemTypes.focus[i].system.description;
 
-            if(this.actor.itemTypes.focus[i].system.level !== ""){
-                this.actor.itemTypes.focus[i].system.details = this.actor.itemTypes.focus[i].system.details + "<p></p><b><u>Level 1: </u></b>" + this.actor.itemTypes.focus[i].system.level1;
+            if(context.system.itemTypes.focus[i].system.level !== ""){
+                context.system.itemTypes.focus[i].system.details = context.system.itemTypes.focus[i].system.details + "<p></p><b><u>Level 1: </u></b>" + context.system.itemTypes.focus[i].system.level1;
 
-                if(this.actor.itemTypes.focus[i].system.level !== "1"){
-                    this.actor.itemTypes.focus[i].system.details = this.actor.itemTypes.focus[i].system.details + "<p></p><b><u>Level 2: </u></b>" + this.actor.itemTypes.focus[i].system.level2;
+                if(context.system.itemTypes.focus[i].system.level !== "1"){
+                    context.system.itemTypes.focus[i].system.details = context.system.itemTypes.focus[i].system.details + "<p></p><b><u>Level 2: </u></b>" + context.system.itemTypes.focus[i].system.level2;
                 }
             }
-
-            console.log(this.actor.itemTypes.focus[i]);
         }
 
         //Adds an alternate description string to cyberware items.
-        for(let i=0; i<this.actor.itemTypes.cyberware.length; i++){
+        for(let i=0; i<context.system.itemTypes.cyberware.length; i++){
             //Setting the item to use the system.details field instead of system.description for summaries and chat cards.
-            this.actor.itemTypes.cyberware[i].system.usingDetails = true;
+            context.system.itemTypes.cyberware[i].system.usingDetails = true;
 
-            this.actor.itemTypes.cyberware[i].system.details = "<b><u>Description: </u></b>" + this.actor.itemTypes.cyberware[i].system.description + "<p></p><b><u>Effect: </u></b>" + this.actor.itemTypes.cyberware[i].system.effect;
+            context.system.itemTypes.cyberware[i].system.details = "<b><u>Description: </u></b>" + context.system.itemTypes.cyberware[i].system.description + "<p></p><b><u>Effect: </u></b>" + context.system.itemTypes.cyberware[i].system.effect;
         }
 
         //Deleting items that aren't allowed on the sheet, and warning the user about it.
@@ -322,7 +330,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         }
 
         //Determines if the add skills buttons should be displayed.
-        if(!context.system.xIsLocked || (this.actor.itemTypes.skill.length == 0 && context.owner)){
+        if(!context.system.xIsLocked || (context.system.itemTypes.skill.length == 0 && context.owner)){
             context.system.displayAddSkillButtons = true;
         }else{
             context.system.displayAddSkillButtons = false;
@@ -330,6 +338,34 @@ export class XandersSwnActorSheet extends ActorSheet {
 
         //Returning the newly parsed context.
         return context;
+    }
+
+    //Called when an item is drag n' dropped on the sheet.
+    _onSortItem(event, itemData){
+        //Getting a list of all the items of the same type.
+        const source = this.actor.getEmbeddedDocument("Item", itemData._id);
+        const siblings = this.actor.items.filter(i => {
+            return (i.type === source.type) && (i._id !== source._id);
+        });
+
+        //Getting the target (the item that was dropped on to).
+        const dropTarget = event.target.closest(".item[data-item-id]");
+        const targetId = dropTarget ? dropTarget.dataset.itemId : null;
+        const target = siblings.find(s => s.data._id === targetId);
+
+        //Ensuring that we are sorting items of the same type.
+        if (!target || (source.type !== target.type)) return;
+
+        //Sorting the items.
+        const sortUpdates = SortingHelpers.performIntegerSort(source, {target:target, siblings:siblings});
+        const updateData = sortUpdates.map(u => {
+            const update = u.update;
+            update._id = u.target.data._id;
+            return update;
+        });
+
+        console.log(updateData);
+        this.actor.updateEmbeddedDocuments("Item", updateData);
     }
 
     //Called when one of the three saving throw buttons is pressed.
@@ -482,24 +518,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Getting the button that was pressed.
         const item = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
 
-        console.log(item);
-
-        //Creating an html template from the dialog.
-        let templateContent = await renderTemplate("modules/xanders-swnr-sheet/scripts/templates/chats/item-card-chat.html", item);
-
-        //Creating a chat message once the settings are all changed.
-        const chatMessageData = {
-            content: templateContent,
-            speaker: {actor: this.actor.id},
-            isOwner: true,
-            flags: {
-                xSwnrInteractive: true
-            }
-        };
-
-        ChatMessage.create(chatMessageData);
-
-        await getDocumentClass("ChatMessage").applyRollMode(chatMessageData, game.settings.get("core", "rollMode"));
+        useItem(item, this.actor.id);
     }
 
     //@override
