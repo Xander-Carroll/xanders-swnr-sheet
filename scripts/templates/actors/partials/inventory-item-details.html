@@ -38,4 +38,10 @@
     <div class="inventory-extra-details-item"><b>Status: </b>{{#if system.disabled}}Disabled{{else}}Enabled{{/if}}</div>
     <div class="inventory-extra-details-item"><b>TL: </b>{{item.system.tl}}</div>
   {{/ifEquals}}
+
+  {{#ifEquals item.type "skill"}}
+    <div class="inventory-extra-details-item"><b>Level: </b>{{item.system.rank}}</div>
+    <div class="inventory-extra-details-item"><b>Stat: </b>{{item.system.defaultStat}}</div>
+    <div class="inventory-extra-details-item"><b>Dice: </b>{{item.system.dice}}</div>
+  {{/ifEquals}}
 </div>

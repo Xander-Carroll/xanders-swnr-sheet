@@ -213,3 +213,21 @@
   color: var(--font-color);
   font-weight: bold;
 }
+
+/* The dice icon that can be clicked to use the item. */
+.window-app.window-app.xanders-swnr .item-roll-button{
+  flex: 1 1; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  font-size: 18px;
+}
+
+.window-app.window-app.xanders-swnr .item-roll-button i{
+  color: grey;
+}
+
+/* When the dice icon is hovered. */
+.window-app.window-app.xanders-swnr .item-roll-button i:hover{
+  color: black;
+}
