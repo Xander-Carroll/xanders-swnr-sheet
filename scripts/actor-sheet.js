@@ -1,7 +1,5 @@
 // Implements all of the important functionality for the new actor sheets.
-
-import { initSkills, toTitleCase} from "./utils.js";
-import { useItem } from "./utils.js";
+import { initSkills, toTitleCase, useItem, generateRoll} from "./utils.js";
 
 export class XandersSwnActorSheet extends ActorSheet {
 
@@ -378,15 +376,13 @@ export class XandersSwnActorSheet extends ActorSheet {
         let saveData = await _saveThrowDialog(saveType);
 
         //If the dialog was canceled(closed) the roll needs cancelled.
-        if(saveData.cancelled){
-            return;
-        }
+        if(saveData.cancelled) return;
 
         //Adding data to the saving throw.
         saveData.target = this.actor.system.save[saveType];
 
         //Getting the roll data results.
-        let rollMessage = await _generateRoll("1d20", saveData, this);
+        let rollMessage = await generateRoll("1d20", saveData, this);
 
         //Cancelling the roll if the user used an invalid modifier.
         if(rollMessage.error){
@@ -443,7 +439,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         checkData.modifier = checkData.modifier + attribMod + skillMod;
 
         //Getting the roll data results.
-        let rollMessage = await _generateRoll(checkData.pool, checkData, this);
+        let rollMessage = await generateRoll(checkData.pool, checkData, this);
 
         //Cancelling the roll if the user used an invalid modifier.
         if (rollMessage.error){
@@ -526,53 +522,6 @@ export class XandersSwnActorSheet extends ActorSheet {
         return `modules/xanders-swnr-sheet/scripts/templates/actors/actor-${this.actor.type}-sheet.html`;
     }
 
-}
-
-//Retruns a rollData object and a roll object from the spesified data.
-async function _generateRoll(baseDie, rollData, sheet){
-    //Determing what role mode should be used.
-    if(rollData.rollMode === "CURRENT"){
-        rollData.rollMode = game.settings.get("core", "rollMode");
-    }else{
-        rollData.rollMode = CONST.DICE_ROLL_MODES[rollData.rollMode];
-    }
-
-    //Detrming the proper roll formula to use.
-    let rollFormula = baseDie;
-    if(rollData.modifier !== ''){
-        let firstSymbol = rollData.modifier.charAt(0);
-
-        if(firstSymbol !== '+' && firstSymbol !== '-'){
-            rollFormula = rollFormula + "+" + rollData.modifier;
-        }else{
-            rollFormula = rollFormula + rollData.modifier;
-        }
-    }
-
-    //Creating a roll with the proper roll formula.
-    const roll = new Roll(rollFormula, {target: rollData.target});
-
-    //If the roll does not evaluate, it was because the player entered a bad modifier.
-    try{
-        await roll.roll({async: true});
-    }catch (error){
-        ui.notifications.error("[" + rollData.modifier + "] is not a valid modifier!");
-        return {error: true};
-    }
-
-    //Getting the roll as HTML.
-    let rollContent = await roll.render();
-
-    // Sets the basic information needed for the chat message.        
-    let messageData = {
-        user: game.user._id,
-        speaker: ChatMessage.getSpeaker({actor:sheet.actor}),
-        roll: JSON.stringify(roll),
-        content: rollContent,
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL
-    };
-
-    return {data: messageData, roll:roll};
 }
 
 //Called when a saving throw is made to give the user a chance to add modifiers.

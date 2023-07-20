@@ -1,116 +1,130 @@
 /* Adding additional fonts used by the system */
 @font-face {
-    font-family: "Orbitron";
-    src: url("../fonts/Orbitron-Bold.ttf");
-  }
-  
-  @font-face {
-    font-family: "Roboto-Bold";
-    src: url("../fonts/Roboto-Bold.ttf");
-  }
-  
-  @font-face {
-    font-family: "Roboto";
-    src: url("../fonts/Roboto-Medium.ttf");
-  }
-  
-  /* Color variables that are used in the sheet */
- .xanders-swnr{
-    --background-sheet-header-color: rgb(255, 255, 255, 0.6);
-    --background-sheet-color: rgb(230, 230, 230);
-    --background-image: url("../img/backgrounds/hexellence.webp");
-    --background-portrait-image: url("../../../../ui/parchment-white.jpg");
-  
-    --font-color: rgb(28,28,28);
-    --second-font-color: rgb(71, 71, 71);
-    --active-font-color: rgb(5, 99, 150);
-  
-    --border-color: rgb(170,170,170);
-    --input-focus-color: rgb(5, 99, 150);
-    --level-background-color: rgba(140,140,140,0.5);
-    --table-alt-color: rgba(0,0,0,0.2);
-  
-    --health-bar-color: linear-gradient(45deg, rgba(48,121,22,1) 0%, rgba(97,190,80,1) 100%);
-    --strain-bar-color: linear-gradient(45deg, rgba(29,131,170,1) 0%, rgba(80,190,183,1) 100%);
+  font-family: "Orbitron";
+  src: url("../fonts/Orbitron-Bold.ttf");
+}
 
-    --item-background-other-color: rgba(160, 160, 160, 0.4);
-    --item-background-readied-color: rgba(64, 163, 55, 0.4);
-    --item-background-stowed-color: rgba(199, 118, 4, 0.4);
-    --item-header-image-color: rgba(76, 76, 76);
-    --item-detail-label-color-inventory: rgb(150, 150, 150);
-    --item-detail-label-color-chat: rgb(180, 180, 180);
+@font-face {
+  font-family: "Roboto-Bold";
+  src: url("../fonts/Roboto-Bold.ttf");
+}
 
-    --context-background-delete: rgba(189, 0, 0, 0.5);
-    --context-background-favorited: rgba(0, 168, 36, 0.5);
+@font-face {
+  font-family: "Roboto";
+  src: url("../fonts/Roboto-Medium.ttf");
+}
 
-    --field-border-radius: 3px;
-  }
+/* Color variables that are used in the sheet */
+.xanders-swnr{
+  --background-sheet-header-color: rgb(255, 255, 255, 0.6);
+  --background-sheet-color: rgb(230, 230, 230);
+  --background-image: url("../img/backgrounds/hexellence.webp");
+  --background-portrait-image: url("../../../../ui/parchment-white.jpg");
+
+  --font-color: rgb(28,28,28);
+  --second-font-color: rgb(71, 71, 71);
+  --active-font-color: rgb(5, 99, 150);
+
+  --border-color: rgb(170,170,170);
+  --input-focus-color: rgb(5, 99, 150);
+  --level-background-color: rgba(140,140,140,0.5);
+  --table-alt-color: rgba(0,0,0,0.2);
+
+  --health-bar-color: linear-gradient(45deg, rgba(48,121,22,1) 0%, rgba(97,190,80,1) 100%);
+  --strain-bar-color: linear-gradient(45deg, rgba(29,131,170,1) 0%, rgba(80,190,183,1) 100%);
+  --item-background-other-color: rgba(160, 160, 160, 0.4);
+  --item-background-readied-color: rgba(64, 163, 55, 0.4);
+  --item-background-stowed-color: rgba(199, 118, 4, 0.4);
+  --item-header-image-color: rgba(76, 76, 76);
+  --item-detail-label-color-inventory: rgb(150, 150, 150);
+  --item-detail-label-color-chat: rgb(180, 180, 180);
+  --context-background-delete: rgba(189, 0, 0, 0.5);
+  --context-background-favorited: rgba(0, 168, 36, 0.5);
+  --field-border-radius: 3px;
+}
+
+/* Makes some changes to the default sheet look and spacing */
+.window-app.xanders-swnr.window-app .window-content{
+  padding: 0px;
+  display: flex;
+
+  background: var(--background-image);
+  background-color: var(--background-sheet-color);
+}
+
+/* Sets the minimum size allowed for an actor sheet */
+.xanders-actor-sheet{
+  min-width: 585px;
+  min-height: 500px;
+}
+
+/* Sets the minimum size allowed for an item sheet */
+.xanders-item-sheet{
+  min-width: 440px;
+  min-height: 370px;
+}
+
+/*
+  CSS for chat messages
+*/
+.chat-message .xanders-swnr .chat-card-buttons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Removes the outline when focusing on these buttons. */
+.chat-message .xanders-swnr button:focus{
+  box-shadow: inherit;
+}
+
+.chat-message .xanders-swnr button:hover{
+  box-shadow: 0 0 5px var(--color-shadow-primary);
+}
   
-  /* Makes some changes to the default sheet look and spacing */
-  .window-app.xanders-swnr.window-app .window-content{
-    padding: 0px;
-    display: flex;
-  
-    background: var(--background-image);
-    background-color: var(--background-sheet-color);
-  }
-  
-  /* Sets the minimum size allowed for an actor sheet */
-  .xanders-actor-sheet{
-    min-width: 585px;
-    min-height: 500px;
-  }
-  
-  /* Sets the minimum size allowed for an item sheet */
-  .xanders-item-sheet{
-    min-width: 440px;
-    min-height: 370px;
-  }
-  
-  /*
-    CSS for right click context menus
-  */
 
-  .window-app.xanders-swnr #context-menu{
-    width: unset;
-    min-width: unset;
-    box-shadow: 0 0 5px;
+/*
+  CSS for right click context menus
+*/
 
-    color: var(--font-color);
+.window-app.xanders-swnr #context-menu{
+  width: unset;
+  min-width: unset;
+  box-shadow: 0 0 5px;
+  color: var(--font-color);
+  border: 1px solid var(--border-color);
+  background-color: var(--background-sheet-color);
+}
 
-    border: 1px solid var(--border-color);
-    background-color: var(--background-sheet-color);
-  }
+.window-app.xanders-swnr #context-menu li.context-item{
+  padding: 0px;
+  line-height: 23px;
+}
 
-  .window-app.xanders-swnr #context-menu li.context-item{
-    padding: 0px;
-    line-height: 23px;
-  }
+.window-app.xanders-swnr .context-delete{
+  background-color: var(--context-background-delete);
+  border-radius: 0px 0px 5px 5px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  margin-left: 2px;
+}
 
-  .window-app.xanders-swnr .context-delete{
-    background-color: var(--context-background-delete);
-    border-radius: 0px 0px 5px 5px;
-    margin-right: 2px;
-    margin-bottom: 2px;
-    margin-left: 2px;
-  }
+.window-app.xanders-swnr .context-favorited{
+  background-color: var(--context-background-favorited);
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+}
 
-  .window-app.xanders-swnr .context-favorited{
-    background-color: var(--context-background-favorited);
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-bottom: 2px;
-  }
+.window-app.xanders-swnr .context-image{
+   color: var(--font-color);
+   padding-left: 7px;
+}
 
- .window-app.xanders-swnr .context-image{
-    color: var(--font-color);
-    padding-left: 7px;
- }
-
- .window-app.xanders-swnr .context-favorited .context-image,
- .window-app.xanders-swnr .context-delete .context-image{
-  padding-left: 5px;
- }
+.window-app.xanders-swnr .context-favorited .context-image,
+.window-app.xanders-swnr .context-delete .context-image{
+ padding-left: 5px;
+}
 
 .window-app.xanders-swnr .context-text{
     font-size: 12px;
@@ -119,86 +133,80 @@
     padding-right: 5px;
 }
 
-  
-  /* 
-    CSS Defaults for all sheets.
-  */
-  
-  /* Setting the deualt font style */
-  .window-app.xanders-swnr .window-content * {
-    color: var(--font-color);
-  }
+/* 
+  CSS Defaults for all sheets.
+*/
 
-  .window-app.xanders-swnr p {
-    font-family: "Roboto";
-    color: var(--font-color);
-    margin: 0px;
-  }
-  
-  /* Setting default values for input fields */
-  .window-app.xanders-swnr section.window-content input{
-    border: 1px solid var(--border-color);
-    background: none;
-    padding: 4px;
-    color: var(--font-color);
-  
-    background: none;
-    border-radius: var(--field-border-radius);
+/* Setting the deualt font style */
+.window-app.xanders-swnr .window-content * {
+  color: var(--font-color);
+}
+.window-app.xanders-swnr p {
+  font-family: "Roboto";
+  color: var(--font-color);
+  margin: 0px;
+}
 
-    font-family: "Roboto";
-    color: var(--font-color);
-  
-    --color-shadow-primary : none;
-    --color-shadow-highlight : none;
-  }
+/* Setting default values for input fields */
+.window-app.xanders-swnr section.window-content input{
+  border: 1px solid var(--border-color);
+  background: none;
+  padding: 4px;
+  color: var(--font-color);
 
-  .window-app.xanders-swnr section.window-content input:hover:enabled,
-  .window-app.xanders-swnr section.window-content input:focus:enabled{
-    border: 1px solid var(--input-focus-color);
-    padding: 4px;
-  }
+  background: none;
+  border-radius: var(--field-border-radius);
+  font-family: "Roboto";
+  color: var(--font-color);
 
-  .window-app.xanders-swnr section.window-content input.borderless{
-    border: none;
-    padding: 5px;
-  }
-  
-  .window-app.xanders-swnr section.window-content input.bottom-border{
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-    padding: 5px;
-    padding-bottom: 4px;
-  }
+  --color-shadow-primary : none;
+  --color-shadow-highlight : none;
+}
+.window-app.xanders-swnr section.window-content input:hover:enabled,
+.window-app.xanders-swnr section.window-content input:focus:enabled{
+  border: 1px solid var(--input-focus-color);
+  padding: 4px;
+}
 
-  .window-app.xanders-swnr section.window-content input.bottom-border:focus:enabled,
-  .window-app.xanders-swnr section.window-content input.bottom-border:hover:enabled{
-    padding: 4px;
-  }
+.window-app.xanders-swnr section.window-content input.borderless{
+  border: none;
+  padding: 5px;
+}
 
-  
-  /* Sets the size and color of the sheet header */
-  .window-app.xanders-swnr .header-bar{
-    margin-left: 0px;
-    margin-right: 0px;
-    margin-top: 0px;
-    padding: 0px;
-  
-    display: flex;
-    flex-direction: row;
-    padding: 10px;
-  
-    background-color: var(--background-sheet-header-color);
-  }
-  
-  /* Sets the size and margin for the name text */
-  .window-app.xanders-swnr .name-bar{
-    height: 100%;
-    width: 400px;
-    margin-left: 10px;
-    flex-grow: 1;
-  }
+.window-app.xanders-swnr section.window-content input.bottom-border{
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  padding: 5px;
+  padding-bottom: 4px;
+}
+.window-app.xanders-swnr section.window-content input.bottom-border:focus:enabled,
+.window-app.xanders-swnr section.window-content input.bottom-border:hover:enabled{
+  padding: 4px;
+}
 
-  /* Sets the default look of the tabs */
+/* Sets the size and color of the sheet header */
+.window-app.xanders-swnr .header-bar{
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  padding: 0px;
+
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+
+  background-color: var(--background-sheet-header-color);
+}
+  
+/* Sets the size and margin for the name text */
+.window-app.xanders-swnr .name-bar{
+  height: 100%;
+  width: 400px;
+  margin-left: 10px;
+  flex-grow: 1;
+}
+
+/* Sets the default look of the tabs */
 .window-app.xanders-swnr .tabs{
   padding-bottom: 0px;
 

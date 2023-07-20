@@ -1,9 +1,12 @@
 <div class="xanders-swnr chat-details" style="margin:2px;">
+    <!-- The item name and header. -->
     <hr style="margin:2px"/>
     <div style="display:flex; flex-direction:row; align-items:center">
         <img src="{{img}}" style="border:1px solid black; width:36px; height:36px;margin-right:5px;">
-        <p id="item-name" data-item-type="{{type}}" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="font-family:'Orbitron'; font-size:20px">{{name}}</p>
+        <p id="item-name" style="font-family:'Orbitron'; font-size:20px">{{name}}</p>
     </div>
+
+    <!-- The main card body. -->
     <hr style="margin:2px"/>
     <div class="card-content">
         {{#if system.usingDetails}}
@@ -13,5 +16,16 @@
         {{/if}}
         <hr style="margin:2px"/>
     </div>
+
+    <!-- If the item is a weapon then attack buttons should be displayed. -->
+    {{#ifEquals type "weapon"}}
+    <div class="chat-card-buttons">
+        <button class="attack-button" data-type="attack" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; margin-top:5px; line-height:24px;">Attack</button>
+        <button class="damage-button" data-type="damage" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:5px; line-height:24px;">Damage</button>
+        <hr style="margin:2px; width:100%"/>
+    </div>
+    {{/ifEquals}}
+
+    <!-- The small grey attribute tags at the bottom of item cards. -->
     {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-item-details.html" item=this}}
 </div>

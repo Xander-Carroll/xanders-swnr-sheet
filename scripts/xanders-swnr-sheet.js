@@ -190,6 +190,10 @@ function injectCSS() {
 				background: none;
 			}
 
+			.window-app section.window-content input[type=color]{
+				padding: 1px;
+			}
+
 			.window-app section.window-content hr{
 				border-color: #868685;
 			}
@@ -217,6 +221,12 @@ function injectCSS() {
 				font-size: 1.5em;
     			border-bottom: 1px solid var(--color-underline-header);
 			}
+
+			/* Adding more padding between buttons.*/
+			.window-app button {
+				margin: 0.125rem;
+				padding: 0.125rem;
+			}
         `;
     }
 
@@ -240,6 +250,7 @@ function injectCSS() {
 		`;
 	}
 
+	//Changes the hilights and scrollbar from orange to blue.
 	if(game.settings.get("xanders-swnr-sheet", "blueSelectColor")){
 		innerHTML += `
 		/* Changes some of foundry's default colors. */
@@ -255,8 +266,6 @@ function injectCSS() {
 			}
 		`;
 	}
-
-	
 
 	//Applies the CSS changes.
     style.innerHTML = innerHTML;

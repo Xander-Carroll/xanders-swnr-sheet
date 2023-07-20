@@ -1,0 +1,29 @@
+<form>
+  <div class="form-group">
+    <label>Skill</label>
+    <select name="skill">
+      {{#select system.defaultStat}}
+        <option value="str">Strength: {{system.stats.str.modString}}</option>
+        <option value="dex">Dexterity: {{system.stats.dex.modString}}</option>
+        <option value="con">Constitution: {{system.stats.con.modString}}</option>
+        <option value="int">Intelligence: {{system.stats.int.modString}}</option>
+        <option value="wis">Wisdom: {{system.stats.wis.modString}}</option>
+        <option value="cha">Charisma: {{system.stats.cha.modString}}</option>
+      {{/select}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Situational Modifier</label>
+    <input type="text" name="modifier" value="" placeholder="ex. 2d4+2"/>
+  </div>
+  <div class="form-group">
+    <label>Roll Mode</label>
+    <select name="rollmode">
+      <option value="CURRENT">Current Mode</option>
+      <option value="PUBLIC">Public Roll</option>
+      <option value="PRIVATE">Private GM Roll</option>
+      <option value="BLIND">Blind GM Roll</option>
+      <option value="SELF">Self Roll</option>
+    </select>
+  </div>
+</form>

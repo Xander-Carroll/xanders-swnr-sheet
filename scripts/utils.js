@@ -150,6 +150,53 @@ export function toTitleCase(str) {
     );
 }
 
+//Retruns a rollData object and a roll object from the spesified data.
+export async function generateRoll(baseDie, rollData, sheet){
+    //Determing what role mode should be used.
+    if(rollData.rollMode === "CURRENT"){
+        rollData.rollMode = game.settings.get("core", "rollMode");
+    }else{
+        rollData.rollMode = CONST.DICE_ROLL_MODES[rollData.rollMode];
+    }
+
+    //Detrming the proper roll formula to use.
+    let rollFormula = baseDie;
+    if(rollData.modifier !== ''){
+        let firstSymbol = rollData.modifier.charAt(0);
+
+        if(firstSymbol !== '+' && firstSymbol !== '-'){
+            rollFormula = rollFormula + "+" + rollData.modifier;
+        }else{
+            rollFormula = rollFormula + rollData.modifier;
+        }
+    }
+
+    //Creating a roll with the proper roll formula.
+    const roll = new Roll(rollFormula, {target: rollData.target});
+
+    //If the roll does not evaluate, it was because the player entered a bad modifier.
+    try{
+        await roll.roll({async: true});
+    }catch (error){
+        ui.notifications.error("[" + rollData.modifier + "] is not a valid modifier!");
+        return {error: true};
+    }
+
+    //Getting the roll as HTML.
+    let rollContent = await roll.render();
+
+    // Sets the basic information needed for the chat message.        
+    let messageData = {
+        user: game.user._id,
+        speaker: ChatMessage.getSpeaker({actor:sheet.actor}),
+        roll: JSON.stringify(roll),
+        content: rollContent,
+        type: CONST.CHAT_MESSAGE_TYPES.ROLL
+    };
+
+    return {data: messageData, roll:roll};
+}
+
 //Will create a chat message for the given item spoken by the given actor.
 export async function useItem(item, actorId){
     //Creating an html template from the dialog.
