@@ -72,6 +72,16 @@ function registerSystemSettings(){
 		onChange: debouncedReload
 	});
 
+	game.settings.register("xanders-swnr-sheet", "blueSelectColor", {
+		config: true,
+		scope: "world",
+		name: "Use Blue Select Color",
+		hint: "This will change the default orange on buttons, and other elements to a cooler blue.",
+		type: Boolean,
+		default: true,
+		onChange: debouncedReload
+	});
+
 	game.settings.register("xanders-swnr-sheet", "itemCardsCollapsed", {
 		config: true,
 		scope: "client",
@@ -229,6 +239,24 @@ function injectCSS() {
 			}
 		`;
 	}
+
+	if(game.settings.get("xanders-swnr-sheet", "blueSelectColor")){
+		innerHTML += `
+		/* Changes some of foundry's default colors. */
+			:root{
+				--color-shadow-primary: #003182;
+				--color-shadow-highlight: #1377a2;
+				--color-border-highlight: #005f98;
+				--color-border-highlight-alt: #007ecc;
+			}
+
+			::-webkit-scrollbar-thumb{
+				background: #050b4e;
+			}
+		`;
+	}
+
+	
 
 	//Applies the CSS changes.
     style.innerHTML = innerHTML;
