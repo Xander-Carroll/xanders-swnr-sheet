@@ -101,12 +101,17 @@ function injectCSS() {
 	//Changes sheet and chat backgrounds if needed.
 	if (game.settings.get("xanders-swnr-sheet", "changeAllBackgrounds")) {
         innerHTML += `
-			/* The new font needs changed for every sheet. */
+			/* The new font needs changed on everything. */
 			body.game{
 				font-family: var(--font-primary);
 			}
+			
+			.swnr{
+				/* ... Except for the default old SWNR sheet. */
+				font-family: "Gayathri";
+			}
 
-			section.window-content{
+			section.window-content:not(.cq){
 				font-size: var(--font-size-14);
 			}
 
@@ -117,7 +122,7 @@ function injectCSS() {
 			}
 
             /* Replaces the standard parchment background */
-			.window-app section.window-content,
+			.window-app section.window-content:not(.cq),
 			.window-app section.window-content .dialog-content,
 			.window-app section.window-content .dialog-buttons{
 				background: url("modules/xanders-swnr-sheet/img/backgrounds/hexellence.webp");
@@ -148,7 +153,7 @@ function injectCSS() {
 				font-size: 13px;
 			}
 
-			.window-app section.window-content .border{
+			.window-app section.window-content .border:not(.rounded-md){
 				border: none;
 				font-weight: bolder;
 				font-size: 20px;
@@ -178,7 +183,7 @@ function injectCSS() {
 				border-radius: 0px;
 			}
 
-			.window-app section.window-content input{
+			.window-app section.window-content input:not(.subfield, .bottom-border, .borderless, .rounded-md:not([name="modifier"])){
 				background-color: rgba(0, 0, 0, 0.05);
 				border: 1px solid var(--color-border-light-tertiary);
 				border-radius: 3px;
@@ -224,6 +229,15 @@ function injectCSS() {
 			.window-app section.window-content h2{
 				font-size: 1.5em;
     			border-bottom: 1px solid var(--color-underline-header);
+			}
+
+			/* Fixing the bullet points and numbered list on the old charachter and item sheets.*/
+			.window-app.swnr section.window-content ul{
+				list-style: none;
+			}
+
+			.window-app.swnr section.window-content ol{
+				list-style: none;
 			}
 
 			/* Adding more padding between buttons.*/
