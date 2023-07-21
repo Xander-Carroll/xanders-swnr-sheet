@@ -6,6 +6,8 @@
 // let ownerId = event.currentTarget.dataset.ownerId;
 // let itemType = event.currentTarget.dataset.itemType;
 
+import { generateRoll } from "./utils.js";
+
 // Adds hooks to new chat cards.
 export function addChatListener(message, html, data){
     if(message.flags.xSwnrInteractive){
@@ -15,7 +17,6 @@ export function addChatListener(message, html, data){
         }
 
         //Hiding the roll buttons if the player does not own the chat card.
-        console.log(data);
         if(!data.author.isOwner){
             html.find(".chat-card-buttons").hide();
         }
@@ -26,8 +27,8 @@ export function addChatListener(message, html, data){
         });
 
         //Hook used for rolling attack and damage rolls on item cards.
-        html.on('click', '.xanders-swnr .chat-card-buttons button', (event) =>{
-            onChatButtonPress(event, html);
+        html.on('click', '.xanders-swnr .chat-card-weapon-buttons button', (event) =>{
+            onChatWeaponButtonPress(event, html);
         });
     }
 }
@@ -44,31 +45,127 @@ async function onItemCollapse(event, html){
 }
 
 // Called when a button is pressed on a chat card.
-async function onChatButtonPress(event, html){
+async function onChatWeaponButtonPress(event, html){
     event.preventDefault();
 
     //The type of button that was pressed.
     let type = event.currentTarget.dataset.type;
+    let itemId = event.currentTarget.dataset.itemId;
+    let ownerId = event.currentTarget.dataset.ownerId;
 
-    console.log("Pressed [" + type + "] Button!");
-    let rollData = await _weaponRollDialog(type);
-
+    //Creating the dialog and getting player input.
+    let rollData = await _weaponRollDialog(type, itemId, ownerId);
     if(rollData.cancelled) return;
+
+    //Getting the actor, weapon, and skill involved with the attack.
+    let actor = game.actors.get(ownerId);
+    let weapon = actor.getEmbeddedDocument("Item", itemId);
+    let skill = actor.getEmbeddedDocument("Item", rollData.skill);
+
+    //Adding modifiers to the role.
+    let skillMod, actorAttackBonus, weaponAttackBonus, dialogMod, attribMod, shockDamage;
+    if(type === "attack"){
+        skillMod = skill.system.rank.toString();
+        actorAttackBonus = actor.system.ab.toString();
+        weaponAttackBonus = weapon.system.ab.toString();
+
+        //Not having a level in a skill means that it should be rolled at -2.
+        if(skillMod == "-1"){
+            skillMod = "-2";
+        }
+
+        //Ensuring the right signs are used for the given mods.
+        if(skillMod.charAt(0) !== '-'){
+            skillMod = "+" + skillMod;
+        }
+        if(actorAttackBonus.charAt(0) !== '-'){
+            actorAttackBonus = "+" + actorAttackBonus;
+        }
+        if(weaponAttackBonus.charAt(0) !== '-'){
+            weaponAttackBonus = "+" + weaponAttackBonus;
+        }
+
+    }
+    
+    if(type === "attack" || type === "damage"){
+        dialogMod = rollData.modifier;
+
+        let stat1; let stat2;
+        if(actor.system.stats[weapon.system.stat]){
+            stat1 = actor.system.stats[weapon.system.stat].mod;
+            attribMod = stat1.toString();
+        } 
+        if(actor.system.stats[weapon.system.secondStat]){
+            stat2 = actor.system.stats[weapon.system.secondStat].mod;
+            attribMod = stat2.toString();
+        }
+        if(stat1 && stat2){
+            attribMod = Math.max(parseInt(stat1), parseInt(stat2)).toString();
+        }
+
+        //Ensuring that the right signs are used for the given mods.
+        if(attribMod.charAt(0) !== '-'){
+            attribMod = "+" + attribMod;
+        }
+        if(dialogMod.charAt(0) !== '-' && dialogMod.charAt(0) !== ""){
+            dialogMod = "+" + dialogMod;
+        }
+    }
+
+    //Creating the overall roll modifier and damage dice.
+    let dice = "1d20";
+    if(type === "attack"){
+        rollData.modifier = skillMod + actorAttackBonus + weaponAttackBonus + attribMod + dialogMod;
+    }else if (type === "damage"){
+        rollData.modifier = attribMod + dialogMod;
+        dice = weapon.system.damage;
+    }else if (type === "shock"){
+        rollData.modifier = '';
+        dice = weapon.system.shock.dmg.toString();
+    }
+
+    //Getting the roll data results.
+    let rollMessage = await generateRoll(dice, rollData, actor.sheet);
+
+    //Cancelling the roll if the user used an invalid modifier.
+    if (rollMessage.error){
+        return;
+    }
+
+    // Adding the flavor text.
+    rollMessage.data.flavor = weapon.name + " - " + type.charAt(0).toUpperCase() + type.substr(1).toLowerCase() + " Roll";
+
+    // Creates the chat message with the given data.
+    let message = await getDocumentClass("ChatMessage").create(rollMessage.data);
+    
+    //Changes the roll mode of the chat message.
+    await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, rollData.rollMode);
+    await message.update(rollMessage.data);
 }
 
 //Called when the user makes an attack roll or damage roll.
-async function _weaponRollDialog(rollType){
-    let template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/attack-roll-dialog.html"
-    const html = await renderTemplate(template, {});
-    let title = "Roll";
+async function _weaponRollDialog(rollType, itemId, ownerId){
+    //Getting the actor and item for the rolled weapon.
+    let actor = game.actors.get(ownerId);
+    let item = actor.getEmbeddedDocument("Item", itemId);
 
+    //Adding the actor's skill data to the item.
+    item.system.skillList = actor.itemTypes.skill;
+
+    //Setting the title of the dialog and creating the html template.
+    let template; let title;
     if(rollType === "attack"){
         title = "Attack Roll";
-    }else{
+        template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/attack-roll-dialog.html"
+    }else if(rollType === "damage"){
         title = "Damage Roll";
         template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/damage-roll-dialog.html"
+    }else if(rollType === "shock"){
+        return {};
     }
+    const html = await renderTemplate(template, item);
 
+    //Creating and rendering the dialog.
     return new Promise(resolve => {
         const data = {
             title: title,
@@ -76,7 +173,7 @@ async function _weaponRollDialog(rollType){
             buttons: {
                 roll: {
                     label: "Roll",
-                    callback: html => resolve(_processWeaponRoll(html))
+                    callback: html => resolve(_processWeaponRoll(html, rollType))
                 }
             },
             default: "roll",
@@ -87,8 +184,19 @@ async function _weaponRollDialog(rollType){
     });
 }
 
-function _processWeaponRoll(html){
-    console.log("Processing");
+//Processes the options givn in a weapon roll dialog.
+function _processWeaponRoll(html, rollType){
+    const rollMode = html.find('[name="rollmode"]')[0].value;
+    const modifier = html.find('[name="modifier"]')[0].value;
+    
+    let returnData = {
+        modifier: modifier,
+        rollMode: rollMode
+    };
 
-    return {};
+    if (rollType === "attack"){
+        returnData.skill = html.find('[name="skill"]')[0].value;
+    }
+
+    return returnData;
 }

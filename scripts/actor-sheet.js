@@ -362,7 +362,6 @@ export class XandersSwnActorSheet extends ActorSheet {
             return update;
         });
 
-        console.log(updateData);
         this.actor.updateEmbeddedDocuments("Item", updateData);
     }
 

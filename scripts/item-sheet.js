@@ -26,7 +26,7 @@ export class XandersSwnItemSheet extends ItemSheet {
         if (!this.isEditable) return;
 
         //If an item is clicked.
-        html.find('.item-image-clickable').on("click", this._onItemUse.bind(this));
+        html.find('.item-image-clickable i').on("click", this._onItemUse.bind(this));
 
     }
 
@@ -48,7 +48,7 @@ export class XandersSwnItemSheet extends ItemSheet {
         }
 
         //If the item is in a compendium, its buttons shouldn't be active.
-        if(context.item.compendium){
+        if(!context.item.isEmbedded){
             context.owner = false;
         }
 
@@ -68,17 +68,8 @@ export class XandersSwnItemSheet extends ItemSheet {
         if(!this.object.isOwner) return;
 
         //If the item is an embedded item, use that actor, if it is not an embedded item, use the current token.
-        let actor = ChatMessage.getSpeaker().actor;        
-        if(this.object.isEmbedded){
-            actor = this.actor;
-        }
+        let actor = this.actor;        
         
-        //If the item is not embedded and no token is selected, give a warning.
-        if(!actor){
-            ui.notifications.warn("You must have a token selected to use this item!");
-            return;
-        }
-
         //Use the item with the given actor.
         useItem(this.object, actor);
     }

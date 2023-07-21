@@ -76,7 +76,7 @@ function registerSystemSettings(){
 		config: true,
 		scope: "world",
 		name: "Use Blue Select Color",
-		hint: "This will change the default orange on buttons, and other elements to a cooler blue.",
+		hint: "This will change the default orange around buttons, and other elements to a cooler blue.",
 		type: Boolean,
 		default: true,
 		onChange: debouncedReload
@@ -201,6 +201,10 @@ function injectCSS() {
 			.window-app section.window-content textarea{
 				background-color: rgba(0, 0, 0, 0.05);
 				border: 1px solid #868685;
+			}
+
+			.directory .directory-header .header-search input {
+				color: black;
 			}
 
 			/* Fixing the bullet points and numbered list in item descriptions.*/
