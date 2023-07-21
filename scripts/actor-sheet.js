@@ -256,6 +256,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             let weapon = context.system.itemTypes.weapon[i];
             let skill = context.actor.getEmbeddedDocument("Item", weapon.system.skill);
             let skillPunchMod = 0;
+            let skillMod = -2;
 
             //The attribute bonus is the better of the two listed attribute modifiers.
             let attributeBonus = context.actor.system.stats[weapon.system.stat].mod;
@@ -264,30 +265,33 @@ export class XandersSwnActorSheet extends ActorSheet {
             }
 
             //If the skill is set, then the rank will be used, if the skill is unset, then the rank is 0.
-            if(typeof skill === "undefined"){
-                skill = {system:{rank:0}};
-            }else{
+            if(typeof skill != "undefined"){
                 //Punch attacks add their skill modifier to the damage roll.
                 if (skill.name === "Punch" || skill.name === "punch"){
                     skillPunchMod = skill.system.rank;
                 }
 
                 //If an attack skill is untrained, the character takes -2 instead of just -1 to hit.
-                if (skill.rank == -1){
-                    skill.rank = -2;
+                if (skill.system.rank != -1){
+                    skillMod = skill.system.rank;
                 }
             }
 
             //Calculating the weapon attack bonus, and adding a + sign in front of the string if needed.
-            let fullBonusInt = context.actor.system.ab + weapon.system.ab + skill.system.rank + attributeBonus;
+            let fullBonusInt = context.actor.system.ab + weapon.system.ab + skillMod + attributeBonus;
             let fullBonusString = fullBonusInt >= 0 ? "+" + String(fullBonusInt) : fullBonusInt;
 
             //Calculating the weapon damage, and adding a + sign in front of the string if needed.
             let fullDamageInt = skillPunchMod + attributeBonus;
             let fullDamageString = fullDamageInt >= 0 ? "+" + String(fullDamageInt) : fullDamageInt;
 
-            context.system.itemTypes.weapon[i].system.fullAttackBonus = fullBonusString;
-            context.system.itemTypes.weapon[i].system.fullDamage = weapon.system.damage + fullDamageString;
+            //Adding the damage and attack bonus string to the sheet.
+            let itemId = context.system.itemTypes.weapon[i].id;
+            this.actor.getEmbeddedDocument("Item", itemId).update({system:{
+                                                                            fullAttackBonus: fullBonusString,
+                                                                            fullDamage: weapon.system.damage + fullDamageString,
+                                                                            damageBonus: fullDamageString
+                                                                        }});
         }
 
         //Adds a level string and alternate description string to foci items.

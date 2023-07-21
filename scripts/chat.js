@@ -71,50 +71,10 @@ async function onChatWeaponButtonPress(event, html){
     }
 
     //Adding modifiers to the role.
-    let skillMod, actorAttackBonus, weaponAttackBonus, dialogMod, attribMod, shockDamage;
-    if(type === "attack"){
-        skillMod = skill.system.rank.toString();
-        actorAttackBonus = actor.system.ab.toString();
-        weaponAttackBonus = weapon.system.ab.toString();
-
-        //Not having a level in a skill means that it should be rolled at -2.
-        if(skillMod == "-1"){
-            skillMod = "-2";
-        }
-
-        //Ensuring the right signs are used for the given mods.
-        if(skillMod.charAt(0) !== '-'){
-            skillMod = "+" + skillMod;
-        }
-        if(actorAttackBonus.charAt(0) !== '-'){
-            actorAttackBonus = "+" + actorAttackBonus;
-        }
-        if(weaponAttackBonus.charAt(0) !== '-'){
-            weaponAttackBonus = "+" + weaponAttackBonus;
-        }
-
-    }
-    
+    let dialogMod;
     if(type === "attack" || type === "damage"){
         dialogMod = rollData.modifier;
 
-        let stat1; let stat2;
-        if(actor.system.stats[weapon.system.stat]){
-            stat1 = actor.system.stats[weapon.system.stat].mod;
-            attribMod = stat1.toString();
-        } 
-        if(actor.system.stats[weapon.system.secondStat]){
-            stat2 = actor.system.stats[weapon.system.secondStat].mod;
-            attribMod = stat2.toString();
-        }
-        if(stat1 && stat2){
-            attribMod = Math.max(parseInt(stat1), parseInt(stat2)).toString();
-        }
-
-        //Ensuring that the right signs are used for the given mods.
-        if(attribMod.charAt(0) !== '-'){
-            attribMod = "+" + attribMod;
-        }
         if(dialogMod.charAt(0) !== '-' && dialogMod.charAt(0) !== ""){
             dialogMod = "+" + dialogMod;
         }
@@ -123,9 +83,9 @@ async function onChatWeaponButtonPress(event, html){
     //Creating the overall roll modifier and damage dice.
     let dice = "1d20";
     if(type === "attack"){
-        rollData.modifier = skillMod + actorAttackBonus + weaponAttackBonus + attribMod + dialogMod;
+        rollData.modifier = weapon.system.fullAttackBonus + dialogMod;
     }else if (type === "damage"){
-        rollData.modifier = attribMod + dialogMod;
+        rollData.modifier = weapon.system.damageBonus + dialogMod;
         dice = weapon.system.damage;
     }else if (type === "shock"){
         rollData.modifier = '';
