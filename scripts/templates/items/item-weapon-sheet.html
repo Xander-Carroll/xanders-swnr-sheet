@@ -172,7 +172,7 @@
               </div>
 
               <!-- The weapon ammunition. -->
-              <div style="flex:1.5 1 0px; padding-left:5px;">
+              <div style="flex:1 1 0px; padding-left:5px;">
                 <p class="details-headers">Ammunition:</p>
                 <select name="system.ammo.type" style="width:100%">
                   {{#select system.ammo.type}}
@@ -188,7 +188,7 @@
               </div>
 
               <!-- The weapon magazine. -->
-              <div style="flex:1.2 1 0px; padding-left:5px;">
+              <div style="flex:1 1 0px; padding-left:5px;">
                 <p class="details-headers">Weapon Magazine:</p>
                 <div style="display:flex; flex-direction:row">
                   <input name="system.ammo.value" class="details-input" value="{{system.ammo.value}}" type="number" style="width:45%" {{#unless owner}}disabeled{{/unless}}/>
@@ -198,12 +198,40 @@
               </div>
 
               <!-- A spacer to push the other elements further left.-->
-              <div style="flex: 1.5 1 0px; padding-left:5px;"></div>
+              <div style="flex: 1 1 0px; padding-left:5px;"></div>         
+            </div>
 
-            </div>            
+            <!-- The weapon checkbox properties. -->
+            <div style="display:flex; flex-direction:row;"> 
+              <!-- The burst fire property-->
+              <div style="flex:1 1 0px; padding-left:5px;">
+                <p class="details-headers">Burst Fire:</p>
+                <div style="display:flex; flex-direction:row">
+                  <input type="checkbox" style="margin:0px;" name="system.ammo.burst" {{#if system.ammo.burst}}checked{{/if}} {{#unless owner}}disabeled{{/unless}}/>
+                </div>
+              </div>
+
+              <!-- The long reload property. -->
+              <div style="flex:1.2 1 0px; padding-left:5px;">
+                <p class="details-headers">Long Reload:</p>
+                <div style="display:flex; flex-direction:row;">
+                  <input type="checkbox" style="margin:0px;" name="system.ammo.longReload" {{#if system.ammo.longReload}}checked{{/if}} {{#unless owner}}disabeled{{/unless}}/>
+                </div>
+              </div>
+
+              <!-- The suppresive fire property. -->
+              <div style="flex:1.5 1 0px; padding-left:5px;">
+                <p class="details-headers">Suppressive Fire:</p>
+                <div style="display:flex; flex-direction:row">
+                  <input type="checkbox" style="margin:0px;" name="system.ammo.suppress" {{#if system.ammo.suppress}}checked{{/if}} {{#unless owner}}disabeled{{/unless}}/>
+                </div>
+              </div>
+
+              <!-- A spacer to push the other elements to the left. -->
+              <div style="flex:3.5 1 0px; padding-left:5px;"></div>
+            </div>
+
           {{/ifEquals}}
-
-        </div>
 
       </div>
   

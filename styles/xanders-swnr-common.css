@@ -89,7 +89,6 @@
 
 .window-app.xanders-swnr #context-menu{
   width: unset;
-  min-width: unset;
   box-shadow: 0 0 5px;
   color: var(--font-color);
   border: 1px solid var(--border-color);
