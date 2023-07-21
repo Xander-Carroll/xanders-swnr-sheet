@@ -7,6 +7,9 @@
     {{#ifEquals item.system.type "melee"}}<div class="inventory-extra-details-item"><b>Shock: </b>{{item.system.shock.dmg}} point / AC {{item.system.shock.ac}}</div>{{/ifEquals}}
     <div class="inventory-extra-details-item"><b>Quality: </b>{{item.system.quality}}</div>
     <div class="inventory-extra-details-item"><b>TL: </b>{{item.system.tl}}</div>
+    {{#if item.system.ammo.burst}}<div class="inventory-extra-details-item">Burst Fire</div>{{/if}}
+    {{#if item.system.ammo.longReload}}<div class="inventory-extra-details-item">Long Reload</div>{{/if}}
+    {{#if item.system.ammo.suppress}}<div class="inventory-extra-details-item">Suppressive</div>{{/if}}
   {{/ifEquals}}
 
     <!--The tags for armor-->
