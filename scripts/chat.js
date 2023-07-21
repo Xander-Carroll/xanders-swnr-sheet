@@ -63,10 +63,10 @@ async function onChatWeaponButtonPress(event, html){
     let skill = actor.getEmbeddedDocument("Item", rollData.skill);
 
     //Consuming one piece of ammunition.
-    if(rollData.consumeAmmo && weapon.system.ammo.value <= 0){
+    if((rollData.consumeAmmo && weapon.system.ammo.value <= 0 && weapon.system.ammo.type !== "infinite" || (weapon.system.ammo.type === "none" && rollData.consumeAmmo))){
         ui.notifications.warn("You don't have enough ammo to use this weapon!");
         return;
-    }else if (rollData.consumeAmmo){
+    }else if (rollData.consumeAmmo && weapon.system.ammo.type !== "infinite"){
         weapon.update({system:{ammo:{value:weapon.system.ammo.value-1}}});
     }
 
@@ -87,9 +87,15 @@ async function onChatWeaponButtonPress(event, html){
     }else if (type === "damage"){
         rollData.modifier = weapon.system.damageBonus + dialogMod;
         dice = weapon.system.damage;
+
+        //If the skill boosts damage property is selected, then the skillMod should be added to the result.
+        if(weapon.system.skillBoostsDamage) rollData.modifier = rollData.modifier + weapon.system.skillMod;
     }else if (type === "shock"){
         rollData.modifier = '';
         dice = weapon.system.shock.dmg.toString();
+
+        //If the skill boosts shock property is selected, then the skillMod should be added to the result.
+        if(weapon.system.skillBoostsShock) dice = dice + weapon.system.skillMod;
     }
 
     //Getting the roll data results.

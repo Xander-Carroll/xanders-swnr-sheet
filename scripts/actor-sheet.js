@@ -257,6 +257,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             let skill = context.actor.getEmbeddedDocument("Item", weapon.system.skill);
             let skillPunchMod = 0;
             let skillMod = -2;
+            let skillModString = 0;
 
             //The attribute bonus is the better of the two listed attribute modifiers.
             let attributeBonus = context.actor.system.stats[weapon.system.stat].mod;
@@ -270,6 +271,9 @@ export class XandersSwnActorSheet extends ActorSheet {
                 if (skill.name === "Punch" || skill.name === "punch"){
                     skillPunchMod = skill.system.rank;
                 }
+
+                skillModString = skill.system.rank.toString();
+                if(skillModString.charAt(0) != '-') skillModString = "+" + skillModString;
 
                 //If an attack skill is untrained, the character takes -2 instead of just -1 to hit.
                 if (skill.system.rank != -1){
@@ -290,6 +294,7 @@ export class XandersSwnActorSheet extends ActorSheet {
                 fullAttackBonus: fullBonusString,
                 fullDamage: weapon.system.damage + fullDamageString,
                 damageBonus: fullDamageString,
+                skillMod: skillModString
             }
 
             let itemId = context.system.itemTypes.weapon[i].id;

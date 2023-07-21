@@ -1,9 +1,11 @@
 <form>
   {{#ifEquals system.type "ranged"}}
+  {{#ifNotEquals system.ammo.type "infinite"}}
   <div class="form-group">
     <label>Consume Ammunition</label>
     <input checked type="checkbox" value="true" name="consume-ammo"/>
   </div>
+  {{/ifNotEquals}}
   {{/ifEquals}}
   <div class="form-group">
     <label>Skill</label>
