@@ -171,7 +171,7 @@ function injectCSS() {
 				outline: none;
 			}
 
-			.window-app section.window-content select{
+			.window-app section.window-content select:not(.rounded-md){
 				border: 1px solid var(--color-border-light-tertiary);
 				border-radius: 3px;
 				background-color: rgba(0, 0, 0, 0.05);
@@ -183,7 +183,7 @@ function injectCSS() {
 				border-radius: 0px;
 			}
 
-			.window-app section.window-content input:not(.subfield, .bottom-border, .borderless, .rounded-md:not([name="modifier"])){
+			.window-app section.window-content input:not(.subfield, .bottom-border, .borderless, .rounded-md){
 				background-color: rgba(0, 0, 0, 0.05);
 				border: 1px solid var(--color-border-light-tertiary);
 				border-radius: 3px;
