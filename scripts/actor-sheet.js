@@ -286,12 +286,14 @@ export class XandersSwnActorSheet extends ActorSheet {
             let fullDamageString = fullDamageInt >= 0 ? "+" + String(fullDamageInt) : fullDamageInt;
 
             //Adding the damage and attack bonus string to the sheet.
+            let itemExtraData = {
+                fullAttackBonus: fullBonusString,
+                fullDamage: weapon.system.damage + fullDamageString,
+                damageBonus: fullDamageString,
+            }
+
             let itemId = context.system.itemTypes.weapon[i].id;
-            this.actor.getEmbeddedDocument("Item", itemId).update({system:{
-                                                                            fullAttackBonus: fullBonusString,
-                                                                            fullDamage: weapon.system.damage + fullDamageString,
-                                                                            damageBonus: fullDamageString
-                                                                        }});
+            this.actor.getEmbeddedDocument("Item", itemId).update({system:itemExtraData});
         }
 
         //Adds a level string and alternate description string to foci items.
