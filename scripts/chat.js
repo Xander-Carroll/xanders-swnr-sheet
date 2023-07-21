@@ -62,6 +62,14 @@ async function onChatWeaponButtonPress(event, html){
     let weapon = actor.getEmbeddedDocument("Item", itemId);
     let skill = actor.getEmbeddedDocument("Item", rollData.skill);
 
+    //Consuming one piece of ammunition.
+    if(rollData.consumeAmmo && weapon.system.ammo.value <= 0){
+        ui.notifications.warn("You don't have enough ammo to use this weapon!");
+        return;
+    }else if (rollData.consumeAmmo){
+        weapon.update({system:{ammo:{value:weapon.system.ammo.value-1}}});
+    }
+
     //Adding modifiers to the role.
     let skillMod, actorAttackBonus, weaponAttackBonus, dialogMod, attribMod, shockDamage;
     if(type === "attack"){
@@ -188,10 +196,12 @@ async function _weaponRollDialog(rollType, itemId, ownerId){
 function _processWeaponRoll(html, rollType){
     const rollMode = html.find('[name="rollmode"]')[0].value;
     const modifier = html.find('[name="modifier"]')[0].value;
+    const consumeAmmo = html.find('[name="consume-ammo"]').is(":checked");
     
     let returnData = {
         modifier: modifier,
-        rollMode: rollMode
+        rollMode: rollMode,
+        consumeAmmo: consumeAmmo
     };
 
     if (rollType === "attack"){

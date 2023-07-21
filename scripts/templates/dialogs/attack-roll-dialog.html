@@ -1,4 +1,10 @@
 <form>
+  {{#ifEquals system.type "ranged"}}
+  <div class="form-group">
+    <label>Consume Ammunition</label>
+    <input checked type="checkbox" value="true" name="consume-ammo"/>
+  </div>
+  {{/ifEquals}}
   <div class="form-group">
     <label>Skill</label>
     <select name="skill">
