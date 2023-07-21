@@ -1,12 +1,25 @@
 <form>
+  <!--The Consume ammo option for apropriate ranged weapons. -->
   {{#ifEquals system.type "ranged"}}
   {{#ifNotEquals system.ammo.type "infinite"}}
   <div class="form-group">
     <label>Consume Ammunition</label>
-    <input checked type="checkbox" value="true" name="consume-ammo"/>
+    <input checked type="checkbox" name="consume-ammo"/>
   </div>
   {{/ifNotEquals}}
   {{/ifEquals}}
+
+  <!--The burst fire option for appropriate ranged weapons. -->
+  {{#ifEquals system.type "ranged"}}
+  {{#if system.ammo.burst}}
+  <div class="form-group">
+    <label>Burst Fire</label>
+    <input type="checkbox" name="burst-fire"/>
+  </div>
+  {{/if}}
+  {{/ifEquals}}
+
+  <!-- The skill option. -->
   <div class="form-group">
     <label>Skill</label>
     <select name="skill">
@@ -18,10 +31,14 @@
       {{/select}}
     </select>
   </div>
+
+  <!--Situational modifier.-->
   <div class="form-group">
     <label>Situational Modifier</label>
     <input type="text" name="modifier" value="" placeholder="ex. 2d4+2"/>
   </div>
+
+  <!--Roll mode.-->
   <div class="form-group">
     <label>Roll Mode</label>
     <select name="rollmode">

@@ -53,21 +53,28 @@ async function onChatWeaponButtonPress(event, html){
     let itemId = event.currentTarget.dataset.itemId;
     let ownerId = event.currentTarget.dataset.ownerId;
 
+    let wasBurstDamage = false;
+    if (type == "burst"){
+        type = "damage";
+        wasBurstDamage = true;
+    }
+
     //Creating the dialog and getting player input.
     let rollData = await _weaponRollDialog(type, itemId, ownerId);
     if(rollData.cancelled) return;
 
-    //Getting the actor, weapon, and skill involved with the attack.
+    //Getting the actor and weapon involved with the attack.
     let actor = game.actors.get(ownerId);
     let weapon = actor.getEmbeddedDocument("Item", itemId);
-    let skill = actor.getEmbeddedDocument("Item", rollData.skill);
 
     //Consuming one piece of ammunition.
-    if((rollData.consumeAmmo && weapon.system.ammo.value <= 0 && weapon.system.ammo.type !== "infinite" || (weapon.system.ammo.type === "none" && rollData.consumeAmmo))){
+    let ammoConsumption = 1;
+    if (rollData.burstFire == true) ammoConsumption = 3;
+    if((rollData.consumeAmmo && weapon.system.ammo.value < ammoConsumption && weapon.system.ammo.type !== "infinite") || (weapon.system.ammo.type === "none" && rollData.consumeAmmo)){
         ui.notifications.warn("You don't have enough ammo to use this weapon!");
         return;
     }else if (rollData.consumeAmmo && weapon.system.ammo.type !== "infinite"){
-        weapon.update({system:{ammo:{value:weapon.system.ammo.value-1}}});
+        weapon.update({system:{ammo:{value:weapon.system.ammo.value-ammoConsumption}}});
     }
 
     //Adding modifiers to the role.
@@ -84,12 +91,18 @@ async function onChatWeaponButtonPress(event, html){
     let dice = "1d20";
     if(type === "attack"){
         rollData.modifier = weapon.system.fullAttackBonus + dialogMod;
+
+        //If the attack roll was made with burst then the roll gets +2.
+        if(rollData.burstFire) rollData.modifier = rollData.modifier + "+2";
     }else if (type === "damage"){
         rollData.modifier = weapon.system.damageBonus + dialogMod;
         dice = weapon.system.damage;
 
         //If the skill boosts damage property is selected, then the skillMod should be added to the result.
         if(weapon.system.skillBoostsDamage) rollData.modifier = rollData.modifier + weapon.system.skillMod;
+
+        //If the burst damage was rolled then +2 is added to the damage.
+        if(wasBurstDamage) rollData.modifier = rollData.modifier + "+2";
     }else if (type === "shock"){
         rollData.modifier = '';
         dice = weapon.system.shock.dmg.toString();
@@ -106,8 +119,12 @@ async function onChatWeaponButtonPress(event, html){
         return;
     }
 
+    //If a burst attack was made then that should be put on the item card.
+    if(wasBurstDamage) type = "Burst Damage";
+    if(rollData.burstFire) type = "Burst Attack"
+
     // Adding the flavor text.
-    rollMessage.data.flavor = weapon.name + " - " + type.charAt(0).toUpperCase() + type.substr(1).toLowerCase() + " Roll";
+    rollMessage.data.flavor = weapon.name + " - " + type.charAt(0).toUpperCase() + type.substr(1) + " Roll";
 
     // Creates the chat message with the given data.
     let message = await getDocumentClass("ChatMessage").create(rollMessage.data);
@@ -163,11 +180,13 @@ function _processWeaponRoll(html, rollType){
     const rollMode = html.find('[name="rollmode"]')[0].value;
     const modifier = html.find('[name="modifier"]')[0].value;
     const consumeAmmo = html.find('[name="consume-ammo"]').is(":checked");
+    const burstFire = html.find('[name="burst-fire"]').is(":checked");
     
     let returnData = {
         modifier: modifier,
         rollMode: rollMode,
-        consumeAmmo: consumeAmmo
+        consumeAmmo: consumeAmmo,
+        burstFire: burstFire
     };
 
     if (rollType === "attack"){

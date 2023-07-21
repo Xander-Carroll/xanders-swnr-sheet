@@ -22,6 +22,7 @@
     <div class="chat-card-weapon-buttons">
         <button class="attack-button" data-type="attack" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; margin-top:5px; line-height:24px;">Attack</button>
         <button class="damage-button" data-type="damage" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; line-height:24px;">Damage</button>
+        {{#ifEquals system.type "ranged"}}{{#if system.ammo.burst}}<button class="burst-damage-button" data-type="burst" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; line-height:24px;">Burst Damage</button>{{/if}}{{/ifEquals}}
         {{#ifEquals system.type "melee"}}<button class="shock-button" data-type="shock" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:5px; line-height:24px;">Shock</button>{{/ifEquals}}
         <hr style="margin:2px; width:100%"/>
     </div>
