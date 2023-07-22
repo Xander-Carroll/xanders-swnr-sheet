@@ -133,9 +133,10 @@
   position: relative;
   border-radius: 3px;
   margin-bottom: -40px;
-  background: var(--level-background-color);
+  background: var(--xp-tank-color);
   transition: height 0.1s, bottom 0.1s;
   transition-delay: 0s;
+  line-height: 20px;
 }
 
 .window-app.xanders-swnr section.window-content .xp-input{
