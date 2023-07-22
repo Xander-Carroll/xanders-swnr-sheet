@@ -30,6 +30,7 @@
   --level-background-color: rgba(140,140,140,0.5);
   --table-alt-color: rgba(0,0,0,0.2);
 
+  --portrait-icon-color: rgb(124,124,124);
   --health-bar-color: linear-gradient(45deg, rgba(48,121,22,1) 0%, rgba(97,190,80,1) 100%);
   --strain-bar-color: linear-gradient(45deg, rgba(29,131,170,1) 0%, rgba(80,190,183,1) 100%);
   --xp-tank-color: rgba(78, 78, 78, 0.5);
@@ -41,6 +42,7 @@
   --item-detail-label-color-chat: rgb(180, 180, 180);
   --context-background-delete: rgba(189, 0, 0, 0.5);
   --context-background-favorited: rgba(0, 168, 36, 0.5);
+
   --field-border-radius: 3px;
 }
 

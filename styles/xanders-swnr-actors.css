@@ -109,6 +109,37 @@
   border: transparent;
 }
 
+
+/* The circular buttons on the charachter portait */
+.window-app.xanders-swnr .portrait-button{
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+
+  background: var(--background-portrait-image);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 0 10px inset rgb(0,0,0,0.4);
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.window-app.xanders-swnr .portrait-button i{
+  color: var(--portrait-icon-color);
+}
+
+.window-app.xanders-swnr .portrait-button:hover i{
+  color: var(--font-color);
+}
+
+.window-app.xanders-swnr .portrait-button:hover{
+  border: 1px solid var(--input-focus-color);
+}
+
 /* The box that goes behind the level text */
 .window-app.xanders-swnr .level-box{
   background-color: var(--level-background-color);
@@ -257,6 +288,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
 }
 
 .window-app.xanders-swnr .save-throw-button:hover{
@@ -332,6 +365,8 @@
 /* The name of the skill, "administer", "connect", etc. */
 .window-app.xanders-swnr .skill .skill-title{
   flex: 1 1 0px;
+
+  cursor: pointer;
 }
 
 .window-app.xanders-swnr .skill .skill-title:hover,
@@ -561,6 +596,8 @@
   display: unset;
   color: var(--item-header-image-color);
   font-size: 18px;
+
+  cursor: pointer;
 }
 
 /* The dice icon when an inventory item image is hovered.*/

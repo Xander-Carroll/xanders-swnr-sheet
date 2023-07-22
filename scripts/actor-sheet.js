@@ -135,6 +135,8 @@ export class XandersSwnActorSheet extends ActorSheet {
             this.actor.update({"system.xIsLocked": !this.actor.system.xIsLocked});
         });
 
+        html.find('.portrait-button').on("click", this._onPortraitButton.bind(this));
+
         //If a saving throw button is clicked, a save dialog is opened.
         html.find('.save-throw-button').on("click", this._onSaveThrow.bind(this));
 
@@ -380,6 +382,14 @@ export class XandersSwnActorSheet extends ActorSheet {
         });
 
         this.actor.updateEmbeddedDocuments("Item", updateData);
+    }
+
+    //Called when one of the buttons on the player's portrait are clicked.
+    async _onPortraitButton(event){
+        event.preventDefault();
+        const type = event.currentTarget.dataset.type;
+
+        console.log(type);
     }
 
     //Called when one of the three saving throw buttons is pressed.
