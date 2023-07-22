@@ -126,11 +126,11 @@
 
     <!-- The actual tabs -->
     <section class="sheet-body">
-      <div style="margin:10px; flex-grow:1; display:flex">
+      <div style="margin-top:10px; margin-left:10px; margin-bottom:10px; margin-right:2px; flex-grow:1; display:flex">
 
         <!-- The attribute tab -->
         <div class="tab attributes" data-group="primary" data-tab="attributes" >
-          <div style="display:flex; flex-direction:row; flex-grow:1;">
+          <div class="scrollable" style="display:flex; flex-direction:row; flex-grow:1;">
             
             <!-- The skills list -->
             <div style="margin-right: 10px;">
@@ -292,7 +292,7 @@
           <div style="display:flex; flex-direction:column; flex-grow:1">
 
             <!-- The inventory list -->
-            <ul class="inventory-list" style="flex-grow:1">
+            <ul class="inventory-list scrollable" style="flex-grow:1">
 
               <!-- The armor list -->
               {{#if system.hasArmor}}
@@ -311,13 +311,17 @@
 
             </ul>
 
+            <div class="inventory-money">
+
+            </div>
+
           </div>
         </div>
 
         <!-- The features tab -->
         <div class="tab features" data-group="primary" data-tab="features">
           <div style="display:flex; flex-direction:column; flex-grow:1">
-            <ul class="inventory-list" style="flex-grow:1">
+            <ul class="inventory-list scrollable" style="flex-grow:1">
 
               <!-- The class abillity list -->
               {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.class catagory="Class Abilities"}}
@@ -337,7 +341,7 @@
 
         <!-- The notes tab -->
         <div class="tab notes" data-group="primary" data-tab="notes" style="flex-direction:column">
-          <div class="notes-window">
+          <div class="notes-window scrollable">
             <p class="notes-header"><b><u>Biography:</u></b></p>
           <div class="notes-text">{{editor content=system.biography target="system.biography" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
           </div>

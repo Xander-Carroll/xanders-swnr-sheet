@@ -31,6 +31,36 @@
   position: absolute;
 }
 
+/* The circular buttons on the portrait */
+.window-app.xanders-swnr .portrait-button{
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+
+  background: var(--background-portrait-image);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 0 10px inset rgb(0,0,0,0.4);
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.window-app.xanders-swnr .portrait-button i{
+  color: var(--portrait-icon-color);
+}
+
+.window-app.xanders-swnr .portrait-button:hover i{
+  color: var(--font-color);
+}
+
+.window-app.xanders-swnr .portrait-button:hover{
+  border: 1px solid var(--input-focus-color);
+}
+
 /* Sets the position of the health-bar and strain-bar and sets it to the propper size. */
 .window-app.xanders-swnr .health-bar, .window-app.xanders-swnr .strain-bar{
   position: relative;
@@ -102,42 +132,13 @@
   height:30px;
 
   margin-left: 5px;
+
+  cursor: pointer;
 }
 
 /* Removes the border from the lock button */
 .window-app.xanders-swnr .lock-button img{
   border: transparent;
-}
-
-
-/* The circular buttons on the charachter portait */
-.window-app.xanders-swnr .portrait-button{
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-
-  background: var(--background-portrait-image);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 0 10px inset rgb(0,0,0,0.4);
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-}
-
-.window-app.xanders-swnr .portrait-button i{
-  color: var(--portrait-icon-color);
-}
-
-.window-app.xanders-swnr .portrait-button:hover i{
-  color: var(--font-color);
-}
-
-.window-app.xanders-swnr .portrait-button:hover{
-  border: 1px solid var(--input-focus-color);
 }
 
 /* The box that goes behind the level text */
@@ -159,15 +160,18 @@
 
 /* Places the expierence bar */
 .window-app.xanders-swnr .xp-bar{
-  height: 4px;
   bottom: 1px;
   position: relative;
   border-radius: 3px;
   margin-bottom: -40px;
+  line-height: 20px;
+
   background: var(--xp-tank-color);
+  box-shadow: 0 0 10px inset rgb(0,0,0,0.4);
+
+  height: 4px;
   transition: height 0.1s, bottom 0.1s;
   transition-delay: 0s;
-  line-height: 20px;
 }
 
 .window-app.xanders-swnr section.window-content .xp-input{
@@ -319,8 +323,9 @@
 }
 
 .window-app.xanders-swnr .sheet-body{
-  flex-grow: 1;
+  flex: 1 1 0px;
   display:flex;
+  overflow: hidden;
 }
 
 /* Sets basic properties of the skill list */
@@ -502,7 +507,6 @@
 .window-app.xanders-swnr ul.inventory-list{
   list-style: none;
   margin: 0px;
-  padding: 0px;
 }
 
 /* The inventory tab header bar. Not the labels in the bar, but the whole bar itself. */
@@ -663,6 +667,13 @@
   padding-left: 3px;
   padding-right: 3px;
   background-color: var(--item-detail-label-color-inventory);
+}
+
+/* The bar in the inventory tab that holds the curency inputs. */
+.window-app.xanders-swnr .inventory-money{
+  margin-right:10px;
+  height: 50px;
+  border-top: 1px solid var(--border-color);
 }
 
 /* The detail labels below the item summary. */

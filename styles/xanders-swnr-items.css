@@ -99,7 +99,8 @@
   display: flex;
   flex-direction: row;
 
-  flex-grow: 1;
+  flex: 1 1 0;
+  overflow: hidden;
 
   border-top: 1px solid var(--border-color);
 }
@@ -142,6 +143,7 @@
 .window-app.xanders-swnr .item-main-window-text{
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 
   flex-grow: 1;
 }
@@ -149,6 +151,8 @@
 .window-app.xanders-swnr .item-main-window-text .editor{
   flex-grow: 1;
   font-size: 13px;
+  padding-right: 10px;
+  overflow-y: scroll;
 }
 
 /* The sidebar of the item with extra properties. */
@@ -174,8 +178,12 @@
   flex-grow: 1; 
   display:flex; 
   flex-direction:column; 
+  overflow:hidden;
 
-  margin:10px;
+  margin-top:10px;
+  margin-left:10px;
+  margin-bottom:10px;
+  margin-right:2px;
 }
 
 /* Input field in the siebar of an item. */

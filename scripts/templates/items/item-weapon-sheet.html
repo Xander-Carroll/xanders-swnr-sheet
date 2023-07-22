@@ -49,12 +49,14 @@
 
             </div>          
 
-            <div class="item-main-window-text" style="margin:10px;">{{editor content=system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+            <div class="item-description">
+              <div class="item-main-window-text">{{editor content=system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+            </div>
         </div>
       </div>
 
       <!-- The details tab. -->
-      <div class="tab details" data-group="primary" data-tab="details" >
+      <div class="tab details scrollable" style="margin-right:2px" data-group="primary" data-tab="details" >
         <div style="margin:10px; flex-grow: 1; display:flex; flex-direction:column;">
 
           <p><b><u>Attack And Damage:</u></b></p>
@@ -207,7 +209,7 @@
           {{/ifEquals}}
 
             <!-- The weapon checkbox properties. -->
-            <div style="display:flex; flex-direction:row;"> 
+            <div style="display:flex; flex-direction:row; padding-bottom:10px"> 
               {{#ifEquals system.type "ranged"}}
                 <!-- The burst fire property-->
                 <div style="flex:1 1 0px; padding-left:5px;">
