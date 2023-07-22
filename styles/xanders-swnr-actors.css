@@ -112,7 +112,7 @@
 /* The box that goes behind the level text */
 .window-app.xanders-swnr .level-box{
   background-color: var(--level-background-color);
-  border-radius: 5px;
+  border-radius: 5px 5px 0px 0px;
   border: 1px solid var(--border-color);
 
   padding-left: 7px;
@@ -124,6 +124,56 @@
   display:flex;
   flex-direction: row;
   align-items: center;
+}
+
+/* Places the expierence bar */
+.window-app.xanders-swnr .xp-bar{
+  height: 4px;
+  bottom: 1px;
+  position: relative;
+  border-radius: 3px;
+  margin-bottom: -40px;
+  background: var(--level-background-color);
+  transition: height 0.1s, bottom 0.1s;
+  transition-delay: 0s;
+}
+
+.window-app.xanders-swnr section.window-content .xp-input{
+  font-size: 16px;
+  width: 35%;
+  border: none;
+}
+
+/* Expanding the xp bar when hovered. */
+.window-app.xanders-swnr .xp-bar:hover{
+  bottom: 10px;
+  height: 20px;
+  transition: height 0.2s, bottom 0.2s;
+  transition-delay: 0.3s;
+}
+
+/* Hiding the XP input when the xp bar is collapsed. */
+.window-app.xanders-swnr .xp-bar:hover input,
+.window-app.xanders-swnr .xp-bar:hover p{
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.5s, height 0s;
+  transition-delay: 0.5s;
+  height: 20px;
+}
+
+.window-app.xanders-swnr .xp-bar input,
+.window-app.xanders-swnr .xp-bar p{
+  visibility: hidden;
+  transition: none;
+  opacity: 0;
+  height: 0px;
+}
+
+/* The filled line of the XP bar*/
+.window-app.xanders-swnr .xp-bar-fill{
+  background: var(--health-bar-color);
+  border-radius: 3px;
 }
 
 /* The level input field. */

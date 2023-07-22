@@ -37,9 +37,22 @@
           <div style="display:flex; flex-direction:row">
             <input class="player-name bottom-border" name="name" type="text" value="{{actor.name}}" {{#if system.xIsLocked}}disabled{{/if}}/>
             <div style="flex: 1 1 0; display:flex; justify-content:end;">
-              <div class="level-box">
+              <div style="display:flex; flex-direction:column">
+                <div class="level-box">
                 <p>Level. </p>
                 <input name="system.level.value" class="level-input borderless" type="number" value="{{system.level.value}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+                </div>
+                <div class="xp-bar" style="flex-direction:row; display:flex">
+                  <div style="position:absolute; width:100%; display:flex; flex-direction:row">
+                    <div style="flex:1 1 0"></div>
+                    <input style="text-align:end" name="system.level.exp" type="number" value="{{system.level.exp}}" class="xp-input borderless" {{#unless owner}}disabled{{/unless}}/> 
+                    <p>/</p> 
+                    <input name="system.level.expToLevel" type="number" value="{{system.level.expToLevel}}" class="xp-input borderless" {{#if system.xIsLocked}}disabled{{/if}}/> 
+                    <div style="flex:1 1 0"></div>
+                  </div>
+                  <div class="xp-bar-fill" style="width:{{system.level.percentage}}%"></div>
+                  <div style="flex:1 1 0"></div>
+                </div>
               </div>
             </div>
             <div style="display:flex; justify-content:end; align-items:center">

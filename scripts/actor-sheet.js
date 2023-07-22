@@ -203,6 +203,12 @@ export class XandersSwnActorSheet extends ActorSheet {
         sPercentage = Math.max(sPercentage, 0);
         context.system.systemStrain.percentage = sPercentage;
 
+        //Adding a variable that will be used to set the expierence-bar width to the context.
+        let ePercentage = Math.floor(context.system.level.exp * 100 / context.system.level.expToLevel);
+        ePercentage = Math.min(ePercentage, 100);
+        ePercentage = Math.max(ePercentage, 0);
+        context.system.level.percentage = ePercentage;
+
         //Creating a string that will dispaly attribute modifiers with a + or -
         for(let i=0; i<6; i++){
             //The identifier "str", "dex", "con", etc.
