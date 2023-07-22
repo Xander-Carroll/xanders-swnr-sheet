@@ -92,7 +92,7 @@
 .window-app.xanders-swnr section.window-content .strain-input{
   font-size: 16px;
 
-  width: 35%;
+  width: 40px;
   height: 100%;
 
   border: none;
@@ -109,6 +109,51 @@
 
   justify-content: center;
 }
+
+/* The div that contains the maximum strain input and the strain tooltip.*/
+.window-app.xanders-swnr .strain-max{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+/* The tooltip that is displayed when the strain is hovered.*/
+.window-app.xanders-swnr .strain-max .strain-tooltip{
+  display: flex;
+  visibility: hidden;
+
+  position: absolute;
+  flex-direction: column;
+  bottom: 100%;
+  padding: 5px;
+  z-index: 10;
+
+  background: var(--strain-tooltip-background-color);
+  box-shadow: 0 0 5px inset rgb(0,0,0,0.4);
+
+  transition:  0.0s, visibillity 0.0s;
+  transition-delay: 0.3s;
+}
+
+/* The text in the strain tooltip. */
+.window-app.xanders-swnr .strain-max .strain-tooltip p{
+  font-size: 12px;
+}
+
+/* The input in the strain tooltip. */
+.window-app.xanders-swnr .strain-max .strain-tooltip input{
+  font-size: 12px;
+  padding: 2px;  
+  height: 15px;
+  width: 10px;
+  text-align: start;
+}
+
+/* When the maximum strain value is hovered, a tooltip is displayed. */
+.window-app.xanders-swnr .strain-max:hover .strain-tooltip{
+  visibility: visible;
+}
+
 
 /* Sets the font for the character name input field */
 .window-app.xanders-swnr .player-name{
@@ -532,6 +577,7 @@
   padding: 2px;  
   height: 15px;
   width: 10px;
+  text-align: start;
 }
 
 .window-app.xanders-swnr .attribute-boost input:hover{

@@ -34,6 +34,7 @@
   --health-bar-color: linear-gradient(45deg, rgba(48,121,22,1) 0%, rgba(97,190,80,1) 100%);
   --strain-bar-color: linear-gradient(45deg, rgba(29,131,170,1) 0%, rgba(80,190,183,1) 100%);
   --xp-tank-color: rgb(180, 180, 180);
+  --strain-tooltip-background-color: rgba(179, 179, 179, 0.945);
   --attribute-background-color: rgb(112, 112, 112, 0.4);
   --item-background-other-color: rgba(160, 160, 160, 0.4);
   --item-background-readied-color: rgba(64, 163, 55, 0.4);

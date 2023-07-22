@@ -180,8 +180,8 @@ export class XandersSwnActorSheet extends ActorSheet {
         context.system.xIsLocked = this.actor.system.xIsLocked || !context.owner;
 
         //Modifies the context into something that is more readable by handelbars.
-        context = this._parseActorData(context);
         context = this._parseItemData(context);
+        context = this._parseActorData(context);
 
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
         //console.log(context);
@@ -204,6 +204,8 @@ export class XandersSwnActorSheet extends ActorSheet {
         sPercentage = Math.min(sPercentage, 100);
         sPercentage = Math.max(sPercentage, 0);
         context.system.systemStrain.percentage = sPercentage;
+
+        context.system.systemStrain.base = strain.max + strain.cyberware + strain.permanent;
 
         //Adding a variable that will be used to set the expierence-bar width to the context.
         let ePercentage = Math.floor(context.system.level.exp * 100 / context.system.level.expToLevel);
@@ -328,12 +330,16 @@ export class XandersSwnActorSheet extends ActorSheet {
             }
         }
 
-        //Adds an alternate description string to cyberware items.
+        //Adds an alternate description string to cyberware items. Also updates the systemStrain.cyberware varaible.
         for(let i=0; i<context.system.itemTypes.cyberware.length; i++){
             //Setting the item to use the system.details field instead of system.description for summaries and chat cards.
             context.system.itemTypes.cyberware[i].system.usingDetails = true;
-
             context.system.itemTypes.cyberware[i].system.details = "<b><u>Description: </u></b>" + context.system.itemTypes.cyberware[i].system.description + "<p></p><b><u>Effect: </u></b>" + context.system.itemTypes.cyberware[i].system.effect;
+            
+            if (context.system.itemTypes.cyberware[i].system.disabled){
+                context.system.systemStrain.cyberware = context.system.systemStrain.cyberware - context.system.itemTypes.cyberware[i].system.strain;
+                context.system.systemStrain.max = context.system.systemStrain.max + context.system.itemTypes.cyberware[i].system.strain;
+            } 
         }
 
         //Deleting items that aren't allowed on the sheet, and warning the user about it.
