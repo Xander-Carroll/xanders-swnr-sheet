@@ -186,7 +186,7 @@ function injectCSS() {
 				border-radius: 0px;
 			}
 
-			.window-app section.window-content input:not(.subfield, .bottom-border, .borderless, .rounded-md){
+			.window-app section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md){
 				background-color: rgba(0, 0, 0, 0.05);
 				border: 1px solid var(--color-border-light-tertiary);
 				border-radius: 3px;

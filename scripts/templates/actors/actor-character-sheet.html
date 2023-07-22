@@ -184,6 +184,31 @@
 
             <!-- The favorited item bar and attribute list -->
             <div class="attribute-item-bar">
+              <!-- Speed, AC, AB, and effort-->
+              <div class="stat-list">
+                <div class="stat-box">
+                  {{#if system.xIsLocked}}
+                    <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.ac" value="{{system.ac}}" disabled/></div>
+                    <p>Armor Class</p>
+                  {{else}}
+                    <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.baseAc" value="{{system.baseAc}}"/></div>
+                    <p>Base AC</p>
+                  {{/if}}
+                </div>
+                <div class="stat-box">
+                  <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.ab" value="{{system.ab}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <p>Attack Bonus</p>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-input-container"><input type="text" class="xanders-input bottom-border" name="system.hitDie" value="{{system.hitDie}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <p>Hit Dice</p>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.speed" value="{{system.speed}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <p>Move Speed</p>
+                </div>
+              </div>
+
               <!-- The attribute list -->
               <div class="attribute-list">
                 <div class="attribute" style="border-left: none;">
@@ -251,7 +276,6 @@
               <!-- The favorited items list -->
               <div style="flex-grow: 1">
                 <ul class="inventory-list" style="flex-grow:1">
-                  <!-- The armor list -->
                   {{#if system.favoriteItems.hasArmor}}
                     {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.armor catagory="Armor"}}
                   {{/if}} 
@@ -343,7 +367,7 @@
         <div class="tab notes" data-group="primary" data-tab="notes" style="flex-direction:column">
           <div class="notes-window scrollable">
             <p class="notes-header"><b><u>Biography:</u></b></p>
-          <div class="notes-text">{{editor content=system.biography target="system.biography" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+            <div class="notes-text">{{editor content=system.biography target="system.biography" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
           </div>
         </div>
       </div>
