@@ -2,7 +2,6 @@
 <li class="inventory-section-header">
   <div style="flex:1 1 0" class="inventory-titles">{{catagory}}</div>
   <div class="inventory-titles inventory-subtitles">
-    {{#unless isFavoriteList}}<div style="width:25px;"></div>{{/unless}}
     {{#if displayFields.ammo}}<div style="width:80px;"><p>Ammunition</p></div>{{/if}}
     {{#if displayFields.class}}<div style="width:80px;"><p>Class</p></div>{{/if}}
     {{#if displayFields.source}}<div style="width:80px;"><p>Source</p></div>{{/if}}
@@ -13,19 +12,22 @@
  </div>
 </li>
 
-
 <!-- The list of items -->
 <section class="item-list">
-  {{#each itemList as |item id|}}
+  {{#each itemList as |item|}}
     <li class="item inventory-item {{#unless system.favorite}}item-choice-regular{{/unless}} {{#if system.favorite}}item-choice-favorite{{/if}} {{#ifEquals system.location "readied"}}location-readied{{/ifEquals}} {{#ifEquals system.location "stowed"}}location-stowed{{/ifEquals}}" data-item-id="{{item._id}}">
       <div class="inventory-item-header">
         <div class="item-image-box item-image-clickable {{#if item.system.expanded}}expanded{{/if}}" style="background-image:url('{{item.img}}')" data-item-id="{{item._id}}"><i class="fas fa-dice-d20"></i></div>
         <div class="inventory-titles item-clickable" style="flex: 1 1 0" data-item-id="{{item._id}}">{{item.name}}</div>
         <div class="inventory-titles inventory-details">
-          {{#unless ../isFavoriteList}}<div style="width:25px;"> {{#if system.favorite}} <i class="fas fa-bookmark fa-sm"></i> {{/if}} </div>{{/unless}}
+          {{#unless ../isFavoriteList}}{{#if system.favorite}}<div style="width:25px;"> <i class="fas fa-bookmark fa-sm"></i></div>{{/if}}{{/unless}}
+          
+          {{#if system.requiresMagazine}}<div class="item-reload-button" data-item-id="{{item._id}}" style="width:25px;"><i class="fa-solid fa-arrow-rotate-right"></i></div>{{/if}}
+                  
+          <!--This block determines what should be displayed for the ammo detail-->
           {{#if ../displayFields.ammo}}<p style="width:80px;">
             {{#ifEquals system.type "ranged"}}
-              {{#ifNotEquals system.ammo.type "infinite"}}{{#ifNotEquals system.ammo.type "none"}} {{item.system.ammo.value}}/{{item.system.ammo.max}} {{/ifNotEquals}}{{/ifNotEquals}}
+              {{#if system.requiresMagazine}} {{item.system.ammo.value}}/{{item.system.ammo.max}} {{/if}}
               {{#ifEquals system.ammo.type "infinite"}}Infinite{{/ifEquals}}
               {{#ifEquals system.ammo.type "none"}}None{{/ifEquals}}
             {{/ifEquals}}
@@ -33,6 +35,7 @@
               —
             {{/ifNotEquals}}
           </p>{{/if}}
+
           {{#if ../displayFields.class}}<p style="width:80px;">{{item.system.class}}</p>{{/if}}
           {{#if ../displayFields.source}}<p style="width:80px;">{{item.system.source}}</p>{{/if}}
           {{#if ../displayFields.disabled}}<p style="width:80px;">{{#if item.system.disabled}}Disabled{{else}}Enabled{{/if}}</p>{{/if}}

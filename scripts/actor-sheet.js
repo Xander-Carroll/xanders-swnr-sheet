@@ -167,6 +167,10 @@ export class XandersSwnActorSheet extends ActorSheet {
             this.actor.update({"system.xIsLocked": !this.actor.system.xIsLocked});
         });
 
+        //When an inventory item has the reload button pressed.
+        html.find('.item-reload-button').on("click", this._onReloadButton.bind(this));
+
+        //When one of the buttons on the player's portrait are pressed.
         html.find('.portrait-button').on("click", this._onPortraitButton.bind(this));
 
         //If a saving throw button is clicked, a save dialog is opened.
@@ -334,12 +338,17 @@ export class XandersSwnActorSheet extends ActorSheet {
             let fullDamageInt = skillPunchMod + attributeBonus;
             let fullDamageString = fullDamageInt >= 0 ? "+" + String(fullDamageInt) : fullDamageInt;
 
+            //Determines if the weapon needs a magazine.
+            let requiresMagazine = false;
+            if(weapon.system.type == "ranged" && weapon.system.ammo.type != "infinite" && weapon.system.ammo.type != "none") requiresMagazine = true;
+
             //Adding the damage and attack bonus string to the sheet.
             let itemExtraData = {
                 fullAttackBonus: fullBonusString,
                 fullDamage: weapon.system.damage + fullDamageString,
                 damageBonus: fullDamageString,
-                skillMod: skillModString
+                skillMod: skillModString,
+                requiresMagazine: requiresMagazine
             }
 
             let itemId = context.system.itemTypes.weapon[i].id;
@@ -423,6 +432,40 @@ export class XandersSwnActorSheet extends ActorSheet {
         });
 
         this.actor.updateEmbeddedDocuments("Item", updateData);
+    }
+
+    //Called when an inventory item's reload button is pressed.
+    async _onReloadButton(event){
+        event.preventDefault();
+        const weaponId = event.currentTarget.dataset.itemId;
+
+        const weapon = this.actor.getEmbeddedDocument("Item", weaponId);
+
+        let updateData = {system: {ammo: {value: Math.max(weapon.system.ammo.value, weapon.system.ammo.max)}}};
+
+        weapon.update(updateData);
+
+        if(weapon.system.ammo.value >= weapon.system.ammo.max){
+            ui.notifications.warn("You just reloaded a weapon that was already full!");
+        }
+
+        // Sets the basic information needed for the chat message.        
+        let messageData = {
+            user: game.user._id,
+            speaker: ChatMessage.getSpeaker({actor:this.actor}),
+            flavor: this.actor.name + " reloaded " + weapon.name,
+            content: weapon.system.ammo.value.toString() + "/" + weapon.system.ammo.max.toString() + " in magazine."
+        };
+
+        //Adds "Long Reload" text to apropriate weapons.
+        if(weapon.system.ammo.longReload) messageData.content = "<p><b>Long Reload:</b></p>" + messageData.content;
+
+        // Creates the chat message with the given data.
+        let message = await getDocumentClass("ChatMessage").create(messageData);
+
+        //Changes the roll mode of the chat message.
+        await getDocumentClass("ChatMessage").applyRollMode(messageData, game.settings.get("core", "rollMode"));
+        await message.update(messageData);
     }
 
     //Called when one of the buttons on the player's portrait are clicked.

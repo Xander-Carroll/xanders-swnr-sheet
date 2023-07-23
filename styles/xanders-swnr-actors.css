@@ -725,6 +725,12 @@
   color: var(--active-font-color);
 }
 
+.window-app.xanders-swnr .item-reload-button:hover i{
+  text-shadow: 0 0 10px #265a88;
+  color: var(--active-font-color);
+  cursor: pointer;
+}
+
 /* Makes the item change colors when it is readied. */
 .xanders-swnr .inventory-item.location-readied{
   background-color: var(--item-background-readied-color);
