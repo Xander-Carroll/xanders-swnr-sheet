@@ -622,16 +622,30 @@
   display: flex;
   flex-direction: row;
 
-  flex: 1 1 0;
-
   margin-left: 5px;
+  margin-right: 5px;
 
   align-items: center;
   text-align: center;
 }
 
-.window-app.xanders-swnr .inventory-titles p{
-  flex: 1 1 0;
+/* The smaller titles for the catagory name line. */
+.window-app.xanders-swnr .inventory-titles.inventory-subtitles div{
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.window-app.xanders-swnr .inventory-titles.inventory-subtitles div p{
+  font-size: 10px;
+  color: var(--item-header-font-color);
+}
+
+/* The information on the right side of each item card. */
+.window-app.xanders-swnr .inventory-details p{
+  height: 20px;
+  border-left: 1px solid var(--dark-border-color);
+  line-height: 20px;
+  font-size: 11px;
 }
 
 /* Each item in the sheet gets its own div. */
@@ -755,7 +769,8 @@
 }
 
 /* The bar in the inventory tab that holds the curency inputs. */
-.window-app.xanders-swnr .inventory-money{
+.window-app.xanders-swnr .inventory-money,
+.window-app.xanders-swnr .inventory-effort{
   margin-right:10px;
   height: 50px;
   border-top: 1px solid var(--border-color);

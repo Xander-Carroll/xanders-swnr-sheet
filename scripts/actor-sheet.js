@@ -108,6 +108,38 @@ export class XandersSwnActorSheet extends ActorSheet {
         }
     ];
 
+    //These values will determine what fields are shown in the player's inventory for differnt item types.
+    inventoryDisplayFields = {
+        armor: {
+            encumbrance: true,
+            tl: true
+        },
+        class: {
+            class: true,
+            source: true
+        },
+        cyberware: {
+            disabled: true,
+            strain: true,
+            tl: true
+        },
+        focus: {
+            source: true,
+            level: true
+        },
+        item: {
+            encumbrance: true,
+            tl: true
+        },
+        power: {
+            source: true
+        },
+        weapon: {
+            encumbrance: true,
+            ammo: true,
+            tl: true
+        }
+    };
 
     //@override
     static get defaultOptions() {
@@ -221,6 +253,9 @@ export class XandersSwnActorSheet extends ActorSheet {
             //Adds a new variable modString to each stat which contains the modifier as it should be displayed on the character sheet.
             context.system.stats[attributeString].modString = context.system.stats[attributeString].mod >= 0 ? "+" + context.system.stats[attributeString].mod : context.system.stats[attributeString].mod;
         }
+
+        //Adding the inventoryDisplayFields property to the context.
+        context.system.inventoryDisplayFields = this.inventoryDisplayFields;
     
         return context;
     }

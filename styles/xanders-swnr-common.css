@@ -26,6 +26,7 @@
   --active-font-color: rgb(5, 99, 150);
 
   --border-color: rgb(170,170,170);
+  --dark-border-color: rgb(149, 149, 149);
   --input-focus-color: rgb(5, 99, 150);
   --level-background-color: rgba(140,140,140,0.5);
   --table-alt-color: rgba(0,0,0,0.2);
@@ -36,10 +37,11 @@
   --xp-tank-color: rgb(180, 180, 180);
   --strain-tooltip-background-color: rgba(179, 179, 179, 0.945);
   --attribute-background-color: rgb(112, 112, 112, 0.4);
-  --item-background-other-color: rgba(160, 160, 160, 0.4);
-  --item-background-readied-color: rgba(64, 163, 55, 0.4);
-  --item-background-stowed-color: rgba(199, 118, 4, 0.4);
-  --item-header-image-color: rgba(76, 76, 76);
+  --item-background-other-color: rgba(160, 160, 160, 0.6);
+  --item-background-readied-color: rgba(93, 175, 86, 0.6);
+  --item-background-stowed-color: rgba(185, 133, 62, 0.6);
+  --item-header-image-color: rgba(76, 76, 76, 0.65);
+  --item-header-font-color: rgba(76, 76, 76);
   --item-detail-label-color-inventory: rgb(150, 150, 150);
   --item-detail-label-color-chat: rgb(180, 180, 180);
   --context-background-delete: rgba(189, 0, 0, 0.5);

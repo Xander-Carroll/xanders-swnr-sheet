@@ -289,31 +289,31 @@
               <div style="flex-grow: 1">
                 <ul class="inventory-list" style="flex-grow:1">
                   {{#if system.favoriteItems.hasArmor}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.armor catagory="Armor"}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.armor catagory="Armor" displayFields=system.inventoryDisplayFields.armor isFavoriteList=true}}
                   {{/if}} 
 
                   {{#if system.favoriteItems.hasClass}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.class catagory="Class Ability"}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.class catagory="Class Ability" displayFields=system.inventoryDisplayFields.class isFavoriteList=true}}
                   {{/if}}  
 
                   {{#if system.favoriteItems.hasCyberware}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.cyberware catagory="Cyberware"}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.cyberware catagory="Cyberware" displayFields=system.inventoryDisplayFields.cyberware isFavoriteList=true}}
                   {{/if}}  
 
                   {{#if system.favoriteItems.hasFocus}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.focus catagory="Foci"}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.focus catagory="Foci" displayFields=system.inventoryDisplayFields.focus isFavoriteList=true}}
                   {{/if}}   
 
                   {{#if system.favoriteItems.hasItem}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.item catagory="Items"}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.item catagory="Items" displayFields=system.inventoryDisplayFields.item isFavoriteList=true}}
                   {{/if}} 
 
                   {{#if system.favoriteItems.hasPower}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.power catagory="Powers"}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.power catagory="Powers" displayFields=system.inventoryDisplayFields.power isFavoriteList=true}}
                   {{/if}} 
 
                   {{#if system.favoriteItems.hasWeapon}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.weapon catagory="Weapons"}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.weapon catagory="Weapons" displayFields=system.inventoryDisplayFields.weapon isFavoriteList=true}}
                   {{/if}}                    
                 </ul>
 
@@ -332,17 +332,17 @@
 
               <!-- The armor list -->
               {{#if system.hasArmor}}
-                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.armor catagory="Armor"}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.armor catagory="Armor" displayFields=system.inventoryDisplayFields.armor isFavoriteList=false}}
               {{/if}}
 
               <!-- The items list -->
               {{#if system.hasItem}}
-                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.item catagory="Items"}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.item catagory="Items" displayFields=system.inventoryDisplayFields.item isFavoriteList=false}}
               {{/if}}
 
               <!-- The wapons list -->
               {{#if system.hasWeapon}}
-                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.weapon catagory="Weapons"}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.weapon catagory="Weapons" displayFields=system.inventoryDisplayFields.weapon isFavoriteList=false}}
               {{/if}}
 
             </ul>
@@ -360,18 +360,22 @@
             <ul class="inventory-list scrollable" style="flex-grow:1">
 
               <!-- The class abillity list -->
-              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.class catagory="Class Abilities"}}
+              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.class catagory="Class Abilities" displayFields=system.inventoryDisplayFields.class isFavoriteList=false}}
 
               <!-- The cyberware list -->
-              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.cyberware catagory="Cyberware"}}
+              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.cyberware catagory="Cyberware" displayFields=system.inventoryDisplayFields.cyberware isFavoriteList=false}}
               
               <!-- The foci list -->
-              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.focus catagory="Foci"}}
+              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.focus catagory="Foci" displayFields=system.inventoryDisplayFields.focus isFavoriteList=false}}
 
               <!-- The powers list -->
-              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.power catagory="Powers"}}
+              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.power catagory="Powers" displayFields=system.inventoryDisplayFields.power isFavoriteList=false}}
 
             </ul>
+
+              <div class="inventory-effort">
+
+              </div>
           </div>
         </div>
 
