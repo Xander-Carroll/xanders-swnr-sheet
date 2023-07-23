@@ -454,7 +454,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             user: game.user._id,
             speaker: ChatMessage.getSpeaker({actor:this.actor}),
             flavor: this.actor.name + " reloaded " + weapon.name,
-            content: weapon.system.ammo.value.toString() + "/" + weapon.system.ammo.max.toString() + " in magazine."
+            content: updateData.system.ammo.value.toString() + "/" + weapon.system.ammo.max.toString() + " in magazine."
         };
 
         //Adds "Long Reload" text to apropriate weapons.
