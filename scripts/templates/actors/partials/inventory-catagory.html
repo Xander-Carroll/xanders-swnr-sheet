@@ -4,8 +4,8 @@
   <div class="inventory-titles inventory-subtitles">
     {{#if displayFields.ammo}}<div style="width:80px;"><p>Ammunition</p></div>{{/if}}
     {{#if displayFields.class}}<div style="width:80px;"><p>Class</p></div>{{/if}}
+    {{#if displayFields.effort}}<div style="width:80px;"><p>Effort</p></div>{{/if}}
     {{#if displayFields.source}}<div style="width:80px;"><p>Source</p></div>{{/if}}
-    {{#if displayFields.disabled}}<div style="width:80px;"><p>Status</p></div>{{/if}}
     {{#if displayFields.strain}}<div style="width:40px;"><i class="fa-solid fa-biohazard" style="color:var(--item-header-image-color)"></i></div>{{/if}}
     {{#if displayFields.tl}}<div style="width:40px;"><i class="fa-solid fa-microchip" style="color:var(--item-header-image-color)"></i></div>{{/if}}
     {{#if displayFields.encumbrance}}<div style="width:40px;"><i class="fas fa-weight-hanging fa-xs" style="color:var(--item-header-image-color)"></i></div>{{/if}}
@@ -31,14 +31,15 @@
               {{#ifEquals system.ammo.type "infinite"}}Infinite{{/ifEquals}}
               {{#ifEquals system.ammo.type "none"}}None{{/ifEquals}}
             {{/ifEquals}}
-            {{#ifNotEquals system.type "ranged"}}
-              —
-            {{/ifNotEquals}}
+            {{#ifNotEquals system.type "ranged"}}—{{/ifNotEquals}}
           </p>{{/if}}
 
           {{#if ../displayFields.class}}<p style="width:80px;">{{item.system.class}}</p>{{/if}}
+          {{#if ../displayFields.effort}}
+            {{#ifNotEquals item.system.effort ""}}<p style="width:80px;">{{item.system.effortString}}</p>{{/ifNotEquals}}
+            {{#ifEquals item.system.effort ""}}<p style="width:80px;">—</p>{{/ifEquals}}
+          {{/if}}
           {{#if ../displayFields.source}}<p style="width:80px;">{{item.system.source}}</p>{{/if}}
-          {{#if ../displayFields.disabled}}<p style="width:80px;">{{#if item.system.disabled}}Disabled{{else}}Enabled{{/if}}</p>{{/if}}
           {{#if ../displayFields.strain}}<p style="width:40px;">{{item.system.strain}}</p>{{/if}}
           {{#if ../displayFields.tl}}<p style="width:40px;">{{item.system.tl}}</p>{{/if}}
           {{#if ../displayFields.encumbrance}}<p style="width:40px;">{{item.system.encumbrance}}</p>{{/if}}

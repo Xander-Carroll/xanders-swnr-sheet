@@ -132,6 +132,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             tl: true
         },
         power: {
+            effort: true,
             source: true
         },
         weapon: {
@@ -260,6 +261,13 @@ export class XandersSwnActorSheet extends ActorSheet {
 
         //Adding the inventoryDisplayFields property to the context.
         context.system.inventoryDisplayFields = this.inventoryDisplayFields;
+
+        //Determines if the add skills buttons should be displayed.
+        if(!context.system.xIsLocked || (context.system.itemTypes.skill.length == 0 && context.owner)){
+            context.system.displayAddSkillButtons = true;
+        }else{
+            context.system.displayAddSkillButtons = false;
+        }
     
         return context;
     }
@@ -292,7 +300,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             context.system.favoriteItems["has" + uppercaseKey] = context.system.favoriteItems[key].length > 0;
         });
 
-        //Creating a rankString varaible which shows a - instead of -1 on skill items.
+        //Parsing Skill Items
         for(let i=0; i<context.system.itemTypes.skill.length; i++){
             context.system.itemTypes.skill[i].system.rankString = context.system.itemTypes.skill[i].system.rank.toString();
             if(context.system.itemTypes.skill[i].system.rankString === "-1"){
@@ -300,7 +308,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             }
         }
 
-        //Creating an attack bonus variable and a damage variable on weapons.
+        //Parsing Weapon Items
         for(let i=0; i<context.system.itemTypes.weapon.length; i++){
             let weapon = context.system.itemTypes.weapon[i];
             let skill = context.actor.getEmbeddedDocument("Item", weapon.system.skill);
@@ -355,7 +363,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             this.actor.getEmbeddedDocument("Item", itemId).update({system:itemExtraData});
         }
 
-        //Adds a level string and alternate description string to foci items.
+        //Parsing Focus Items
         for(let i=0; i<context.system.itemTypes.focus.length; i++){
             //Setting the item to use the system.details field instead of system.description for summaries and chat cards.
             context.system.itemTypes.focus[i].system.usingDetails = true;
@@ -374,16 +382,26 @@ export class XandersSwnActorSheet extends ActorSheet {
             }
         }
 
-        //Adds an alternate description string to cyberware items. Also updates the systemStrain.cyberware varaible.
+        //Parsing Cyberware Items
         for(let i=0; i<context.system.itemTypes.cyberware.length; i++){
             //Setting the item to use the system.details field instead of system.description for summaries and chat cards.
             context.system.itemTypes.cyberware[i].system.usingDetails = true;
             context.system.itemTypes.cyberware[i].system.details = "<b><u>Description: </u></b>" + context.system.itemTypes.cyberware[i].system.description + "<p></p><b><u>Effect: </u></b>" + context.system.itemTypes.cyberware[i].system.effect;
             
+            if (!context.system.itemTypes.cyberware[i].system.disabled) context.system.itemTypes.cyberware[i].system.location = "readied";
+
             if (context.system.itemTypes.cyberware[i].system.disabled){
                 context.system.systemStrain.cyberware = context.system.systemStrain.cyberware - context.system.itemTypes.cyberware[i].system.strain;
                 context.system.systemStrain.max = context.system.systemStrain.max + context.system.itemTypes.cyberware[i].system.strain;
             } 
+        }
+
+        //Parsing Power Items
+        for(let i=0; i<context.system.itemTypes.power.length; i++){
+            if (context.system.itemTypes.power[i].system.prepared) context.system.itemTypes.power[i].system.location = "readied";
+
+            let currentEffort = context.system.itemTypes.power[i].system.effort;
+            if (currentEffort != "") context.system.itemTypes.power[i].system.effortString = currentEffort.charAt(0).toUpperCase() + currentEffort.slice(1);
         }
 
         //Deleting items that aren't allowed on the sheet, and warning the user about it.
@@ -394,13 +412,6 @@ export class XandersSwnActorSheet extends ActorSheet {
                 ui.notifications.error("[" + context.items[i].name + "] is not allowed on this sheet and was removed.");
                 this.actor.deleteEmbeddedDocuments("Item", [context.items[i]._id]);
             }
-        }
-
-        //Determines if the add skills buttons should be displayed.
-        if(!context.system.xIsLocked || (context.system.itemTypes.skill.length == 0 && context.owner)){
-            context.system.displayAddSkillButtons = true;
-        }else{
-            context.system.displayAddSkillButtons = false;
         }
 
         //Returning the newly parsed context.
@@ -437,19 +448,21 @@ export class XandersSwnActorSheet extends ActorSheet {
     //Called when an inventory item's reload button is pressed.
     async _onReloadButton(event){
         event.preventDefault();
-        const weaponId = event.currentTarget.dataset.itemId;
 
+        //Getting the weapon that needs reloaded.
+        const weaponId = event.currentTarget.dataset.itemId;
         const weapon = this.actor.getEmbeddedDocument("Item", weaponId);
 
+        //Updating the weapon ammo properties.
         let updateData = {system: {ammo: {value: Math.max(weapon.system.ammo.value, weapon.system.ammo.max)}}};
-
         weapon.update(updateData);
 
+        //Warning the user if they are reloading a full weapon.
         if(weapon.system.ammo.value >= weapon.system.ammo.max){
             ui.notifications.warn("You just reloaded a weapon that was already full!");
         }
 
-        // Sets the basic information needed for the chat message.        
+        //Sets the basic information needed for the chat message.        
         let messageData = {
             user: game.user._id,
             speaker: ChatMessage.getSpeaker({actor:this.actor}),
@@ -458,7 +471,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         };
 
         //Adds "Long Reload" text to apropriate weapons.
-        if(weapon.system.ammo.longReload) messageData.content = "<p><b>Long Reload:</b></p>" + messageData.content;
+        if(weapon.system.ammo.longReload) messageData.content = "<p><b>Long Reload</b></p>" + messageData.content;
 
         // Creates the chat message with the given data.
         let message = await getDocumentClass("ChatMessage").create(messageData);

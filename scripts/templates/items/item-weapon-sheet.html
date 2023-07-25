@@ -118,7 +118,7 @@
               <p class="details-headers">Skill:</p>
               <select name="system.skill" style="width:100%">
                 {{#select system.skill}}
-                  <option value="">No Skill Set</option>
+                  <option value="">—</option>
                   {{#each item.actor.itemTypes.skill}}
                     <option value="{{this.id}}">{{this.name}}: {{this.system.rank}}</option>
                   {{/each}}

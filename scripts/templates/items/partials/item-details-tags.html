@@ -3,9 +3,9 @@
   {{#ifEquals item.type "weapon"}}
     <div class="inventory-extra-details-item"><b>Damage: </b>{{item.system.fullDamage}}</div>
     <div class="inventory-extra-details-item"><b>Hit Bonus: </b>{{item.system.fullAttackBonus}}</div>
+    <div class="inventory-extra-details-item"><b>Quality: </b>{{item.system.quality}}</div>
     {{#ifEquals item.system.type "ranged"}}<div class="inventory-extra-details-item"><b>Range: </b>{{item.system.range.normal}} / {{item.system.range.max}}</div>{{/ifEquals}}
     {{#ifEquals item.system.type "melee"}}<div class="inventory-extra-details-item"><b>Shock: </b>{{item.system.shock.dmg}} point / AC {{item.system.shock.ac}}</div>{{/ifEquals}}
-    <div class="inventory-extra-details-item"><b>Quality: </b>{{item.system.quality}}</div>
     <div class="inventory-extra-details-item"><b>TL: </b>{{item.system.tl}}</div>
     {{#if item.system.ammo.burst}}<div class="inventory-extra-details-item">Burst Fire</div>{{/if}}
     {{#if item.system.ammo.longReload}}<div class="inventory-extra-details-item">Long Reload</div>{{/if}}
@@ -37,14 +37,23 @@
 
   <!--The tags for cyberware-->
   {{#ifEquals item.type "cyberware"}}
-    <div class="inventory-extra-details-item"><b>Strain: </b>{{item.system.strain}}</div>
     <div class="inventory-extra-details-item"><b>Status: </b>{{#if system.disabled}}Disabled{{else}}Enabled{{/if}}</div>
+    <div class="inventory-extra-details-item"><b>Strain: </b>{{item.system.strain}}</div>
     <div class="inventory-extra-details-item"><b>TL: </b>{{item.system.tl}}</div>
   {{/ifEquals}}
 
+  <!--The tags for skills-->
   {{#ifEquals item.type "skill"}}
+    <div class="inventory-extra-details-item"><b>Dice: </b>{{item.system.dice}}</div>
     <div class="inventory-extra-details-item"><b>Level: </b>{{item.system.rank}}</div>
     <div class="inventory-extra-details-item"><b>Stat: </b>{{item.system.defaultStat}}</div>
-    <div class="inventory-extra-details-item"><b>Dice: </b>{{item.system.dice}}</div>
+  {{/ifEquals}}
+
+  <!--The tags for powers-->
+  {{#ifEquals item.type "power"}}
+    {{#if item.system.duration}}{{#ifNotEquals item.system.duration ""}}<div class="inventory-extra-details-item"><b>Duration: </b>{{item.system.duration}}</div>{{/ifNotEquals}}{{/if}}
+    {{#if item.system.effort}}{{#ifNotEquals item.system.effort ""}}<div class="inventory-extra-details-item"><b>Effort: </b>{{item.system.effort}}</div>{{/ifNotEquals}}{{/if}}
+    <div class="inventory-extra-details-item"><b>Level: </b>{{item.system.level}}</div>
+    {{#if item.system.range}}{{#ifNotEquals item.system.range ""}}<div class="inventory-extra-details-item"><b>Range: </b>{{item.system.range}}</div>{{/ifNotEquals}}{{/if}}
   {{/ifEquals}}
 </div>
