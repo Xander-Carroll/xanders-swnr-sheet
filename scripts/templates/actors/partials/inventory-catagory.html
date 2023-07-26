@@ -22,12 +22,14 @@
         <div class="inventory-titles inventory-details">
           {{#unless ../isFavoriteList}}{{#if system.favorite}}<div style="width:25px;"> <i class="fas fa-bookmark fa-sm"></i></div>{{/if}}{{/unless}}
           
-          {{#if system.requiresMagazine}}<div class="item-reload-button" data-item-id="{{item._id}}" style="width:25px;"><i class="fa-solid fa-arrow-rotate-right"></i></div>{{/if}}
+          {{#ifEquals system.type "ranged"}}{{#ifNotEquals system.ammo.type "infinite"}}{{#ifNotEquals system.ammo.type "none"}}
+            <div class="item-reload-button" data-item-id="{{item._id}}" style="width:25px;"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+          {{/ifNotEquals}}{{/ifNotEquals}}{{/ifEquals}}
                   
           <!--This block determines what should be displayed for the ammo detail-->
           {{#if ../displayFields.ammo}}<p style="width:80px;">
             {{#ifEquals system.type "ranged"}}
-              {{#if system.requiresMagazine}} {{item.system.ammo.value}}/{{item.system.ammo.max}} {{/if}}
+              {{#ifNotEquals system.ammo.type "infinite"}}{{#ifNotEquals system.ammo.type "none"}} {{item.system.ammo.value}}/{{item.system.ammo.max}} {{/ifNotEquals}}{{/ifNotEquals}}
               {{#ifEquals system.ammo.type "infinite"}}Infinite{{/ifEquals}}
               {{#ifEquals system.ammo.type "none"}}None{{/ifEquals}}
             {{/ifEquals}}

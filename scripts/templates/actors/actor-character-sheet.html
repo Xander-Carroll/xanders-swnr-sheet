@@ -360,16 +360,24 @@
             <ul class="inventory-list scrollable" style="flex-grow:1">
 
               <!-- The class abillity list -->
-              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.class catagory="Class Abilities" displayFields=system.inventoryDisplayFields.class isFavoriteList=false}}
+              {{#if system.hasClass}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.class catagory="Class Abilities" displayFields=system.inventoryDisplayFields.class isFavoriteList=false}}
+              {{/if}}
 
               <!-- The cyberware list -->
-              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.cyberware catagory="Cyberware" displayFields=system.inventoryDisplayFields.cyberware isFavoriteList=false}}
-              
+              {{#if system.hasCyberware}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.cyberware catagory="Cyberware" displayFields=system.inventoryDisplayFields.cyberware isFavoriteList=false}}
+              {{/if}}
+
               <!-- The foci list -->
-              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.focus catagory="Foci" displayFields=system.inventoryDisplayFields.focus isFavoriteList=false}}
+              {{#if system.hasFocus}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.focus catagory="Foci" displayFields=system.inventoryDisplayFields.focus isFavoriteList=false}}
+              {{/if}}
 
               <!-- The powers list -->
-              {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.power catagory="Powers" displayFields=system.inventoryDisplayFields.power isFavoriteList=false}}
+              {{#if system.hasPower}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.power catagory="Powers" displayFields=system.inventoryDisplayFields.power isFavoriteList=false}}
+              {{/if}}
 
             </ul>
 

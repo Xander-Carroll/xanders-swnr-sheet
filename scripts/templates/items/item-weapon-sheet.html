@@ -150,8 +150,21 @@
                 <input name="system.shock.ac" class="details-input" value="{{system.shock.ac}}" type="number" style="width:100%" {{#unless owner}}disabeled{{/unless}}/>
               </div>
 
+              <!-- The weapon saving throw type-->
+              <div style="flex:1 1 0px; padding-left:5px;">
+                <p class="details-headers">Save Type:</p>
+                <select name="system.save" style="width:100%">
+                    {{#select system.save}}
+                    <option value="">—</option>
+                    <option value="physical">Physical</option>
+                    <option value="mental">Mental</option>
+                    <option value="evasion">Evasion</option>
+                    {{/select}}
+                </select>
+              </div>
+
               <!-- A spacer to push the other elements further left.-->
-              <div style="flex: 2 1 0px; padding-left:10px;"></div>
+              <div style="flex: 1 1 0px; padding-left:10px;"></div>
 
             </div>            
           {{/ifEquals}}
@@ -201,15 +214,26 @@
                 </div>
               {{/ifNotEquals}}{{/ifNotEquals}}
 
-              <!-- A spacer to push the other elements further left.-->
-              {{#ifEquals system.ammo.type "none"}}<div style="flex: 1 1 0px; padding-left:5px;"></div>{{/ifEquals}}
-              {{#ifEquals system.ammo.type "infinite"}}<div style="flex: 1 1 0px; padding-left:5px;"></div>{{/ifEquals}}
-              <div style="flex: 1 1 0px; padding-left:5px;"></div>         
+              <!-- The weapon saving throw type-->
+              <div style="flex:1 1 0px; padding-left:5px;">
+                <p class="details-headers">Save Type:</p>
+                <select name="system.save" style="width:100%">
+                    {{#select system.save}}
+                    <option value="">—</option>
+                    <option value="physical">Physical</option>
+                    <option value="mental">Mental</option>
+                    <option value="evasion">Evasion</option>
+                    {{/select}}
+                </select>
+              </div>
+
+              {{#ifEquals system.ammo.type "none"}}<div style="flex: 1 1 0px; padding-left:5px;"></div>{{/ifEquals}}  
+              {{#ifEquals system.ammo.type "infinite"}}<div style="flex: 1 1 0px; padding-left:5px;"></div>{{/ifEquals}}  
             </div>
           {{/ifEquals}}
 
-            <!-- The weapon checkbox properties. -->
-            <div style="display:flex; flex-direction:row; padding-bottom:10px"> 
+          <!-- The weapon checkbox properties. -->
+          <div style="display:flex; flex-direction:row;"> 
               {{#ifEquals system.type "ranged"}}
                 <!-- The burst fire property-->
                 <div style="flex:1 1 0px; padding-left:5px;">
@@ -257,9 +281,7 @@
               <!-- A spacer to push the other elements to the left. -->
               <div style="{{#ifEquals system.type "ranged"}}flex:1.9{{/ifEquals}} {{#ifEquals system.type "melee"}}flex:4{{/ifEquals}} 1 0px; padding-left:5px;"></div>
 
-            </div>
-
-          
+          </div>
 
       </div>
   

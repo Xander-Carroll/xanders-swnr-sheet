@@ -12,6 +12,7 @@
     "modules/xanders-swnr-sheet/scripts/templates/items/item-cyberware-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-focus-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-item-sheet.html",
+    "modules/xanders-swnr-sheet/scripts/templates/items/item-power-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-skill-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-weapon-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/partials/item-details-tags.html",

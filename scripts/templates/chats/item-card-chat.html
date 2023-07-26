@@ -19,12 +19,34 @@
 
     <!-- If the item is a weapon then attack buttons should be displayed. -->
     {{#ifEquals type "weapon"}}
-    <div class="chat-card-weapon-buttons">
+    <div class="chat-card-buttons">
         <button class="attack-button" data-type="attack" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; margin-top:5px; line-height:24px;">Attack</button>
         <button class="damage-button" data-type="damage" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; line-height:24px;">Damage</button>
         {{#ifEquals system.type "ranged"}}{{#if system.ammo.burst}}<button class="burst-damage-button" data-type="burst" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; line-height:24px;">Burst Damage</button>{{/if}}{{/ifEquals}}
         {{#ifEquals system.type "melee"}}<button class="shock-button" data-type="shock" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:5px; line-height:24px;">Shock</button>{{/ifEquals}}
         <hr style="margin:2px; width:100%"/>
+    </div>
+    <div>
+        {{#ifNotEquals system.save ""}}
+            <button class="save-throw-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="line-height:24px;">{{system.saveString}} Saving Throw</button>
+            <hr style="margin:2px; width:100%"/>
+        {{/ifNotEquals}}
+    </div>
+    {{/ifEquals}}
+
+    <!-- If the item is a power and a save button needs displayed. -->
+    {{#ifEquals type "power"}}
+    <div class="chat-card-buttons">
+        {{#ifNotEquals system.roll ""}}
+            <button class="power-roll-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; margin-top:5px; line-height:24px;">Roll</button>
+            <hr style="margin:2px; width:100%"/>
+        {{/ifNotEquals}}
+    </div>
+    <div>
+        {{#ifNotEquals system.save ""}}
+            <button class="save-throw-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="line-height:24px;">{{system.saveString}} Saving Throw</button>
+            <hr style="margin:2px; width:100%"/>
+        {{/ifNotEquals}}
     </div>
     {{/ifEquals}}
 

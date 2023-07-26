@@ -27,8 +27,13 @@ export function addChatListener(message, html, data){
         });
 
         //Hook used for rolling attack and damage rolls on item cards.
-        html.on('click', '.xanders-swnr .chat-card-weapon-buttons button', (event) =>{
+        html.on('click', '.xanders-swnr .attack-button, .xanders-swnr .damage-button', (event) =>{
             onChatWeaponButtonPress(event, html);
+        });
+
+        //Hook used for rolling attack and damage rolls on item cards.
+        html.on('click', '.xanders-swnr .save-throw-button', (event) =>{
+            onChatSaveButtonPress(event, html);
         });
     }
 }
@@ -44,7 +49,7 @@ async function onItemCollapse(event, html){
     content.css('display', content.css('display') === "none" ? "block" : "none");
 }
 
-// Called when a button is pressed on a chat card.
+// Called when a button is pressed on a weapon chat card.
 async function onChatWeaponButtonPress(event, html){
     event.preventDefault();
 
@@ -133,6 +138,14 @@ async function onChatWeaponButtonPress(event, html){
     await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, rollData.rollMode);
     await message.update(rollMessage.data);
 }
+
+// Called when a saving throw button is pressed on a chat card.
+async function onChatSaveButtonPress(event, html){
+    let itemId = event.currentTarget.dataset.itemId;
+
+    console.log(itemId);
+}
+
 
 //Called when the user makes an attack roll or damage roll.
 async function _weaponRollDialog(rollType, itemId, ownerId){

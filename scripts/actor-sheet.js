@@ -338,6 +338,9 @@ export class XandersSwnActorSheet extends ActorSheet {
                 }
             }
 
+            let currentSave = context.system.itemTypes.weapon[i].system.save;
+            if (currentSave && currentSave != "") context.system.itemTypes.weapon[i].system.saveString = currentSave.charAt(0).toUpperCase() + currentSave.slice(1);
+
             //Calculating the weapon attack bonus, and adding a + sign in front of the string if needed.
             let fullBonusInt = context.actor.system.ab + weapon.system.ab + skillMod + attributeBonus;
             let fullBonusString = fullBonusInt >= 0 ? "+" + String(fullBonusInt) : fullBonusInt;
@@ -346,17 +349,12 @@ export class XandersSwnActorSheet extends ActorSheet {
             let fullDamageInt = skillPunchMod + attributeBonus;
             let fullDamageString = fullDamageInt >= 0 ? "+" + String(fullDamageInt) : fullDamageInt;
 
-            //Determines if the weapon needs a magazine.
-            let requiresMagazine = false;
-            if(weapon.system.type == "ranged" && weapon.system.ammo.type != "infinite" && weapon.system.ammo.type != "none") requiresMagazine = true;
-
             //Adding the damage and attack bonus string to the sheet.
             let itemExtraData = {
                 fullAttackBonus: fullBonusString,
                 fullDamage: weapon.system.damage + fullDamageString,
                 damageBonus: fullDamageString,
-                skillMod: skillModString,
-                requiresMagazine: requiresMagazine
+                skillMod: skillModString
             }
 
             let itemId = context.system.itemTypes.weapon[i].id;
@@ -401,7 +399,11 @@ export class XandersSwnActorSheet extends ActorSheet {
             if (context.system.itemTypes.power[i].system.prepared) context.system.itemTypes.power[i].system.location = "readied";
 
             let currentEffort = context.system.itemTypes.power[i].system.effort;
-            if (currentEffort != "") context.system.itemTypes.power[i].system.effortString = currentEffort.charAt(0).toUpperCase() + currentEffort.slice(1);
+            if (currentEffort && currentEffort != "") context.system.itemTypes.power[i].system.effortString = currentEffort.charAt(0).toUpperCase() + currentEffort.slice(1);
+
+            let currentSave = context.system.itemTypes.power[i].system.save;
+            if (currentSave && currentSave != "") context.system.itemTypes.power[i].system.saveString = currentSave.charAt(0).toUpperCase() + currentSave.slice(1);
+
         }
 
         //Deleting items that aren't allowed on the sheet, and warning the user about it.
