@@ -85,6 +85,15 @@ function registerSystemSettings(){
 		onChange: debouncedReload
 	});
 
+	game.settings.register("xanders-swnr-sheet", "itemCardScrub", {
+		config: true,
+		scope: "world",
+		name: "Sanatize GM Item Details",
+		hint: "Will hide the item card details of GM rolls from players.",
+		type: Boolean,
+		default: false
+	});
+
 	game.settings.register("xanders-swnr-sheet", "itemCardsCollapsed", {
 		config: true,
 		scope: "client",

@@ -12,7 +12,7 @@ import { generateRoll } from "./utils.js";
 export function addChatListener(message, html, data){
     if(message.flags.xSwnrInteractive){
         //Auto-collapsing the item card if the apropriate setting is turned on.
-        if(game.settings.get("xanders-swnr-sheet", "itemCardsCollapsed")){
+        if(game.settings.get("xanders-swnr-sheet", "itemCardsCollapsed") || (game.settings.get("xanders-swnr-sheet", "itemCardScrub") && data.author.isGM && !game.user.isGM)){
             html.find(".card-content").hide();
         }
 
@@ -23,24 +23,27 @@ export function addChatListener(message, html, data){
 
         //Hook used for making item cards collapse when their name is clicked.
         html.on('click', '.xanders-swnr p[id="item-name"]', (event) =>{
-            onItemCollapse(event, html);
+            onItemCollapse(event, html, data);
         });
 
         //Hook used for rolling attack and damage rolls on item cards.
         html.on('click', '.xanders-swnr .attack-button, .xanders-swnr .damage-button', (event) =>{
-            onChatWeaponButtonPress(event, html);
+            onChatWeaponButtonPress(event);
         });
 
         //Hook used for rolling attack and damage rolls on item cards.
         html.on('click', '.xanders-swnr .save-throw-button', (event) =>{
-            onChatSaveButtonPress(event, html);
+            onChatSaveButtonPress(event);
         });
     }
 }
 
 // Called when an item cards collapsed state should be toggeled.
-async function onItemCollapse(event, html){
+async function onItemCollapse(event, html, data){
     event.preventDefault();    
+
+    //If the scrubItemDetails setting is on, then players should not be able to uncollapse item cards.
+    if (game.settings.get("xanders-swnr-sheet", "itemCardScrub") && data.author.isGM && !game.user.isGM) return;
 
     //Getting the div that should be hidden when the card is collapsed.
     let content = html.find(".card-content");
@@ -50,7 +53,7 @@ async function onItemCollapse(event, html){
 }
 
 // Called when a button is pressed on a weapon chat card.
-async function onChatWeaponButtonPress(event, html){
+async function onChatWeaponButtonPress(event){
     event.preventDefault();
 
     //The type of button that was pressed.
@@ -140,7 +143,7 @@ async function onChatWeaponButtonPress(event, html){
 }
 
 // Called when a saving throw button is pressed on a chat card.
-async function onChatSaveButtonPress(event, html){
+async function onChatSaveButtonPress(event){
     let itemId = event.currentTarget.dataset.itemId;
 
     console.log(itemId);
