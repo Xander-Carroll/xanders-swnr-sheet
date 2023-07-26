@@ -36,11 +36,14 @@
 
     <!-- If the item is a power and a save button needs displayed. -->
     {{#ifEquals type "power"}}
-    <div class="chat-card-buttons">
+    <div class="chat-card-buttons" style="padding-top:5px; padding-bottom:2px;">
         {{#ifNotEquals system.roll ""}}
-            <button class="power-roll-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; margin-top:5px; line-height:24px;">Roll</button>
-            <hr style="margin:2px; width:100%"/>
+            <button class="power-roll-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px;line-height:24px;">Roll</button>
         {{/ifNotEquals}}
+        {{#ifNotEquals system.skill ""}}
+            <button class="power-skill-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px;line-height:24px;">Skill Check</button>
+        {{/ifNotEquals}}
+        <hr style="margin:2px; width:100%"/>
     </div>
     <div>
         {{#ifNotEquals system.save ""}}

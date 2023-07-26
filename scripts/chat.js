@@ -35,6 +35,11 @@ export function addChatListener(message, html, data){
         html.on('click', '.xanders-swnr .save-throw-button', (event) =>{
             onChatSaveButtonPress(event);
         });
+
+        //Hook used for rolling power cards.
+        html.on('click', '.xanders-swnr .power-skill-button, .xanders-swnr .power-roll-button', (event) =>{
+            onChatPowerButtonPress(event);
+        });
     }
 }
 
@@ -149,6 +154,12 @@ async function onChatSaveButtonPress(event){
     console.log(itemId);
 }
 
+// Called when a button is pressed on a power chat card.
+async function onChatPowerButtonPress(event){
+    let itemId = event.currentTarget.dataset.itemId;
+
+    console.log(itemId);
+}
 
 //Called when the user makes an attack roll or damage roll.
 async function _weaponRollDialog(rollType, itemId, ownerId){
