@@ -106,6 +106,9 @@ const psychicImages = {
     teleportation: "icons/magic/movement/trail-streak-pink.webp"
 }
 
+
+// TOOL FUNCTIONS.
+
 //Adds all of the skills from the skills array onto the actor.
 export function initSkills(actor, skillType){
     let skillsToAdd = [];
@@ -149,6 +152,17 @@ export function toTitleCase(str) {
       }
     );
 }
+
+//Used to load all of the handelbars templates ahead of time.
+export const preloadXandersTemplates = async function () {
+    const list = await fetch("modules/xanders-swnr-sheet/scripts/templates/templates.json");
+    const files = await list.json();
+    return loadTemplates(files);
+};
+
+
+
+// FUNCTIONS FOR GENERATING ROLLS AND DIALOGS
 
 //Retruns a rollData object and a roll object from the spesified data.
 export async function generateRoll(baseDie, rollData, sheet){
@@ -198,7 +212,7 @@ export async function generateRoll(baseDie, rollData, sheet){
 }
 
 //Will create a chat message for the given item spoken by the given actor.
-export async function useItem(item, actorId){
+export async function useItem(actorId, item){
     //Creating an html template from the dialog.
     let templateContent = await renderTemplate("modules/xanders-swnr-sheet/scripts/templates/chats/item-card-chat.html", item);
 
@@ -217,9 +231,172 @@ export async function useItem(item, actorId){
     await getDocumentClass("ChatMessage").applyRollMode(chatMessageData, game.settings.get("core", "rollMode"));
 }
 
-//Used to load all of the handelbars templates ahead of time.
-export const preloadXandersTemplates = async function () {
-    const list = await fetch("modules/xanders-swnr-sheet/scripts/templates/templates.json");
-    const files = await list.json();
-    return loadTemplates(files);
-};
+//Will make a saving throw for the given actor of the given save type.
+export async function makeSavingThrow(actorId, saveType){
+    //Getting the actor that the roll was made with.
+    const actor = game.actors.get(actorId);
+
+    //Opening a dialog to prompt the player to add modifiers etc.
+    let saveData = await _saveThrowDialog(saveType, actor.name);
+
+    //If the dialog was canceled(closed) the roll needs cancelled.
+    if(saveData.cancelled) return;
+
+    //Adding data to the saving throw.
+    saveData.target = actor.system.save[saveType];
+
+    //Getting the roll data results.
+    let rollMessage = await generateRoll("1d20", saveData, actor.sheet);
+
+    //Cancelling the roll if the user used an invalid modifier.
+    if(rollMessage.error){
+        return;
+    }
+
+    //Extra data which will be used by handelbars when displaying the saving throw.
+    let templateData = {};
+    let d20Result = rollMessage.roll.terms[0].total;
+    templateData.saved = d20Result !== 1 && (d20Result === 20 || (rollMessage.roll.total >= saveData.target));
+
+    //Getting the extra saving throw chat piece as HTML.
+    let templateContent = await renderTemplate("modules/xanders-swnr-sheet/scripts/templates/chats/save-throw-chat.html", templateData);
+
+    // Sets more basic information needed for the chat message. 
+    rollMessage.data.content = rollMessage.data.content + templateContent;
+    rollMessage.data.flavor = "v" + saveData.target + " " + toTitleCase(saveType) + " saving throw";
+
+    // Creates the chat message with the given data.
+    let message = await getDocumentClass("ChatMessage").create(rollMessage.data);
+
+    //Changes the roll mode of the chat message.
+    await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, saveData.rollMode);
+    await message.update(rollMessage.data);
+}
+
+//Called when a saving throw is made to give the user a chance to add modifiers.
+async function _saveThrowDialog(saveType, actorName){
+    const template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/save-throw-dialog.html"
+    const html = await renderTemplate(template, {});
+
+    return new Promise(resolve => {
+        const data = {
+            title: toTitleCase(saveType) + " Saving Throw: " + actorName,
+            content: html,
+            buttons: {
+                roll: {
+                    label: "Roll",
+                    callback: html => resolve(_processSaveThrowOptions(html))
+                }
+            },
+            default: "roll",
+            close: () => resolve({cancelled: true}) 
+        }
+
+        new Dialog(data, null).render(true);
+    });
+}
+
+//Parses the information found in a savingThrowDialog into a dictionary.
+function _processSaveThrowOptions(html){
+    const rollType = html.find('[name="rollmode"]')[0].value;
+    const modifier = html.find('[name="modifier"]')[0].value;
+
+    return {
+        modifier: modifier,
+        rollMode: rollType
+    }
+}
+
+//Will make a skill check for the given actor with the given skill id.
+export async function makeSkillCheck(actorId, itemId, overrideAttribute){
+    //Getting the actor that this skill belongs to.
+    const actor = game.actors.get(actorId);
+
+    //Getting the skill that was clicked.
+    let skill = actor.getEmbeddedDocument("Item", itemId);
+    skill.system.stats = actor.system.stats;
+    if(overrideAttribute) skill.system.defaultStat = overrideAttribute;
+
+    //Creating a dialog so that the player can choose how they want to roll.
+    let checkData = await _skillCheckDialog(skill, actor.name);
+
+    //If the dialog was canceled(closed) the roll needs cancelled.
+    if(checkData.cancelled){
+        return;
+    }
+
+    //Adding modifiers to the role. rollData.modifier.
+    let skillMod = skill.system.rank.toString();
+    let attribMod = actor.system.stats[checkData.attribute].mod.toString();
+    
+    //Ensuring that the right signs are used in the roll formula.
+    if(skillMod.charAt(0) !== '-'){
+        skillMod = "+" + skillMod;
+    }
+    if(attribMod.charAt(0) !== '-'){
+        attribMod = "+" + attribMod;
+    }
+    checkData.modifier = checkData.modifier + attribMod + skillMod;
+
+    //Getting the roll data results.
+    let rollMessage = await generateRoll(checkData.pool, checkData, actor.sheet);
+
+    //Cancelling the roll if the user used an invalid modifier.
+    if (rollMessage.error){
+        return;
+    }
+
+    // Sets more basic information needed for the chat message. 
+    rollMessage.data.flavor = skill.name + " (" + checkData.attribute + ") skill check";
+
+    // Creates the chat message with the given data.
+    let message = await getDocumentClass("ChatMessage").create(rollMessage.data);
+
+    //Changes the roll mode of the chat message.
+    await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, checkData.rollMode);
+    await message.update(rollMessage.data);
+}
+
+//Called when a skill check is made to give the user a chance to add modifiers.
+async function _skillCheckDialog(skill, actorName){
+    //Creating an html template from the dialog.
+    const template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/skill-check-dialog.html"
+    const html = await renderTemplate(template, skill);
+
+    //Creating the dialog and rendering it.
+    return new Promise(resolve => {
+        const data = {
+            title: skill.name + " Skill Check: " + actorName,
+            content: html,
+            buttons: {
+                roll: {
+                    label: "Roll",
+                    callback: html => resolve(_processSkillCheckOptions(html, skill.system.defaultStat, skill.system.pool))
+                }
+            },
+            default: "roll",
+            close: () => resolve({cancelled: true}) 
+        }
+
+        new Dialog(data, null).render(true);
+    });
+}
+
+//Parses the information found in a skillCheckDialog into a dictionary.
+function _processSkillCheckOptions(html, stat, pool){
+    const rollType = html.find('[name="rollmode"]')[0].value;
+    const modifier = html.find('[name="modifier"]')[0].value;
+    let attribute = stat;
+    let dicePool = pool;
+
+    attribute = html.find('[name="attribute"]')[0].value;
+
+    dicePool = html.find('[name="pool"]')[0].value;
+
+    return {
+        modifier: modifier,
+        rollMode: rollType,
+        attribute: attribute,
+        pool: dicePool
+    }
+}

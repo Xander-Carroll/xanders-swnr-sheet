@@ -6,7 +6,7 @@
 // let ownerId = event.currentTarget.dataset.ownerId;
 // let itemType = event.currentTarget.dataset.itemType;
 
-import { generateRoll } from "./utils.js";
+import { generateRoll, makeSavingThrow, makeSkillCheck} from "./utils.js";
 
 // Adds hooks to new chat cards.
 export function addChatListener(message, html, data){
@@ -55,6 +55,69 @@ async function onItemCollapse(event, html, data){
     
     //Toggeling the display state of the hidden block.
     content.css('display', content.css('display') === "none" ? "block" : "none");
+}
+
+// Called when a saving throw button is pressed on a chat card.
+async function onChatSaveButtonPress(event){
+    const itemId = event.currentTarget.dataset.itemId;
+    const type = event.currentTarget.dataset.type;
+
+    let actor;
+
+    const token = game.canvas.tokens.get(ChatMessage.getSpeaker().token);
+    if(token) actor = token.actor;
+    if(!actor) actor = game.actors.get(ChatMessage.getSpeaker().actor);
+    
+    if(!actor){
+        ui.notifications.warn("You don't have an actor or token selected!");
+        return;
+    };
+
+    makeSavingThrow(actor.id, type);
+}
+
+// Called when a button is pressed on a power chat card.
+async function onChatPowerButtonPress(event){
+    const itemId = event.currentTarget.dataset.itemId;
+    const ownerId = event.currentTarget.dataset.ownerId;
+    const type = event.currentTarget.dataset.type;
+
+    if(type === "skill-button"){
+        const power = game.actors.get(ownerId).getEmbeddedDocument("Item", itemId);
+        const skillId = power.system.skillId;
+
+        let actor;
+        const token = game.canvas.tokens.get(ChatMessage.getSpeaker().token);
+        if(token) actor = token.actor;
+        if(!actor) actor = game.actors.get(ChatMessage.getSpeaker().actor);
+
+        if(!actor){
+            ui.notifications.warn("You don't have an actor or token selected!");
+            return;
+        };
+
+        makeSkillCheck(actor.id, skillId, power.system.attribute);
+    }else if(type === "roll-button"){
+        const owner = game.actors.get(ownerId);
+        const power = owner.getEmbeddedDocument("Item", itemId);
+
+        let rollData = {
+            modifier: "",
+            rollMode: "CURRENT"        
+        };
+
+        let rollMessage = await generateRoll(power.system.roll, rollData, owner.sheet);
+
+        // Sets more basic information needed for the chat message. 
+        rollMessage.data.flavor = power.name + " Roll";
+
+        // Creates the chat message with the given data.
+        let message = await getDocumentClass("ChatMessage").create(rollMessage.data);
+
+        //Changes the roll mode of the chat message.
+        await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, rollData.rollMode);
+        await message.update(rollMessage.data);
+    }
 }
 
 // Called when a button is pressed on a weapon chat card.
@@ -145,20 +208,6 @@ async function onChatWeaponButtonPress(event){
     //Changes the roll mode of the chat message.
     await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, rollData.rollMode);
     await message.update(rollMessage.data);
-}
-
-// Called when a saving throw button is pressed on a chat card.
-async function onChatSaveButtonPress(event){
-    let itemId = event.currentTarget.dataset.itemId;
-
-    console.log(itemId);
-}
-
-// Called when a button is pressed on a power chat card.
-async function onChatPowerButtonPress(event){
-    let itemId = event.currentTarget.dataset.itemId;
-
-    console.log(itemId);
 }
 
 //Called when the user makes an attack roll or damage roll.

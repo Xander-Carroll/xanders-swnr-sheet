@@ -104,7 +104,7 @@ export class XandersSwnItemSheet extends ItemSheet {
         let actor = this.actor;        
         
         //Use the item with the given actor.
-        useItem(this.object, actor);
+        useItem(actor._id, this.object);
     }
 
 }
