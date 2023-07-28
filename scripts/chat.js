@@ -101,10 +101,9 @@ async function onChatPowerButtonPress(event){
         const owner = game.actors.get(ownerId);
         const power = owner.getEmbeddedDocument("Item", itemId);
 
-        let rollData = {
-            modifier: "",
-            rollMode: "CURRENT"        
-        };
+        let rollData = await _weaponRollDialog("power", itemId, ownerId);
+
+        if(rollData.cancelled) return;
 
         let rollMessage = await generateRoll(power.system.roll, rollData, owner.sheet);
 
@@ -226,6 +225,9 @@ async function _weaponRollDialog(rollType, itemId, ownerId){
         template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/attack-roll-dialog.html"
     }else if(rollType === "damage"){
         title = "Damage Roll";
+        template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/damage-roll-dialog.html"
+    }else if(rollType === "power"){
+        title = "Power Roll";
         template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/damage-roll-dialog.html"
     }else if(rollType === "shock"){
         return {};
