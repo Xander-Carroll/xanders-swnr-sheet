@@ -153,13 +153,21 @@ export function toTitleCase(str) {
     );
 }
 
+//Will return the value of the bar as a percentage of the maximum, constrained between 0 and 100.
+export function calculateBarPercentage(value, max){
+    let percentage = Math.floor(value * 100 / max);
+    percentage = Math.min(percentage, 100);
+    percentage = Math.max(percentage, 0);
+    
+    return percentage;
+}
+
 //Used to load all of the handelbars templates ahead of time.
 export const preloadXandersTemplates = async function () {
     const list = await fetch("modules/xanders-swnr-sheet/scripts/templates/templates.json");
     const files = await list.json();
     return loadTemplates(files);
 };
-
 
 
 // FUNCTIONS FOR GENERATING ROLLS AND DIALOGS

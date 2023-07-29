@@ -825,11 +825,51 @@
 }
 
 /* The bar in the inventory tab that holds the curency inputs. */
-.window-app.xanders-swnr .inventory-money,
-.window-app.xanders-swnr .inventory-effort{
+.window-app.xanders-swnr .inventory-money-bar,
+.window-app.xanders-swnr .inventory-effort-bar{
   margin-right:10px;
   height: 50px;
   border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: row;
+}
+
+.window-app.xanders-swnr .encumbrance-container,
+.window-app.xanders-swnr .money-container{
+  flex: 1 1 0;
+}
+
+/* The colered bars that indicate current encumbrance*/
+.window-app.xanders-swnr .encumbrance-bar{
+  border-radius: 3px;
+  line-height: 15px;
+  height:15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  background: var(--xp-tank-color);
+  box-shadow: 0 0 10px inset rgb(0,0,0,0.4);
+}
+
+.window-app.xanders-swnr .encumbrance-bar .encumbrance-input {
+  position: relative;
+  bottom: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.window-app.xanders-swnr .encumbrance-bar.readied .encumbrance-bar-fill{
+  border-radius: 3px;
+  background: var(--health-bar-color);
+  height:100%;
+}
+
+.window-app.xanders-swnr .encumbrance-bar.stowed .encumbrance-bar-fill{
+  border-radius: 3px;
+  background: var(--stowed-bar-color);
+  height:100%;
 }
 
 /* The detail labels below the item summary. */

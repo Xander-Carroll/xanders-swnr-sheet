@@ -79,7 +79,6 @@ export class XandersSwnItemSheet extends ItemSheet {
                     ui.notifications.warn("The core sheet skill format couldn't be parsed.");
                 }
             }
-            console.log(context);
         }
 
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.

@@ -347,8 +347,26 @@
 
             </ul>
 
-            <div class="inventory-money">
+            <div class="inventory-money-bar">
+              <div class="money-container">
 
+              </div>
+              <div class="encumbrance-container">
+                <div class="encumbrance-bar readied">
+                  <div class="encumbrance-bar-fill" style="width:{{system.encumbrance.ready.percentage}}%"></div>
+                  <div style="flex:1 1 0"></div>
+                  <div class="encumbrance-input">
+                    <p>Readied: {{system.encumbrance.ready.value}}/{{system.encumbrance.ready.max}}</p>
+                  </div>
+                </div>
+                <div class="encumbrance-bar stowed">
+                  <div class="encumbrance-bar-fill" style="width:{{system.encumbrance.stowed.percentage}}%"></div>
+                  <div style="flex:1 1 0"></div>
+                  <div class="encumbrance-input">
+                    <p>Stowed: {{system.encumbrance.stowed.value}}/{{system.encumbrance.stowed.max}}</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -381,7 +399,7 @@
 
             </ul>
 
-              <div class="inventory-effort">
+              <div class="inventory-effort-bar">
 
               </div>
           </div>

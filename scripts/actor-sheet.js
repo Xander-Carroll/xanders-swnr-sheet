@@ -1,5 +1,5 @@
 // Implements all of the important functionality for the new actor sheets.
-import { initSkills, useItem, makeSavingThrow, makeSkillCheck} from "./utils.js";
+import { initSkills, useItem, makeSavingThrow, makeSkillCheck, calculateBarPercentage} from "./utils.js";
 
 export class XandersSwnActorSheet extends ActorSheet {
 
@@ -232,25 +232,20 @@ export class XandersSwnActorSheet extends ActorSheet {
     _parseActorData(context){
         //Adding a variable that will be used to set the health-bar width to the context.
         const health = context.system.health;
-        let hPercentage = Math.floor(health.value * 100 / health.max);
-        hPercentage = Math.min(hPercentage, 100);
-        hPercentage = Math.max(hPercentage, 0);
-        context.system.health.percentage = hPercentage;
+        context.system.health.percentage = calculateBarPercentage(health.value, health.max);
     
         //Adding a variable that will be used to set the strain-bar width to the context.
         const strain = context.system.systemStrain;
-        let sPercentage = Math.floor(strain.value * 100 / strain.max);
-        sPercentage = Math.min(sPercentage, 100);
-        sPercentage = Math.max(sPercentage, 0);
-        context.system.systemStrain.percentage = sPercentage;
-
-        context.system.systemStrain.base = strain.max + strain.cyberware + strain.permanent;
+        context.system.systemStrain.percentage = calculateBarPercentage(strain.value, strain.max);
 
         //Adding a variable that will be used to set the expierence-bar width to the context.
-        let ePercentage = Math.floor(context.system.level.exp * 100 / context.system.level.expToLevel);
-        ePercentage = Math.min(ePercentage, 100);
-        ePercentage = Math.max(ePercentage, 0);
-        context.system.level.percentage = ePercentage;
+        const level = context.system.level;
+        context.system.level.percentage = calculateBarPercentage(level.exp, level.expToLevel);
+
+        //Adding a variable that will be used to set the encumbrance-bar widths to the context.
+        const encumbrance = context.system.encumbrance;
+        context.system.encumbrance.ready.percentage = calculateBarPercentage(encumbrance.ready.value, encumbrance.ready.max);
+        context.system.encumbrance.stowed.percentage = calculateBarPercentage(encumbrance.stowed.value, encumbrance.stowed.max);
 
         //Creating a string that will dispaly attribute modifiers with a + or -
         for(let i=0; i<6; i++){
