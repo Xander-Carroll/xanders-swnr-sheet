@@ -348,24 +348,30 @@
             </ul>
 
             <div class="inventory-money-bar">
+              <div class="encumbrance-container">
+                <div style="display:flex; flex-direction:row">
+                  <p class="encumbrance-label">Readied: </p>
+                  <div class="encumbrance-bar readied" style="margin-bottom:0px;">
+                    <div class="encumbrance-bar-fill" style="width:{{system.encumbrance.ready.percentage}}%"></div>
+                    <div style="flex:1 1 0"></div>
+                    <div class="encumbrance-input">
+                      <p>{{system.encumbrance.ready.value}}/{{system.encumbrance.ready.max}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div style="display:flex; flex-direction:row">
+                  <p class="encumbrance-label">Stowed: </p>
+                  <div class="encumbrance-bar stowed">
+                    <div class="encumbrance-bar-fill" style="width:{{system.encumbrance.stowed.percentage}}%"></div>
+                    <div style="flex:1 1 0"></div>
+                    <div class="encumbrance-input">
+                      <p>{{system.encumbrance.stowed.value}}/{{system.encumbrance.stowed.max}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="money-container">
 
-              </div>
-              <div class="encumbrance-container">
-                <div class="encumbrance-bar readied">
-                  <div class="encumbrance-bar-fill" style="width:{{system.encumbrance.ready.percentage}}%"></div>
-                  <div style="flex:1 1 0"></div>
-                  <div class="encumbrance-input">
-                    <p>Readied: {{system.encumbrance.ready.value}}/{{system.encumbrance.ready.max}}</p>
-                  </div>
-                </div>
-                <div class="encumbrance-bar stowed">
-                  <div class="encumbrance-bar-fill" style="width:{{system.encumbrance.stowed.percentage}}%"></div>
-                  <div style="flex:1 1 0"></div>
-                  <div class="encumbrance-input">
-                    <p>Stowed: {{system.encumbrance.stowed.value}}/{{system.encumbrance.stowed.max}}</p>
-                  </div>
-                </div>
               </div>
             </div>
 

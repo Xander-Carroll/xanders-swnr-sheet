@@ -843,9 +843,10 @@
 .window-app.xanders-swnr .encumbrance-bar{
   border-radius: 3px;
   line-height: 15px;
-  height:15px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  height: 15px;
+  margin: 10px;
+
+  flex: 1 1 0;
 
   background: var(--xp-tank-color);
   box-shadow: 0 0 10px inset rgb(0,0,0,0.4);
@@ -858,6 +859,13 @@
   display: flex;
   justify-content: center;
   font-size: 12px;
+}
+
+.window-app.xanders-swnr .encumbrance-label{
+  line-height: 15px;
+  margin-top: 10px;
+  width: 45px;
+  font-size: 13px;
 }
 
 .window-app.xanders-swnr .encumbrance-bar.readied .encumbrance-bar-fill{
