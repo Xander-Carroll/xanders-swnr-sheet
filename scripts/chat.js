@@ -27,7 +27,7 @@ export function addChatListener(message, html, data){
         });
 
         //Hook used for rolling attack and damage rolls on item cards.
-        html.on('click', '.xanders-swnr .attack-button, .xanders-swnr .damage-button, .xanders-swnr .shock-button', (event) =>{
+        html.on('click', '.xanders-swnr .attack-button, .xanders-swnr .damage-button, .xanders-swnr .shock-button, .xanders-swnr .burst-damage-button', (event) =>{
             onChatWeaponButtonPress(event);
         });
 
