@@ -727,8 +727,37 @@
 /* Makes the item title change colors when it is hovered. */
 .window-app.xanders-swnr .item-clickable:hover{
   color: var(--active-font-color);
+  cursor: pointer;
 }
 
+/* The input used to set the quantity of each item. */
+.window-app.xanders-swnr section.window-content .inventory-quantity{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  margin-left: 5px;
+}
+
+.window-app.xanders-swnr section.window-content .inventory-quantity input{
+  min-width: 4ch;
+  width: 4ch;
+  height: 15px;
+  font-size: 10px;
+  padding:2px;
+}
+
+.window-app.xanders-swnr section.window-content .inventory-quantity input:hover,
+.window-app.xanders-swnr section.window-content .inventory-quantity input:focus{
+  padding:1px;
+}
+
+
+.window-app.xanders-swnr section.window-content .inventory-quantity p{
+  font-size: 10px;
+}
+
+/* The ammunition reload button on ranged weapons. */
 .window-app.xanders-swnr .item-reload-button:hover i{
   text-shadow: 0 0 10px #265a88;
   color: var(--active-font-color);
@@ -748,10 +777,16 @@
 .window-app.xanders-swnr .inventory-item-body{
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
-.window-app.xanders-swnr .inventory-item-body.undisplayed{
-  display: none;
+.window-app.xanders-swnr .inventory-item-body .body-content{
+  margin-top: 0;
+  transition: all 0.5s;
+}
+
+.window-app.xanders-swnr .inventory-item-body.undisplayed .body-content{
+  margin-top: -100%;
 }
 
 /* The box that goes below the item when it is clicked. */

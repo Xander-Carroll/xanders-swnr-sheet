@@ -18,7 +18,10 @@
     <li class="item inventory-item {{#unless system.favorite}}item-choice-regular{{/unless}} {{#if system.favorite}}item-choice-favorite{{/if}} {{#ifEquals system.location "readied"}}location-readied{{/ifEquals}} {{#ifEquals system.location "stowed"}}location-stowed{{/ifEquals}}" data-item-id="{{item._id}}">
       <div class="inventory-item-header">
         <div class="item-image-box item-image-clickable {{#if item.system.expanded}}expanded{{/if}}" style="background-image:url('{{item.img}}')" data-item-id="{{item._id}}"><i class="fas fa-dice-d20"></i></div>
-        <div class="inventory-titles item-clickable" style="flex: 1 1 0" data-item-id="{{item._id}}">{{item.name}}</div>
+        <div class="inventory-titles" style="flex: 1 1 0">
+          <div class="item-clickable" data-item-id="{{item._id}}">{{item.name}}</div>
+          {{#if ../displayFields.quantity}}<div class="inventory-quantity"><p>(</p><input class="xanders-input borderless" type="number" data-item-id="{{item._id}}" value="{{item.system.quantity}}"><p>)</p></div>{{/if}}
+        </div>
         <div class="inventory-titles inventory-details">
           {{#unless ../isFavoriteList}}{{#if system.favorite}}<div style="width:25px;"> <i class="fas fa-bookmark fa-sm"></i></div>{{/if}}{{/unless}}
           
@@ -48,15 +51,17 @@
         </div>
       </div>
       <div class="inventory-item-body {{#unless item.system.expanded}}undisplayed{{/unless}}">
-        <div class="inventory-item-summary" style="border-bottom:1px solid var(--border-color);">
-        {{#if system.usingDetails}}
-          {{{system.details}}}
-        {{else}}
-          {{{system.description}}}
-        {{/if}}
-        </div>
-        <div>
-        {{> "modules/xanders-swnr-sheet/scripts/templates/items/partials/item-details-tags.html" item=item}}
+        <div class="body-content">
+          <div class="inventory-item-summary" style="border-bottom:1px solid var(--border-color);">
+          {{#if system.usingDetails}}
+            {{{system.details}}}
+          {{else}}
+            {{{system.description}}}
+          {{/if}}
+          </div>
+          <div>
+          {{> "modules/xanders-swnr-sheet/scripts/templates/items/partials/item-details-tags.html" item=item}}
+          </div>
         </div>
       </div>
     </li>
