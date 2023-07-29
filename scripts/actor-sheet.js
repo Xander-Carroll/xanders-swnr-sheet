@@ -576,6 +576,8 @@ export class XandersSwnActorSheet extends ActorSheet {
     async _onItemExpand(event){
         event.preventDefault();
         
+        if(event.currentTarget.classList.contains('unclickable')) return;
+
         const itemId = event.currentTarget.dataset.itemId;
         const item = this.actor.getEmbeddedDocument("Item", itemId);
 
@@ -587,11 +589,12 @@ export class XandersSwnActorSheet extends ActorSheet {
             body.classList.add("undisplayed");
         }
 
+        event.currentTarget.classList.add("unclickable");
+
         //Waits for the animation to finish playing, and then updates the sheet.
         setTimeout(()=>{
             item.update({system:{expanded: !item.system.expanded}});
-        }, 500);
-        
+        }, 300);
     }
 
     //Called when an items quantity input is changed.

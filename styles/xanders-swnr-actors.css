@@ -782,7 +782,7 @@
 
 .window-app.xanders-swnr .inventory-item-body .body-content{
   margin-top: 0;
-  transition: all 0.5s;
+  transition: all 0.28s;
 }
 
 .window-app.xanders-swnr .inventory-item-body.undisplayed .body-content{
