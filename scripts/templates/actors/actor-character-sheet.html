@@ -346,8 +346,10 @@
               {{/if}}
 
             </ul>
-
+            
+            <!-- The bottom part of the inventory tab that shows encumbrance and money. -->
             <div class="inventory-money-bar">
+              <!-- The two lines that show encumbrance. -->
               <div class="encumbrance-container">
                 <div style="display:flex; flex-direction:row">
                   <p class="encumbrance-label">Readied: </p>
@@ -370,8 +372,20 @@
                   </div>
                 </div>
               </div>
-              <div class="money-container">
 
+              <!-- The inputs for money. -->
+              <div class="money-container">
+                <div style="display:flex; flex-direction:row;">
+                  <input class="xanders-input" type="number" name="system.credits.debt" value="{{system.credits.debt}}"/>
+                  <input class="xanders-input" type="number" name="system.credits.balance" value="{{system.credits.balance}}"/>
+                  <input class="xanders-input" style="margin-right:20px" type="number" name="system.credits.owed" value="{{system.credits.owed}}"/>
+                </div>
+
+                <div style="display:flex; flex-direction:row;">
+                  <p>Debt</p>
+                  <p>Balance</p>
+                  <p style="margin-right:10px">Owed</p>
+                </div>
               </div>
             </div>
 
