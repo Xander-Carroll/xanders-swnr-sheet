@@ -150,7 +150,8 @@
 }
 
 /* When the maximum strain value is hovered, a tooltip is displayed. */
-.window-app.xanders-swnr .strain-max:hover .strain-tooltip{
+.window-app.xanders-swnr .strain-max:hover .strain-tooltip,
+.window-app.xanders-swnr .strain-max .strain-tooltip:focus-within{
   visibility: visible;
 }
 
@@ -226,6 +227,7 @@
 }
 
 /* Expanding the xp bar when hovered. */
+.window-app.xanders-swnr .xp-bar:focus-within,
 .window-app.xanders-swnr .xp-bar:hover{
   bottom: 10px;
   height: 20px;
@@ -234,6 +236,8 @@
 }
 
 /* Hiding the XP input when the xp bar is collapsed. */
+.window-app.xanders-swnr .xp-bar:focus-within input,
+.window-app.xanders-swnr .xp-bar:focus-within p,
 .window-app.xanders-swnr .xp-bar:hover input,
 .window-app.xanders-swnr .xp-bar:hover p{
   visibility: visible;
@@ -732,17 +736,26 @@
 }
 
 /* Makes the item change colors when it is readied. */
-.xanders-swnr .inventory-item.location-readied{
+.window-app.xanders-swnr .inventory-item.location-readied{
   background-color: var(--item-background-readied-color);
 }
 
 /* Makes the item change colors when its status is "stowed". */
-.xanders-swnr .inventory-item.location-stowed{
+.window-app.xanders-swnr .inventory-item.location-stowed{
   background-color: var(--item-background-stowed-color);
 }
 
+.window-app.xanders-swnr .inventory-item-body{
+  display: flex;
+  flex-direction: column;
+}
+
+.window-app.xanders-swnr .inventory-item-body.undisplayed{
+  display: none;
+}
+
 /* The box that goes below the item when it is clicked. */
-.xanders-swnr .inventory-item-summary{
+.window-app.xanders-swnr .inventory-item-summary{
   border-top: 1px solid var(--border-color);
   min-height: 10px;
   padding: 5px;

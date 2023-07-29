@@ -184,14 +184,13 @@ export class XandersSwnActorSheet extends ActorSheet {
         html.find('.add-skill-clickable').on("click", this._onSkillAdd.bind(this));
 
         //If an item is clicked.
-        html.find('.item-clickable').on("click", async (event) => {
-            event.preventDefault();
-            const item = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
-            item.system.expanded = item.system.expanded === null ? false : item.system.expanded;
-            this.actor.updateEmbeddedDocuments("Item", [{_id: event.currentTarget.dataset.itemId, system:{expanded: !item.system.expanded}}]);
-        });
+        html.find('.item-clickable').on("click", this._onItemExpand.bind(this));
 
+        //When an inventory item's portrait image is clicked.
         html.find('.item-image-clickable').on("click", this._onItemUse.bind(this));
+
+        //When an item's quantity input is changed.
+        html.find('.item-quantity-input').on("change", this._onItemQuantityChange.bind(this));
 
         //Adding context menu when skills or items are right clicked.
         new ContextMenu(html, '.skill-choice', this.skillContextMenu);
@@ -568,6 +567,38 @@ export class XandersSwnActorSheet extends ActorSheet {
         const item = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
 
         useItem(this.actor.id, item);
+    }
+
+    //Called when the title of an inventory item is clicked.
+    async _onItemExpand(event){
+        event.preventDefault();
+        
+        const itemId = event.currentTarget.dataset.itemId;
+
+        const body = $(event.currentTarget).closest('.inventory-item').children('.inventory-item-body')[0];
+
+        if(body.classList.contains("undisplayed")){
+            body.classList.remove("undisplayed");
+        }else{
+            body.classList.add("undisplayed");
+        }
+
+        const item = this.actor.getEmbeddedDocument("Item", itemId);
+        item.update({system:{expanded: !item.system.expanded}});
+    }
+
+    //Called when an items quantity input is changed.
+    async _onItemQuantityChange(event){
+        event.preventDefault();
+
+        //Getting the input field so that the size of the input can be resized.
+        let input = event.currentTarget;
+
+        //Resizing the input based on the length of the string inside of it.
+        input.style.width = (input.value.length + 1) + "ch";
+
+        //Getting the item object and updating it.
+        this.actor.getEmbeddedDocument("Item", input.dataset.itemId).update({system:{quantity: parseInt(input.value)}});
     }
 
     //@override

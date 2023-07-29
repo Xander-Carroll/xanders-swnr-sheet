@@ -177,6 +177,7 @@
   --color-shadow-primary : none;
   --color-shadow-highlight : none;
 }
+
 .window-app.xanders-swnr section.window-content input:hover:enabled,
 .window-app.xanders-swnr section.window-content input:focus:enabled{
   border: 1px solid var(--input-focus-color);

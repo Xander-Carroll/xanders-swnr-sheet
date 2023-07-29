@@ -47,18 +47,18 @@
           {{#if ../displayFields.encumbrance}}<p style="width:40px;">{{item.system.encumbrance}}</p>{{/if}}
         </div>
       </div>
-      {{#if item.system.expanded}}
-      <div class="inventory-item-summary" style="border-bottom:1px solid var(--border-color);">
-      {{#if system.usingDetails}}
-        {{{system.details}}}
-      {{else}}
-        {{{system.description}}}
-      {{/if}}
+      <div class="inventory-item-body {{#unless item.system.expanded}}undisplayed{{/unless}}">
+        <div class="inventory-item-summary" style="border-bottom:1px solid var(--border-color);">
+        {{#if system.usingDetails}}
+          {{{system.details}}}
+        {{else}}
+          {{{system.description}}}
+        {{/if}}
+        </div>
+        <div>
+        {{> "modules/xanders-swnr-sheet/scripts/templates/items/partials/item-details-tags.html" item=item}}
+        </div>
       </div>
-      <div>
-      {{> "modules/xanders-swnr-sheet/scripts/templates/items/partials/item-details-tags.html" item=item}}
-      </div>
-      {{/if}}
     </li>
   {{/each}}
 </section>
