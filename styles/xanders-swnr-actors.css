@@ -880,6 +880,10 @@
   height:100%;
 }
 
+.window-app.xanders-swnr .encumbrance-bar .encumbrance-bar-fill.over-filled{
+  background: var(--over-filled-bar-color);
+}
+
 /* The detail labels below the item summary. */
 .xanders-swnr.chat-details .inventory-extra-details-item{
   background-color: var(--item-detail-label-color-chat);

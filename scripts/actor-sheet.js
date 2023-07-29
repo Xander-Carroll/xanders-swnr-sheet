@@ -248,6 +248,8 @@ export class XandersSwnActorSheet extends ActorSheet {
         const encumbrance = context.system.encumbrance;
         context.system.encumbrance.ready.percentage = calculateBarPercentage(encumbrance.ready.value, encumbrance.ready.max);
         context.system.encumbrance.stowed.percentage = calculateBarPercentage(encumbrance.stowed.value, encumbrance.stowed.max);
+        context.system.encumbrance.ready.over = encumbrance.ready.value > encumbrance.ready.max;
+        context.system.encumbrance.stowed.over = encumbrance.stowed.value > encumbrance.stowed.max;
 
         //Creating a string that will dispaly attribute modifiers with a + or -
         for(let i=0; i<6; i++){

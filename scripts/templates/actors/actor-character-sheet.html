@@ -352,7 +352,7 @@
                 <div style="display:flex; flex-direction:row">
                   <p class="encumbrance-label">Readied: </p>
                   <div class="encumbrance-bar readied" style="margin-bottom:0px;">
-                    <div class="encumbrance-bar-fill" style="width:{{system.encumbrance.ready.percentage}}%"></div>
+                    <div class="encumbrance-bar-fill {{#if system.encumbrance.ready.over}}over-filled{{/if}}" style="width:{{system.encumbrance.ready.percentage}}%"></div>
                     <div style="flex:1 1 0"></div>
                     <div class="encumbrance-input">
                       <p>{{system.encumbrance.ready.value}}/{{system.encumbrance.ready.max}}</p>
@@ -362,7 +362,7 @@
                 <div style="display:flex; flex-direction:row">
                   <p class="encumbrance-label">Stowed: </p>
                   <div class="encumbrance-bar stowed">
-                    <div class="encumbrance-bar-fill" style="width:{{system.encumbrance.stowed.percentage}}%"></div>
+                    <div class="encumbrance-bar-fill {{#if system.encumbrance.stowed.over}}over-filled{{/if}}" style="width:{{system.encumbrance.stowed.percentage}}%"></div>
                     <div style="flex:1 1 0"></div>
                     <div class="encumbrance-input">
                       <p>{{system.encumbrance.stowed.value}}/{{system.encumbrance.stowed.max}}</p>
