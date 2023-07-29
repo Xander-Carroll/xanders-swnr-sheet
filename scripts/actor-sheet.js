@@ -215,6 +215,8 @@ export class XandersSwnActorSheet extends ActorSheet {
             this.actor.system.xIsLocked = true;
         }
 
+        if(context.actor.type != "character") return;
+
         //Force locks the sheet if the viewer is not an owner and adds the value to the context.
         context.system.xIsLocked = this.actor.system.xIsLocked || !context.owner;
 
