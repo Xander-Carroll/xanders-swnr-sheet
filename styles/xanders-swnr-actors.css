@@ -783,10 +783,12 @@
 .window-app.xanders-swnr .inventory-item-body .body-content{
   margin-top: 0;
   transition: all 0.28s;
+  max-height: 100000000px;
 }
 
 .window-app.xanders-swnr .inventory-item-body.undisplayed .body-content{
   margin-top: -100%;
+  max-height: 0px;
 }
 
 /* The box that goes below the item when it is clicked. */
