@@ -16,12 +16,14 @@
           <div class="strain-bar" style="border-bottom:0px;">
             <div style="width:{{system.systemStrain.percentage}}%" class="strain-fill"></div>
             <div class="strain-text">
-              <input name="system.systemStrain.value" type="number" value="{{system.systemStrain.value}}" class="strain-input borderless" style="text-align:right;margin:0px;" {{#unless owner}}disabled{{/unless}}/>
+              <input data-name="systemStrain.value" type="text" value="{{system.systemStrain.value}}" class="strain-input current-value borderless" style="text-align:right;margin:0px;" {{#unless owner}}disabled{{/unless}}/>
               <p style="margin:0px">/</p>
               <div class="strain-max">
                 <input name="system.systemStrain.max" type="number" value="{{system.systemStrain.max}}" class="strain-input borderless" style=";margin:0px;" disabled/>
+                
+                <!-- The tooltip that displays when you hover the maximum strain value. -->
                 <div class="strain-tooltip">
-                  <div style="display:flex; flex-direction:row"><p>Base:&nbsp;</p><p>{{system.systemStrain.base}}</p></div>
+                  <div style="display:flex; flex-direction:row"><p>Base:&nbsp;</p><p>{{system.stats.con.total}}</p></div>
                   <div style="display:flex; flex-direction:row">
                     <p>Permanent:&nbsp;-</p>
                     <input name="system.systemStrain.permanent" type="number" class="borderless xanders-input" value="{{system.systemStrain.permanent}}"/>
@@ -30,6 +32,7 @@
                   <hr/>
                   <div style="display:flex; flex-direction:row;"><p><b>Total:</b>&nbsp;</p><p>{{system.systemStrain.max}}</p></div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -38,7 +41,7 @@
           <div class="health-bar">
             <div style="width:{{system.health.percentage}}%" class="health-fill"></div>
             <div class="health-text">
-              <input name="system.health.value" type="number" value="{{system.health.value}}" class="health-input borderless" style="text-align:right;margin:0px;" {{#unless owner}}disabeled{{/unless}}/>
+              <input data-name="health.value" type="text" value="{{system.health.value}}" class="health-input borderless current-value" style="text-align:right;margin:0px;" {{#unless owner}}disabeled{{/unless}}/>
               <p style="margin:0px">/</p>
               <input name="system.health.max" type="number" value="{{system.health.max}}" class="health-input borderless" style=";margin:0px;" {{#if system.xIsLocked}}disabled{{/if}}/>
             </div>
@@ -60,7 +63,7 @@
                 <div class="xp-bar" style="flex-direction:row; display:flex">
                   <div style="position:absolute; width:100%; display:flex; flex-direction:row">
                     <div style="flex:1 1 0"></div>
-                    <input style="text-align:end" name="system.level.exp" type="number" value="{{system.level.exp}}" class="xp-input borderless" {{#unless owner}}disabled{{/unless}}/> 
+                    <input style="text-align:end" data-name="level.exp" type="text" value="{{system.level.exp}}" class="xp-input current-value borderless" {{#unless owner}}disabled{{/unless}}/> 
                     <p>/</p> 
                     <input name="system.level.expToLevel" type="number" value="{{system.level.expToLevel}}" class="xp-input borderless" {{#if system.xIsLocked}}disabled{{/if}}/> 
                     <div style="flex:1 1 0"></div>
@@ -376,9 +379,9 @@
               <!-- The inputs for money. -->
               <div class="money-container">
                 <div style="display:flex; flex-direction:row;">
-                  <input class="xanders-input" type="number" name="system.credits.debt" value="{{system.credits.debt}}"/>
-                  <input class="xanders-input" type="number" name="system.credits.balance" value="{{system.credits.balance}}"/>
-                  <input class="xanders-input" style="margin-right:20px" type="number" name="system.credits.owed" value="{{system.credits.owed}}"/>
+                  <input class="xanders-input" type="text" data-name="credits.debt" value="{{system.credits.debt}}"/>
+                  <input class="xanders-input" type="text" data-name="credits.balance" value="{{system.credits.balance}}"/>
+                  <input class="xanders-input" style="margin-right:20px" data-name="credits.owed" type="text" value="{{system.credits.owed}}"/>
                 </div>
 
                 <div style="display:flex; flex-direction:row;">

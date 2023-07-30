@@ -195,6 +195,9 @@ export class XandersSwnActorSheet extends ActorSheet {
         //When an item's quantity input is changed.
         html.find('.inventory-quantity input').on("change", this._onItemQuantityChange.bind(this));
 
+        //Called when HP, Strain, or Money values are updated.
+        html.find('.health-input.current-value, .strain-input.current-value, .money-container input, .xp-input.current-value').on("change", this._onLazyCalculation.bind(this));
+
         //Adding context menu when skills or items are right clicked.
         new ContextMenu(html, '.skill-choice', this.skillContextMenu);
         new ContextMenu(html, '.item-choice-regular', this.itemContextMenu);
@@ -605,6 +608,53 @@ export class XandersSwnActorSheet extends ActorSheet {
 
         //Getting the item object and updating it.
         this.actor.getEmbeddedDocument("Item", input.dataset.itemId).update({system:{quantity: parseInt(input.value)}});
+    }
+
+    //Called when HP, Strain, or Money are updated.
+    async _onLazyCalculation(event){
+        event.preventDefault();
+
+        //Getting the name of the property that is being edited, and the value that it was edited to.
+        const name = event.currentTarget.dataset.name;
+        const value = event.currentTarget.value;
+        const keyValues = name.split('.');
+
+        //Becuase the uer can enter any text, they may have entered something stupid.
+        let intValue;
+        try{
+            intValue = eval(value);
+        }catch (e){}
+
+        //Getting the value that was there before the new input.
+        let oldValue = keyValues.reduce((o,k) => o[k], this.actor.system);
+
+        //Determing if the old value should be used (input was invalid), if the new input should be added, subtracted, or used raw.
+        let newValue = oldValue;
+        if(value === "0" || intValue === 0 || (value && intValue)){
+            const sign = value.charAt(0);
+
+            if(sign === '+' || sign === '-'){
+                newValue = oldValue + intValue;
+            }else{
+                newValue = intValue;
+            }
+        }
+
+        //Building the new system structure that will be used to update the actor.
+        let system = {};
+        let currentKey = system;
+        for (let i=0; i<keyValues.length; i++){
+            if(i < keyValues.length-1){
+                currentKey[keyValues[i]] = {};
+                currentKey = currentKey[keyValues[i]];
+            }else{
+                currentKey[keyValues[i]] = newValue;
+            }
+        }
+
+        //Updating the value to newValue.
+        if(newValue != oldValue) this.actor.update({system});
+        event.currentTarget.value = newValue;
     }
 
     //@override
