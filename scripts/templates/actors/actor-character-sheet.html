@@ -303,6 +303,10 @@
                     {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.cyberware catagory="Cyberware" displayFields=system.inventoryDisplayFields.cyberware isFavoriteList=true}}
                   {{/if}}  
 
+                  {{#if system.favoriteItems.hasEdge}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.edge catagory="Edges" displayFields=system.inventoryDisplayFields.edge isFavoriteList=true}}
+                  {{/if}} 
+
                   {{#if system.favoriteItems.hasFocus}}
                     {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.favoriteItems.focus catagory="Foci" displayFields=system.inventoryDisplayFields.focus isFavoriteList=true}}
                   {{/if}}   
@@ -408,6 +412,11 @@
               <!-- The cyberware list -->
               {{#if system.hasCyberware}}
                 {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.cyberware catagory="Cyberware" displayFields=system.inventoryDisplayFields.cyberware isFavoriteList=false}}
+              {{/if}}
+
+              <!-- The edge list -->
+              {{#if system.hasEdge}}
+                {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.edge catagory="Edges" displayFields=system.inventoryDisplayFields.edge isFavoriteList=false}}
               {{/if}}
 
               <!-- The foci list -->
