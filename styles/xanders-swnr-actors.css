@@ -302,7 +302,8 @@
 }
 
 /* The box that contains the saving throw buttons */
-.window-app.xanders-swnr .save-throw-box{
+.window-app.xanders-swnr .save-throw-box,
+.window-app.xanders-swnr .rollables-box{
   flex: 5 1 0px; 
 
   display: flex;
@@ -312,7 +313,8 @@
 }
 
 /* The box that contains the saving throw label and buttons */
-.window-app.xanders-swnr .save-throw-container{
+.window-app.xanders-swnr .save-throw-container,
+.window-app.xanders-swnr .rollables-container{
   border: 1px solid var(--border-color);
   border-radius: 2px;
 
@@ -321,7 +323,8 @@
 
 }
 
-.window-app.xanders-swnr .save-throw-container p{
+.window-app.xanders-swnr .save-throw-container p,
+.window-app.xanders-swnr .rollables-container p{
   font-size: 12px;
   font-family: 'Orbitron';
   margin-left: 5px;
@@ -329,7 +332,8 @@
 }
 
 /* The clickable buttons that allow you to make saving throws. */
-.window-app.xanders-swnr .save-throw-button{
+.window-app.xanders-swnr .save-throw-button,
+.window-app.xanders-swnr .rollables-button{
   width: 90px;
   height: 20px;
   background-color: var(--level-background-color);
@@ -345,12 +349,14 @@
   cursor: pointer;
 }
 
-.window-app.xanders-swnr .save-throw-button:hover{
+.window-app.xanders-swnr .save-throw-button:hover,
+.window-app.xanders-swnr .rollables-button:hover{
   border: 1px solid var(--input-focus-color);
 }
 
 /* The text inside of the saving throw buttons */
-.window-app.xanders-swnr .save-throw-button p{
+.window-app.xanders-swnr .save-throw-button p,
+.window-app.xanders-swnr .rollables-button p{
   font-size: 11px;
   font-family: 'Roboto';
 
@@ -361,7 +367,8 @@
 }
 
 /* Sets the font of the v## text in the saving throw button */
-.window-app.xanders-swnr .save-throw-button .difficulty{
+.window-app.xanders-swnr .save-throw-button .difficulty,
+.window-app.xanders-swnr .rollables-button .difficulty{
   font-size: 10px;
 }
 
@@ -596,6 +603,7 @@
 .window-app.xanders-swnr ul.inventory-list{
   list-style: none;
   margin: 0px;
+  margin-top: -10px;
 }
 
 /* The inventory tab header bar. Not the labels in the bar, but the whole bar itself. */

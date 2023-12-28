@@ -221,7 +221,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             this.actor.system.xIsLocked = true;
         }
 
-        if(context.actor.type != "character") return;
+        if(context.actor.type !== "character" && context.actor.type !== "npc") return context;
 
         //Force locks the sheet if the viewer is not an owner and adds the value to the context.
         context.system.xIsLocked = this.actor.system.xIsLocked || !context.owner;
@@ -231,7 +231,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         context = this._parseActorData(context);
 
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
-        //console.log(context);
+        console.log(context);
     
         return context;
     }
@@ -241,7 +241,18 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Adding a variable that will be used to set the health-bar width to the context.
         const health = context.system.health;
         context.system.health.percentage = calculateBarPercentage(health.value, health.max);
+
+        //Adding the inventoryDisplayFields property to the context.
+        context.system.inventoryDisplayFields = this.inventoryDisplayFields;
+
+        //The "character" sheets need more data parsed.
+        if(this.actor.type == "character") context = this._parseCharacterActorData(context);
     
+        return context;
+    }
+
+    //Called from the _parseActorData function if the actor type is "character".
+    _parseCharacterActorData(context){
         //Adding a variable that will be used to set the strain-bar width to the context.
         const strain = context.system.systemStrain;
         context.system.systemStrain.percentage = calculateBarPercentage(strain.value, strain.max);
@@ -261,15 +272,12 @@ export class XandersSwnActorSheet extends ActorSheet {
         for(let i=0; i<6; i++){
             //The identifier "str", "dex", "con", etc.
             let attributeString = Object.keys(context.system.stats)[i]; 
-
+        
             //Adds a new variable modString to each stat which contains the modifier as it should be displayed on the character sheet.
             context.system.stats[attributeString].modString = context.system.stats[attributeString].mod >= 0 ? "+" + context.system.stats[attributeString].mod : context.system.stats[attributeString].mod;
-
+        
             this.actor.update({system: {stats: context.system.stats}});
         }
-
-        //Adding the inventoryDisplayFields property to the context.
-        context.system.inventoryDisplayFields = this.inventoryDisplayFields;
 
         //Determines if the add skills buttons should be displayed.
         if(!context.system.xIsLocked || (context.system.itemTypes.skill.length == 0 && context.owner)){
@@ -277,7 +285,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         }else{
             context.system.displayAddSkillButtons = false;
         }
-    
+
         return context;
     }
 
@@ -319,6 +327,8 @@ export class XandersSwnActorSheet extends ActorSheet {
 
         //Parsing Weapon Items
         for(let i=0; i<context.system.itemTypes.weapon.length; i++){
+            if(this.actor.type !== "charachter") break;
+
             let weapon = context.system.itemTypes.weapon[i];
             let skill = context.actor.getEmbeddedDocument("Item", weapon.system.skill);
             let skillPunchMod = 0;
