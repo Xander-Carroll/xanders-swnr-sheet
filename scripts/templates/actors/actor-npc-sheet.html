@@ -72,24 +72,17 @@
             <div><p>Gender/Species</p></div>
           </div>
 
-          <!-- The Character gender and saving throw buttons. -->
+          <!-- The "Rollables" buttons. -->
           <div style="display:flex; flex-direction:row">
-
-            <!-- A div for spacing. -->
-            <div style="flex: 1 1 0px;"></div>
-
-            <!-- The saving throw buttons. -->
             <div class="rollables-container" style="margin-left:0px;">
               <p>Rollables</p>
 
               <div class="rollables-box">
-                <div class="rollables-button" style="width:80px;" data-type="moral"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Morale</p></div>
-                <div class="rollables-button" style="margin-left:0px; width:70px;"  data-type="skill"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Skill</p></div>
-                <div class="rollables-button" style="margin-left:0px; width:105px;"  data-type="trained-skill"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Trained Skill</p></div>
-                <div class="save-throw-button" style="margin-left:0px; width:105px;"  data-save-type="npc"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Saving Throw</p></div>
+                <div class="rollables-button" style="width:75px;" data-type="moral"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Morale</p></div>
+                <div class="rollables-button skill-clickable" style="margin-left:0px;"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Skill Check</p></div>
+                <div class="save-throw-button" style="margin-left:0px; width:115px;" data-save-type="npc"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p class="difficulty">v{{system.saves}}</p><p>&nbsp;Saving Throw</p></div>
               </div>
             </div>
-
           </div>
 
         </div>
@@ -113,7 +106,7 @@
           <div class="scrollable" style="display:flex; flex-direction:row; flex-grow:1;">
             
             <!-- A list of some kind -->
-            <div style="margin-right:10px; width:220px;">
+            <div class="npc-attribute-list">
               
             </div>
 
@@ -123,7 +116,7 @@
               <div class="stat-list">
                 <div class="stat-box">
                   {{#if system.xIsLocked}}
-                    <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.ac" value="{{system.ac}}" disabled/></div>
+                    <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.baseAc" value="{{system.baseAc}}" disabled/></div>
                     <p>Armor Class</p>
                   {{else}}
                     <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.baseAc" value="{{system.baseAc}}"/></div>
@@ -209,28 +202,6 @@
               {{/if}}
 
             </ul>
-            
-            <!-- The bottom part of the inventory tab that shows encumbrance and money. -->
-            <div class="inventory-money-bar">
-              <!-- Div Used For Spacing -->
-              <div class="encumbrance-container"></div>
-
-              <!-- The inputs for money. -->
-              <div class="money-container">
-                <div style="display:flex; flex-direction:row;">
-                  <input class="xanders-input" type="text" data-name="credits.debt" value="{{system.credits.debt}}"/>
-                  <input class="xanders-input" type="text" data-name="credits.balance" value="{{system.credits.balance}}"/>
-                  <input class="xanders-input" style="margin-right:20px" data-name="credits.owed" type="text" value="{{system.credits.owed}}"/>
-                </div>
-
-                <div style="display:flex; flex-direction:row;">
-                  <p>Debt</p>
-                  <p>Balance</p>
-                  <p style="margin-right:10px">Owed</p>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
 

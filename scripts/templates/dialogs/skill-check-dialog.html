@@ -10,16 +10,25 @@
     </select>
   </div>
   <div class="form-group">
-    <label>Roll Attribute</label>
+    <label>
+      {{#ifEquals system.actorType "character"}}Roll Attribute{{/ifEquals}}
+      {{#ifEquals system.actorType "npc"}}Roll Type{{/ifEquals}}
+    </label>
     <select name="attribute">
-      {{#select system.defaultStat}}
-        <option value="str">Strength: {{system.stats.str.modString}}</option>
-        <option value="dex">Dexterity: {{system.stats.dex.modString}}</option>
-        <option value="con">Constitution: {{system.stats.con.modString}}</option>
-        <option value="int">Intelligence: {{system.stats.int.modString}}</option>
-        <option value="wis">Wisdom: {{system.stats.wis.modString}}</option>
-        <option value="cha">Charisma: {{system.stats.cha.modString}}</option>
-      {{/select}}
+      {{#ifEquals system.actorType "npc"}}
+        <option value="untrained">Untrained : 0</option>
+        <option value="{{system.skillBonusModString}}">Trained : {{system.skillBonusModString}}</option>
+      {{/ifEquals}}
+      {{#ifEquals system.actorType "character"}}
+        {{#select system.defaultStat}}
+          <option value="str">Strength: {{system.stats.str.modString}}</option>
+          <option value="dex">Dexterity: {{system.stats.dex.modString}}</option>
+          <option value="con">Constitution: {{system.stats.con.modString}}</option>
+          <option value="int">Intelligence: {{system.stats.int.modString}}</option>
+          <option value="wis">Wisdom: {{system.stats.wis.modString}}</option>
+          <option value="cha">Charisma: {{system.stats.cha.modString}}</option>
+        {{/select}}
+      {{/ifEquals}}
     </select>
   </div>
   <div class="form-group">

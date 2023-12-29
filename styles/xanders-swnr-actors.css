@@ -385,7 +385,8 @@
 }
 
 /* Sets basic properties of the skill list */
-.window-app.xanders-swnr .skill-list{
+.window-app.xanders-swnr .skill-list,
+.window-app.xanders-swnr .npc-attribute-list{
   display:flex;
   flex-direction: column;
 
@@ -393,8 +394,11 @@
   border-radius: 5px;
   list-style: none;
 
+  margin-right: 10px;
+
   padding: 0;
-  width:220px;
+  flex:1 0 220px;
+  width: 220px;
 }
 
 /* Various properties used to configure items in the skill list */

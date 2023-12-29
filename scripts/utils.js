@@ -322,10 +322,22 @@ export async function makeSkillCheck(actorId, itemId, overrideAttribute){
     //Getting the actor that this skill belongs to.
     const actor = game.actors.get(actorId);
 
-    //Getting the skill that was clicked.
-    let skill = actor.getEmbeddedDocument("Item", itemId);
-    skill.system.stats = actor.system.stats;
-    if(overrideAttribute) skill.system.defaultStat = overrideAttribute;
+    //The skill data that will be passed to the dialog.
+    let skill = {};
+    if(actor.type === "character"){
+        //Getting the skill that was clicked.
+        skill = actor.getEmbeddedDocument("Item", itemId);
+        skill.system.stats = actor.system.stats;
+        if(overrideAttribute) skill.system.defaultStat = overrideAttribute;
+    }else if(actor.type === "npc"){
+        skill = {
+            name: "Npc",
+            system: {
+                skillBonusModString: actor.system.skillBonusModString
+            }
+        };
+    }
+    skill.system.actorType = actor.type;
 
     //Creating a dialog so that the player can choose how they want to roll.
     let checkData = await _skillCheckDialog(skill, actor.name);
@@ -335,18 +347,29 @@ export async function makeSkillCheck(actorId, itemId, overrideAttribute){
         return;
     }
 
-    //Adding modifiers to the role. rollData.modifier.
-    let skillMod = skill.system.rank.toString();
-    let attribMod = actor.system.stats[checkData.attribute].mod.toString();
-    
-    //Ensuring that the right signs are used in the roll formula.
-    if(skillMod.charAt(0) !== '-'){
-        skillMod = "+" + skillMod;
+    if(actor.type === "character"){
+        //Adding modifiers to the role. rollData.modifier.
+        let skillMod = skill.system.rank.toString();
+        let attribMod = actor.system.stats[checkData.attribute].mod.toString();
+        
+        //Ensuring that the right signs are used in the roll formula.
+        if(skillMod.charAt(0) !== '-'){
+            skillMod = "+" + skillMod;
+        }
+        if(attribMod.charAt(0) !== '-'){
+            attribMod = "+" + attribMod;
+        }
+
+        checkData.modifier = attribMod + skillMod + checkData.modifier;
+    }else if(actor.type === "npc"){
+        let attribMod = 0;
+        if(checkData.attribute !== "untrained"){
+            attribMod = checkData.attribute;
+            checkData.attribute = "trained";
+        } 
+
+        checkData.modifier = attribMod + checkData.modifier;
     }
-    if(attribMod.charAt(0) !== '-'){
-        attribMod = "+" + attribMod;
-    }
-    checkData.modifier = checkData.modifier + attribMod + skillMod;
 
     //Getting the roll data results.
     let rollMessage = await generateRoll(checkData.pool, checkData, actor.sheet);
