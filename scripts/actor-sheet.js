@@ -148,6 +148,42 @@ export class XandersSwnActorSheet extends ActorSheet {
         }
     };
 
+    //These values will determine what item types are allowed on what actors.
+    allowedItems = {
+        character: {
+            class: true,
+            armor: true,
+            weapon: true,
+            power: true,
+            focus: true,
+            item: true,
+            cyberware: true,
+            skill: true,
+            shipWeapon: false,
+            shipDefense: false,
+            shipFitting: false,
+            asset: false,
+            edge: true,
+            program: false
+        },
+        npc: {
+            class: false,
+            armor: true,
+            weapon: true,
+            power: true,
+            focus: true,
+            item: true,
+            cyberware: true,
+            skill: false,
+            shipWeapon: false,
+            shipDefense: false,
+            shipFitting: false,
+            asset: false,
+            edge: false,
+            program: false
+        },
+    };
+
     //@override
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -301,6 +337,16 @@ export class XandersSwnActorSheet extends ActorSheet {
 
     //Will edit context.items to format the items in a way that is better suited for handelbars.
     _parseItemData(context){
+        //Deleting items that aren't allowed on the sheet, and warning the user about it.
+        for(let i=0; i<context.items.length; i++){
+            let itemType = context.items[i].type;
+
+            if(this.allowedItems[this.actor.type][itemType] === false){
+                ui.notifications.error("[" + context.items[i].name + "] is not allowed on this sheet and was removed.");
+                this.actor.deleteEmbeddedDocuments("Item", [context.items[i]._id]);
+            }
+        }
+
         //Makes the item lists and adds the hasItem booleans.
         context.system.favoriteItems = {};
         context.system.itemTypes = {};
@@ -433,16 +479,6 @@ export class XandersSwnActorSheet extends ActorSheet {
             let currentSave = context.system.itemTypes.power[i].system.save;
             if (currentSave && currentSave != "") context.system.itemTypes.power[i].system.saveString = currentSave.charAt(0).toUpperCase() + currentSave.slice(1);
 
-        }
-
-        //Deleting items that aren't allowed on the sheet, and warning the user about it.
-        for(let i=0; i<context.items.length; i++){
-            let itemType = context.items[i].type;
-            if(itemType !== "skill" && itemType !== "weapon" && itemType !== "armor" && itemType !== "item" && itemType !== "power"
-                && itemType !== "cyberware" && itemType !== "focus" && itemType !== "class" && itemType !== "edge"){
-                ui.notifications.error("[" + context.items[i].name + "] is not allowed on this sheet and was removed.");
-                this.actor.deleteEmbeddedDocuments("Item", [context.items[i]._id]);
-            }
         }
 
         //Returning the newly parsed context.
