@@ -245,9 +245,10 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Adding the inventoryDisplayFields property to the context.
         context.system.inventoryDisplayFields = this.inventoryDisplayFields;
 
-        //The "character" sheets need more data parsed.
+        //Parsing data based on the kind of sheet that is open.
         if(this.actor.type == "character") context = this._parseCharacterActorData(context);
-    
+        if(this.actor.type == "npc") context = this._parseNpcActorData(context);
+
         return context;
     }
 
@@ -285,6 +286,13 @@ export class XandersSwnActorSheet extends ActorSheet {
         }else{
             context.system.displayAddSkillButtons = false;
         }
+
+        return context;
+    }
+
+    //Called from the _parseActorData function if the actor type is "npc".
+    _parseNpcActorData(context){
+        context.system.saves = 15 - Math.floor(context.system.hitDice/2);
 
         return context;
     }
@@ -512,7 +520,7 @@ export class XandersSwnActorSheet extends ActorSheet {
 
     //Called when one of the three saving throw buttons is pressed.
     async _onSaveThrow(event){
-        //Getting the type of saving throw. 'evasion', 'mental', or 'physical'.
+        //Getting the type of saving throw. 'evasion', 'mental', 'physical', or 'npc'.
         event.preventDefault();
         const saveType = event.currentTarget.dataset.saveType;
 

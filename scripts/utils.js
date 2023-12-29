@@ -251,7 +251,7 @@ export async function makeSavingThrow(actorId, saveType){
     if(saveData.cancelled) return;
 
     //Adding data to the saving throw.
-    saveData.target = actor.system.save[saveType];
+    saveData.target = saveType === "npc" ? actor.system.saves : actor.system.save[saveType];
 
     //Getting the roll data results.
     let rollMessage = await generateRoll("1d20", saveData, actor.sheet);
@@ -270,6 +270,8 @@ export async function makeSavingThrow(actorId, saveType){
     let templateContent = await renderTemplate("modules/xanders-swnr-sheet/scripts/templates/chats/save-throw-chat.html", templateData);
 
     // Sets more basic information needed for the chat message. 
+    if(saveType === "npc") saveType = "";
+
     rollMessage.data.content = rollMessage.data.content + templateContent;
     rollMessage.data.flavor = "v" + saveData.target + " " + toTitleCase(saveType) + " saving throw";
 

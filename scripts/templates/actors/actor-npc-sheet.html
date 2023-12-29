@@ -32,7 +32,7 @@
             <div style="flex: 1 1 0; display:flex; justify-content:end;">
               <div style="display:flex; flex-direction:column">
                 <div class="disposition-box" style="height:100%;">
-                  <select name="system.reaction" style="width:100px;height:100%;">
+                  <select name="system.reaction" style="width:100px;height:100%;" >
                     {{#select system.reaction}}
                       <option value="unknown">Unknown</option>
                       <option value="hostile">Hostile</option>
@@ -86,7 +86,7 @@
                 <div class="rollables-button" style="width:80px;" data-type="moral"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Morale</p></div>
                 <div class="rollables-button" style="margin-left:0px; width:70px;"  data-type="skill"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Skill</p></div>
                 <div class="rollables-button" style="margin-left:0px; width:105px;"  data-type="trained-skill"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Trained Skill</p></div>
-                <div class="rollables-button" style="margin-left:0px; width:105px;"  data-type="save"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Saving Throw</p></div>
+                <div class="save-throw-button" style="margin-left:0px; width:105px;"  data-save-type="npc"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Saving Throw</p></div>
               </div>
             </div>
 
@@ -135,7 +135,7 @@
                   <p>Attack Bonus</p>
                 </div>
                 <div class="stat-box">
-                  <div class="stat-input-container"><input type="text" class="xanders-input bottom-border" name="system.hitDie" value="{{system.hitDie}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <div class="stat-input-container"><input type="text" class="xanders-input bottom-border" name="system.hitDice" value="{{system.hitDice}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <p>Hit Dice</p>
                 </div>
                 <div class="stat-box">
