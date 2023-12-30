@@ -401,6 +401,12 @@
   width: 220px;
 }
 
+/* The sidebar box on NPC sheets */
+.window-app.xanders-swnr .npc-attribute-list{
+  flex:1 0 170px;
+  width: 170px;
+}
+
 /* Various properties used to configure items in the skill list */
 .window-app.xanders-swnr .skill-list .skill{
   padding: 2px;
@@ -513,6 +519,8 @@
 
 /* The div which contains favorited items and the attributes bar. */
 .window-app.xanders-swnr .attribute-item-bar {
+  display: flex;
+  flex-direction: column;
   flex-grow:1; 
   padding-top: 2px;
 }
@@ -521,7 +529,6 @@
 .window-app.xanders-swnr .attribute-list {
   display:flex; 
   flex-direction:row;
-  flex-grow: 1;
   justify-content: space-evenly;
   border-top: 1px solid var(--border-color);
 }

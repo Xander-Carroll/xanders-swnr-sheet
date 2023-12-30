@@ -133,44 +133,46 @@
                   <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.speed" value="{{system.speed}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <p>Move Speed</p>
                 </div>
+                <div class="stat-box">
+                  <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.moralScore" value="{{system.moralScore}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <p>Morale</p>
+                </div>
               </div>
 
               <!-- The items and features list -->
-              <div style="flex-grow: 1">
-                <ul class="inventory-list scrollable" style="flex-grow:1; padding-right:0px;">
+              <ul class="inventory-list scrollable" style="flex-grow:1; padding-right:0px;">
 
-                  <!-- The armor list -->
-                  {{#if system.hasArmor}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.armor catagory="Armor" displayFields=system.inventoryDisplayFields.armor isFavoriteList=false}}
-                  {{/if}}
+                <!-- The armor list -->
+                {{#if system.hasArmor}}
+                  {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.armor catagory="Armor" displayFields=system.inventoryDisplayFields.armor isFavoriteList=false}}
+                {{/if}}
 
-                  <!-- The cyberware list -->
-                  {{#if system.hasCyberware}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.cyberware catagory="Cyberware" displayFields=system.inventoryDisplayFields.cyberware isFavoriteList=false}}
-                  {{/if}}
+                <!-- The cyberware list -->
+                {{#if system.hasCyberware}}
+                  {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.cyberware catagory="Cyberware" displayFields=system.inventoryDisplayFields.cyberware isFavoriteList=false}}
+                {{/if}}
 
-                  <!-- The foci list -->
-                  {{#if system.hasFocus}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.focus catagory="Foci" displayFields=system.inventoryDisplayFields.focus isFavoriteList=false}}
-                  {{/if}}
+                <!-- The foci list -->
+                {{#if system.hasFocus}}
+                  {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.focus catagory="Foci" displayFields=system.inventoryDisplayFields.focus isFavoriteList=false}}
+                {{/if}}
     
-                  <!-- The items list -->
-                  {{#if system.hasItem}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.item catagory="Items" displayFields=system.inventoryDisplayFields.item isFavoriteList=false}}
-                  {{/if}}
+                <!-- The items list -->
+                {{#if system.hasItem}}
+                  {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.item catagory="Items" displayFields=system.inventoryDisplayFields.item isFavoriteList=false}}
+                {{/if}}
 
-                  <!-- The powers list -->
-                  {{#if system.hasPower}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.power catagory="Powers" displayFields=system.inventoryDisplayFields.power isFavoriteList=false}}
-                  {{/if}}
+                <!-- The powers list -->
+                {{#if system.hasPower}}
+                  {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.power catagory="Powers" displayFields=system.inventoryDisplayFields.power isFavoriteList=false}}
+                {{/if}}
 
-                  <!-- The weapons list -->
-                  {{#if system.hasWeapon}}
-                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.weapon catagory="Weapons" displayFields=system.inventoryDisplayFields.weapon isFavoriteList=false}}
-                  {{/if}}
+                <!-- The weapons list -->
+                {{#if system.hasWeapon}}
+                  {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.weapon catagory="Weapons" displayFields=system.inventoryDisplayFields.weapon isFavoriteList=false}}
+                {{/if}}
 
-                </ul>
-              </div>
+              </ul>
 
             </div>
           </div>
