@@ -225,10 +225,10 @@ async function _weaponRollDialog(rollType, itemId, ownerId){
         template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/attack-roll-dialog.html"
     }else if(rollType === "damage"){
         title = "Damage Roll";
-        template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/damage-roll-dialog.html"
+        template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/generic-roll-dialog.html"
     }else if(rollType === "power"){
         title = "Power Roll";
-        template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/damage-roll-dialog.html"
+        template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/generic-roll-dialog.html"
     }else if(rollType === "shock"){
         return {};
     }

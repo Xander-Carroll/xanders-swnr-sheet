@@ -330,7 +330,7 @@ export class XandersSwnActorSheet extends ActorSheet {
     _parseNpcActorData(context){
         context.system.saves = 15 - Math.floor(context.system.hitDice/2);
 
-        context.system.skillBonusModString = context.system.skillBonus > 0 ? "+" + context.system.skillBonus : context.system.skillBonus;
+        context.system.skillBonusModString = context.system.skillBonus >= 0 ? "+" + context.system.skillBonus : context.system.skillBonus;
 
         return context;
     }

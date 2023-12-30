@@ -1,5 +1,6 @@
 [
     "modules/xanders-swnr-sheet/scripts/templates/actors/actor-character-sheet.html",
+    "modules/xanders-swnr-sheet/scripts/templates/actors/actor-cyberdeck-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/actors/actor-drone-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/actors/actor-faction-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/actors/actor-mech-sheet.html",
@@ -12,7 +13,7 @@
     "modules/xanders-swnr-sheet/scripts/templates/chats/item-card-chat.html",
 
     "modules/xanders-swnr-sheet/scripts/templates/dialogs/attack-roll-dialog.html",
-    "modules/xanders-swnr-sheet/scripts/templates/dialogs/damage-roll-dialog.html",
+    "modules/xanders-swnr-sheet/scripts/templates/dialogs/generic-roll-dialog.html",
     "modules/xanders-swnr-sheet/scripts/templates/dialogs/save-throw-dialog.html",
     "modules/xanders-swnr-sheet/scripts/templates/dialogs/skill-check-dialog.html",
 
@@ -20,9 +21,11 @@
     "modules/xanders-swnr-sheet/scripts/templates/items/item-asset-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-class-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-cyberware-sheet.html",
+    "modules/xanders-swnr-sheet/scripts/templates/items/item-edge-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-focus-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-item-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-power-sheet.html",
+    "modules/xanders-swnr-sheet/scripts/templates/items/item-program-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-shipDefense-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-shipFitting-sheet.html",
     "modules/xanders-swnr-sheet/scripts/templates/items/item-shipWeapon-sheet.html",
