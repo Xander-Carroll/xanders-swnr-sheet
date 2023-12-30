@@ -59,8 +59,7 @@ async function onItemCollapse(event, html, data){
 
 // Called when a saving throw button is pressed on a chat card.
 async function onChatSaveButtonPress(event){
-    const itemId = event.currentTarget.dataset.itemId;
-    const type = event.currentTarget.dataset.type;
+    let type = event.currentTarget.dataset.type;
 
     let actor;
 
@@ -71,7 +70,14 @@ async function onChatSaveButtonPress(event){
     if(!actor){
         ui.notifications.warn("You don't have an actor or token selected!");
         return;
-    };
+    }
+
+    if(actor.type !== "npc" && actor.type !== "character"){
+        ui.notifications.warn("The given token can't make saving throws!");
+        return;
+    }
+
+    if(actor.type === "npc") type = "npc";
 
     makeSavingThrow(actor.id, type);
 }
