@@ -245,7 +245,7 @@ export async function makeSavingThrow(actorId, saveType){
     const actor = game.actors.get(actorId);
 
     //Opening a dialog to prompt the player to add modifiers etc.
-    let saveData = await _saveThrowDialog(saveType, actor.name);
+    let saveData = await _genericRollDialog(toTitleCase(saveType) + " Saving Throw: " + actor.name);
 
     //If the dialog was canceled(closed) the roll needs cancelled.
     if(saveData.cancelled) return;
@@ -281,40 +281,6 @@ export async function makeSavingThrow(actorId, saveType){
     //Changes the roll mode of the chat message.
     await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, saveData.rollMode);
     await message.update(rollMessage.data);
-}
-
-//Called when a saving throw is made to give the user a chance to add modifiers.
-async function _saveThrowDialog(saveType, actorName){
-    const template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/save-throw-dialog.html"
-    const html = await renderTemplate(template, {});
-
-    return new Promise(resolve => {
-        const data = {
-            title: toTitleCase(saveType) + " Saving Throw: " + actorName,
-            content: html,
-            buttons: {
-                roll: {
-                    label: "Roll",
-                    callback: html => resolve(_processSaveThrowOptions(html))
-                }
-            },
-            default: "roll",
-            close: () => resolve({cancelled: true}) 
-        }
-
-        new Dialog(data, null).render(true);
-    });
-}
-
-//Parses the information found in a savingThrowDialog into a dictionary.
-function _processSaveThrowOptions(html){
-    const rollType = html.find('[name="rollmode"]')[0].value;
-    const modifier = html.find('[name="modifier"]')[0].value;
-
-    return {
-        modifier: modifier,
-        rollMode: rollType
-    }
 }
 
 //Will make a skill check for the given actor with the given skill id.
@@ -431,5 +397,81 @@ function _processSkillCheckOptions(html, stat, pool){
         rollMode: rollType,
         attribute: attribute,
         pool: dicePool
+    }
+}
+
+//Will make a morale check for the given actor.
+export async function makeMoraleCheck(actorId){
+    //Getting the actor that this skill belongs to.
+    const actor = game.actors.get(actorId);
+
+    //Creating a dialog so that the player can choose how they want to roll.
+    let checkData = await _genericRollDialog("Morale Check: " + actor.name);
+
+    //If the dialog was canceled(closed) the roll needs cancelled.
+    if(checkData.cancelled) return;
+
+    //Getting the roll data results.
+    let rollMessage = await generateRoll("2d6", checkData, actor.sheet);
+
+    //Cancelling the roll if the user used an invalid modifier.
+    if(rollMessage.error){
+        return;
+    }
+
+    //Extra data which will be used by handelbars when displaying the saving throw.
+    let templateData = {};
+    let rollResult = rollMessage.roll.terms[0].total;
+    templateData.saved = rollResult <= actor.system.moralScore;
+
+    //Getting the extra saving throw chat piece as HTML.
+    let templateContent = await renderTemplate("modules/xanders-swnr-sheet/scripts/templates/chats/save-throw-chat.html", templateData);
+
+    // Sets more basic information needed for the chat message. 
+    rollMessage.data.content = rollMessage.data.content + templateContent;
+    rollMessage.data.flavor = "v" + actor.system.moralScore + " " + " morale check";
+
+    // Creates the chat message with the given data.
+    let message = await getDocumentClass("ChatMessage").create(rollMessage.data);
+
+    //Changes the roll mode of the chat message.
+    await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, checkData.rollMode);
+    await message.update(rollMessage.data);
+
+}
+
+//Called when a generic roll is made to give the user a chance to add modifiers.
+async function _genericRollDialog(dialogTitle){
+    //Creating an html template from the dialog.
+    const template = "modules/xanders-swnr-sheet/scripts/templates/dialogs/generic-roll-dialog.html";
+    const html = await renderTemplate(template);
+
+    //Creating the dialog and rendering it.
+    return new Promise(resolve => {
+        const data = {
+            title: dialogTitle,
+            content: html,
+            buttons: {
+                roll: {
+                    label: "Roll",
+                    callback: html => resolve(_processGenericRollOptions(html))
+                }
+            },
+            default: "roll",
+            close: () => resolve({cancelled: true}) 
+        }
+
+        new Dialog(data, null).render(true);
+    });
+}
+
+//Processes the options givn in a weapon roll dialog.
+function _processGenericRollOptions(html){
+    const rollType = html.find('[name="rollmode"]')[0].value;
+    const modifier = html.find('[name="modifier"]')[0].value;
+
+    return {
+        modifier: modifier,
+        rollMode: rollType
     }
 }

@@ -14,7 +14,6 @@
 
     "modules/xanders-swnr-sheet/scripts/templates/dialogs/attack-roll-dialog.html",
     "modules/xanders-swnr-sheet/scripts/templates/dialogs/generic-roll-dialog.html",
-    "modules/xanders-swnr-sheet/scripts/templates/dialogs/save-throw-dialog.html",
     "modules/xanders-swnr-sheet/scripts/templates/dialogs/skill-check-dialog.html",
 
     "modules/xanders-swnr-sheet/scripts/templates/items/item-armor-sheet.html",
