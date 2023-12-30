@@ -939,6 +939,39 @@
   flex-grow: 1;
 }
 
+.window-app.xanders-swnr .bio-container{
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 5px;
+  height: 250px;
+}
+
+.window-app.xanders-swnr #bio-header{
+  display: flex;
+  flex-direction: row;
+
+  box-shadow: 0 0 1px inset rgb(0, 0, 0, 0.25);
+  background-color: var(--level-background-color);
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+
+  font-weight: bold;
+  font-size: 12px;
+  font-family: "Roboto";
+
+  margin-bottom: 2px;
+
+  width: 100%;
+  height: 25px;
+
+  text-align: center;
+}
+
+.window-app.xanders-swnr #bio-header:hover:enabled,
+.window-app.xanders-swnr #bio-header:focus:enabled{
+  border: 1px solid var(--input-focus-color);
+}
+
 /* The description header that just says "biography". */
 .window-app.xanders-swnr .notes-header{
   margin-bottom: 5px;
@@ -960,6 +993,8 @@
   display: flex;
   flex-direction: column;
   font-size: 13px;
+  height: 100%;
+  width: 100%;
 }
 
 /* The description of a chat item card message. */

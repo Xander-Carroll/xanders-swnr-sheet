@@ -259,6 +259,11 @@ export class XandersSwnActorSheet extends ActorSheet {
             this.actor.system.xIsLocked = true;
         }
 
+        //Creates a bioLabel variable on the actor if it does not have one.
+        if(this.actor.system.bioLabel == null){
+            this.actor.system.bioLabel = "Biography";
+        }
+
         if(context.actor.type !== "character" && context.actor.type !== "npc") return context;
 
         //Force locks the sheet if the viewer is not an owner and adds the value to the context.

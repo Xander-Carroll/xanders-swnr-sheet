@@ -181,8 +181,27 @@
         <!-- The notes tab -->
         <div class="tab notes" data-group="primary" data-tab="notes" style="flex-direction:column">
           <div class="notes-window scrollable">
-            <p class="notes-header"><b><u>Biography:</u></b></p>
-            <div class="notes-text">{{editor content=system.biography target="system.biography" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+
+            <!-- The two columns of notes. -->
+            <div style="display:flex; flex-direction:row;">
+              <div style="flex:1 1 0px; margin-right:5px;">
+                <input id="bio-header" name="system.notes.left.label" value="{{system.notes.left.label}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+                <div class="notes-text bio-container">{{editor content=system.notes.left.contents target="system.notes.left.contents" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+              </div>
+              <div style="flex:1 1 0px">
+                <input id="bio-header" name="system.notes.right.label" value="{{system.notes.right.label}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+                <div class="notes-text bio-container">{{editor content=system.notes.right.contents target="system.notes.right.contents" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+              </div>
+            </div>
+
+            <!-- The full width row under the two columns. -->
+            <div style="display:flex; flex-direction:column; flex:1 1 0px;">
+              <div style="display:flex; flex-direction:column; flex:1 1 0px;">
+                <input id="bio-header" style="margin-top: 10px;" name="system.notes.public.label" value="{{system.notes.public.label}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+                <div class="notes-text bio-container" style="height:unset; flex:1 1 0px;">{{editor content=system.notes.public.contents target="system.notes.public.contents" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
