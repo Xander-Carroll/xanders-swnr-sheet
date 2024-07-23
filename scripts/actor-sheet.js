@@ -390,7 +390,7 @@ export class XandersSwnActorSheet extends ActorSheet {
 
         //Parsing Weapon Items
         for(let i=0; i<context.system.itemTypes.weapon.length; i++){
-            if(this.actor.type !== "charachter") break;
+            if(this.actor.type !== "character") break;
 
             let weapon = context.system.itemTypes.weapon[i];
             let skill = context.actor.getEmbeddedDocument("Item", weapon.system.skill);
