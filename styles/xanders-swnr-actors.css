@@ -792,18 +792,19 @@
 /* The item card buttons on actor sheets. */
 .window-app.xanders-swnr .item-reload-button:hover i,
 .window-app.xanders-swnr .item-location-button:hover i,
-.window-app.xanders-swnr .item-bookmark-button:hover i{
+.window-app.xanders-swnr .item-bookmark-button:hover i,
+.window-app.xanders-swnr .item-edit-button:hover i{
   text-shadow: 0 0 10px var(--hovered-item-button-color);
   color: var(--active-font-color);
   cursor: pointer;
 }
 
 /* The bookmark button should be hidden until it is hovered over*/
-.window-app.xanders-swnr .item-bookmark-button.hidden-bookmark:hover i{
+.window-app.xanders-swnr .inventory-item:hover .hidden-item-button i{
   visibility: visible;
 }
 
-.window-app.xanders-swnr .item-bookmark-button.hidden-bookmark i{
+.window-app.xanders-swnr .hidden-item-button i{
   visibility: hidden;
 }
 

@@ -23,8 +23,15 @@
           {{#if ../displayFields.quantity}}<div class="inventory-quantity"><p>(</p><input class="xanders-input borderless" type="number" data-item-id="{{item._id}}" value="{{item.system.quantity}}"><p>)</p></div>{{/if}}
         </div>
         <div class="inventory-titles inventory-details">
+          
+          <!--This block is for the edit button-->
           {{#unless ../isFavoriteList}}
-            <div style="width:25px;" class="item-bookmark-button {{#unless system.favorite}}hidden-bookmark{{/unless}}" data-item-id="{{item._id}}">
+            <div style="width:25px;" class="item-edit-button hidden-item-button" data-item-id="{{item._id}}"><i class="fas fa-edit"></i></div>
+          {{/unless}}
+
+          <!--This block is for the favorite button-->
+          {{#unless ../isFavoriteList}}
+            <div style="width:25px;" class="item-bookmark-button {{#unless system.favorite}}hidden-item-button{{/unless}}" data-item-id="{{item._id}}">
               {{#if system.favorite}}<i class="fas fa-bookmark fa-sm"></i>{{/if}}
               {{#unless system.favorite}}<i class="fa-regular fa-bookmark fa-sm"></i>{{/unless}}
             </div>
@@ -32,9 +39,11 @@
           
           <!--This block is for the item location button-->
           {{#if system.hasLocation}}{{#unless ../isFavoriteList}}
-            {{#ifEquals system.location "other"}}<div class="item-location-button" data-item-id="{{item._id}}" style="width:25px;"><i class="fa-solid fa-question"></i></div>{{/ifEquals}}
-            {{#ifEquals system.location "stowed"}}<div class="item-location-button" data-item-id="{{item._id}}" style="width:25px;"><i class="fa-solid fa-backpack"></i></div>{{/ifEquals}}
-            {{#ifEquals system.location "readied"}}<div class="item-location-button" data-item-id="{{item._id}}" style="width:25px;"><i class="fa-regular fa-backpack"></i></div>{{/ifEquals}}
+            <div class="item-location-button" data-item-id="{{item._id}}" style="width:25px;">
+              {{#ifEquals system.location "other"}}<i class="fa-solid fa-question"></i>{{/ifEquals}}
+              {{#ifEquals system.location "stowed"}}<i class="fa-solid fa-backpack"></i>{{/ifEquals}}
+              {{#ifEquals system.location "readied"}}<i class="fa-regular fa-backpack"></i>{{/ifEquals}}
+            </div>
           {{/unless}}{{/if}}
 
           <!--This block is for the ranged item reload button-->

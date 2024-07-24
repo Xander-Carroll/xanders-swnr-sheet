@@ -219,6 +219,9 @@ export class XandersSwnActorSheet extends ActorSheet {
         //When an inventory item has the favorite button pressed.
         html.find('.item-bookmark-button').on("click", this._onBookmarkButton.bind(this));
 
+        //When an inventory item has the edit button pressed.
+        html.find('.item-edit-button').on("click", this._onItemEditButton.bind(this));
+
         //When one of the buttons on the player's portrait are pressed.
         html.find('.portrait-button').on("click", this._onPortraitButton.bind(this));
 
@@ -588,6 +591,18 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Updating the item properties.
         let updateData = {system: {location: location}};
         item.update(updateData);
+    }
+
+    //Called when an inventory item's edit button is pressed.
+    async _onItemEditButton(event){
+        event.preventDefault();
+        
+        //Getting the item that needs its location changed.
+        const itemId = event.currentTarget.dataset.itemId;
+        const item = this.actor.getEmbeddedDocument("Item", itemId);
+
+        //Opening the item sheet.
+        item.sheet.render(true);
     }
 
     //Called when an inventory item's bookmark button is pressed.
