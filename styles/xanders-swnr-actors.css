@@ -777,7 +777,8 @@
 }
 
 /* The ammunition reload button on ranged weapons. */
-.window-app.xanders-swnr .item-reload-button:hover i{
+.window-app.xanders-swnr .item-reload-button:hover i,
+.window-app.xanders-swnr .item-location-button:hover i{
   text-shadow: 0 0 10px #265a88;
   color: var(--active-font-color);
   cursor: pointer;

@@ -213,6 +213,9 @@ export class XandersSwnActorSheet extends ActorSheet {
         //When an inventory item has the reload button pressed.
         html.find('.item-reload-button').on("click", this._onReloadButton.bind(this));
 
+        //When an inventory item has the location button pressed.
+        html.find('.item-location-button').on("click", this._onLocationButton.bind(this));
+
         //When one of the buttons on the player's portrait are pressed.
         html.find('.portrait-button').on("click", this._onPortraitButton.bind(this));
 
@@ -356,6 +359,10 @@ export class XandersSwnActorSheet extends ActorSheet {
                 ui.notifications.error("[" + context.items[i].name + "] is not allowed on this sheet and was removed.");
                 this.actor.deleteEmbeddedDocuments("Item", [context.items[i]._id]);
             }
+
+            if(itemType === "armor" || itemType === "item" || itemType === "weapon") context.items[i].system.hasLocation = true;
+            else context.items[i].system.hasLocation = false;
+            this.actor.getEmbeddedDocument("Item", context.items[i]._id).update({system:{hasLocation: context.items[i].system.hasLocation}});
         }
 
         //Makes the item lists and adds the hasItem booleans.
@@ -559,12 +566,28 @@ export class XandersSwnActorSheet extends ActorSheet {
         await message.update(messageData);
     }
 
+    //Called when an inventory item's location button is pressed.
+    async _onLocationButton(event){
+        event.preventDefault();
+        
+        //Getting the item that needs its location changed.
+        const itemId = event.currentTarget.dataset.itemId;
+        const item = this.actor.getEmbeddedDocument("Item", itemId);
+
+        //Toggling the item's location.
+        var location = "readied";
+        if(item.system.location === "readied") location = "stowed";
+        if(item.system.location === "stowed") location = "other";
+
+        //Updating the item properties.
+        let updateData = {system: {location: location}};
+        item.update(updateData);
+    }
+
     //Called when one of the buttons on the player's portrait are clicked.
     async _onPortraitButton(event){
         event.preventDefault();
         const type = event.currentTarget.dataset.type;
-
-        console.log(type);
     }
 
     //Called when an NPC's rollable morale button is clicked.

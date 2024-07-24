@@ -25,6 +25,14 @@
         <div class="inventory-titles inventory-details">
           {{#unless ../isFavoriteList}}{{#if system.favorite}}<div style="width:25px;"> <i class="fas fa-bookmark fa-sm"></i></div>{{/if}}{{/unless}}
           
+          <!--This block is for the item location button-->
+          {{#if system.hasLocation}}{{#unless ../isFavoriteList}}
+            {{#ifEquals system.location "other"}}<div class="item-location-button" data-item-id="{{item._id}}" style="width:25px;"><i class="fa-solid fa-question"></i></div>{{/ifEquals}}
+            {{#ifEquals system.location "stowed"}}<div class="item-location-button" data-item-id="{{item._id}}" style="width:25px;"><i class="fa-solid fa-backpack"></i></div>{{/ifEquals}}
+            {{#ifEquals system.location "readied"}}<div class="item-location-button" data-item-id="{{item._id}}" style="width:25px;"><i class="fa-regular fa-backpack"></i></div>{{/ifEquals}}
+          {{/unless}}{{/if}}
+
+          <!--This block is for the ranged item reload button-->
           {{#ifEquals system.type "ranged"}}{{#ifNotEquals system.ammo.type "infinite"}}{{#ifNotEquals system.ammo.type "none"}}
             <div class="item-reload-button" data-item-id="{{item._id}}" style="width:25px;"><i class="fa-solid fa-arrow-rotate-right"></i></div>
           {{/ifNotEquals}}{{/ifNotEquals}}{{/ifEquals}}
