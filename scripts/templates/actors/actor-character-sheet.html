@@ -152,6 +152,7 @@
               <section class="item-list skill-list">
                 <!-- The skill list title row -->
                 <li class="skill skill-header">
+                  {{#unless system.xIsLocked}}<span class="skill-level-up"></span>{{/unless}}
                   <span class="skill-level">Lvl</span>
                   <span class="skill-title no-hilight" data-skill="pilot">Skill</span>
                   <span class="skill-dice">Dice</span>
@@ -161,6 +162,7 @@
                 <!-- The skills list skills -->
                 {{#each system.itemTypes.skill as |skill|}}
                 <li class="{{#unless ../system.xIsLocked}}item{{/unless}} skill skill-choice" data-item-id="{{skill._id}}">
+                  {{#unless ../system.xIsLocked}}<span class="skill-level-up skill-level-button" data-item-id="{{skill._id}}"><i class="fas fa-level-up-alt"></i></span>{{/unless}}
                   <span class="skill-level">{{skill.system.rankString}}</span>
                   <span class="skill-title skill-clickable" data-item-id="{{skill._id}}">{{skill.name}}</span>
                   <span class="skill-dice">{{skill.system.pool}}</span>
@@ -195,6 +197,21 @@
                 {{/if}}
 
               </section>
+
+              <!-- The skill points. -->
+              {{#unless system.xIsLocked}}
+                <div style="margin-right:10px; margin-top:5px;">
+                  <div style="display:flex; flex-direction:row;" class="money-container">
+                    <input style="margin-top:0px" class="xanders-input" type="text" data-name="unspentSkillPoints" value="{{system.unspentSkillPoints}}"/>
+                    <input style="margin-top:0px" class="xanders-input" type="text" data-name="unspentPsySkillPoints" value="{{system.unspentPsySkillPoints}}"/>
+                  </div>
+
+                  <div style="display:flex; flex-direction:row; margin-top:2px" class="money-container">
+                    <p>Skill Points</p>
+                    <p>Psionic Points</p>
+                  </div>
+                </div>
+              {{/unless}}
             </div>
 
             <!-- The favorited item bar and attribute list -->

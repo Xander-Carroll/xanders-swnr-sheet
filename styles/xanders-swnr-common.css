@@ -49,6 +49,8 @@
   --context-background-delete: rgba(189, 0, 0, 0.5);
   --context-background-favorited: rgba(0, 168, 36, 0.5);
 
+  --hovered-item-button-color: #265a88;
+
   --field-border-radius: 3px;
 }
 

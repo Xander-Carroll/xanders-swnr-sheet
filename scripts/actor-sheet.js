@@ -230,6 +230,9 @@ export class XandersSwnActorSheet extends ActorSheet {
         //If a skill is clicked a skill check dialog is opened.
         html.find('.skill-clickable').on("click", this._onSkillCheck.bind(this));
 
+        //If a skill level up button is pressed.
+        html.find('.skill-level-button').on("click", this._onSkillLevelUp.bind(this));
+
         //If the add skill buttons are clicked.
         html.find('.add-skill-clickable').on("click", this._onSkillAdd.bind(this));
 
@@ -591,7 +594,7 @@ export class XandersSwnActorSheet extends ActorSheet {
     async _onBookmarkButton(event){
         event.preventDefault();
         
-        //Getting the item that needs its location changed.
+        //Getting the item that needs its favorite status changed.
         const itemId = event.currentTarget.dataset.itemId;
         const item = this.actor.getEmbeddedDocument("Item", itemId);
 
@@ -620,6 +623,68 @@ export class XandersSwnActorSheet extends ActorSheet {
         const saveType = event.currentTarget.dataset.saveType;
 
         makeSavingThrow(this.actor._id, saveType);
+    }
+
+    //Called when a skill's level up button is pressed.
+    async _onSkillLevelUp(event){
+        event.preventDefault();
+        
+        //Getting the skill that needs leveled.
+        const skillId = event.currentTarget.dataset.itemId;
+        const skill = this.actor.getEmbeddedDocument("Item", skillId);
+
+        //Making sure the actor is a high enough level to upgrade the skill. 
+        const rank = skill.system.rank;
+        if (rank > 0) {
+            const lvl = this.actor.system.level.value;
+            if (rank == 1 && lvl < 3) {
+                ui.notifications.warn("Must be at least level 3 to upgrade this skill.");
+                return;
+            }else if (rank == 2 && lvl < 6) {
+                ui.notifications.warn("Must be at least level 6 to upgrade this skill.");
+                return;
+            }else if (rank == 3 && lvl < 9) {
+                ui.notifications.warn("Must be at least level 9 to upgrade this skill.");
+                return;
+            }else if (rank > 3) {
+                ui.notifications.warn("Cannot auto-level this skill above +4.");
+                return;
+            }
+        }
+
+        //Making sure that the actor has enough skill points to upgrade the skill.
+        const skillCost = rank + 2;
+        const isPsy = skill.system.source.toLocaleLowerCase() ===
+            game.i18n.localize("swnr.skills.labels.psionic").toLocaleLowerCase() ? true : false;
+        const skillPointsAvail = isPsy ? this.actor.system.unspentPsySkillPoints + this.actor.system.unspentSkillPoints : this.actor.system.unspentSkillPoints;
+        if (skillCost > skillPointsAvail) {
+            ui.notifications.warn(`Not enough skill points. Have: ${skillPointsAvail}, Need: ${skillCost}`);
+            return;
+        }else if (isNaN(skillPointsAvail)) {
+            ui.notifications.warn("Skill points not set");
+            return;
+        }
+
+        //Remove the skill points from the actor.
+        await skill.update({ "data.rank": rank + 1 });
+        if (isPsy) {
+            const newPsySkillPoints = Math.max(0, this.actor.system.unspentPsySkillPoints - skillCost);
+            let newSkillPoints = this.actor.system.unspentSkillPoints;
+            if (skillCost > this.actor.system.unspentPsySkillPoints) {
+                //Not enough psySkillPoints, dip into regular
+                newSkillPoints -= skillCost - this.actor.system.unspentPsySkillPoints;
+            }
+            await this.actor.update({
+                "system.unspentSkillPoints": newSkillPoints,
+                "system.unspentPsySkillPoints": newPsySkillPoints,
+            });
+            ui.notifications.info(`Removed ${skillCost} skill point(s).`);
+        }else{
+            const newSkillPoints = this.actor.system.unspentSkillPoints - skillCost;
+            await this.actor.update({ "system.unspentSkillPoints": newSkillPoints });
+            ui.notifications.info(`Removed ${skillCost} skill point(s)`);
+        }
+
     }
 
     //Called when a skill from the attributes tab is clicked.
