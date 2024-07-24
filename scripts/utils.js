@@ -120,7 +120,7 @@ export function initSkills(actor, skillType){
             data: {
                 rank: -1,
                 pool: "ask",
-                source: "swnr",
+                source: "Swn",
                 dice: "2d6"
             }
         }
@@ -129,12 +129,14 @@ export function initSkills(actor, skillType){
         if(skillType === "revised"){
             skill.data.description = revisedDescriptions[skillName];
             skill.img = revisedImages[skillName];
+            skill.data.source = "Swnr";
         }
 
         //Sets the descriptions for SWNR psychic skills.
         if(skillType === "psychic"){
             skill.data.description = psychicDescriptions[skillName];
             skill.img = psychicImages[skillName];
+            skill.data.source = "Psionic";
         }
 
         skillsToAdd.push(skill);

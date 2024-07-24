@@ -431,9 +431,40 @@
 
             </ul>
 
-              <div class="inventory-effort-bar">
+            <div class="inventory-effort-bar">
 
+              <!-- The actual effort progress bar-->
+              <div style="display:flex; flex-direction:row; flex:1 1 0; align-items:center;">
+                <p class="encumbrance-label">Effort: </p>
+                <div class="encumbrance-bar readied" style="margin-bottom:0px; margin-left:0px;">
+                  <div class="encumbrance-bar-fill" style="width:{{system.effort.percentage}}%"></div>
+                  <div style="flex:1 1 0"></div>
+                  <div class="encumbrance-input">
+                    <p>{{system.effort.value}}/{{system.effort.max}}</p>
+                  </div>
+                </div>
               </div>
+
+              <!-- The inputs for effort. -->
+              <div class="money-container">
+                <div style="display:flex; flex-direction:row;">
+                  <input class="xanders-input" type="text" data-name="effort.bonus" value="{{system.effort.bonus}}"/>
+                  <input class="xanders-input" type="text" data-name="effort.current" value="{{system.effort.current}}"/>
+                  <input class="xanders-input" type="text" data-name="effort.scene" value="{{system.effort.scene}}"/>
+                  <input class="xanders-input" style="margin-right:20px" type="text" data-name="effort.day" value="{{system.effort.day}}"/>
+                </div>
+
+                <div style="display:flex; flex-direction:row;">
+                  <p>Bonus</p>
+                  <p>Current</p>
+                  <p>Scene</p>
+                  <p style="margin-right:10px">Day</p>
+                </div>
+              </div>
+
+            </div>
+
+
           </div>
         </div>
 

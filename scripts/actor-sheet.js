@@ -305,6 +305,10 @@ export class XandersSwnActorSheet extends ActorSheet {
         const level = context.system.level;
         context.system.level.percentage = calculateBarPercentage(level.exp, level.expToLevel);
 
+        //Adding a variable that will be used to set the effort-bar width to the context.
+        const effort = context.system.effort;
+        context.system.effort.percentage = calculateBarPercentage(effort.value, effort.max);
+
         //Adding a variable that will be used to set the encumbrance-bar widths to the context.
         const encumbrance = context.system.encumbrance;
         context.system.encumbrance.ready.percentage = calculateBarPercentage(encumbrance.ready.value, encumbrance.ready.max);
