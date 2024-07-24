@@ -30,13 +30,13 @@
           {{/unless}}
 
           <!--This block is for the favorite button-->
-          {{#unless ../isFavoriteList}}
+          {{#ifEquals actor.type "character"}}{{#unless ../isFavoriteList}}
             <div style="width:25px;" class="item-bookmark-button {{#unless system.favorite}}hidden-item-button{{/unless}}" data-item-id="{{item._id}}">
               {{#if system.favorite}}<i class="fas fa-bookmark fa-sm"></i>{{/if}}
               {{#unless system.favorite}}<i class="fa-regular fa-bookmark fa-sm"></i>{{/unless}}
             </div>
-          {{/unless}}
-          
+          {{/unless}}{{/ifEquals}}
+
           <!--This block is for the item location button-->
           {{#if system.hasLocation}}{{#unless ../isFavoriteList}}
             <div class="item-location-button" data-item-id="{{item._id}}" style="width:25px;">

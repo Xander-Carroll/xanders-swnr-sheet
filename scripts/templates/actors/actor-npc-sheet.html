@@ -102,13 +102,8 @@
         <!-- The attribute tab -->
         <div class="tab attributes" data-group="primary" data-tab="attributes" >
           <div class="scrollable" style="display:flex; flex-direction:row; flex-grow:1;">
-            
-            <!-- A list of some kind -->
-            <div class="npc-attribute-list">
-              
-            </div>
 
-            <!-- The favorited item bar and attribute list -->
+            <!-- The item bar and attribute list -->
             <div class="attribute-item-bar">
               <!-- Speed, AC, AB, and effort-->
               <div class="stat-list">
@@ -122,21 +117,45 @@
                   {{/if}}
                 </div>
                 <div class="stat-box">
+                  <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.attacks.number" value="{{system.attacks.number}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <p>Attacks</p>
+                </div>
+                <div class="stat-box">
                   <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.ab" value="{{system.ab}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <p>Attack Bonus</p>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.attacks.bonusDamage" value="{{system.attacks.bonusDamage}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <p>Damage Bonus</p>
                 </div>
                 <div class="stat-box">
                   <div class="stat-input-container"><input type="text" class="xanders-input bottom-border" name="system.hitDice" value="{{system.hitDice}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <p>Hit Dice</p>
                 </div>
                 <div class="stat-box">
-                  <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.speed" value="{{system.speed}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
-                  <p>Move Speed</p>
-                </div>
-                <div class="stat-box">
                   <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.moralScore" value="{{system.moralScore}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <p>Morale</p>
                 </div>
+                <div class="stat-box">
+                  <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.speed" value="{{system.speed}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <p>Move Speed</p>
+                </div>
+              </div>
+
+              <div class="stat-list">
+                <div class="stat-box">
+                  <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.skillBonus" value="{{system.skillBonus}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <p>Trained Skill</p>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.saves" value="{{system.saves}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                  <p>Saving Throws</p>
+                </div>
+                <div class="stat-box"></div>
+                <div class="stat-box"></div>
+                <div class="stat-box"></div>
+                <div class="stat-box"></div>
+                <div class="stat-box"></div>
               </div>
 
               <!-- The items and features list -->
