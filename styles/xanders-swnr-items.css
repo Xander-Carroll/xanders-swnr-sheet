@@ -238,4 +238,5 @@
 /* When the dice icon is hovered. */
 .window-app.window-app.xanders-swnr .item-roll-button i:hover{
   color: black;
+  cursor: pointer;
 }

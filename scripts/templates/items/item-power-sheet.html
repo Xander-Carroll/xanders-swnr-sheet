@@ -16,7 +16,7 @@
           <input class="item-name bottom-border" name="name" type="text" value="{{item.name}}" {{#unless owner}}disabeled{{/unless}}/>
 
           <!-- A spacer which pushes the item type to the right. -->
-          <div class="item-roll-button item-image-clickable">{{#if owner}}<i class="fas fa-dice-d20"></i>{{/if}}</div>
+          <div {{#if owner}}title="Roll Item"{{/if}} class="item-roll-button item-image-clickable">{{#if owner}}<i class="fas fa-dice-d20"></i>{{/if}}</div>
 
           <!-- The box which contains the item type (skill, weapon, etc). -->
           <div class="item-type-box" style="width:90px;">
