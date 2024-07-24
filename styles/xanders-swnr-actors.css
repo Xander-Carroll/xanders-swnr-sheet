@@ -776,12 +776,22 @@
   font-size: 10px;
 }
 
-/* The ammunition reload button on ranged weapons. */
+/* The item card buttons on actor sheets. */
 .window-app.xanders-swnr .item-reload-button:hover i,
-.window-app.xanders-swnr .item-location-button:hover i{
+.window-app.xanders-swnr .item-location-button:hover i,
+.window-app.xanders-swnr .item-bookmark-button:hover i{
   text-shadow: 0 0 10px #265a88;
   color: var(--active-font-color);
   cursor: pointer;
+}
+
+/* The bookmark button should be hidden until it is hovered over*/
+.window-app.xanders-swnr .item-bookmark-button.hidden-bookmark:hover i{
+  visibility: visible;
+}
+
+.window-app.xanders-swnr .item-bookmark-button.hidden-bookmark i{
+  visibility: hidden;
 }
 
 /* Makes the item change colors when it is readied. */

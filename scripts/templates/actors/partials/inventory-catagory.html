@@ -23,7 +23,12 @@
           {{#if ../displayFields.quantity}}<div class="inventory-quantity"><p>(</p><input class="xanders-input borderless" type="number" data-item-id="{{item._id}}" value="{{item.system.quantity}}"><p>)</p></div>{{/if}}
         </div>
         <div class="inventory-titles inventory-details">
-          {{#unless ../isFavoriteList}}{{#if system.favorite}}<div style="width:25px;"> <i class="fas fa-bookmark fa-sm"></i></div>{{/if}}{{/unless}}
+          {{#unless ../isFavoriteList}}
+            <div style="width:25px;" class="item-bookmark-button {{#unless system.favorite}}hidden-bookmark{{/unless}}" data-item-id="{{item._id}}">
+              {{#if system.favorite}}<i class="fas fa-bookmark fa-sm"></i>{{/if}}
+              {{#unless system.favorite}}<i class="fa-regular fa-bookmark fa-sm"></i>{{/unless}}
+            </div>
+          {{/unless}}
           
           <!--This block is for the item location button-->
           {{#if system.hasLocation}}{{#unless ../isFavoriteList}}
