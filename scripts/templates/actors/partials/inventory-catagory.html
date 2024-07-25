@@ -26,12 +26,12 @@
           
           <!--This block is for the edit button-->
           {{#unless ../isFavoriteList}}
-            <div title="Edit" style="width:25px;" class="item-edit-button hidden-item-button" data-item-id="{{item._id}}"><i class="fas fa-edit"></i></div>
+            <div title="Edit" style="width:25px;" class="item-edit-button inventory-item-button hidden-item-button" data-item-id="{{item._id}}"><i class="fas fa-edit"></i></div>
           {{/unless}}
 
           <!--This block is for the favorite button-->
           {{#ifEquals actor.type "character"}}{{#unless ../isFavoriteList}}
-            <div title="Favorite" style="width:25px;" class="item-bookmark-button {{#unless system.favorite}}hidden-item-button{{/unless}}" data-item-id="{{item._id}}">
+            <div title="Favorite" style="width:25px;" class="item-bookmark-button inventory-item-button {{#unless system.favorite}}hidden-item-button{{/unless}}" data-item-id="{{item._id}}">
               {{#if system.favorite}}<i class="fas fa-bookmark fa-sm"></i>{{/if}}
               {{#unless system.favorite}}<i class="fa-regular fa-bookmark fa-sm"></i>{{/unless}}
             </div>
@@ -39,7 +39,7 @@
 
           <!--This block is for the item location button-->
           {{#if system.hasLocation}}{{#unless ../isFavoriteList}}
-            <div title="Location" class="item-location-button" data-item-id="{{item._id}}" style="width:25px;">
+            <div title="Location" class="item-location-button inventory-item-button" data-item-id="{{item._id}}" style="width:25px;">
               {{#ifEquals system.location "other"}}<i class="fa-solid fa-question"></i>{{/ifEquals}}
               {{#ifEquals system.location "stowed"}}<i class="fa-solid fa-backpack"></i>{{/ifEquals}}
               {{#ifEquals system.location "readied"}}<i class="fa-regular fa-backpack"></i>{{/ifEquals}}
@@ -48,7 +48,7 @@
 
           <!--This block is for the ranged item reload button-->
           {{#ifEquals system.type "ranged"}}{{#ifNotEquals system.ammo.type "infinite"}}{{#ifNotEquals system.ammo.type "none"}}
-            <div title="Reload" class="item-reload-button" data-item-id="{{item._id}}" style="width:25px;"><i class="fa-solid fa-arrow-rotate-right"></i></div>
+            <div title="Reload" class="item-reload-button inventory-item-button" data-item-id="{{item._id}}" style="width:25px;"><i class="fa-solid fa-arrow-rotate-right"></i></div>
           {{/ifNotEquals}}{{/ifNotEquals}}{{/ifEquals}}
                   
           <!--This block determines what should be displayed for the ammo detail-->

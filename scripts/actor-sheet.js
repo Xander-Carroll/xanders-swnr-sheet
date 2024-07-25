@@ -205,6 +205,26 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Return if the player can't edt the sheet.
         if (!this.isEditable) return;
 
+        if(this.actor.type == "character"){
+            //When an inventory item has the favorite button pressed.
+            html.find('.item-bookmark-button').on("click", this._onBookmarkButton.bind(this));
+
+            //If a skill is clicked a skill check dialog is opened.
+            html.find('.skill-clickable').on("click", this._onSkillCheck.bind(this));
+
+            //If a skill level up button is pressed.
+            html.find('.skill-level-button').on("click", this._onSkillLevelUp.bind(this));
+
+            //If the add skill buttons are clicked.
+            html.find('.add-skill-clickable').on("click", this._onSkillAdd.bind(this));
+        }else if(this.actor.type === "npc"){
+            //When an NPC's morale button is clicked.
+            html.find('.morale-clickable').on("click", this._onMoraleCheck.bind(this));
+
+            //Called when an NPC's hit dice are changed.
+            html.find('.hit-dice-input').on("change", this._onHitDiceStringChange.bind(this));
+        }
+
         //If the lock button is clicked, the sheet lock is toggeled.
         html.find('.lock-button').click(async (event) => {
             this.actor.update({"system.xIsLocked": !this.actor.system.xIsLocked});
@@ -216,28 +236,14 @@ export class XandersSwnActorSheet extends ActorSheet {
         //When an inventory item has the location button pressed.
         html.find('.item-location-button').on("click", this._onLocationButton.bind(this));
 
-        //When an inventory item has the favorite button pressed.
-        html.find('.item-bookmark-button').on("click", this._onBookmarkButton.bind(this));
-
         //When an inventory item has the edit button pressed.
         html.find('.item-edit-button').on("click", this._onItemEditButton.bind(this));
 
         //When one of the buttons on the player's portrait are pressed.
         html.find('.portrait-button').on("click", this._onPortraitButton.bind(this));
 
-        html.find('.morale-clickable').on("click", this._onMoraleCheck.bind(this));
-
         //If a saving throw button is clicked, a save dialog is opened.
         html.find('.save-throw-button').on("click", this._onSaveThrow.bind(this));
-
-        //If a skill is clicked a skill check dialog is opened.
-        html.find('.skill-clickable').on("click", this._onSkillCheck.bind(this));
-
-        //If a skill level up button is pressed.
-        html.find('.skill-level-button').on("click", this._onSkillLevelUp.bind(this));
-
-        //If the add skill buttons are clicked.
-        html.find('.add-skill-clickable').on("click", this._onSkillAdd.bind(this));
 
         //If an item is clicked.
         html.find('.item-clickable').on("click", this._onItemExpand.bind(this));
@@ -851,6 +857,15 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Updating the value to newValue.
         if(newValue != oldValue) this.actor.update({system});
         event.currentTarget.value = newValue;
+    }
+
+    //Called when an NPC's hit dice are changed.
+    async _onHitDiceStringChange(event){
+        event.preventDefault();
+
+        const value = event.currentTarget.value;
+
+        console.log(value);
     }
 
     //@override

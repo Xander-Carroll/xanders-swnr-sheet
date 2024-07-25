@@ -473,12 +473,6 @@
   text-align: left;
 }
 
-.window-app.xanders-swnr .skill .skill-level-up:hover i{
-  text-shadow: 0 0 10px var(--hovered-item-button-color);
-  color: var(--active-font-color);
-  cursor: pointer;
-}
-
 /* When no skills are added or when the sheet is in edit mode the "add skills" nuttons that are shown */
 .window-app.xanders-swnr .skill.add-skill{
   font-style: italic;
@@ -790,10 +784,7 @@
 }
 
 /* The item card buttons on actor sheets. */
-.window-app.xanders-swnr .item-reload-button:hover i,
-.window-app.xanders-swnr .item-location-button:hover i,
-.window-app.xanders-swnr .item-bookmark-button:hover i,
-.window-app.xanders-swnr .item-edit-button:hover i{
+.window-app.xanders-swnr .inventory-item-button:hover i{
   text-shadow: 0 0 10px var(--hovered-item-button-color);
   color: var(--active-font-color);
   cursor: pointer;
