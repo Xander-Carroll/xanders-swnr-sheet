@@ -170,9 +170,11 @@
                 </li>
                 {{/each}}
 
-                <!-- The add skills buttons that display when the sheet is in edit mode -->
-                {{#if system.displayAddSkillButtons}}
+              </section>
 
+              <!-- The add skills buttons that display when the sheet is in edit mode -->
+              {{#if system.displayAddSkillButtons}}
+                <section class="item-list skill-list" style="margin-top:5px; margin-bottom:5px">
                   <li class="skill add-skill">
                     <span class="add-skill-clickable" data-add-skill="revised">Add SWNR Skills</span>
                   </li>
@@ -194,9 +196,8 @@
                       <span class="add-skill-clickable" data-add-skill="remove">Remove All Skills</span>
                     </li>
                   {{/unless}}
-                {{/if}}
-
-              </section>
+                </section>
+              {{/if}}
 
               <!-- The skill points. -->
               {{#unless system.xIsLocked}}
