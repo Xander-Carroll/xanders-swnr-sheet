@@ -97,17 +97,17 @@
 
     <!-- The actual tabs -->
     <section class="sheet-body">
-      <div style="margin-top:10px; margin-left:10px; margin-bottom:10px; margin-right:2px; flex-grow:1; display:flex">
+      <div style="margin-top:10px; margin-left:10px; margin-bottom:5px; margin-right:2px; flex-grow:1; display:flex">
 
         <!-- The attribute tab -->
         <div class="tab attributes" data-group="primary" data-tab="attributes" >
-          <div class="scrollable" style="display:flex; flex-direction:row; flex-grow:1;">
-
+          <div style="display:flex; flex-direction:row; flex-grow:1;">
             <!-- The item bar and attribute list -->
             <div class="attribute-item-bar">
-              <!-- Speed, AC, AB, and effort-->
-              <div class="stat-list">
-                <div class="stat-box">
+              <div class="scrollable" style="display:flex; flex-direction:column; flex-grow:1;">
+                <!-- Speed, AC, AB, etc. -->
+                <div class="stat-list">
+                  <div class="stat-box">
                   {{#if system.xIsLocked}}
                     <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.baseAc" value="{{system.baseAc}}" disabled/></div>
                     <p>Armor Class</p>
@@ -115,84 +115,117 @@
                     <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.baseAc" value="{{system.baseAc}}"/></div>
                     <p>Base AC</p>
                   {{/if}}
-                </div>
-                <div class="stat-box">
+                  </div>
+                  <div class="stat-box">
                   <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.attacks.number" value="{{system.attacks.number}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <p>Attacks</p>
-                </div>
-                <div class="stat-box">
+                  </div>
+                  <div class="stat-box">
                   <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.ab" value="{{system.ab}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <p>Attack Bonus</p>
-                </div>
-                <div class="stat-box">
+                  </div>
+                  <div class="stat-box">
                   <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.attacks.bonusDamage" value="{{system.attacks.bonusDamage}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <p>Damage Bonus</p>
-                </div>
-                <div class="stat-box">
+                  </div>
+                  <div class="stat-box">
                   <div class="stat-input-container"><input type="text" class="xanders-input bottom-border hit-dice-input" value="{{system.hitDice}}{{system.hitDie}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <p>Hit Dice</p>
-                </div>
-                <div class="stat-box">
+                  </div>
+                  <div class="stat-box">
                   <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.moralScore" value="{{system.moralScore}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <p>Morale</p>
-                </div>
-                <div class="stat-box">
+                  </div>
+                  <div class="stat-box">
                   <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.speed" value="{{system.speed}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
                   <p>Move Speed</p>
+                  </div>
+                </div>
+
+                <!-- Speed, AC, AB, etc. -->
+                <div class="stat-list" style="margin-bottom:0px;">
+                  <div class="stat-box">
+                    <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.skillBonus" value="{{system.skillBonus}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                    <p>Trained Skill</p>
+                  </div>
+                  <div class="stat-box">
+                    <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.soakTotal.max" value="{{system.soakTotal.max}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
+                    <p>Armor Soak</p>
+                  </div>
+                  <div class="stat-box"></div>
+                  <div class="stat-box"></div>
+                  <div class="stat-box"></div>
+                  <div class="stat-box"></div>
+                  <div class="stat-box"></div>
+                </div>
+
+                <!-- The items and features list -->
+                <ul class="inventory-list" style="flex-grow:1; padding-right:0px; margin-top:-10px;">
+
+                  <!-- The armor list -->
+                  {{#if system.hasArmor}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.armor catagory="Armor" displayFields=system.inventoryDisplayFields.armor isFavoriteList=false}}
+                  {{/if}}
+
+                  <!-- The cyberware list -->
+                  {{#if system.hasCyberware}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.cyberware catagory="Cyberware" displayFields=system.inventoryDisplayFields.cyberware isFavoriteList=false}}
+                  {{/if}}
+
+                  <!-- The foci list -->
+                  {{#if system.hasFocus}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.focus catagory="Foci" displayFields=system.inventoryDisplayFields.focus isFavoriteList=false}}
+                  {{/if}}
+
+                  <!-- The items list -->
+                  {{#if system.hasItem}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.item catagory="Items" displayFields=system.inventoryDisplayFields.item isFavoriteList=false}}
+                  {{/if}}
+
+                  <!-- The powers list -->
+                  {{#if system.hasPower}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.power catagory="Powers" displayFields=system.inventoryDisplayFields.power isFavoriteList=false}}
+                  {{/if}}
+
+                  <!-- The weapons list -->
+                  {{#if system.hasWeapon}}
+                    {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.weapon catagory="Weapons" displayFields=system.inventoryDisplayFields.weapon isFavoriteList=false}}
+                  {{/if}}
+
+                </ul>
+              </div>
+
+              <!-- The effort bar -->
+              <div class="inventory-effort-bar" style="height:unset">
+              <!-- The actual effort progress bar-->
+              <div style="display:flex; flex-direction:row; flex:1 1 0; align-items:center;">
+                <p class="encumbrance-label">Effort: </p>
+                <div class="encumbrance-bar readied" style="margin-bottom:0px; margin-left:0px;">
+                  <div class="encumbrance-bar-fill" style="width:{{system.effort.percentage}}%"></div>
+                  <div style="flex:1 1 0"></div>
+                  <div class="encumbrance-input">
+                    <p>{{system.effort.value}}/{{system.effort.max}}</p>
+                  </div>
                 </div>
               </div>
 
-              <div class="stat-list">
-                <div class="stat-box">
-                  <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.skillBonus" value="{{system.skillBonus}}" {{#if system.xIsLocked}}disabled{{/if}}/></div>
-                  <p>Trained Skill</p>
+              <!-- The inputs for effort. -->
+              <div class="money-container">
+                <div style="display:flex; flex-direction:row;">
+                  <input class="xanders-input" type="text" data-name="effort.bonus" value="{{system.effort.bonus}}"/>
+                  <input class="xanders-input" type="text" data-name="effort.current" value="{{system.effort.current}}"/>
+                  <input class="xanders-input" type="text" data-name="effort.scene" value="{{system.effort.scene}}"/>
+                  <input class="xanders-input" style="margin-right:20px" type="text" data-name="effort.day" value="{{system.effort.day}}"/>
                 </div>
-                <div class="stat-box">
-                  <div class="stat-input-container"><input type="number" class="xanders-input bottom-border" name="system.saves" value="{{system.saves}}" disabled/></div>
-                  <p>Saving Throws</p>
+
+                <div style="display:flex; flex-direction:row;">
+                  <p>Bonus</p>
+                  <p>Current</p>
+                  <p>Scene</p>
+                  <p style="margin-right:10px">Day</p>
                 </div>
-                <div class="stat-box"></div>
-                <div class="stat-box"></div>
-                <div class="stat-box"></div>
-                <div class="stat-box"></div>
-                <div class="stat-box"></div>
               </div>
-
-              <!-- The items and features list -->
-              <ul class="inventory-list scrollable" style="flex-grow:1; padding-right:0px;">
-
-                <!-- The armor list -->
-                {{#if system.hasArmor}}
-                  {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.armor catagory="Armor" displayFields=system.inventoryDisplayFields.armor isFavoriteList=false}}
-                {{/if}}
-
-                <!-- The cyberware list -->
-                {{#if system.hasCyberware}}
-                  {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.cyberware catagory="Cyberware" displayFields=system.inventoryDisplayFields.cyberware isFavoriteList=false}}
-                {{/if}}
-
-                <!-- The foci list -->
-                {{#if system.hasFocus}}
-                  {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.focus catagory="Foci" displayFields=system.inventoryDisplayFields.focus isFavoriteList=false}}
-                {{/if}}
-    
-                <!-- The items list -->
-                {{#if system.hasItem}}
-                  {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.item catagory="Items" displayFields=system.inventoryDisplayFields.item isFavoriteList=false}}
-                {{/if}}
-
-                <!-- The powers list -->
-                {{#if system.hasPower}}
-                  {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.power catagory="Powers" displayFields=system.inventoryDisplayFields.power isFavoriteList=false}}
-                {{/if}}
-
-                <!-- The weapons list -->
-                {{#if system.hasWeapon}}
-                  {{> "modules/xanders-swnr-sheet/scripts/templates/actors/partials/inventory-catagory.html" itemList=system.itemTypes.weapon catagory="Weapons" displayFields=system.inventoryDisplayFields.weapon isFavoriteList=false}}
-                {{/if}}
-
-              </ul>
-
+              </div>
             </div>
           </div>
         </div>
