@@ -209,9 +209,6 @@ export class XandersSwnActorSheet extends ActorSheet {
             //When an inventory item has the favorite button pressed.
             html.find('.item-bookmark-button').on("click", this._onBookmarkButton.bind(this));
 
-            //If a skill is clicked a skill check dialog is opened.
-            html.find('.skill-clickable').on("click", this._onSkillCheck.bind(this));
-
             //If a skill level up button is pressed.
             html.find('.skill-level-button').on("click", this._onSkillLevelUp.bind(this));
 
@@ -229,6 +226,9 @@ export class XandersSwnActorSheet extends ActorSheet {
         html.find('.lock-button').click(async (event) => {
             this.actor.update({"system.xIsLocked": !this.actor.system.xIsLocked});
         });
+
+        //If a skill is clicked a skill check dialog is opened.
+        html.find('.skill-clickable').on("click", this._onSkillCheck.bind(this));
 
         //When an inventory item has the reload button pressed.
         html.find('.item-reload-button').on("click", this._onReloadButton.bind(this));
