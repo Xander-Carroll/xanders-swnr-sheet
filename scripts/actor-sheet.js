@@ -863,9 +863,38 @@ export class XandersSwnActorSheet extends ActorSheet {
     async _onHitDiceStringChange(event){
         event.preventDefault();
 
-        const value = event.currentTarget.value;
+        //The value that the hit-dice box was changed to.
+        const value = event.currentTarget.value.replace(/\s/g,'');
 
-        console.log(value);
+        //Different formats the string could be in.
+        const bothExpression = /^\d+d\d+$/;     //A regular expression that matches both dice and quantity. ex 2d6.
+        const quantityExpression = /^\d+$/;     //A regular expression that matches just quantity. ex 6.
+        const diceExpression = /^d\d+$/;        //A regular expression that matches just dice type. ex d6.
+
+        //Getting the quantity and type of hit dice.
+        var quantity = ["1"];
+        var dice = ["d8"];
+        if(bothExpression.exec(value) !== null){
+            quantity = /^\d+/.exec(value);
+            dice = /d\d+$/.exec(value);
+        }else if(quantityExpression.exec(value)){
+            quantity = /^\d+$/.exec(value);
+        }else if(diceExpression.exec(value)){
+            dice = /d\d+$/.exec(value);
+        }else{
+            event.currentTarget.value = this.actor.system.hitDice + this.actor.system.hitDie;
+            ui.notifications.warn("Hit dice could not be read.");
+            return;
+        }
+
+        //Setting the value in the box to the correct format.
+        event.currentTarget.value = quantity + dice;
+
+        //Updating the hit dice values on the actor.
+        this.actor.update({system:{
+            hitDie: dice[0],
+            hitDice: Number(quantity[0])
+        }});
     }
 
     //@override
