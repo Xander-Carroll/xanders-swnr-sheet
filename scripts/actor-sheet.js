@@ -357,8 +357,7 @@ export class XandersSwnActorSheet extends ActorSheet {
 
     //Called from the _parseActorData function if the actor type is "npc".
     _parseNpcActorData(context){
-        context.system.saves = 15 - Math.floor(context.system.hitDice/2);
-
+        //Calculation for saving throws: context.system.saves = 15 - Math.floor(context.system.hitDice/2);
         context.system.skillBonusModString = context.system.skillBonus >= 0 ? "+" + context.system.skillBonus : context.system.skillBonus;
 
         return context;
