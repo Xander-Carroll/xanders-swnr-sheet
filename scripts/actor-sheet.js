@@ -303,6 +303,10 @@ export class XandersSwnActorSheet extends ActorSheet {
         const health = context.system.health;
         context.system.health.percentage = calculateBarPercentage(health.value, health.max);
 
+        //Adding a variable that will be used to set the effort-bar width to the context.
+        const effort = context.system.effort;
+        context.system.effort.percentage = calculateBarPercentage(effort.value, effort.max);
+
         //Adding the inventoryDisplayFields property to the context.
         context.system.inventoryDisplayFields = this.inventoryDisplayFields;
 
@@ -322,10 +326,6 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Adding a variable that will be used to set the expierence-bar width to the context.
         const level = context.system.level;
         context.system.level.percentage = calculateBarPercentage(level.exp, level.expToLevel);
-
-        //Adding a variable that will be used to set the effort-bar width to the context.
-        const effort = context.system.effort;
-        context.system.effort.percentage = calculateBarPercentage(effort.value, effort.max);
 
         //Adding a variable that will be used to set the encumbrance-bar widths to the context.
         const encumbrance = context.system.encumbrance;
