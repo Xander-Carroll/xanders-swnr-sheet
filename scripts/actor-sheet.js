@@ -627,6 +627,63 @@ export class XandersSwnActorSheet extends ActorSheet {
     async _onPortraitButton(event){
         event.preventDefault();
         const type = event.currentTarget.dataset.type;
+
+        if(type==="rest"){
+            let applyChanges = false, scene = false, night = false;
+
+            new Dialog({
+                title: `Rest: ` + this.actor.name,
+                content: `
+                  <form>
+                    <p>What kind of rest would you like to perform?</p>
+                    <p>HP, strain, and effort will be adjusted as needed.</p>
+                  </form>
+                  `,
+                buttons: {
+                  scene: {
+                    icon: "<i class='fas fa-hourglass-end'></i>",
+                    label: `Scene Ended`,
+                    callback: () => {scene = true; applyChanges=true;}
+                  },
+                  night: {
+                    icon: "<i class='fas fa-bed'></i>",
+                    label: `A Night's Rest`,
+                    callback: () => {night = true; applyChanges=true;}
+                  },
+                },
+                close: html => {
+                    if (applyChanges) {
+                        var chatContent = "";
+
+                        //If the scene rest button was clicked, then the scene effort is reset.
+                        if(scene){
+                            this.actor.update({system:{effort:{scene:0}}});
+                            chatContent = `<p>${this.actor.name} finished a scene rest.</p>`;
+
+                        //If the night's rest button was clicked, then HP, Strain, and Effort are changed.
+                        }else if(night){
+                            const newStrain = Math.max(this.actor.system.systemStrain.value - 1, 0);
+                            const hpRestored = (this.actor.type === "character") ? this.actor.system.level.value : this.actor.system.hitDice;
+                            const newHP = Math.min(this.actor.system.health.value + hpRestored, this.actor.system.health.max);
+
+                            this.actor.update({system:{
+                                systemStrain:{value:newStrain},
+                                health:{value:newHP},
+                                effort:{scene:0,day:0},
+                            }});
+
+                            chatContent = `<p>${this.actor.name} finished a night's rest.</p>`
+                        }
+
+                        //Creating a chat message that says the actor rested.
+                        ChatMessage.create({
+                            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                            content: chatContent,
+                        });
+                    }
+                }
+            }).render(true);
+        }
     }
 
     //Called when an NPC's rollable morale button is clicked.
