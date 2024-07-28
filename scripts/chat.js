@@ -89,9 +89,11 @@ async function onChatPowerButtonPress(event){
     const type = event.currentTarget.dataset.type;
 
     if(type === "skill-button"){
+        //Getting the power item that was used.
         const power = game.actors.get(ownerId).getEmbeddedDocument("Item", itemId);
-        const skillId = power.system.skillId;
+        const skillString = power.system.skill;
 
+        //Getting the actor that pressed the button.
         let actor;
         const token = game.canvas.tokens.get(ChatMessage.getSpeaker().token);
         if(token) actor = token.actor;
@@ -102,7 +104,29 @@ async function onChatPowerButtonPress(event){
             return;
         };
 
-        makeSkillCheck(actor.id, skillId, power.system.attribute);
+        if(actor.type === "character"){
+            //Splitting the skill string into two useable parts.
+            var values = skillString.split("/");
+            if(values.length !== 2){
+                ui.notifications.warn("The Attribute/Skill field can not be read.");
+                return;
+            }
+
+            let skillItem = actor.items.find(entry => {
+                return entry.name.toLowerCase() === values[1].toLowerCase() && entry.type === "skill";
+            });
+
+            if(skillItem && !skillItem.length){
+                makeSkillCheck(actor.id, skillItem._id, values[0]);
+            }else{
+                ui.notifications.warn("The Attribute/Skill field can not be read.");
+                return;
+            }
+        }else{
+            makeSkillCheck(actor.id, "", "");
+        }
+        
+        
     }else if(type === "roll-button"){
         const owner = game.actors.get(ownerId);
         const power = owner.getEmbeddedDocument("Item", itemId);
@@ -139,7 +163,6 @@ async function onChatPowerButtonPress(event){
                 content: `<p>${actor.name} used "${actor.getEmbeddedDocument("Item", itemId).name}".</p><p>1 ${type} effort expended.</p>`, 
             });
         }
-        
     }
 }
 

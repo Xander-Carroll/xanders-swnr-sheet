@@ -298,10 +298,11 @@ export async function makeSkillCheck(actorId, itemId, overrideAttribute){
         skill.system.stats = actor.system.stats;
         if(overrideAttribute) skill.system.defaultStat = overrideAttribute;
     }else if(actor.type === "npc"){
+        const modString = actor.system.skillBonusModString ? actor.system.skillBonusModString : actor.system.skillBonus;
         skill = {
             name: "Npc",
             system: {
-                skillBonusModString: actor.system.skillBonusModString
+                skillBonusModString: modString
             }
         };
     }

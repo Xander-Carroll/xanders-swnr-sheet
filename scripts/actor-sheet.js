@@ -510,30 +510,6 @@ export class XandersSwnActorSheet extends ActorSheet {
 
             let currentSave = context.system.itemTypes.power[i].system.save;
             if (currentSave && currentSave != "") context.system.itemTypes.power[i].system.saveString = currentSave.charAt(0).toUpperCase() + currentSave.slice(1);
-
-            if(context.actor.type === "character" && context.system.itemTypes.power[i].system.skill){
-                let values = context.system.itemTypes.power[i].system.skill.split('/');
-                if(values.length == 2){
-                    let skillItem = this.actor ? this.actor.items.find(entry => {
-                        return entry.name.toLowerCase() === values[1].toLowerCase() && entry.type === "skill";
-                    }) : "";
-
-                    console.log(skillItem);
-
-                    if(skillItem && !skillItem.length){
-                        const skillId = skillItem._id;
-                        this.actor.updateEmbeddedDocuments("Item", [{_id:context.system.itemTypes.power[i]._id, system:{skillId:skillId, attribute:values[0].toLowerCase()}}]);
-                    }else{
-                        ui.notifications.warn("The Attribute/Skill field was not found.");
-                    }
-                    
-                }else{
-                    ui.notifications.warn("The Attribute/Skill field was not found.");
-                }
-
-                this.actor.updateEmbeddedDocuments("Item", [{_id:context.system.itemTypes.power[i]._id, system:{skill:null}}]);
-            }
-
         }
 
         //Returning the newly parsed context.

@@ -99,42 +99,11 @@
           <div style="display:flex; flex-direction:row;"> 
 
             <!-- The skill which should be used. -->
-            {{#ifNotEquals item.parent.type "character"}}
-              <div style="flex:2 1 0px; padding-left:5px;">
-                <p class="details-headers">Attribute/Skill:</p>
-                <input name="system.skill" class="details-input" value="{{system.skill}}" type="text" style="width:100%" {{#unless owner}}disabeled{{/unless}}/>
-              </div>
-              <div style="flex:1 1 0px;"></div>
-            {{/ifNotEquals}}
-            {{#ifEquals item.parent.type "character"}}
-              <div style="flex:2 1 0px; padding-left:5px;">
-                <p class="details-headers">Skill:</p>
-                <select name="system.skillId" style="width:100%">
-                  {{#select system.skillId}}
-                    <option value="">—</option>
-                    {{#each item.actor.itemTypes.skill}}
-                      <option value="{{this.id}}">{{this.name}}: {{this.system.rank}}</option>
-                    {{/each}}
-                  {{/select}}
-                </select>
-              </div>
-
-              <!-- The attribute which should be used. -->
-              <div style="flex:1 1 0px; padding-left:5px;">
-                <p class="details-headers">Attribute:</p>
-                <select name="system.attribute" style="width:100%">
-                    {{#select system.attribute}}
-                    <option value="">—</option>
-                    <option value="str">Strength: {{item.actor.system.stats.str.modString}}</option>
-                    <option value="dex">Dexterity: {{item.actor.system.stats.dex.modString}}</option>
-                    <option value="con">Constitution: {{item.actor.system.stats.con.modString}}</option>
-                    <option value="int">Intelligence: {{item.actor.system.stats.int.modString}}</option>
-                    <option value="wis">Wisdom: {{item.actor.system.stats.wis.modString}}</option>
-                    <option value="cha">Charisma: {{item.actor.system.stats.cha.modString}}</option>
-                    {{/select}}
-                </select>
-              </div>
-            {{/ifEquals}}
+            <div style="flex:2 1 0px; padding-left:5px;">
+              <p class="details-headers">Attribute/Skill:</p>
+              <input name="system.skill" class="details-input" value="{{system.skill}}" type="text" style="width:100%" {{#unless owner}}disabeled{{/unless}}/>
+            </div>
+            <div style="flex:1 1 0px;"></div>
 
             <!-- A spacer to push the other elements further left.-->
             <div style="flex: 1 1 0px; padding-left:5px;"></div>
