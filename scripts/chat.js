@@ -37,7 +37,7 @@ export function addChatListener(message, html, data){
         });
 
         //Hook used for rolling power cards.
-        html.on('click', '.xanders-swnr .power-skill-button, .xanders-swnr .power-roll-button', (event) =>{
+        html.on('click', '.xanders-swnr .power-skill-button, .xanders-swnr .power-roll-button, .xanders-swnr .power-effort-button', (event) =>{
             onChatPowerButtonPress(event);
         });
     }
@@ -122,6 +122,24 @@ async function onChatPowerButtonPress(event){
         //Changes the roll mode of the chat message.
         await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, rollData.rollMode);
         await message.update(rollMessage.data);
+    }else{
+        const actor = game.actors.get(ownerId);
+
+        if(actor.system.effort.value <= 0){
+            ui.notifications.warn("You are out of effort to expend.");
+            return;
+        }else{
+            let system = {effort:{}};
+            system.effort[type] = actor.system.effort[type] + 1;
+            actor.update({system: system});
+
+            //Creating a chat message that says the actor rested.
+            await ChatMessage.create({
+                speaker: ChatMessage.getSpeaker({actor: actor}),
+                content: `<p>${actor.name} used "${actor.getEmbeddedDocument("Item", itemId).name}".</p><p>1 ${type} effort expended.</p>`, 
+            });
+        }
+        
     }
 }
 
