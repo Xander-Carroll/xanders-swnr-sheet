@@ -258,9 +258,14 @@ export class XandersSwnActorSheet extends ActorSheet {
         html.find('.health-input.current-value, .strain-input.current-value, .money-container input, .xp-input.current-value').on("change", this._onLazyCalculation.bind(this));
 
         //Adding context menu when skills or items are right clicked.
-        new ContextMenu(html, '.skill-choice', this.skillContextMenu);
-        new ContextMenu(html, '.item-choice-regular', this.itemContextMenu);
-        new ContextMenu(html, '.item-choice-favorite', this.itemContextMenuFavorite);
+        if(this.actor.type === "character"){
+            new ContextMenu(html, '.skill-choice', this.skillContextMenu);
+            new ContextMenu(html, '.item-choice-regular', this.itemContextMenu);
+            new ContextMenu(html, '.item-choice-favorite', this.itemContextMenuFavorite);
+        }else{
+            new ContextMenu(html, '.item-choice-regular, .item-choice-favorite', this.skillContextMenu);
+        }
+        
     }
 
     //@override
