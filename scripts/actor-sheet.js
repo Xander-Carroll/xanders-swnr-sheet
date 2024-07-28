@@ -87,7 +87,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             name: ` <div style="display:flex; flex-direction:row; align-items:center;">
                         <i class="context-image fas fa-edit"></i>
                         &nbsp;
-                        <p class="context-text">Edit Skill</p>
+                        <p class="context-text">Edit Item</p>
                     </div>`,
             icon: '',
             callback: element => {
@@ -99,7 +99,7 @@ export class XandersSwnActorSheet extends ActorSheet {
             name: ` <div class="context-delete" style="display:flex; flex-direction:row; align-items:center;">
                         <i class="context-image fas fa-trash"></i>
                         &nbsp;
-                        <p class="context-text">Delete Skill</p>
+                        <p class="context-text">Delete Item</p>
                     </div>`,
             icon: '',
             callback: element => {
