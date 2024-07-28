@@ -47,6 +47,11 @@
             {{/if}}{{/ifNotEquals}}
         </div>
         <div>
+            {{#ifNotEquals system.skillId ""}}{{#if system.skillId}}
+                <button class="power-skill-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" data-type="skill-button" style="line-height:24px;margin-bottom:3px;margin-top:3px;">Skill Check</button>
+                {{#unless system.save}} <hr style="width:100%;margin-bottom:2px;margin-top:2px"/> {{/unless}}
+
+            {{/if}}{{/ifNotEquals}}
             {{#ifNotEquals system.skill ""}}{{#if system.skill}}
                 <button class="power-skill-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" data-type="skill-button" style="line-height:24px;margin-bottom:3px;margin-top:3px;">Skill Check</button>
                 {{#unless system.save}} <hr style="width:100%;margin-bottom:2px;margin-top:2px"/> {{/unless}}

@@ -45,9 +45,10 @@ export class XandersSwnItemSheet extends ItemSheet {
             context.owner = false;
         }
 
-        //Weapon type is not a property for the core system, so it needs to be added.
-        if (context.type === "weapon" && typeof context.system.type === 'undefined'){
-            context.system.type = "melee";
+        //Adding variables to weapons.
+        if (context.type === "weapon"){
+            //Weapon type is not a property for the core system, so it needs to be added.
+            if(typeof context.system.type === 'undefined') context.system.type = "melee";
         }
 
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
