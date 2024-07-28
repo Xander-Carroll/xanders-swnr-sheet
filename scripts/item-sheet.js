@@ -50,37 +50,6 @@ export class XandersSwnItemSheet extends ItemSheet {
             context.system.type = "melee";
         }
 
-        //Power Attribute and skillId are not properties of the core syste, and need to be added.
-        if(context.type === "power"){
-            //The core item sheet should have its skill value matched to update the new item sheet's value.
-            if (context.system.skillId && context.system.attribute){
-                let newSkill = context.system.attribute + "/" + this.object.actor.getEmbeddedDocument("Item", context.system.skillId).name;
-                context.system.skill = newSkill;
-
-                this.object.update({system:{skill:newSkill}});
-
-            //But if the new item sheet doesn't have a value and the old one does, then the old sheets value is used.
-            }else if(!context.system.skillId && !context.system.attribute && context.system.skill){
-                let values = context.system.skill.split('/');
-                if(values.length == 2){
-                    let skillItem = this.actor ? this.actor.items.find(entry => {
-                        return entry.name.toLowerCase() === values[1].toLowerCase() && entry.type === "skill";
-                    }) : "";
-
-                    if(skillItem && !skillItem.length){
-                        context.system.skillId = skillItem._id;
-                        context.system.attribute = values[1].toLowerCase();
-    
-                        this.object.update({system:{skillId:skillItem._id, attribute:values[0].toLowerCase()}});
-                    }else{
-                        ui.notifications.warn("The core sheet skill format couldn't be parsed.");
-                    }
-                }else{
-                    ui.notifications.warn("The core sheet skill format couldn't be parsed.");
-                }
-            }
-        }
-
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
         //console.log(context);
 
