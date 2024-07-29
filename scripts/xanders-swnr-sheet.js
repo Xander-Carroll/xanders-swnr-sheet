@@ -134,9 +134,9 @@ function injectCSS() {
 			}
 
             /* Replaces the standard parchment background */
-			.window-app section.window-content:not(.cq),
-			.window-app section.window-content .dialog-content,
-			.window-app section.window-content .dialog-buttons{
+			.window-app:not(.sidebar-popout) section.window-content:not(.cq),
+			.window-app:not(.sidebar-popout) .dialog-content,
+			.window-app:not(.sidebar-popout) .dialog-buttons{
 				background: url("modules/xanders-swnr-sheet/img/backgrounds/hexellence.webp");
 				background-color: rgb(233,233,233);
 				color: black;
@@ -215,6 +215,10 @@ function injectCSS() {
 				text-align: left;
 				margin: 0px;
 				padding:0px 3px;
+			}
+
+			.window-app.sidebar-popout section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md){
+				background-color: rgba(255, 255, 245, 0.8);
 			}
 
 			.window-app section.window-content button.file-picker + input[type="text"]{
