@@ -53,8 +53,14 @@
   color: var(--portrait-icon-color);
 }
 
+.window-app.xanders-swnr .portrait-button i.d20-glowing{
+  color: var(--active-font-color);
+  animation: pulse 3s infinite;
+}
+
 .window-app.xanders-swnr .portrait-button:hover i{
   color: var(--font-color);
+  animation: unset;
 }
 
 .window-app.xanders-swnr .portrait-button:hover{

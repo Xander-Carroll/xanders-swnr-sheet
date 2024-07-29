@@ -1,5 +1,5 @@
 // Implements all of the important functionality for the new actor sheets.
-import { initSkills, useItem, makeSavingThrow, makeSkillCheck, makeMoraleCheck, calculateBarPercentage} from "./utils.js";
+import { initSkills, useItem, makeSavingThrow, makeSkillCheck, makeMoraleCheck, calculateBarPercentage, generateRoll} from "./utils.js";
 
 export class XandersSwnActorSheet extends ActorSheet {
 
@@ -338,6 +338,9 @@ export class XandersSwnActorSheet extends ActorSheet {
         context.system.encumbrance.stowed.percentage = calculateBarPercentage(encumbrance.stowed.value, encumbrance.stowed.max);
         context.system.encumbrance.ready.over = encumbrance.ready.value > encumbrance.ready.max;
         context.system.encumbrance.stowed.over = encumbrance.stowed.value > encumbrance.stowed.max;
+
+        //Determines if the portrait button should be glowing.
+        context.system.canLevelUp = context.system.level.value > context.system.health_max_modified;
 
         //Creating a string that will dispaly attribute modifiers with a + or -
         for(let i=0; i<6; i++){
@@ -684,6 +687,81 @@ export class XandersSwnActorSheet extends ActorSheet {
                             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                             content: chatContent,
                         });
+                    }
+                }
+            }).render(true);
+        }else if(type==="level-up"){
+
+            if(this.actor.system.level.value <= this.actor.system.health_max_modified){
+                ui.notifications.warn("Level-Up has already been applied for level " + this.actor.system.level.value + ".");
+            }
+
+            var applyChanges = false;
+            new Dialog({
+                title: `Roll HP For Level ${this.actor.system.level.value}?`,
+                content: `
+                  <form>
+                    <p>Are you sure you want to roll HP for level ${this.actor.system.level.value}?</p>
+                  </form>
+                  `,
+                buttons: {
+                  yes: {
+                    icon: "<i class='fas fa-check'></i>",
+                    label: `Reroll HP`,
+                    callback: () => applyChanges = true
+                  },
+                  no: {
+                    icon: "<i class='fas fa-times'></i>",
+                    label: `Cancel`
+                  },
+                },
+                default: "no",
+                close: async html => {
+                    if (applyChanges) {
+                        const currentHp = this.actor.system.health.max;
+                        const level = this.actor.system.level.value;
+
+                        const seperator = (this.actor.system.stats.con.mod < 0) ? "" : "+";
+                        const perLevel = `max(${this.actor.system.hitDie} ${seperator} ${this.actor.system.stats.con.mod}, 1)`;
+
+                        const formulaArray = Array(level).fill(perLevel);
+                        const formula = formulaArray.join("+");
+
+
+                        let rollMessage = await generateRoll(formula, {rollMode: "CURRENT"}, this);
+
+                        //Cancelling the roll if the user used an invalid modifier.
+                        if (rollMessage.error){
+                            return;
+                        }
+                    
+                        //Variables for later.
+                        var newHp = rollMessage.roll._total;
+                        var rollElements = $(rollMessage.data.content);
+
+                        //Replcing the ugly roll formula.
+                        rollElements.find("div.dice-formula").replaceWith(`<div class="dice-formula">${level} × ${perLevel}</div>`);
+
+                        //If the new roll is lower than the old HP, the chat card needs updated. 
+                        if(rollMessage.roll._total <= currentHp && level > 1){
+                            const oldRoll = rollElements.find("h4").text();
+                            rollElements.find("h4").replaceWith(`<h4 class="dice-total"><s>${oldRoll}</s> → ${currentHp+1}</h4>`);
+
+                            newHp = currentHp+1;
+                        }
+
+                        //Adding text to the card.
+                        rollMessage.data.content = `<div class="dice-roll">${rollElements.html()}</div>`;
+                        rollMessage.data.content = `<p>${this.actor.name} rolled hitpoints for level ${level}!</p>` + rollMessage.data.content;
+
+                        // Creates the chat message with the given data.
+                        await getDocumentClass("ChatMessage").create(rollMessage.data);
+
+                        //Updating the actor's HP.
+                        this.actor.update({system:{
+                            health_max_modified: this.actor.system.health_max_modified ? Math.max(level, this.actor.system.health_max_modified) : level,
+                            health: {max: newHp, value: this.actor.system.health.value+(newHp-currentHp)}
+                        }});
                     }
                 }
             }).render(true);

@@ -142,6 +142,7 @@ export function initSkills(actor, skillType){
         skillsToAdd.push(skill);
     });
 
+    ui.notifications.info("Adding skills. This may take a moment.");
     actor.createEmbeddedDocuments("Item", skillsToAdd);
 }
 
@@ -185,7 +186,7 @@ export async function generateRoll(baseDie, rollData, sheet){
 
     //Detrming the proper roll formula to use.
     let rollFormula = baseDie;
-    if(rollData.modifier !== ''){
+    if(rollData.modifier && rollData.modifier !== ''){
         let firstSymbol = rollData.modifier.charAt(0);
 
         if(firstSymbol !== '+' && firstSymbol !== '-'){
