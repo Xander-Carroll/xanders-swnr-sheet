@@ -48,8 +48,8 @@ function registerSystemSettings(){
 	game.settings.register("xanders-swnr-sheet", "changeAllBackgrounds", {
 		config: true,
 		scope: "world",
-		name: "Change All Backgrounds",
-		hint: "This will give the background of all popups a more sci-fi texture. It will also change the default font to one that doesn't have spacing issues.",
+		name: "Change UI",
+		hint: "This will overhaul the UI giving popups a more sci-fi texture.",
 		type: Boolean,
 		default: true,
 		onChange: debouncedReload
@@ -187,12 +187,25 @@ function injectCSS() {
 				border: 1px solid var(--color-border-light-tertiary);
 				border-radius: 3px;
 				background-color: rgba(0, 0, 0, 0.05);
+				padding:0px 3px;
+			}
+
+			.window-app section.window-content .dialog-content p:not(.notes){
+				margin: 7px 0px;
+				line-height: 13px;
+			}
+
+			.window-app section.window-content .dialog-content h4{
+				margin: 7px 0px;
+				line-height: 13px;
 			}
 
 			.window-app section.window-content select option{
 				background-color: var(--color-bg-option);
 				color: black;
 				border-radius: 0px;
+				padding-left: 0px;
+				padding-right: 0px;
 			}
 
 			.window-app section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md){
@@ -200,6 +213,16 @@ function injectCSS() {
 				border: 1px solid var(--color-border-light-tertiary);
 				border-radius: 3px;
 				text-align: left;
+				margin: 0px;
+				padding:0px 3px;
+			}
+
+			.window-app section.window-content button.file-picker + input[type="text"]{
+				margin-left: -3px;
+			}
+
+			.window-app section.window-content .range-value{
+				border: 1px solid var(--color-border-light-tertiary);
 			}
 
 			.window-app section.window-content input[type=range]{
@@ -209,6 +232,10 @@ function injectCSS() {
 
 			.window-app section.window-content input[type=color]{
 				padding: 1px;
+			}
+
+			.window-app section.window-content .item.active{
+				text-shadow: 0 0 10px var(--color-shadow-primary);
 			}
 
 			.window-app section.window-content hr{
@@ -254,8 +281,9 @@ function injectCSS() {
 
 			/* Adding more padding between buttons.*/
 			.window-app button {
-				margin: 0.125rem;
-				padding: 0.125rem;
+				margin: 0.125rem 0rem 0.125rem;
+				padding: 0.125rem 6px 0.125rem;
+				line-height: 28px;
 			}
         `;
     }
