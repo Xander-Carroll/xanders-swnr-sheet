@@ -3,7 +3,6 @@
     
     It changes the UI of almost everything inside of foundry to give the system a more sci-fi
     look.
-
 */
 
 /* The new font needs changed on everything. */
@@ -27,9 +26,9 @@ section.window-content:not(.cq){
 }
 
 /* Replaces the standard parchment background */
-.window-app:not(.sidebar-popout, .journal-sheet) section.window-content:not(.cq),
+.window-app:not(.sidebar-popout, .journal-entry) section.window-content:not(.cq),
 .window-app:not(.sidebar-popout) .dialog-content,
-.window-app:not(.sidebar-popout) .dialog-buttons{
+.window-app:not(.sidebar-popout) .dialog-buttons{    
     background: url("modules/xanders-swnr-sheet/img/backgrounds/hexellence.webp");
     background-color: rgb(233,233,233);
     color: black;
@@ -39,7 +38,7 @@ section.window-content:not(.cq){
     --color-underline-header: rgb(71, 71, 71);
 }
 
-.window-app section.window-content aside{
+.window-app section.window-content aside:not(.page-level, .journal-sidebar){
     background-color: rgb(255, 255, 255, 0.3);
 }
 
@@ -158,10 +157,6 @@ section.window-content:not(.cq){
 }
 
 /* Fixing the styling for popout tabs. */
-.window-app.sidebar-popout section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md, .dice-tray__input){
-    background-color: rgba(255, 255, 245, 0.8);
-}
-
 .window-app.sidebar-popout section.window-content select{
     color: black;
 }
@@ -191,14 +186,16 @@ section.window-content:not(.cq){
     list-style: decimal;
 }
 
-.window-app:not(.journal-sheet) section.window-content h1{
+.window-app section.window-content h1{
     font-size: 2em;
     border-bottom: 2px solid var(--color-underline-header);
+    margin-bottom: 2px;
 }
 
 .window-app section.window-content h2{
     font-size: 1.5em;
     border-bottom: 1px solid var(--color-underline-header);
+    margin-bottom: 2px;
 }
 
 /* Fixing the bullet points and numbered list on the old charachter and item sheets.*/
@@ -208,6 +205,27 @@ section.window-content:not(.cq){
 
 .window-app.swnr section.window-content ol{
     list-style: none;
+}
+
+/* Changing the css for journals. */
+.window-app section.window-content section.journal-entry-content{
+    background: url("modules/xanders-swnr-sheet/img/backgrounds/hexellence.webp") !important;
+    background-color: rgb(233,233,233) !important;
+    color: black;
+
+    --color-shadow-primary: rgb(5, 99, 150);
+    --color-text-dark-primary: #3c3c3c;
+    --color-underline-header: rgb(71, 71, 71);
+}
+
+.window-app.sidebar-popout section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md, .dice-tray__input),
+.window-app section.window-content input[type="search"]{
+    background-color: rgba(255, 255, 245, 0.8);
+}
+
+.window-app section.window-content .editor-menu button:not(section.dice-tray button){
+    line-height: 24px;
+    padding: 0px 5px;
 }
 
 /* Fixing the dice-tray module's css. */

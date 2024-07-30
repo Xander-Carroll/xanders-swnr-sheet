@@ -156,6 +156,7 @@
 .window-app.xanders-swnr .window-content * {
   color: var(--font-color);
 }
+
 .window-app.xanders-swnr p {
   font-family: "Roboto";
   color: var(--font-color);
