@@ -27,7 +27,7 @@ section.window-content:not(.cq){
 }
 
 /* Replaces the standard parchment background */
-.window-app:not(.sidebar-popout) section.window-content:not(.cq),
+.window-app:not(.sidebar-popout, .journal-sheet) section.window-content:not(.cq),
 .window-app:not(.sidebar-popout) .dialog-content,
 .window-app:not(.sidebar-popout) .dialog-buttons{
     background: url("modules/xanders-swnr-sheet/img/backgrounds/hexellence.webp");
@@ -186,7 +186,7 @@ section.window-content:not(.cq){
     list-style: decimal;
 }
 
-.window-app section.window-content h1{
+.window-app:not(.journal-sheet) section.window-content h1{
     font-size: 2em;
     border-bottom: 2px solid var(--color-underline-header);
 }
