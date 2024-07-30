@@ -1,6 +1,5 @@
 /*
- * Imports all of the other CSS files, so only file needs to be included in the module.json list.
- *
+    Imports all of the other CSS files, so only file needs to be included in the module.json list.
  */
 
 @import "./xanders-swnr-common.css";

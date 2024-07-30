@@ -65,6 +65,7 @@ section.window-content:not(.cq){
     border-bottom: 1px solid black;
 }
 
+/* Restyling buttons. */
 .window-app section.window-content button:not(section.dice-tray button){
     background: #d4d5d6;
     color: black;
@@ -86,6 +87,7 @@ section.window-content:not(.cq){
     outline: none;
 }
 
+/* Restyling elements to match the new theme (selects, paragraphs, headers, etc.). */
 .window-app section.window-content select:not(.rounded-md){
     border: 1px solid var(--color-border-light-tertiary);
     border-radius: 3px;
@@ -109,38 +111,6 @@ section.window-content:not(.cq){
     border-radius: 0px;
     padding-left: 0px;
     padding-right: 0px;
-}
-
-.window-app section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md, .dice-tray__input){
-    background-color: rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--color-border-light-tertiary);
-    border-radius: 3px;
-    text-align: left;
-    margin: 0px;
-    padding:0px 3px;
-}
-
-.window-app.sidebar-popout section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md, .dice-tray__input){
-    background-color: rgba(255, 255, 245, 0.8);
-}
-
-.window-app section.window-content textarea, #sidebar textarea{
-    font-family: inherit;
-    padding: 5px;
-}
-
-.window-app.sidebar-popout section.window-content select{
-    color: black;
-}
-
-.window-app.sidebar-popout section.window-content textarea{
-    color: black;
-}
-
-.window-app.sidebar-popout section.window-content button:not(section.dice-tray button){
-    padding: 2px 6px;
-    margin: 4px;
-    line-height: 26px;
 }
 
 .window-app section.window-content button.file-picker + input[type="text"]{
@@ -175,6 +145,41 @@ section.window-content:not(.cq){
 
 .directory .directory-header .header-search input {
     color: black;
+}
+
+/* Restyling input fields. */
+.window-app section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md, .dice-tray__input){
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border-light-tertiary);
+    border-radius: 3px;
+    text-align: left;
+    margin: 0px;
+    padding:0px 3px;
+}
+
+/* Fixing the styling for popout tabs. */
+.window-app.sidebar-popout section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md, .dice-tray__input){
+    background-color: rgba(255, 255, 245, 0.8);
+}
+
+.window-app.sidebar-popout section.window-content select{
+    color: black;
+}
+
+.window-app.sidebar-popout section.window-content textarea{
+    color: black;
+}
+
+.window-app.sidebar-popout section.window-content button:not(section.dice-tray button){
+    padding: 2px 6px;
+    margin: 4px;
+    line-height: 26px;
+}
+
+/* Fixing the styling for the UI sidebar. */
+.window-app section.window-content textarea, #sidebar textarea{
+    font-family: inherit;
+    padding: 5px;
 }
 
 /* Fixing the bullet points and numbered list in item descriptions.*/
