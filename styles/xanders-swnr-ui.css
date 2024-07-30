@@ -1,0 +1,219 @@
+/* 
+    This css is only loaded if the xanders-swnr-sheet-css-changes settings variable is true. 
+    
+    It changes the UI of almost everything inside of foundry to give the system a more sci-fi
+    look.
+
+*/
+
+/* The new font needs changed on everything. */
+body.game{
+    font-family: var(--font-primary);
+}
+
+/* ... Except for the default old SWNR sheet. */
+.swnr{
+    font-family: "Gayathri";
+}
+
+section.window-content:not(.cq){
+    font-size: var(--font-size-14);
+}
+
+/* The new font needs changed for the chat messages. */
+.chat-message h4{
+    font-family: var(--font-primary);
+    font-weight: normal;
+}
+
+/* Replaces the standard parchment background */
+.window-app:not(.sidebar-popout) section.window-content:not(.cq),
+.window-app:not(.sidebar-popout) .dialog-content,
+.window-app:not(.sidebar-popout) .dialog-buttons{
+    background: url("modules/xanders-swnr-sheet/img/backgrounds/hexellence.webp");
+    background-color: rgb(233,233,233);
+    color: black;
+
+    --color-shadow-primary: rgb(5, 99, 150);
+    --color-text-dark-primary: #3c3c3c;
+    --color-underline-header: rgb(71, 71, 71);
+}
+
+.window-app section.window-content aside{
+    background-color: rgb(255, 255, 255, 0.3);
+}
+
+/* Changes colors to make fields readable */
+.window-app#module-management section.window-content{
+    color: none;
+}
+
+.window-app#module-management section.window-content label{
+    color: black;
+}
+
+.window-app section.window-content p.notes{
+    color: #464646 !important;
+    margin-top: 3px;
+    font-size: 13px;
+}
+
+.window-app section.window-content .border:not(.rounded-md){
+    border: none;
+    font-weight: bolder;
+    font-size: 20px;
+    border-bottom: 1px solid black;
+}
+
+.window-app section.window-content button:not(section.dice-tray button){
+    background: #d4d5d6;
+    color: black;
+    border-radius: 3px;
+    border: 1px solid var(--color-border-light-tertiary);
+    padding: 0.125rem 6px 0.125rem;
+    line-height: 28px;
+}
+
+.window-app section.window-content .form-fields button:not(section.dice-tray button){
+    line-height: calc(var(--form-field-height) - 4px);
+}
+
+.window-app section.window-content .form-fields button:not(section.dice-tray button) i{
+    margin: 0px;
+}
+
+.window-app section.window-content button:focus:not(section.dice-tray button){
+    outline: none;
+}
+
+.window-app section.window-content select:not(.rounded-md){
+    border: 1px solid var(--color-border-light-tertiary);
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding:0px 3px;
+}
+
+.window-app section.window-content .dialog-content p:not(.notes){
+    margin: 7px 0px;
+    line-height: 13px;
+}
+
+.window-app section.window-content .dialog-content h4{
+    margin: 7px 0px;
+    line-height: 13px;
+}
+
+.window-app section.window-content select option{
+    background-color: var(--item-background-other-color);
+    color: black;
+    border-radius: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.window-app section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md, .dice-tray__input){
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border-light-tertiary);
+    border-radius: 3px;
+    text-align: left;
+    margin: 0px;
+    padding:0px 3px;
+}
+
+.window-app.sidebar-popout section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md, .dice-tray__input){
+    background-color: rgba(255, 255, 245, 0.8);
+}
+
+.window-app section.window-content textarea, #sidebar textarea{
+    font-family: inherit;
+    padding: 5px;
+}
+
+.window-app.sidebar-popout section.window-content select{
+    color: black;
+}
+
+.window-app.sidebar-popout section.window-content textarea{
+    color: black;
+}
+
+.window-app.sidebar-popout section.window-content button:not(section.dice-tray button){
+    padding: 2px 6px;
+    margin: 4px;
+    line-height: 26px;
+}
+
+.window-app section.window-content button.file-picker + input[type="text"]{
+    margin-left: -3px;
+}
+
+.window-app section.window-content .range-value{
+    border: 1px solid var(--color-border-light-tertiary);
+}
+
+.window-app section.window-content input[type=range]{
+    border: none;
+    background: none;
+}
+
+.window-app section.window-content input[type=color]{
+    padding: 1px;
+}
+
+.window-app section.window-content .item.active{
+    text-shadow: 0 0 10px var(--color-shadow-primary);
+}
+
+.window-app section.window-content hr{
+    border-color: #868685;
+}
+
+.window-app section.window-content textarea{
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid #868685;
+}
+
+.directory .directory-header .header-search input {
+    color: black;
+}
+
+/* Fixing the bullet points and numbered list in item descriptions.*/
+.window-app section.window-content ul{
+    list-style: disc;
+}
+
+.window-app section.window-content ol{
+    list-style: decimal;
+}
+
+.window-app section.window-content h1{
+    font-size: 2em;
+    border-bottom: 2px solid var(--color-underline-header);
+}
+
+.window-app section.window-content h2{
+    font-size: 1.5em;
+    border-bottom: 1px solid var(--color-underline-header);
+}
+
+/* Fixing the bullet points and numbered list on the old charachter and item sheets.*/
+.window-app.swnr section.window-content ul{
+    list-style: none;
+}
+
+.window-app.swnr section.window-content ol{
+    list-style: none;
+}
+
+/* Fixing the dice-tray module's css. */
+.window-app section.window-content section.dice-tray button{
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.window-app section.window-content section.dice-tray input{
+    padding: 0px;
+    border-radius: 3px;
+}
