@@ -29,7 +29,9 @@ This module is an add-on for WintersleepAI's *Stars Without Number* system.$`^1`
 - [ ] shipFitting
 - [ ] Asset
 - [x] Edge
-- [ ] Program 
+- [ ] Program
+      
+![SheetPreviews](https://github.com/user-attachments/assets/b0e16ea2-154d-41ea-89cb-089661e8de71)
 
 ## Features
 These sheets contain many features most of which are not present with the base sheets. Some of these features include:
