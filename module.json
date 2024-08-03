@@ -1,16 +1,14 @@
 {
 	"name": "xanders-swnr-sheet",
 	"title": "Xander's SWNR Sheet",
-	"description": "A module which contains an alternate character sheet for WintersleepAI's SWNR system.",
-	"authors": [
-    {
-    "name": "Xander"
-    }
-    ],
+	"description": "A module which contains alternate sheets for WintersleepAI's SWNR system.",
+	"authors": [{
+    	"name": "Xander"
+    }],
 	"version": "1.0.0",
 	"compatibility": {
 		"minimum": "9",
-		"verified": "10"
+		"verified": "11"
 	},
 	"relationships": {
 		"systems": [{
@@ -21,5 +19,10 @@
 	"esmodules" : ["./scripts/xanders-swnr-sheet.js"],
 	"styles": ["./styles/xanders-swnr-sheet.css"],
 	"packs": [],
-	"url": "https://github.com/Xander-Carroll/xanders-swnr-sheet"
+	"url": "https://github.com/Xander-Carroll/xanders-swnr-sheet",
+	"manifest": "https://github.com/Xander-Carroll/xanders-swnr-sheet/releases/latest/download/module.json",
+	"license": "https://github.com/Xander-Carroll/xanders-swnr-sheet/blob/main/LICENSE.txt",
+	"readme": "https://github.com/Xander-Carroll/xanders-swnr-sheet/blob/main/README.md",
+	"changelog": "https://github.com/Xander-Carroll/xanders-swnr-sheet/blob/main/RELEASES.md",
+	"bugs": "https://github.com/Xander-Carroll/xanders-swnr-sheet/issues"
 }
