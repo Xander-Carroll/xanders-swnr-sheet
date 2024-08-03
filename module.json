@@ -20,6 +20,7 @@
 	"styles": ["./styles/xanders-swnr-sheet.css"],
 	"packs": [],
 	"url": "https://github.com/Xander-Carroll/xanders-swnr-sheet",
+	"download": "https://github.com/Xander-Carroll/xanders-swnr-sheet/releases/latest/download/v1.0.0.zip",
 	"manifest": "https://github.com/Xander-Carroll/xanders-swnr-sheet/releases/latest/download/module.json",
 	"license": "https://github.com/Xander-Carroll/xanders-swnr-sheet/blob/main/LICENSE.txt",
 	"readme": "https://github.com/Xander-Carroll/xanders-swnr-sheet/blob/main/README.md",
