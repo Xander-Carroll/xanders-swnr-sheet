@@ -1,5 +1,5 @@
 # Xander's SWNR Sheet
-This module is an add-on for WintersleepAI's *Stars Without Number* system$`^1`$. It provides new Actor and Item sheets inspired by the Tidy5e Sheets module$`^2`$. While Wintersleep's system has basic support for Cities Without Number, this module does not (yet). In future releases, CWN support will be optionaly available.
+This module is an add-on for WintersleepAI's *Stars Without Number* system.$`^1`$ It provides new Actor and Item sheets inspired by the Tidy5e Sheets module.$`^2`$ While Wintersleep's system has basic support for Cities Without Number, this module does not (yet). In future releases, CWN support will be optionaly available.
 
 - See the [Release Notes](RELEASES.md) for information on recent changes.
 - See the [Project Board](https://github.com/users/Xander-Carroll/projects/1) for information on planned changes.
