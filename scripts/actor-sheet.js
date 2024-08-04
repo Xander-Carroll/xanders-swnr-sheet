@@ -422,55 +422,8 @@ export class XandersSwnActorSheet extends ActorSheet {
         for(let i=0; i<context.system.itemTypes.weapon.length; i++){
             if(this.actor.type !== "character") break;
 
-            let weapon = context.system.itemTypes.weapon[i];
-            let skill = context.actor.getEmbeddedDocument("Item", weapon.system.skill);
-            let skillPunchMod = 0;
-            let skillMod = -2;
-            let skillModString = 0;
-
-            //The attribute bonus is the better of the two listed attribute modifiers.
-            let attributeBonus = context.actor.system.stats[weapon.system.stat].mod;
-            if(weapon.system.secondStat !== "none"){
-                attributeBonus = Math.max(attributeBonus, context.actor.system.stats[weapon.system.secondStat].mod);
-            }
-
-            //If the skill is set, then the rank will be used, if the skill is unset, then the rank is 0.
-            if(typeof skill != "undefined"){
-                //Punch attacks add their skill modifier to the damage roll.
-                if (skill.name === "Punch" || skill.name === "punch"){
-                    skillPunchMod = skill.system.rank;
-                }
-
-                skillModString = skill.system.rank.toString();
-                if(skillModString.charAt(0) != '-') skillModString = "+" + skillModString;
-
-                //If an attack skill is untrained, the character takes -2 instead of just -1 to hit.
-                if (skill.system.rank != -1){
-                    skillMod = skill.system.rank;
-                }
-            }
-
             let currentSave = context.system.itemTypes.weapon[i].system.save;
             if (currentSave && currentSave != "") context.system.itemTypes.weapon[i].system.saveString = currentSave.charAt(0).toUpperCase() + currentSave.slice(1);
-
-            //Calculating the weapon attack bonus, and adding a + sign in front of the string if needed.
-            let fullBonusInt = context.actor.system.ab + weapon.system.ab + skillMod + attributeBonus;
-            let fullBonusString = fullBonusInt >= 0 ? "+" + String(fullBonusInt) : fullBonusInt;
-
-            //Calculating the weapon damage, and adding a + sign in front of the string if needed.
-            let fullDamageInt = skillPunchMod + attributeBonus;
-            let fullDamageString = fullDamageInt >= 0 ? "+" + String(fullDamageInt) : fullDamageInt;
-
-            //Adding the damage and attack bonus string to the sheet.
-            let itemExtraData = {
-                fullAttackBonus: fullBonusString,
-                fullDamage: weapon.system.damage + fullDamageString,
-                damageBonus: fullDamageString,
-                skillMod: skillModString
-            }
-
-            let itemId = context.system.itemTypes.weapon[i].id;
-            this.actor.getEmbeddedDocument("Item", itemId).update({system:itemExtraData});
         }
 
         //Parsing Focus Items

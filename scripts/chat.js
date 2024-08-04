@@ -175,6 +175,11 @@ async function onChatWeaponButtonPress(event){
     let itemId = event.currentTarget.dataset.itemId;
     let ownerId = event.currentTarget.dataset.ownerId;
 
+    //Getting the actor and weapon involved with the attack.
+    let actor = game.actors.get(ownerId);
+    let weapon = actor.getEmbeddedDocument("Item", itemId);
+
+    //Handling burst weapon attacks.
     let wasBurstDamage = false;
     if (type == "burst"){
         type = "damage";
@@ -185,20 +190,19 @@ async function onChatWeaponButtonPress(event){
     let rollData = await _weaponRollDialog(type, itemId, ownerId);
     if(rollData.cancelled) return;
 
-    //Getting the actor and weapon involved with the attack.
-    let actor = game.actors.get(ownerId);
-    let weapon = actor.getEmbeddedDocument("Item", itemId);
+    //Handling ammo.
+    if(rollData.consumeAmmo){
+        let ammoConsumption = 1;
+        if (rollData.burstFire == true) ammoConsumption = 3;
 
-    //Consuming one piece of ammunition.
-    let ammoConsumption = 1;
-    if (rollData.burstFire == true) ammoConsumption = 3;
-    if((rollData.consumeAmmo && weapon.system.ammo.value < ammoConsumption && weapon.system.ammo.type !== "infinite") || (weapon.system.ammo.type === "none" && rollData.consumeAmmo)){
-        ui.notifications.warn("You don't have enough ammo to use this weapon!");
-        return;
-    }else if (rollData.consumeAmmo && weapon.system.ammo.type !== "infinite"){
-        weapon.update({system:{ammo:{value:weapon.system.ammo.value-ammoConsumption}}});
+        if((weapon.system.ammo.value < ammoConsumption && weapon.system.ammo.type !== "infinite") || (weapon.system.ammo.type === "none" && rollData.consumeAmmo)){
+            ui.notifications.warn("You don't have enough ammo to use this weapon!");
+            return;
+        }else if (weapon.system.ammo.type !== "infinite"){
+            weapon.update({system:{ammo:{value:weapon.system.ammo.value-ammoConsumption}}});
+        }
     }
-
+    
     //Adding modifiers to the role.
     let dialogMod;
     if(type === "attack" || type === "damage"){
@@ -209,19 +213,56 @@ async function onChatWeaponButtonPress(event){
         }
     }
 
+    //Calculating weapon modifiers.
+    let skill = actor.getEmbeddedDocument("Item", weapon.system.skill);
+
+    let skillPunchMod = 0;
+    let skillMod = -2;
+    let skillModString = 0;
+
+    //If the skill is set, then the rank will be used, if the skill is unset, then the rank is 0.
+    if(typeof skill != "undefined"){
+        //Punch attacks add their skill modifier to the damage roll.
+        if (skill.name.toUpperCase() === "PUNCH"){
+            skillPunchMod = skill.system.rank;
+        }
+        
+        skillModString = skill.system.rank.toString();
+        if(skillModString.charAt(0) != '-') skillModString = "+" + skillModString;
+        
+        //If an attack skill is untrained, the character takes -2 instead of just -1 to hit.
+        if (skill.system.rank != -1){
+            skillMod = skill.system.rank;
+        }
+    }
+
+    //The attribute bonus is the better of the two listed attribute modifiers.
+    let attributeBonus = context.actor.system.stats[weapon.system.stat].mod;
+    if(weapon.system.secondStat !== "none"){
+        attributeBonus = Math.max(attributeBonus, context.actor.system.stats[weapon.system.secondStat].mod);
+    }
+
+    //Calculating the weapon attack bonus, and adding a + sign in front of the string if needed.
+    let fullBonusInt = actor.system.ab + weapon.system.ab + skillMod + attributeBonus;
+    let fullBonusString = fullBonusInt >= 0 ? "+" + String(fullBonusInt) : fullBonusInt;
+
+    //Calculating the weapon damage, and adding a + sign in front of the string if needed.
+    let fullDamageInt = skillPunchMod + attributeBonus;
+    let fullDamageString = fullDamageInt >= 0 ? "+" + String(fullDamageInt) : fullDamageInt;
+
     //Creating the overall roll modifier and damage dice.
     let dice = "1d20";
     if(type === "attack"){
-        rollData.modifier = weapon.system.fullAttackBonus + dialogMod;
+        rollData.modifier = fullBonusString + dialogMod;
 
         //If the attack roll was made with burst then the roll gets +2.
         if(rollData.burstFire) rollData.modifier = rollData.modifier + "+2";
     }else if (type === "damage"){
-        rollData.modifier = weapon.system.damageBonus + dialogMod;
+        rollData.modifier = fullDamageString + dialogMod;
         dice = weapon.system.damage;
 
         //If the skill boosts damage property is selected, then the skillMod should be added to the result.
-        if(weapon.system.skillBoostsDamage) rollData.modifier = rollData.modifier + weapon.system.skillMod;
+        if(weapon.system.skillBoostsDamage) rollData.modifier = rollData.modifier + skillModString;
 
         //If the burst damage was rolled then +2 is added to the damage.
         if(wasBurstDamage) rollData.modifier = rollData.modifier + "+2";
@@ -230,7 +271,7 @@ async function onChatWeaponButtonPress(event){
         dice = weapon.system.shock.dmg.toString();
 
         //If the skill boosts shock property is selected, then the skillMod should be added to the result.
-        if(weapon.system.skillBoostsShock) dice = dice + weapon.system.skillMod;
+        if(weapon.system.skillBoostsShock) dice = dice + skillModString;
     }
 
     //Getting the roll data results.
