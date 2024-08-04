@@ -113,7 +113,8 @@ export class XandersSwnActorSheet extends ActorSheet {
         armor: {
             encumbrance: true,
             tl: true,
-            quantity: true
+            quantity: true,
+            location: true
         },
         class: {
             class: true,
@@ -134,7 +135,8 @@ export class XandersSwnActorSheet extends ActorSheet {
         item: {
             encumbrance: true,
             tl: true,
-            quantity: true
+            quantity: true,
+            location: true
         },
         power: {
             effort: true,
@@ -144,7 +146,8 @@ export class XandersSwnActorSheet extends ActorSheet {
             encumbrance: true,
             ammo: true,
             tl: true,
-            quantity: true
+            quantity: true,
+            location: true
         }
     };
 
@@ -349,8 +352,6 @@ export class XandersSwnActorSheet extends ActorSheet {
         
             //Adds a new variable modString to each stat which contains the modifier as it should be displayed on the character sheet.
             context.system.stats[attributeString].modString = context.system.stats[attributeString].mod >= 0 ? "+" + context.system.stats[attributeString].mod : context.system.stats[attributeString].mod;
-        
-            this.actor.update({system: {stats: context.system.stats}});
         }
 
         //Determines if the add skills buttons should be displayed.
@@ -381,10 +382,6 @@ export class XandersSwnActorSheet extends ActorSheet {
                 ui.notifications.error("[" + context.items[i].name + "] is not allowed on this sheet and was removed.");
                 this.actor.deleteEmbeddedDocuments("Item", [context.items[i]._id]);
             }
-
-            if(itemType === "armor" || itemType === "item" || itemType === "weapon") context.items[i].system.hasLocation = true;
-            else context.items[i].system.hasLocation = false;
-            this.actor.getEmbeddedDocument("Item", context.items[i]._id).update({system:{hasLocation: context.items[i].system.hasLocation}});
         }
 
         //Makes the item lists and adds the hasItem booleans.

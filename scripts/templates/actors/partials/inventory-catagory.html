@@ -38,7 +38,7 @@
           {{/unless}}{{/ifEquals}}
 
           <!--This block is for the item location button-->
-          {{#if system.hasLocation}}{{#unless ../isFavoriteList}}
+          {{#if ../displayFields.location}}{{#unless ../isFavoriteList}}
             <div title="Location" class="item-location-button inventory-item-button" data-item-id="{{item._id}}" style="width:25px;">
               {{#ifEquals system.location "other"}}<i class="fa-solid fa-question"></i>{{/ifEquals}}
               {{#ifEquals system.location "stowed"}}<i class="fa-solid fa-backpack"></i>{{/ifEquals}}
