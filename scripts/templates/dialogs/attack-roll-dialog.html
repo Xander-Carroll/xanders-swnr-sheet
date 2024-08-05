@@ -20,7 +20,8 @@
   {{/ifEquals}}
 
   <!-- The skill option. -->
-  <div class="form-group">
+  
+  <div class="form-group" {{#ifNotEquals system.actorType "character"}}style="display:none;"{{/ifNotEquals}}>
     <label>Skill</label>
     <select name="skill">
       {{#select system.skill}}

@@ -88,9 +88,21 @@ async function onChatPowerButtonPress(event){
     const ownerId = event.currentTarget.dataset.ownerId;
     const type = event.currentTarget.dataset.type;
 
-    if(type === "skill-button"){
-        //Getting the power item that was used.
-        const power = game.actors.get(ownerId).getEmbeddedDocument("Item", itemId);
+    //Getting the actor that created the chat card.
+    const token = game.canvas.tokens.get(ownerId);
+    let owner = game.actors.get(ownerId);
+    if(token) owner = token.actor;
+    
+    //Returning if an actor could not be found.
+    if(!owner){
+        ui.notifications.warn("Can't find the actor that created this chat card!");
+        return;
+    }
+
+    //Getting the power that was used.
+    const power = owner.getEmbeddedDocument("Item", itemId);
+
+    if(type === "skill-button"){        
         const skillString = power.system.skill;
 
         //Getting the actor that pressed the button.
@@ -128,10 +140,7 @@ async function onChatPowerButtonPress(event){
         
         
     }else if(type === "roll-button"){
-        const owner = game.actors.get(ownerId);
-        const power = owner.getEmbeddedDocument("Item", itemId);
-
-        let rollData = await _weaponRollDialog("power", itemId, ownerId);
+        let rollData = await _weaponRollDialog("power", itemId, owner.id);
 
         if(rollData.cancelled) return;
 
@@ -147,20 +156,18 @@ async function onChatPowerButtonPress(event){
         await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, rollData.rollMode);
         await message.update(rollMessage.data);
     }else{
-        const actor = game.actors.get(ownerId);
-
-        if(actor.system.effort.value <= 0){
+        if(owner.system.effort.value <= 0){
             ui.notifications.warn("You are out of effort to expend.");
             return;
         }else{
             let system = {effort:{}};
-            system.effort[type] = actor.system.effort[type] + 1;
-            actor.update({system: system});
+            system.effort[type] = owner.system.effort[type] + 1;
+            owner.update({system: system});
 
             //Creating a chat message that says the actor rested.
             await ChatMessage.create({
-                speaker: ChatMessage.getSpeaker({actor: actor}),
-                content: `<p>${actor.name} used "${actor.getEmbeddedDocument("Item", itemId).name}".</p><p>1 ${type} effort expended.</p>`, 
+                speaker: ChatMessage.getSpeaker({actor: owner}),
+                content: `<p>${owner.name} used "${owner.getEmbeddedDocument("Item", itemId).name}".</p><p>1 ${type} effort expended.</p>`, 
             });
         }
     }
@@ -171,130 +178,22 @@ async function onChatWeaponButtonPress(event){
     event.preventDefault();
 
     //The type of button that was pressed.
-    let type = event.currentTarget.dataset.type;
-    let itemId = event.currentTarget.dataset.itemId;
-    let ownerId = event.currentTarget.dataset.ownerId;
+    const type = event.currentTarget.dataset.type;
+    const itemId = event.currentTarget.dataset.itemId;
+    const ownerId = event.currentTarget.dataset.ownerId;
 
-    //Getting the actor and weapon involved with the attack.
+    //Getting the actor that created the chat card.
+    const token = game.canvas.tokens.get(ownerId);
     let actor = game.actors.get(ownerId);
-    let weapon = actor.getEmbeddedDocument("Item", itemId);
+    if(token) actor = token.actor;
 
-    //Handling burst weapon attacks.
-    let wasBurstDamage = false;
-    if (type == "burst"){
-        type = "damage";
-        wasBurstDamage = true;
-    }
-
-    //Creating the dialog and getting player input.
-    let rollData = await _weaponRollDialog(type, itemId, ownerId);
-    if(rollData.cancelled) return;
-
-    //Handling ammo.
-    if(rollData.consumeAmmo){
-        let ammoConsumption = 1;
-        if (rollData.burstFire == true) ammoConsumption = 3;
-
-        if((weapon.system.ammo.value < ammoConsumption && weapon.system.ammo.type !== "infinite") || (weapon.system.ammo.type === "none" && rollData.consumeAmmo)){
-            ui.notifications.warn("You don't have enough ammo to use this weapon!");
-            return;
-        }else if (weapon.system.ammo.type !== "infinite"){
-            weapon.update({system:{ammo:{value:weapon.system.ammo.value-ammoConsumption}}});
-        }
-    }
-    
-    //Adding modifiers to the role.
-    let dialogMod;
-    if(type === "attack" || type === "damage"){
-        dialogMod = rollData.modifier;
-
-        if(dialogMod.charAt(0) !== '-' && dialogMod.charAt(0) !== ""){
-            dialogMod = "+" + dialogMod;
-        }
-    }
-
-    //Calculating weapon modifiers.
-    let skill = actor.getEmbeddedDocument("Item", weapon.system.skill);
-
-    let skillPunchMod = 0;
-    let skillMod = -2;
-    let skillModString = 0;
-
-    //If the skill is set, then the rank will be used, if the skill is unset, then the rank is 0.
-    if(typeof skill != "undefined"){
-        //Punch attacks add their skill modifier to the damage roll.
-        if (skill.name.toUpperCase() === "PUNCH"){
-            skillPunchMod = skill.system.rank;
-        }
-        
-        skillModString = skill.system.rank.toString();
-        if(skillModString.charAt(0) != '-') skillModString = "+" + skillModString;
-        
-        //If an attack skill is untrained, the character takes -2 instead of just -1 to hit.
-        if (skill.system.rank != -1){
-            skillMod = skill.system.rank;
-        }
-    }
-
-    //The attribute bonus is the better of the two listed attribute modifiers.
-    let attributeBonus = context.actor.system.stats[weapon.system.stat].mod;
-    if(weapon.system.secondStat !== "none"){
-        attributeBonus = Math.max(attributeBonus, context.actor.system.stats[weapon.system.secondStat].mod);
-    }
-
-    //Calculating the weapon attack bonus, and adding a + sign in front of the string if needed.
-    let fullBonusInt = actor.system.ab + weapon.system.ab + skillMod + attributeBonus;
-    let fullBonusString = fullBonusInt >= 0 ? "+" + String(fullBonusInt) : fullBonusInt;
-
-    //Calculating the weapon damage, and adding a + sign in front of the string if needed.
-    let fullDamageInt = skillPunchMod + attributeBonus;
-    let fullDamageString = fullDamageInt >= 0 ? "+" + String(fullDamageInt) : fullDamageInt;
-
-    //Creating the overall roll modifier and damage dice.
-    let dice = "1d20";
-    if(type === "attack"){
-        rollData.modifier = fullBonusString + dialogMod;
-
-        //If the attack roll was made with burst then the roll gets +2.
-        if(rollData.burstFire) rollData.modifier = rollData.modifier + "+2";
-    }else if (type === "damage"){
-        rollData.modifier = fullDamageString + dialogMod;
-        dice = weapon.system.damage;
-
-        //If the skill boosts damage property is selected, then the skillMod should be added to the result.
-        if(weapon.system.skillBoostsDamage) rollData.modifier = rollData.modifier + skillModString;
-
-        //If the burst damage was rolled then +2 is added to the damage.
-        if(wasBurstDamage) rollData.modifier = rollData.modifier + "+2";
-    }else if (type === "shock"){
-        rollData.modifier = '';
-        dice = weapon.system.shock.dmg.toString();
-
-        //If the skill boosts shock property is selected, then the skillMod should be added to the result.
-        if(weapon.system.skillBoostsShock) dice = dice + skillModString;
-    }
-
-    //Getting the roll data results.
-    let rollMessage = await generateRoll(dice, rollData, actor.sheet);
-
-    //Cancelling the roll if the user used an invalid modifier.
-    if (rollMessage.error){
+    //Returning if an actor could not be found.
+    if(!actor){
+        ui.notifications.warn("Can't find the actor that created this chat card!");
         return;
-    }
+    } 
 
-    //If a burst attack was made then that should be put on the item card.
-    if(wasBurstDamage) type = "Burst Damage";
-    if(rollData.burstFire) type = "Burst Attack"
-
-    // Adding the flavor text.
-    rollMessage.data.flavor = weapon.name + " - " + type.charAt(0).toUpperCase() + type.substr(1) + " Roll";
-
-    // Creates the chat message with the given data.
-    let message = await getDocumentClass("ChatMessage").create(rollMessage.data);
-    
-    //Changes the roll mode of the chat message.
-    await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, rollData.rollMode);
-    await message.update(rollMessage.data);
+    console.log(actor);
 }
 
 //Called when the user makes an attack roll or damage roll.
@@ -305,6 +204,7 @@ async function _weaponRollDialog(rollType, itemId, ownerId){
 
     //Adding the actor's skill data to the item.
     item.system.skillList = actor.itemTypes.skill;
+    item.system.actorType = actor.type;
 
     //Setting the title of the dialog and creating the html template.
     let template; let title;

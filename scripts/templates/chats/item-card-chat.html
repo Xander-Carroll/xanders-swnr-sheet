@@ -20,15 +20,15 @@
     <!-- If the item is a weapon then attack buttons should be displayed. -->
     {{#ifEquals type "weapon"}}
     <div class="chat-card-buttons" style="padding-top:3px">
-        <button class="attack-button" data-type="attack" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; line-height:24px;">Attack</button>
-        <button class="damage-button" data-type="damage" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; line-height:24px;">Damage</button>
-        {{#ifEquals system.type "ranged"}}{{#if system.ammo.burst}}<button class="burst-damage-button" data-type="burst" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; line-height:24px;">Burst Damage</button>{{/if}}{{/ifEquals}}
-        {{#ifEquals system.type "melee"}}<button class="shock-button" data-type="shock" data-item-id="{{id}}" data-owner-id="{{parent.id}}" style="margin-bottom:3px; line-height:24px;">Shock</button>{{/ifEquals}}
+        <button class="attack-button" data-type="attack" data-item-id="{{id}}" data-owner-id="{{ownerId}}" style="margin-bottom:3px; line-height:24px;">Attack</button>
+        <button class="damage-button" data-type="damage" data-item-id="{{id}}" data-owner-id="{{ownerId}}" style="margin-bottom:3px; line-height:24px;">Damage</button>
+        {{#ifEquals system.type "ranged"}}{{#if system.ammo.burst}}<button class="burst-damage-button" data-type="burst" data-item-id="{{id}}" data-owner-id="{{ownerId}}" style="margin-bottom:3px; line-height:24px;">Burst Damage</button>{{/if}}{{/ifEquals}}
+        {{#ifEquals system.type "melee"}}<button class="shock-button" data-type="shock" data-item-id="{{id}}" data-owner-id="{{ownerId}}" style="margin-bottom:3px; line-height:24px;">Shock</button>{{/ifEquals}}
         <hr style="width:100%;margin-bottom:2px;margin-top:2px"/>
     </div>
     <div>
         {{#ifNotEquals system.save ""}}
-            <button class="save-throw-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" data-type="{{system.save}}" style="margin-top:3px;margin-bottom:3px;line-height:24px;">{{system.saveString}} Saving Throw</button>
+            <button class="save-throw-button" data-item-id="{{id}}" data-owner-id="{{ownerId}}" data-type="{{system.save}}" style="margin-top:3px;margin-bottom:3px;line-height:24px;">{{system.saveString}} Saving Throw</button>
             <hr style="width:100%;margin-bottom:2px;margin-top:2px"/>
         {{/ifNotEquals}}
     </div>
@@ -38,22 +38,22 @@
     {{#ifEquals type "power"}}
         <div class="chat-card-buttons">
             {{#ifNotEquals system.roll ""}}
-                <button class="power-roll-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" data-type="roll-button" style="margin-bottom:3px;margin-top:3px;line-height:24px;">Roll</button>
+                <button class="power-roll-button" data-item-id="{{id}}" data-owner-id="{{ownerId}}" data-type="roll-button" style="margin-bottom:3px;margin-top:3px;line-height:24px;">Roll</button>
                 {{#unless system.effort}} <hr style="width:100%;margin-bottom:2px;margin-top:2px"/> {{/unless}}
             {{/ifNotEquals}}
             {{#ifNotEquals system.effort ""}}{{#if system.effort}}
-                <button class="power-effort-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" data-type="{{system.effort}}" style="margin-top:3px;margin-bottom:3px;line-height:24px;{{#ifNotEquals system.skill ""}}{{#if system.skill}}{{#ifNotEquals system.save ""}}{{#if system.save}}margin-top:0px;{{/if}}{{/ifNotEquals}}{{/if}}{{/ifNotEquals}}">Expend Effort</button>
+                <button class="power-effort-button" data-item-id="{{id}}" data-owner-id="{{ownerId}}" data-type="{{system.effort}}" style="margin-top:3px;margin-bottom:3px;line-height:24px;{{#ifNotEquals system.skill ""}}{{#if system.skill}}{{#ifNotEquals system.save ""}}{{#if system.save}}margin-top:0px;{{/if}}{{/ifNotEquals}}{{/if}}{{/ifNotEquals}}">Expend Effort</button>
                 <hr style="width:100%;margin-bottom:2px;margin-top:2px"/>
             {{/if}}{{/ifNotEquals}}
         </div>
         <div>
             {{#ifNotEquals system.skill ""}}{{#if system.skill}}
-                <button class="power-skill-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" data-type="skill-button" style="line-height:24px;margin-bottom:3px;margin-top:3px;">Skill Check</button>
+                <button class="power-skill-button" data-item-id="{{id}}" data-owner-id="{{ownerId}}" data-type="skill-button" style="line-height:24px;margin-bottom:3px;margin-top:3px;">Skill Check</button>
                 {{#unless system.save}} <hr style="width:100%;margin-bottom:2px;margin-top:2px"/> {{/unless}}
 
             {{/if}}{{/ifNotEquals}}
             {{#ifNotEquals system.save ""}}{{#if system.save}}
-                <button class="save-throw-button" data-item-id="{{id}}" data-owner-id="{{parent.id}}" data-type="{{system.save}}" style="line-height:24px;margin-bottom:3px;margin-top:3px;{{#ifNotEquals system.skill ""}}{{#if system.skill}}margin-top:0px;{{/if}}{{/ifNotEquals}}">{{system.saveString}} Saving Throw</button>
+                <button class="save-throw-button" data-item-id="{{id}}" data-owner-id="{{ownerId}}" data-type="{{system.save}}" style="line-height:24px;margin-bottom:3px;margin-top:3px;{{#ifNotEquals system.skill ""}}{{#if system.skill}}margin-top:0px;{{/if}}{{/ifNotEquals}}">{{system.saveString}} Saving Throw</button>
                 <hr style="width:100%;margin-bottom:2px;margin-top:2px"/>
             {{/if}}{{/ifNotEquals}}
 

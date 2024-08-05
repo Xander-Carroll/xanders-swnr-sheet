@@ -722,7 +722,7 @@ export class XandersSwnActorSheet extends ActorSheet {
     async _onMoraleCheck(event){
         event.preventDefault();
 
-        makeMoraleCheck(this.actor.id);
+        makeMoraleCheck(this);
     }
 
     //Called when one of the three saving throw buttons is pressed.
@@ -731,7 +731,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         event.preventDefault();
         const saveType = event.currentTarget.dataset.saveType;
 
-        makeSavingThrow(this.actor._id, saveType);
+        makeSavingThrow(this, saveType);
     }
 
     //Called when a skill's level up button is pressed.
@@ -801,7 +801,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         event.preventDefault();
         const itemId = event.currentTarget.dataset.itemId;
 
-        makeSkillCheck(this.actor._id, itemId)
+        makeSkillCheck(this, itemId)
     }
 
     //Called when one of the add/remove skills buttons is pressed.
@@ -861,7 +861,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Getting the button that was pressed.
         const item = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
 
-        useItem(this.actor.id, item);
+        useItem(this, item);
     }
 
     //Called when the title of an inventory item is clicked.

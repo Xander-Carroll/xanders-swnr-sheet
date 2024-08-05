@@ -223,14 +223,16 @@ export async function generateRoll(baseDie, rollData, sheet){
 }
 
 //Will create a chat message for the given item spoken by the given actor.
-export async function useItem(actorId, item){
+export async function useItem(sheet, item){
+    item.ownerId = (sheet.document.isToken) ? sheet.token.id : item.parent.id;
+
     //Creating an html template from the dialog.
     let templateContent = await renderTemplate("modules/xanders-swnr-sheet/scripts/templates/chats/item-card-chat.html", item);
 
     //Creating a chat message once the settings are all changed.
     const chatMessageData = {
         content: templateContent,
-        speaker: {actor: actorId},
+        speaker: {actor: sheet.actor.id},
         isOwner: true,
         flags: {
             xSwnrInteractive: true
@@ -243,9 +245,9 @@ export async function useItem(actorId, item){
 }
 
 //Will make a saving throw for the given actor of the given save type.
-export async function makeSavingThrow(actorId, saveType){
+export async function makeSavingThrow(sheet, saveType){
     //Getting the actor that the roll was made with.
-    const actor = game.actors.get(actorId);
+    const actor = sheet.actor;
 
     //Opening a dialog to prompt the player to add modifiers etc.
     let saveData = await _genericRollDialog(toTitleCase(saveType) + " Saving Throw: " + actor.name);
@@ -287,9 +289,9 @@ export async function makeSavingThrow(actorId, saveType){
 }
 
 //Will make a skill check for the given actor with the given skill id.
-export async function makeSkillCheck(actorId, itemId, overrideAttribute){
+export async function makeSkillCheck(sheet, itemId, overrideAttribute){
     //Getting the actor that this skill belongs to.
-    const actor = game.actors.get(actorId);
+    const actor = sheet.actor;
 
     //The skill data that will be passed to the dialog.
     let skill = {};
@@ -405,9 +407,9 @@ function _processSkillCheckOptions(html, stat, pool){
 }
 
 //Will make a morale check for the given actor.
-export async function makeMoraleCheck(actorId){
+export async function makeMoraleCheck(sheet){
     //Getting the actor that this skill belongs to.
-    const actor = game.actors.get(actorId);
+    const actor = sheet.actor;
 
     //Creating a dialog so that the player can choose how they want to roll.
     let checkData = await _genericRollDialog("Morale Check: " + actor.name);

@@ -68,12 +68,9 @@ export class XandersSwnItemSheet extends ItemSheet {
 
         //If the user is not an owner of the item, they shouldn't be abe to roll it.
         if(!this.object.isOwner) return;
-
-        //If the item is an embedded item, use that actor, if it is not an embedded item, use the current token.
-        let actor = this.actor;        
         
         //Use the item with the given actor.
-        useItem(actor._id, this.object);
+        useItem(this.actor._sheet, this.object);
     }
 
 }
