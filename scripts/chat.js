@@ -140,7 +140,7 @@ async function onChatPowerButtonPress(event){
         
         
     }else if(type === "roll-button"){
-        let rollData = await _weaponRollDialog("power", itemId, owner.id);
+        let rollData = await _weaponRollDialog("power", itemId, owner);
 
         if(rollData.cancelled) return;
 
@@ -178,7 +178,7 @@ async function onChatWeaponButtonPress(event){
     event.preventDefault();
 
     //The type of button that was pressed.
-    const type = event.currentTarget.dataset.type;
+    let type = event.currentTarget.dataset.type;
     const itemId = event.currentTarget.dataset.itemId;
     const ownerId = event.currentTarget.dataset.ownerId;
 
@@ -193,13 +193,107 @@ async function onChatWeaponButtonPress(event){
         return;
     } 
 
-    console.log(actor);
+    let rollData = {};
+
+    if(type === "attack") rollData = await _makeAttackRoll(actor, itemId);
+    else if(type === "shock") rollData = await _makeShockRoll(actor, itemId);
+    else if(type === "damage") rollData = await _makeDamageRoll(actor, itemId, false);
+    else if(type === "burst") rollData = await _makeDamageRoll(actor, itemId, true);
+
+    //Getting the roll data results.
+    let rollMessage = await generateRoll(rollData.dice, rollData, actor.sheet);
+
+    //Cancelling the roll if the user used an invalid modifier.
+    if (rollMessage.error){
+        return;
+    }
+    
+    // Adding the flavor text.
+    if(rollData.burstFire) type = "Burst Attack";
+    rollMessage.data.flavor = rollData.weaponName + " - " + type.charAt(0).toUpperCase() + type.substr(1) + " Roll";
+
+    // Creates the chat message with the given data.
+    let message = await getDocumentClass("ChatMessage").create(rollMessage.data);
+    
+    //Changes the roll mode of the chat message.
+    await getDocumentClass("ChatMessage").applyRollMode(rollMessage.data, rollData.rollMode);
+    await message.update(rollMessage.data);
+}
+
+//Called when the user clicks a weapon's attack roll button.
+async function _makeAttackRoll(actor, itemId){
+    const weapon = actor.getEmbeddedDocument("Item", itemId);
+    
+    //Getting most of the roll data.
+    let rollData = await _weaponRollDialog("attack", itemId, actor);
+    if(rollData.cancelled) return;
+
+    //Setting more roll data.
+    rollData.dice = "1d20";
+    rollData.weaponName = weapon.name;
+
+    //Determining the final modifier string.
+    let abString = ((actor.system.ab >= 0) ? "+" : "") + String(actor.system.ab);           //The ab with a + sign if needed.
+    let weaponAbString = ((weapon.system.ab >= 0) ? "+" : "") + String(weapon.system.ab);   //The weapon ab with a + sign if needed.
+    let burstBonusString = (rollData.burstFire) ? "+2" : "";                                //Burst fire provides a +2 to hit.
+    let skillLevelString = "";
+    let attributeModString = "";
+
+    if(actor.type === "character"){
+        const skill = actor.getEmbeddedDocument("Item", weapon.system.skill);
+        
+        //Untrained skills take a -2 to hit. And adding a + sign if needed.
+        skillLevelString = "-2";
+        if(skill){
+            if (skill.system.rank !== -1) skillLevelString = skill.system.rank;
+            if (skillLevelString >= 0) "+" + skillLevelString;
+        }
+
+        //The attribute mod is the higher of the two stats.
+        const attributeMod = (weapon.system.secondStat !== "none") ? Math.max(actor.system.stats[weapon.system.stat].mod, actor.system.stats[weapon.system.secondStat].mod) : actor.system.stats[weapon.system.stat].mod;
+        attributeModString = ((attributeMod >= 0) ? "+" : "") + String(attributeMod);
+    }
+
+    //Handling ammo consumption.
+    if(rollData.consumeAmmo){
+        const ammoConsumption = (rollData.burstFire == true) ? 3 : 1;
+                
+        if((weapon.system.ammo.type !== "infinite" && weapon.system.ammo.value < ammoConsumption) || (weapon.system.ammo.type === "none" && rollData.consumeAmmo)){
+            ui.notifications.warn("You don't have enough ammo to use this weapon!");
+            return;
+        }else if (weapon.system.ammo.type !== "infinite"){
+            weapon.update({system:{ammo:{value:weapon.system.ammo.value-ammoConsumption}}});
+        }
+    }
+
+    //Setting the final modifier string.
+    if(rollData.modifier && rollData.modifier.charAt(0) !== '-' && rollData.modifier.charAt(0) !== "") rollData.modifier = "+" + rollData.modifier;      //Adding a + sign if needed.
+    rollData.modifier = rollData.modifier + abString + weaponAbString + burstBonusString + skillLevelString + attributeModString;   //Setting the final modifier.
+
+    //Returning the roll data.
+    return rollData;
+}
+
+//Called when the user clicks a weapon's shock damage button.
+async function _makeShockRoll(actor, itemId){
+    const weapon = actor.getEmbeddedDocument("Item", itemId);
+    
+    return {
+        dice: String(weapon.system.shock.dmg),
+        modifier: "",
+        rollMode: "CURRENT",
+        weaponName: weapon.name
+    };
+}
+
+//Called when the user clicks a weapon's damage button.
+async function _makeDamageRoll(actor, itemId, wasBurst){
+
 }
 
 //Called when the user makes an attack roll or damage roll.
-async function _weaponRollDialog(rollType, itemId, ownerId){
+async function _weaponRollDialog(rollType, itemId, actor){
     //Getting the actor and item for the rolled weapon.
-    let actor = game.actors.get(ownerId);
     let item = actor.getEmbeddedDocument("Item", itemId);
 
     //Adding the actor's skill data to the item.
