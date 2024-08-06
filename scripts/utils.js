@@ -215,11 +215,12 @@ export function rollItemMacro(itemId){
 
     //Getting the matching item - and using it.
     const item = actor.getEmbeddedDocument("Item", itemId);
-    if(!item){
+    if(item == null){
         ui.notifications.warn(`An item with the given id could not be found [${itemId}]`);
+        return;
     }
 
-    useItem(actor._sheet, item);
+    useItem(actor.sheet, item);
 }
 
 // FUNCTIONS FOR GENERATING ROLLS AND DIALOGS

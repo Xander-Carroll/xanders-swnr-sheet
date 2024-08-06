@@ -39,14 +39,20 @@ Hooks.once("init", async () => {
 
 		//Adds function to global space.
 		game.xswnr = {rollItem: rollItemMacro};
+
+		//When an item is dragged to the hotbar, this function is called.
+		Hooks.on("hotbarDrop", (bar, data, slot) => {
+			//Macro reordering should still be applied.
+			if(data.type === "Macro") return true;
+
+			//If the item isn't a macro, we should handle it.
+			createRollItemMacro(data, slot); 
+
+			//Returning false means that no more macros will be created for this drop action.
+			return false;
+		});
 	}
 });
-
-//This function will be called after foundry is initalized.
-Hooks.once("ready", async () => {
-	//When an item is dragged to the hotbar, this function is called.
-	Hooks.on("hotbarDrop", (bar, data, slot) => {createRollItemMacro(data, slot); return false;});
-})
 
 //This function is used to make chat messages interactive.
 Hooks.on("renderChatMessage", (message, html, data) => addChatListener(message, html, data));
