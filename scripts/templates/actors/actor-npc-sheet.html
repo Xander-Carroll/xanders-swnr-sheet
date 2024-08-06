@@ -1,92 +1,89 @@
 <form class="{{cssClass}}" autocomplete="off">
   <div class="sheet-content" style="height:100%; display:flex; flex-direction:column;">
 
+    {{#unless system.actorLink}}<div class="unlinked-actor"></div>{{/unless}}
+
     <!-- The header that displays above the tabs of the sheet. Character name, level, etc. -->
     <div class="header-bar">
-
-        <!-- The character portrait and the componenets connected to it (HP bar, etc) -->
-        <div class="character-portrait">
-          <!-- The character image -->
-          <img src="{{actor.img}}" {{#unless system.xIsLocked}}data-edit="img"{{/unless}}/>
-
-          <div class="portrait-button" title="Rest" data-type="rest" style="left:0; top:0"><i class="fa-solid fa-bed" style="font-size: 20px;"></i></div>
-          <!-- <div class="portrait-button" title="Hit Dice" data-type="hit-dice" style="right:0; top:0"><i class="fa-solid fa-dice-d20" style="font-size: 25px;"></i></div> -->
-
-          <!-- The character health bar -->
-          <div class="health-bar">
-            <div style="width:{{system.health.percentage}}%" class="health-fill"></div>
-            <div class="health-text">
-              <input data-name="health.value" type="text" value="{{system.health.value}}" class="health-input borderless current-value" style="text-align:right;margin:0px;" {{#unless owner}}disabeled{{/unless}}/>
-              <p style="margin:0px">/</p>
-              <input name="system.health.max" type="number" value="{{system.health.max}}" class="health-input borderless" style=";margin:0px;" {{#if system.xIsLocked}}disabled{{/if}}/>
-            </div>
+      <!-- The character portrait and the componenets connected to it (HP bar, etc) -->
+      <div class="character-portrait">
+        <!-- The character image -->
+        <img src="{{actor.img}}" {{#unless system.xIsLocked}}data-edit="img"{{/unless}}/>
+        <div class="portrait-button" title="Rest" data-type="rest" style="left:0; top:0"><i class="fa-solid fa-bed" style="font-size: 20px;"></i></div>
+        <!-- <div class="portrait-button" title="Hit Dice" data-type="hit-dice" style="right:0; top:0"><i class="fa-solid fa-dice-d20" style="font-size: 25px;"></i></div> -->
+        
+        <!-- The character health bar -->
+        <div class="health-bar">
+          <div style="width:{{system.health.percentage}}%" class="health-fill"></div>
+          <div class="health-text">
+            <input data-name="health.value" type="text" value="{{system.health.value}}" class="health-input borderless current-value" style="text-align:right;margin:0px;" {{#unless owner}}disabeled{{/unless}}/>
+            <p style="margin:0px">/</p>
+            <input name="system.health.max" type="number" value="{{system.health.max}}" class="health-input borderless" style=";margin:0px;" {{#if system.xIsLocked}}disabled{{/if}}/>
           </div>
         </div>
+      </div>
 
-        <!-- The area to the right of the portrait. Contains name, background, etc. -->
-        <div class="name-bar">
-
-          <!-- The Character Name, lock button, and Level. -->
-          <div style="display:flex; flex-direction:row; height:30px">
-            <input class="player-name bottom-border" name="name" type="text" value="{{actor.name}}" {{#if system.xIsLocked}}disabled{{/if}}/>
-            <div style="flex: 1 1 0; display:flex; justify-content:end;">
-              <div style="display:flex; flex-direction:column">
-                <div class="disposition-box" style="height:100%;">
-                  <select name="system.reaction" style="width:100px;height:100%;" >
-                    {{#select system.reaction}}
-                      <option value="unknown">Unknown</option>
-                      <option value="hostile">Hostile</option>
-                      <option value="negative">Negative</option>
-                      <option value="neutral">Neutral</option>
-                      <option value="positive">Positive</option>
-                      <option value="friendly">Friendly</option>
-                    {{/select}}
-                  </select>
-                </div>
+      <!-- The area to the right of the portrait. Contains name, background, etc. -->
+      <div class="name-bar">
+        <!-- The Character Name, lock button, and Level. -->
+        <div style="display:flex; flex-direction:row; height:30px">
+          <input class="player-name bottom-border" name="name" type="text" value="{{actor.name}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+          <div style="flex: 1 1 0; display:flex; justify-content:end;">
+            <div style="display:flex; flex-direction:column">
+              <div class="disposition-box" style="height:100%;">
+                <select name="system.reaction" style="width:100px;height:100%;" >
+                  {{#select system.reaction}}
+                    <option value="unknown">Unknown</option>
+                    <option value="hostile">Hostile</option>
+                    <option value="negative">Negative</option>
+                    <option value="neutral">Neutral</option>
+                    <option value="positive">Positive</option>
+                    <option value="friendly">Friendly</option>
+                  {{/select}}
+                </select>
               </div>
             </div>
-            <div style="display:flex; justify-content:end; align-items:center">
-              {{#if owner}}
-              <div title="Lock Sheet" class="lock-button">
-                {{#if system.xIsLocked}}
-                <img src="modules/xanders-swnr-sheet/img/icons/locked.svg" style="width: 100%; height:100%;"/>
-                {{else}}
-                <img src="modules/xanders-swnr-sheet/img/icons/unlocked.svg" style="width: 100%; height:100%;"/>
-                {{/if}}
-              </div>
+          </div>
+          <div style="display:flex; justify-content:end; align-items:center">
+            {{#if owner}}
+            <div title="Lock Sheet" class="lock-button">
+              {{#if system.xIsLocked}}
+              <img src="modules/xanders-swnr-sheet/img/icons/locked.svg" style="width: 100%; height:100%;"/>
+              {{else}}
+              <img src="modules/xanders-swnr-sheet/img/icons/unlocked.svg" style="width: 100%; height:100%;"/>
               {{/if}}
             </div>
+            {{/if}}
           </div>
-
-          <!-- The Character background, species, gender, homeworld, and employer. -->
-          <div class="background-informations" style="display:flex; flex-direction:row;">
-            <input name="system.homeworld" class="bottom-border" type="text" value="{{system.homeworld}}" {{#if system.xIsLocked}}disabled{{/if}}/>
-            <input name="system.faction" class="bottom-border" style="margin-right:0" type="text" value="{{system.faction}}" {{#if system.xIsLocked}}disabled{{/if}}/>
-            <input name="system.species" class="bottom-border" type="text" value="{{system.species}}" {{#if system.xIsLocked}}disabled{{/if}}/>
-          </div>
-
-          <!-- The labels that go beneath background, gender, homeworld, and employer. -->
-          <div class="background-informations-labels" style="display:flex; flex-direction:row; margin-bottom:10px">
-            <div><p>Home World</p></div>
-            <div><p>Faction</p></div>
-            <div><p>Gender/Species</p></div>
-          </div>
-
-          <!-- The "Rollables" buttons. -->
-          <div style="display:flex; flex-direction:row">
-            <div class="rollables-container" style="margin-left:0px;">
-              <p>Rollables</p>
-
-              <div class="rollables-box">
-                <div class="rollables-button morale-clickable" style="width:75px;" data-type="moral"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Morale</p></div>
-                <div class="rollables-button skill-clickable" style="margin-left:0px;"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Skill Check</p></div>
-                <div class="save-throw-button" style="margin-left:0px; width:115px;" data-save-type="npc"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p class="difficulty">v{{system.saves}}</p><p>&nbsp;Saving Throw</p></div>
-              </div>
-            </div>
-          </div>
-
         </div>
 
+        <!-- The Character background, species, gender, homeworld, and employer. -->
+        <div class="background-informations" style="display:flex; flex-direction:row;">
+          <input name="system.homeworld" class="bottom-border" type="text" value="{{system.homeworld}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+          <input name="system.faction" class="bottom-border" style="margin-right:0" type="text" value="{{system.faction}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+          <input name="system.species" class="bottom-border" type="text" value="{{system.species}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+        </div>
+
+        <!-- The labels that go beneath background, gender, homeworld, and employer. -->
+        <div class="background-informations-labels" style="display:flex; flex-direction:row; margin-bottom:10px">
+          <div><p>Home World</p></div>
+          <div><p>Faction</p></div>
+          <div><p>Gender/Species</p></div>
+        </div>
+
+        <!-- The "Rollables" buttons. -->
+        <div style="display:flex; flex-direction:row">
+          <div class="rollables-container" style="margin-left:0px;">
+            <p>Rollables</p>
+
+            <div class="rollables-box">
+              <div class="rollables-button morale-clickable" style="width:75px;" data-type="moral"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Morale</p></div>
+              <div class="rollables-button skill-clickable" style="margin-left:0px;"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p>&nbsp;Skill Check</p></div>
+              <div class="save-throw-button" style="margin-left:0px; width:115px;" data-save-type="npc"><i class="fas fa-dice-d20" style="margin-right:5px;"></i><p class="difficulty">v{{system.saves}}</p><p>&nbsp;Saving Throw</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- The navagation bar that can be used to switch tabs -->
@@ -257,9 +254,6 @@
           </div>
         </div>
       </div>
-
     </section>
-    
-
   </div>
 </form>

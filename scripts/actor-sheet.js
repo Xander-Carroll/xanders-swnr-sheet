@@ -318,6 +318,9 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Adding the inventoryDisplayFields property to the context.
         context.system.inventoryDisplayFields = this.inventoryDisplayFields;
 
+        //Adds a field to determine if the actor is linked or unlinked.
+        context.system.actorLink = this.actor.token?.actorLink ?? true;
+
         //Parsing data based on the kind of sheet that is open.
         if(this.actor.type == "character") context = this._parseCharacterActorData(context);
         if(this.actor.type == "npc") context = this._parseNpcActorData(context);
