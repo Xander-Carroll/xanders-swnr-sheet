@@ -10,6 +10,15 @@ body.game{
     font-family: var(--font-primary);
 }
 
+h1, h2, h3{
+    font-family: var(--font-primary);
+}
+
+h4{
+    font-family: var(--font-primary);
+    font-weight: normal; 
+}
+
 /* ... Except for the default old SWNR sheet. */
 .swnr{
     font-family: "Gayathri";
@@ -218,8 +227,7 @@ section.window-content:not(.cq){
     --color-underline-header: rgb(71, 71, 71);
 }
 
-.window-app.sidebar-popout section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md, .dice-tray__input),
-.window-app section.window-content input[type="search"]{
+.window-app.sidebar-popout section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md, .dice-tray__input){
     background-color: rgba(255, 255, 245, 0.8);
 }
 
