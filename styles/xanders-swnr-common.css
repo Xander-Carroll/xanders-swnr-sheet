@@ -18,6 +18,11 @@
   src: url("../fonts/Roboto-Medium.ttf");
 }
 
+/* Fixing the chrome scrollbar issues. */
+:root{
+  scrollbar-color: unset;
+}
+
 /* Color variables that are used in the sheet */
 .xanders-swnr{
   --background-sheet-header-color: rgb(255, 255, 255, 0.6);
