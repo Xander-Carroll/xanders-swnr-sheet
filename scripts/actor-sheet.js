@@ -300,7 +300,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         context = this._parseActorData(context);
 
         //Uncomment this line to see what data can be accsessed in the handelbars sheet.
-        console.log(context);
+        //console.log(context);
     
         return context;
     }

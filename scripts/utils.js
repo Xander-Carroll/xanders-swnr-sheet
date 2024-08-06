@@ -106,7 +106,6 @@ const psychicImages = {
     teleportation: "icons/magic/movement/trail-streak-pink.webp"
 }
 
-
 // TOOL FUNCTIONS.
 
 //Adds all of the skills from the skills array onto the actor.
@@ -172,6 +171,56 @@ export const preloadXandersTemplates = async function () {
     return loadTemplates(files);
 };
 
+// FUNCTIONS FOR MACROS.
+export async function createRollItemMacro(data, slot){
+    //We can only drop items.
+    if(data.type !== "Item") return;
+
+    //Getting the item.
+    const item = await Item.implementation.fromDropData(data);
+
+    //Making sure the user owns the item.
+    if(!item){
+        ui.notifications.warn("You can only create macro buttons for owned items.");
+        return;
+    } 
+
+    //Setting the macro data.
+    const macroData = { 
+        type: "script", 
+        scope: "actor" ,
+        name: item.name,
+        img: item.img,
+        command: `game.xswnr.rollItem("${item.id}")`,
+        flags: {"xswnr.itemMacro": true}
+    };
+
+    const macro = await Macro.create(macroData);
+    game.user.assignHotbarMacro(macro, slot);
+}
+
+//Can be called from macros within Foundry vtt to use an item with the given id.
+export function rollItemMacro(itemId){
+    //Getting the actor which used the macro.
+    let actor;
+    const speaker = ChatMessage.getSpeaker();
+    if(speaker.token) actor = game.actors.tokens[speaker.token];
+    if(!actor) actor = game.actors.get(speaker.actor);
+
+    //If we couldn't get the actor we stop.
+    if(!actor){
+        ui.notifications.warn("No actor selected.");
+        return;
+    };
+
+    //Getting the matching item - and using it.
+    const item = actor.getEmbeddedDocument("Item", itemId);
+    if(!item){
+        ui.notifications.warn(`An item with the given id could not be found [${itemId}]`);
+    }
+
+    useItem(actor._sheet, item);
+}
 
 // FUNCTIONS FOR GENERATING ROLLS AND DIALOGS
 

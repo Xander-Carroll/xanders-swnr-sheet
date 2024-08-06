@@ -7,9 +7,8 @@
 //Imports used for the custom swnr sheets.
 import {XandersSwnActorSheet} from "./actor-sheet.js";
 import {XandersSwnItemSheet} from "./item-sheet.js";
-import {preloadXandersTemplates} from "./utils.js";
+import {preloadXandersTemplates, createRollItemMacro, rollItemMacro} from "./utils.js";
 import {addChatListener} from "./chat.js";
-
 
 //This function will be called when foundry is initalizing.
 Hooks.once("init", async () => {
@@ -37,8 +36,17 @@ Hooks.once("init", async () => {
 		Handlebars.registerHelper('ifNotEquals', function(arg1, arg2, options) {
 			return (arg1 != arg2) ? options.fn(this) : options.inverse(this);
 		});
+
+		//Adds function to global space.
+		game.xswnr = {rollItem: rollItemMacro};
 	}
 });
+
+//This function will be called after foundry is initalized.
+Hooks.once("ready", async () => {
+	//When an item is dragged to the hotbar, this function is called.
+	Hooks.on("hotbarDrop", (bar, data, slot) => {createRollItemMacro(data, slot); return false;});
+})
 
 //This function is used to make chat messages interactive.
 Hooks.on("renderChatMessage", (message, html, data) => addChatListener(message, html, data));
