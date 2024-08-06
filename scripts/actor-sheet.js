@@ -449,7 +449,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         for(let i=0; i<context.system.itemTypes.cyberware.length; i++){
             //Setting the item to use the system.details field instead of system.description for summaries and chat cards.
             context.system.itemTypes.cyberware[i].system.usingDetails = true;
-            context.system.itemTypes.cyberware[i].system.details = "<b><u>Description: </u></b>" + context.system.itemTypes.cyberware[i].system.description + "<p></p><b><u>Effect: </u></b>" + context.system.itemTypes.cyberware[i].system.effect;
+            context.system.itemTypes.cyberware[i].system.details = "<b><u>Description:</u></b> " + context.system.itemTypes.cyberware[i].system.description + "<p></p><b><u>Effect:</u></b> " + context.system.itemTypes.cyberware[i].system.effect;
             
             if (!context.system.itemTypes.cyberware[i].system.disabled) context.system.itemTypes.cyberware[i].system.location = "readied";
 
