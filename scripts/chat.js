@@ -200,6 +200,8 @@ async function onChatWeaponButtonPress(event){
     else if(type === "damage") rollData = await _makeDamageRoll(actor, itemId, false);
     else if(type === "burst") rollData = await _makeDamageRoll(actor, itemId, true);
 
+    if(!rollData) return;
+
     //Getting the roll data results.
     let rollMessage = await generateRoll(rollData.dice, rollData, actor.sheet);
 
@@ -226,7 +228,7 @@ async function _makeAttackRoll(actor, itemId){
     
     //Getting most of the roll data.
     let rollData = await _weaponRollDialog("attack", itemId, actor);
-    if(rollData.cancelled) return;
+    if(rollData.cancelled) return false;
 
     //Setting more roll data.
     rollData.dice = "1d20";
@@ -267,8 +269,8 @@ async function _makeAttackRoll(actor, itemId){
     }
 
     //Setting the final modifier string.
-    if(rollData.modifier && rollData.modifier.charAt(0) !== '-' && rollData.modifier.charAt(0) !== "") rollData.modifier = "+" + rollData.modifier;      //Adding a + sign if needed.
-    rollData.modifier = rollData.modifier + abString + weaponAbString + burstBonusString + skillLevelString + attributeModString;   //Setting the final modifier.
+    if(rollData.modifier && rollData.modifier.charAt(0) !== '-' && rollData.modifier.charAt(0) !== "") rollData.modifier = "+" + rollData.modifier;     //Adding a + sign if needed.
+    rollData.modifier = rollData.modifier + abString + weaponAbString + burstBonusString + skillLevelString + attributeModString;                       //Setting the final modifier.
 
     //Returning the roll data.
     return rollData;
@@ -280,13 +282,18 @@ async function _makeShockRoll(actor, itemId){
     let modifierString = "";
 
     //If the "shock adds skill" checkbox is checked.
-    if(weapon.system.skillBoostsShock && actor.type === "character"){
-        const skill = actor.getEmbeddedDocument("Item", weapon.system.skill);
-        
-        //Untrained skills take a -2 to hit. And adding a + sign if needed.
-        modifierString = "-2";
-        if(skill){
-            if (skill.system.rank !== -1) modifierString = String(skill.system.rank);
+    if(weapon.system.skillBoostsShock){
+        if(actor.type === "character"){
+            const skill = actor.getEmbeddedDocument("Item", weapon.system.skill);
+            
+            //Untrained skills take a -2 to hit. And adding a + sign if needed.
+            modifierString = "-2";
+            if(skill){
+                if (skill.system.rank !== -1) modifierString = String(skill.system.rank);
+            }
+        }else if(actor.type === "npc"){
+            const skillLevel = actor.system.skillBonus;
+            modifierString = ((skillLevel >= 0) ? "+" : "") + String(skillLevel);
         }
     }
 
@@ -300,7 +307,59 @@ async function _makeShockRoll(actor, itemId){
 
 //Called when the user clicks a weapon's damage button.
 async function _makeDamageRoll(actor, itemId, wasBurst){
+    const weapon = actor.getEmbeddedDocument("Item", itemId);
+    
+    //Getting most of the roll data.
+    let rollData = await _weaponRollDialog("damage", itemId, actor);
+    if(rollData.cancelled) return false;
 
+    //Setting more roll data.
+    rollData.dice = weapon.system.damage;
+    rollData.weaponName = weapon.name;
+
+    //Determining the final modifier string.
+    let burstBonusString = (wasBurst) ? "+2" : "";        //Burst fire provides a +2 to hit.
+    let skillLevelString = "";
+    let attributeModString = "";
+    let damageBonusString = "";
+
+    if(actor.type === "character"){
+        const skill = actor.getEmbeddedDocument("Item", weapon.system.skill);
+        
+        //If the "damage adds skill" checkbox is checked, or if the skill is "punch", the skill level is added to the roll.
+        if(weapon.system.skillBoostsDamage || (skill && skill.name.toUpperCase() === "PUNCH")){
+            //Untrained skills take a -2 to hit. And adding a + sign if needed.
+            skillLevelString = "-2";
+            if(skill){
+                if (skill.system.rank !== -1){
+                    const skillLevel = skill.system.rank;
+                    if (skillLevel >= 0) skillLevelString = "+" + String(skillLevel);
+                } 
+                
+            }
+        }
+        
+        //The attribute mod is the higher of the two stats.
+        const attributeMod = (weapon.system.secondStat !== "none") ? Math.max(actor.system.stats[weapon.system.stat].mod, actor.system.stats[weapon.system.secondStat].mod) : actor.system.stats[weapon.system.stat].mod;
+        attributeModString = ((attributeMod >= 0) ? "+" : "") + String(attributeMod);
+    }else if(actor.type === "npc"){
+        //NPCs have a damage bonus field.
+        const damageBonus = actor.system.attacks.bonusDamage;
+        damageBonusString = ((damageBonus >= 0) ? "+" : "") + String(damageBonus);
+
+        //Adding the NPC's trained skill level if the check box is checked.
+        if(weapon.system.skillBoostsDamage){
+            const skillLevel = actor.system.skillBonus;
+            skillLevelString = ((skillLevel >= 0) ? "+" : "") + String(skillLevel);
+        }
+    }
+
+    //Setting the final modifier string.
+    if(rollData.modifier && rollData.modifier.charAt(0) !== '-' && rollData.modifier.charAt(0) !== "") rollData.modifier = "+" + rollData.modifier;     //Adding a + sign if needed.
+    rollData.modifier = rollData.modifier + attributeModString + skillLevelString + burstBonusString + damageBonusString;                               //Setting the final modifier.
+
+    //Returning the roll data.
+    return rollData;
 }
 
 //Called when the user makes an attack roll or damage roll.
