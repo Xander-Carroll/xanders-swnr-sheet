@@ -1,8 +1,8 @@
 <form class="{{cssClass}}" autocomplete="off">
   <div class="sheet-content" style="height:100%; display:flex; flex-direction:column;">
 
-  <!-- The top title bar. -->
-  <div class="header-bar">
+    <!-- The top title bar. -->
+    <div class="header-bar">
     <!-- The skill image. -->
     <div class="item-cover-image">
       <img src="{{item.img}}" {{#if owner}}data-edit="img"{{/if}}/>
@@ -40,21 +40,29 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
 
-    <!-- The main description box. -->
-    <div class="item-main-window">
-      <div class="flexcol" style="flex-grow: 1;">
+    <!-- The navagation bar that can be used to switch tabs -->
+    <nav class="sheet-tabs tabs" data-group="primary">
+      <a class="item" style="border-left:none" data-tab="description">Description</a>
+      <a class="item" style="border-right:none" data-tab="effect">Effect</a>
+    </nav>
+
+    <!-- The main item window. -->
+    <div class="item-main-window" style="border:none;">
+      <!-- The main description box. -->
+      <div class="tab description" data-group="primary" data-tab="description">
         <div class="item-description">
-          <p class="item-main-window-header"><b><u>Description:</u></b></p>
           <div class="item-main-window-text">{{editor content=system.description target="system.description" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
         </div>
-        <div class="item-description" style="margin-top:0px;">
-          <p class="item-main-window-header"><b><u>Effect:</u></b></p>
+      </div>
+
+      <!-- The effect description box. -->
+      <div class="tab effect" data-group="primary" data-tab="effect">
+        <div class="item-description">
           <div class="item-main-window-text">{{editor content=system.effect target="system.effect" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}</div>
         </div>
       </div>
     </div>
-
   </div>
 </form>
