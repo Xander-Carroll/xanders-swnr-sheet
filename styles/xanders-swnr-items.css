@@ -198,12 +198,14 @@
   color: var(--font-color);
 
   margin-bottom: 0px;
+  padding: 4px;
 
   border-radius: var(--field-border-radius);
 }
 
 .window-app.xanders-swnr section.window-content .details-input:disabled{
   border: 1px solid var(--color-border-light-tertiary);
+  padding: 4px;
 }
 
 /* The titles that go above the items in the details tab. */
