@@ -277,10 +277,22 @@ async function _makeAttackRoll(actor, itemId){
 //Called when the user clicks a weapon's shock damage button.
 async function _makeShockRoll(actor, itemId){
     const weapon = actor.getEmbeddedDocument("Item", itemId);
-    
+    let modifierString = "";
+
+    //If the "shock adds skill" checkbox is checked.
+    if(weapon.system.skillBoostsShock && actor.type === "character"){
+        const skill = actor.getEmbeddedDocument("Item", weapon.system.skill);
+        
+        //Untrained skills take a -2 to hit. And adding a + sign if needed.
+        modifierString = "-2";
+        if(skill){
+            if (skill.system.rank !== -1) modifierString = String(skill.system.rank);
+        }
+    }
+
     return {
         dice: String(weapon.system.shock.dmg),
-        modifier: "",
+        modifier: modifierString,
         rollMode: "CURRENT",
         weaponName: weapon.name
     };
