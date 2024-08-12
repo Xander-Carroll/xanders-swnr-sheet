@@ -41,7 +41,7 @@
           <div class="health-bar">
             <div style="width:{{system.health.percentage}}%" class="health-fill"></div>
             <div class="health-text">
-              <input data-name="health.value" type="text" value="{{system.health.value}}" class="health-input borderless current-value" style="text-align:right;margin:0px;" {{#unless owner}}disabeled{{/unless}}/>
+              <input data-name="health.value" type="text" value="{{system.health.value}}" class="health-input borderless current-value" style="text-align:right;margin:0px;" {{#unless owner}}disabled{{/unless}}/>
               <p style="margin:0px">/</p>
               <input name="system.health.max" type="number" value="{{system.health.max}}" class="health-input borderless" style=";margin:0px;" {{#if system.xIsLocked}}disabled{{/if}}/>
             </div>
@@ -407,9 +407,9 @@
                 </div>
 
                 <div style="display:flex; flex-direction:row;">
-                  <p>Debt</p>
-                  <p>Balance</p>
-                  <p style="margin-right:10px">Owed</p>
+                  <input class="money-name-input borderless" type="text" name="system.tweak.debtDisplay" value="{{system.tweak.debtDisplay}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+                  <input class="money-name-input borderless" type="text" name="system.tweak.balanceDisplay" value="{{system.tweak.balanceDisplay}}" {{#if system.xIsLocked}}disabled{{/if}}/>
+                  <input style="margin-right:20px;" class="money-name-input borderless" type="text" name="system.tweak.owedDisplay" value="{{system.tweak.owedDisplay}}" {{#if system.xIsLocked}}disabled{{/if}}/>
                 </div>
               </div>
             </div>

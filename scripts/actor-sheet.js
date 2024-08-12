@@ -258,7 +258,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         html.find('.inventory-quantity input').on("change", this._onItemQuantityChange.bind(this));
 
         //Called when HP, Strain, or Money values are updated.
-        html.find('.health-input.current-value, .strain-input.current-value, .money-container input, .xp-input.current-value').on("change", this._onLazyCalculation.bind(this));
+        html.find('.health-input.current-value, .strain-input.current-value, .money-container input.xanders-input, .xp-input.current-value').on("change", this._onLazyCalculation.bind(this));
 
         //Adding context menu when skills or items are right clicked.
         if(this.actor.type === "character"){
