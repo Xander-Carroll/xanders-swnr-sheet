@@ -1,5 +1,11 @@
 # Xander's SWNR Sheet *Release Notes*
 
+## v1.1.1: Renameable Credits
+Monday August 12th, 2024
+
+A small update to support renameable credit fields.
+- Debt, Balance, and Owed text can be changed when the sheet is unlocked.
+
 ## v1.1.0: Unlinked Token Support
 Tuesday August 6th, 2024
 
