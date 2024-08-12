@@ -1,5 +1,26 @@
 # Xander's SWNR Sheet *Release Notes*
 
+## v1.1.0: Unlinked Token Support
+Tuesday August 6th, 2024
+
+- Unlinked token support was fixed.
+  - Unlinked tokens can now make attack/damage/shock rolls.
+  - Unlinked token sheets now have a red outline to make it more clear that they are unlinked.
+- Item macro support.
+  - Items can be drag and dropped onto the macro bar for quick access.
+  - The default SWNR macros are no longer created.
+- Code quality improvements.
+  - Several update() calls were removed to improve performance.
+  - The attack/damage/shock roll buttons were re-written.
+  - The inventroy item location button code was improved.
+- CSS and styling improvements.
+  - Chrome scrollbars were fixed.
+  - The cyberware sheet was remodeled (a seperate tab for the effects text).
+  - Changed the font in several places.
+  - The styling for macro sheets was improved.
+- Other Bug Fixes.
+  - Fixed a bug where item images could not be edited when they wern't attached to a sheet.
+
 ## v1.0.0: Initial Release
 Tuesday July 30th, 2024
 

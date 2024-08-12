@@ -1009,6 +1009,17 @@
   font-size: 16px;
 }
 
+/* Add a clear indication that the actor is unlinked. */
+.window-app.xanders-swnr .unlinked-actor{
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
+  box-shadow: 0 0 .25rem .125rem var(--unlinked-accent-color) inset;
+  width: 100%;
+  height: calc(100% - 30px);
+  pointer-events: none;
+}
+
 /* Setting properties that are useful when using the TinyMCE editor. */
 .window-app.xanders-swnr .notes-text{
   display: flex;

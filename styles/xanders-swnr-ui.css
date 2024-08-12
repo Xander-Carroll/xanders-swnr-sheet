@@ -35,9 +35,9 @@ section.window-content:not(.cq){
 }
 
 /* Replaces the standard parchment background */
-.window-app:not(.sidebar-popout, .journal-entry) section.window-content:not(.cq),
-.window-app:not(.sidebar-popout) .dialog-content,
-.window-app:not(.sidebar-popout) .dialog-buttons{    
+.window-app:not(.sidebar-popout, .journal-entry, .swnr) section.window-content:not(.cq),
+.window-app:not(.sidebar-popout, .swnr) .dialog-content,
+.window-app:not(.sidebar-popout, .swnr) .dialog-buttons{    
     background: url("modules/xanders-swnr-sheet/img/backgrounds/hexellence.webp");
     background-color: rgb(233,233,233);
     color: black;
@@ -47,7 +47,7 @@ section.window-content:not(.cq){
     --color-underline-header: rgb(71, 71, 71);
 }
 
-.window-app section.window-content aside:not(.page-level, .journal-sidebar){
+.window-app:not(.swnr) section.window-content aside:not(.page-level, .journal-sidebar){
     background-color: rgb(255, 255, 255, 0.3);
 }
 
@@ -60,13 +60,13 @@ section.window-content:not(.cq){
     color: black;
 }
 
-.window-app section.window-content p.notes{
+.window-app:not(.swnr) section.window-content p.notes{
     color: #464646 !important;
     margin-top: 3px;
     font-size: 13px;
 }
 
-.window-app section.window-content .border:not(.rounded-md){
+.window-app:not(.swnr) section.window-content .border:not(.rounded-md){
     border: none;
     font-weight: bolder;
     font-size: 20px;
@@ -74,7 +74,7 @@ section.window-content:not(.cq){
 }
 
 /* Restyling buttons. */
-.window-app section.window-content button:not(section.dice-tray button){
+.window-app:not(.swnr) section.window-content button:not(section.dice-tray button){
     background: #d4d5d6;
     color: black;
     border-radius: 3px;
@@ -83,37 +83,37 @@ section.window-content:not(.cq){
     line-height: 28px;
 }
 
-.window-app section.window-content .form-fields button:not(section.dice-tray button){
+.window-app:not(.swnr) section.window-content .form-fields button:not(section.dice-tray button){
     line-height: calc(var(--form-field-height) - 4px);
 }
 
-.window-app section.window-content .form-fields button:not(section.dice-tray button) i{
+.window-app:not(.swnr) section.window-content .form-fields button:not(section.dice-tray button) i{
     margin: 0px;
 }
 
-.window-app section.window-content button:focus:not(section.dice-tray button){
+.window-app:not(.swnr) section.window-content button:focus:not(section.dice-tray button){
     outline: none;
 }
 
 /* Restyling elements to match the new theme (selects, paragraphs, headers, etc.). */
-.window-app section.window-content select:not(.rounded-md){
+.window-app:not(.swnr) section.window-content select:not(.rounded-md){
     border: 1px solid var(--color-border-light-tertiary);
     border-radius: 3px;
     background-color: rgba(0, 0, 0, 0.05);
     padding:0px 3px;
 }
 
-.window-app section.window-content .dialog-content p:not(.notes){
+.window-app:not(.swnr) section.window-content .dialog-content p:not(.notes){
     margin: 7px 0px;
     line-height: 13px;
 }
 
-.window-app section.window-content .dialog-content h4{
+.window-app:not(.swnr) section.window-content .dialog-content h4{
     margin: 7px 0px;
     line-height: 13px;
 }
 
-.window-app section.window-content select option{
+.window-app:not(.swnr) section.window-content select option{
     background-color: var(--item-background-other-color);
     color: black;
     border-radius: 0px;
@@ -121,32 +121,32 @@ section.window-content:not(.cq){
     padding-right: 0px;
 }
 
-.window-app section.window-content button.file-picker + input[type="text"]{
+.window-app:not(.swnr) section.window-content button.file-picker + input[type="text"]{
     margin-left: -3px;
 }
 
-.window-app section.window-content .range-value{
+.window-app:not(.swnr) section.window-content .range-value{
     border: 1px solid var(--color-border-light-tertiary);
 }
 
-.window-app section.window-content input[type=range]{
+.window-app:not(.swnr) section.window-content input[type=range]{
     border: none;
     background: none;
 }
 
-.window-app section.window-content input[type=color]{
+.window-app:not(.swnr) section.window-content input[type=color]{
     padding: 1px;
 }
 
-.window-app section.window-content .item.active{
+.window-app:not(.swnr) section.window-content .item.active{
     text-shadow: 0 0 10px var(--color-shadow-primary);
 }
 
-.window-app section.window-content hr{
+.window-app:not(.swnr) section.window-content hr{
     border-color: #868685;
 }
 
-.window-app section.window-content textarea{
+.window-app:not(.swnr) section.window-content textarea{
     background-color: rgba(0, 0, 0, 0.05);
     border: 1px solid #868685;
 }
@@ -156,7 +156,7 @@ section.window-content:not(.cq){
 }
 
 /* Restyling input fields. */
-.window-app section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md, .dice-tray__input){
+.window-app:not(.swnr) section.window-content input:not(.subfield, .bottom-border, .borderless, .xanders-input, .rounded-md, .dice-tray__input){
     background-color: rgba(0, 0, 0, 0.05);
     border: 1px solid var(--color-border-light-tertiary);
     border-radius: 3px;
@@ -181,43 +181,40 @@ section.window-content:not(.cq){
 }
 
 /* Fixing the styling for the UI sidebar. */
-.window-app section.window-content textarea, #sidebar textarea{
+.window-app:not(.swnr) section.window-content textarea, #sidebar textarea{
     font-family: inherit;
     padding: 5px;
 }
 
 /* Fixing the bullet points and numbered list in item descriptions.*/
-.window-app section.window-content ul{
+.window-app:not(.swnr) section.window-content ul{
     list-style: disc;
 }
 
-.window-app section.window-content ol{
+.window-app:not(.swnr) section.window-content ol{
     list-style: decimal;
 }
 
-.window-app section.window-content h1{
+.window-app:not(.swnr) section.window-content h1{
     font-size: 2em;
     border-bottom: 2px solid var(--color-underline-header);
     margin-bottom: 2px;
 }
 
-.window-app section.window-content h2{
+.window-app:not(.swnr) section.window-content h2{
     font-size: 1.5em;
     border-bottom: 1px solid var(--color-underline-header);
     margin-bottom: 2px;
 }
 
 /* Fixing the bullet points and numbered list on the old charachter and item sheets.*/
-.window-app.swnr section.window-content ul{
-    list-style: none;
-}
-
+.window-app.swnr section.window-content ul,
 .window-app.swnr section.window-content ol{
     list-style: none;
 }
 
 /* Changing the css for journals. */
-.window-app section.window-content section.journal-entry-content{
+.window-app:not(.swnr) section.window-content section.journal-entry-content{
     background: url("modules/xanders-swnr-sheet/img/backgrounds/hexellence.webp") !important;
     background-color: rgb(233,233,233) !important;
     color: black;
@@ -231,20 +228,34 @@ section.window-content:not(.cq){
     background-color: rgba(255, 255, 245, 0.8);
 }
 
-.window-app section.window-content .editor-menu button:not(section.dice-tray button){
+.window-app:not(.swnr) section.window-content .editor-menu button:not(section.dice-tray button){
     line-height: 24px;
     padding: 0px 5px;
 }
 
+/* Fixing css for macro sheets. */
+.window-app.macro-sheet section.window-content img{
+    border: 1px solid var(--color-border-light-tertiary);
+    border-radius: 7px;
+}
+
+.window-app.macro-sheet section.window-content h1{
+    border-bottom: none;
+}
+
+.window-app.macro-sheet section.window-content button[type=submit]{
+    margin-right: 5px;
+}
+
 /* Fixing the dice-tray module's css. */
-.window-app section.window-content section.dice-tray button{
+.window-app:not(.swnr) section.window-content section.dice-tray button{
     padding: 1px 6px;
     border-radius: 3px;
     margin-left: 1px;
     margin-right: 1px;
 }
 
-.window-app section.window-content section.dice-tray input{
+.window-app:not(.swnr) section.window-content section.dice-tray input{
     padding: 0px;
     border-radius: 3px;
 }
