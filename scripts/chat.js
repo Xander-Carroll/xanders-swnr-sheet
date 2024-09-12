@@ -248,7 +248,7 @@ async function _makeAttackRoll(actor, itemId){
         skillLevelString = "-2";
         if(skill){
             if (skill.system.rank !== -1) skillLevelString = skill.system.rank;
-            if (skillLevelString >= 0) "+" + skillLevelString;
+            skillLevelString = ((skillLevelString >= 0) ? "+" : "") + String(skillLevelString);
         }
 
         //The attribute mod is the higher of the two stats.
