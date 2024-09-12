@@ -1,5 +1,14 @@
 # Xander's SWNR Sheet *Release Notes*
 
+## v1.1.2: Bug Fixes
+Thursday September 12th, 2024
+
+A small update to fix several issues.
+- The stat "boost" field updates the correct value.
+- Attack roll modifiers bug fixed.
+- Skill checks with 3d6 and 4d6 now use kh2.
+- The attack roll dialog "skill" option was fixed.
+
 ## v1.1.1: Renameable Credits
 Monday August 12th, 2024
 

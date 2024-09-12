@@ -5,7 +5,7 @@
 	"authors": [{
     	"name": "Xander"
     }],
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"compatibility": {
 		"minimum": "9",
 		"verified": "11"
@@ -20,7 +20,7 @@
 	"styles": ["./styles/xanders-swnr-sheet.css"],
 	"packs": [],
 	"url": "https://github.com/Xander-Carroll/xanders-swnr-sheet",
-	"download": "https://github.com/Xander-Carroll/xanders-swnr-sheet/archive/refs/tags/v1.1.1.zip",
+	"download": "https://github.com/Xander-Carroll/xanders-swnr-sheet/archive/refs/tags/v1.1.2.zip",
 	"manifest": "https://github.com/Xander-Carroll/xanders-swnr-sheet/releases/latest/download/module.json",
 	"license": "https://github.com/Xander-Carroll/xanders-swnr-sheet/blob/main/LICENSE.txt",
 	"readme": "https://github.com/Xander-Carroll/xanders-swnr-sheet/blob/main/README.md",
