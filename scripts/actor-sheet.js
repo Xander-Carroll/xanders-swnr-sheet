@@ -864,7 +864,7 @@ export class XandersSwnActorSheet extends ActorSheet {
         //Getting the button that was pressed.
         const item = this.actor.getEmbeddedDocument("Item", event.currentTarget.dataset.itemId);
 
-        useItem(this, item);
+        item.roll(event.shiftKey);
     }
 
     //Called when the title of an inventory item is clicked.
